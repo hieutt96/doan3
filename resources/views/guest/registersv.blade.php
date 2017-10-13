@@ -186,15 +186,15 @@
 						<label>PHP Programming</label><br><br>
 					</div>
 					<div class="col-lg-4">
-						<input type="checkbox" name="favorite" value="SystemAdmin">
+						<input type="checkbox" name="favorite[]" value="SystemAdmin">
 						<label>SystemAdmin (Quản trị hệ thống )</label><br><br>
-						<input type="checkbox" name="favorite" value="Web Programming">
+						<input type="checkbox" name="favorite[]" value="Web Programming">
 						<label>Web Programming</label><br><br>
-						<input type="checkbox" name="favorite" value="Desktop app Programming">
+						<input type="checkbox" name="favorite[]" value="Desktop app Programming">
 						<label>Desktop app Programming</label><br><br>
-						<input type="checkbox" name="favorite" value="Serve Side">
+						<input type="checkbox" name="favorite[]" value="Serve Side">
 						<label>Serve Side ,system programming</label><br><br>
-						<input type="checkbox" name="favorite" value="Embedded">
+						<input type="checkbox" name="favorite[]" value="Embedded">
 						<label>Embedded</label><br><br>
 					</div>
 				</div><br><hr style="border-width: 2px;">

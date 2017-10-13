@@ -19,7 +19,7 @@ class LoginController extends Controller
     public function postLogin(LoginRequest $request){
     	$user = [
     		'email'=>$request->email,
-    		'password'=>$request->password
+    		'password'=>$request->password,
     	];
     	if(Auth::attempt($user)){
     		if(Auth::user()->level == 1){
