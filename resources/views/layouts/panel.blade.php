@@ -57,6 +57,16 @@
             </div>
             <hr>
             @yield('content')
+            <div>
+                <div class="row" style="background: #00FFFF;">
+                    <hr style="border-color: red; ">
+                    <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
+                        <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</b><br>
+                        <b >Trường Đại Học Bách Khoa Hà Nội</b><br>
+                        <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lí</p>
+                    </div>
+                </div>
+            </div>
 	</div>
 </body>
 </html>

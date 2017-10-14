@@ -14,6 +14,9 @@
                             <p class="help is-success">{{$invalid}}</p>
                             <hr>
                         @endif
+                        @if($status = Session::get('status'))
+                            <p class="help is-success">{{$status}}</p>
+                        @endif
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 

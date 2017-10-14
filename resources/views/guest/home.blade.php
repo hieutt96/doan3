@@ -1,5 +1,8 @@
 @extends('layouts.welcome')
 @section('welcome')
+            @if($doanhnghiep = Session::get('doanhnghiep'))
+                <p class="help is-success">{{$doanhnghiep}}</p>
+            @endif
             <div class=" row">
                 <div class="col-lg-6">
                     <img src="sadsa" style="height: 300px; width: 550px;">

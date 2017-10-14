@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Request\RegisterSVRequest;
 
 use App\Http\Controllers\Controller;
-
+use App\Http\Request\RegisterDNRequest;
 use App\User;
 use App\Student;
+use App\Company;
+use App\Leader;
 class RegisterController extends Controller
 {
     public function __construct()
@@ -61,11 +63,40 @@ class RegisterController extends Controller
     	$student->ten_nv_phu_trach = $request->nv;
     	$student->email = $request->mailnv;
     	$student->save();	
-    	return redirect('dang-nhap');
+    	return redirect('dang-nhap')->with('status','Bạn đã đăng ký thành công hãy đăng nhập để tiếp tục.');
     }
 
-    public function postRegisterDN()
+    public function postRegisterDN(RegisterDNRequest $request)
     {
+        $user = new User;
+        $user->email = $request->emaildn;
+        $user->password = bcrypt($request->password);
+        $user->level = 2;
+        $user->name = $request->hotennvpt;
+        $user->save();
+        $company = new Company;
+        $company->name = $request->tencongty;
+        $company->diaChi = $request->diachi;
+        $company->soLuongNV = $request->sonhanvien;
+        $company->soLuongNVIT = $request->sonhanvienit;
+        $company->moTa = $request->mota;
+        $company->namthanhlap = $request->namthanhlap;
+        $company->nhanVienPTTT = $request->hotennvpt;
+        $company->phone = $request->sodienthoai;
+        $company->emailnv = $request->emailnv;
+        $company->diaChiTT = $request->diachithuctap;
+        $company->thoiGianMongMuon = $request->thoigiantt;
+        $company->linhVucHoatDong = $request->linhvuchoatdong;
+        $company->congNgheDaoTao = $request->congnghedaotao;
+        $company->soLuongSinhVienTT = $request->soluong;
+        $company->yeuCauSV = $request->yeucau;
+        $company->yeuCauNNSV = $request->yeucaungoaingu;
+        $company->save();
+        $leader = new Leader;
+        $leader->user_id = $user->id;
+        $leader->company_id = $company->id;
+        $leader->save();
+        return redirect('/')->with('doanhnghiep','Bạn đã đăng ký thành công ,yêu cầu của bạn đanhg chờ xét duyệt');
 
     }
 }
