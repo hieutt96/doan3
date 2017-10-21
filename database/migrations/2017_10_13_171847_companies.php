@@ -15,7 +15,7 @@ class Companies extends Migration
     {
         Schema::create('companies',function (Blueprint $table){
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('diaChi');
             $table->boolean('status')->default(0);
             $table->integer('soLuongNV');
@@ -23,6 +23,7 @@ class Companies extends Migration
             $table->integer('namthanhlap');
             $table->string('moTa');
             $table->string('nhanVienPTTT');
+            $table->integer('idNV');
             $table->string('phone');
             $table->string('emailnv');
             $table->string('diaChiTT');

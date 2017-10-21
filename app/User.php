@@ -29,4 +29,8 @@ class User extends Authenticatable
     public function student(){
         return $this->hasOne('App\Student');
     }
+
+    public function company(){
+        return $this->belongTo('App\Company');
+    }
 }

@@ -72,6 +72,7 @@ class RegisterController extends Controller
         $user->email = $request->emaildn;
         $user->password = bcrypt($request->password);
         $user->level = 2;
+        $user->status = 0;  
         $user->name = $request->hotennvpt;
         $user->save();
         $company = new Company;
@@ -82,6 +83,7 @@ class RegisterController extends Controller
         $company->moTa = $request->mota;
         $company->namthanhlap = $request->namthanhlap;
         $company->nhanVienPTTT = $request->hotennvpt;
+        $company->idNV = $user->id;
         $company->phone = $request->sodienthoai;
         $company->emailnv = $request->emailnv;
         $company->diaChiTT = $request->diachithuctap;

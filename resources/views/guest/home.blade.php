@@ -1,7 +1,7 @@
 @extends('layouts.welcome')
 @section('welcome')
             @if($doanhnghiep = Session::get('doanhnghiep'))
-                <p class="help is-success">{{$doanhnghiep}}</p>
+                <p class="alert alert-info">{{$doanhnghiep}}</p>
             @endif
             <div class=" row">
                 <div class="col-lg-6">

@@ -10,4 +10,8 @@ class Company extends Model
     public function leader(){
     	return $this->belongTo('App\Leader');
     }
+
+    public function user(){
+    	return $this->hasOne('App\User');
+    }
 }
