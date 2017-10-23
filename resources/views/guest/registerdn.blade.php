@@ -7,7 +7,7 @@
 			Phần Đăng Ký Dành Cho Doanh Nghiệp
 		</h3>
 	</div>
-	<hr style="border-width: 2px; border-color: red;">
+	<hr style="border-width: 2px; border-color: red;">	
 	<div class="row">
 		<h4 class=" col-lg-8"><span class="glyphicon glyphicon-fire"></span> Đăng ký thông tin doanh nghiệp</h4>
 	</div>

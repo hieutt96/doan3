@@ -34,6 +34,6 @@ class AdminController extends Controller
 		$user = User::find($company->idNV);
 		$user ->status = 1;
 		$user->save();
-		return $company;
+		return "OK";
 	}
 }

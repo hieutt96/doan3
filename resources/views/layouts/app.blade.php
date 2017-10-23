@@ -42,56 +42,9 @@
                         &nbsp;
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        @guest
-                            <li><a href="{{ route('dang-nhap') }}">Login</a></li>
-                            <li ><a href="{{route('dang-ky-sv')}}">Register</a></li>
-                            <!-- <div class="modal fade col-lg-4 col-lg-offset-4" id="register" style="margin-top: 100px;margin-left: 100px;">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                         
-                                            <h3 class="modal-title">
-                                                Đăng ký với vai trò
-                                            </h3>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-lg-4 col-lg-offset-2">
-                                                    <a href="{{route('dang-ky-sv')}}">
-                                                        <img src="{{asset('/image/background/sv.png')}}" style="height: 80px;"></a>
-                                                    <p>Sinh viên</p>
-                                                </div>
-                                                <div class="col-lg-4 col-lg-offset-1">
-                                                            <a href="{{route('dang-ky-dn')}}">
-                                                            <img src="{{asset('/image/background/dn.jpeg')}}" style="height: 80px;"></a>
-                                                            <p>Doanh nghiệp</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="left: 5%;">Close</button>
-                                    </div>
-                                </div>
-                            </div> -->
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('dang-xuat') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-                                       <form id="logout-form" action="{{ route('dang-xuat') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
+                            <li><a href="{{ route('dang-nhap') }}">Đăng Nhập</a></li>
+                            <li><a href="{{route('dang-ky-sv')}}">Đăng Ký SV</a></li>
+                            <li><a href="{{route('dang-ky-dn')}}">Đăng Ký Doanh Nghiệp</a></li>
                     </ul>
                 </div>
             </div>

@@ -95,6 +95,7 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
+                                    <a href="">MyProfile</a>
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
