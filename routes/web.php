@@ -36,3 +36,4 @@ Route::get('dang-xuat',['as'=>'dang-xuat','uses'=>'Guest\LoginController@logout'
 Route::get('admin-dashboard',['as'=>'admin-dashboard','uses'=>'Admin\AdminController@show']);
 Route::get('/admin/accept/{id}','Admin\AdminController@accept');
 
+Route::get('admin-dat/{roll_id}', 'Admin\AdminController@index_dat');
