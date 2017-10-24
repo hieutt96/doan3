@@ -1,0 +1,15 @@
+.datePost {
+    color: #122b40;
+    float: left;
+    font-size: 70px;
+    line-height: 65px;
+    padding-left: 20px;
+}
+
+.monthPost{
+    color: #0d3625;
+    float: left;
+    font-size: 20px;
+    line-height: 15px;
+    padding-left: 20px;
+}

@@ -28,7 +28,7 @@
                 <h3>Đánh giá của giảng viên</h3>
                 <div class="form-group">
                     <label class="control-label">Xếp loại :</label>
-                    <select name="Nh" class="form-control" required>
+                    <select class="form-control" required>
                         <option value="4">A+</option>
                         <option value="4">A</option>
                         <option value="3.5">B+</option>
