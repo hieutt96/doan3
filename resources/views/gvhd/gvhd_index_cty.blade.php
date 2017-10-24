@@ -1,4 +1,4 @@
-@extends('admin.dat_admin_layout')
+@extends('gvhd.gvhd_layout')
 
 @section('content')
     <div class="row">

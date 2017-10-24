@@ -1,24 +1,24 @@
-@extends('admin.dat_admin_layout')
+@extends('gvhd.gvhd_layout')
 
 @section('content')
     <div class="row">
         <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="/admin-dat/11">Thông tin chi tiết</a></li>
-            <li role="presentation"><a href="/admin-dat/12">Công việc</a></li>
-            <li role="presentation"><a href="/admin-dat/13">Kết quả đánh giá</a></li>
+            <li role="presentation" class="active"><a href="/gvhd/11">Thông tin chi tiết</a></li>
+            <li role="presentation"><a href="/gvhd/12">Công việc</a></li>
+            <li role="presentation"><a href="/gvhd/13">Kết quả đánh giá</a></li>
         </ul>
     </div>
-    <div class="row" >
+    <div class="row" style="padding-top: 10px">
         <div class="col-md-6">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="media-left">
                         <a href="#">
                             <img class="img-thumbnail" height="300" src="https://scontent.fhan2-3.fna.fbcdn.net/v/t1.0-9/19399814_620977378110215_7308884113526590166_n.jpg?oh=7bed27d7cf3202fe33f8b536b53a9dc5&oe=5A797AFB">
                         </a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <ul class="list-group">
                         <li class="list-group-item">Họ tên: <b>Đoàn Thúy Nga</b></li>
                         <li class="list-group-item">Lớp: <b>CNTT2.3 - K59</b></li>
@@ -28,7 +28,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="padding-right: 15px">
                 <ul class="list-group">
                     <li class="list-group-item">Email: <b>doannga1234@gmail.com</b></li>
                     <li class="list-group-item">Địa chỉ đang ở: <b>Yên lạc, Kim Ngưu, HBT, Hà Nội</b></li>

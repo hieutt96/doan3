@@ -1,4 +1,4 @@
-@extends('admin.dat_admin_layout')
+@extends('gvhd.gvhd_layout')
 
 @section('content')
     <div class="row">
@@ -58,16 +58,16 @@
 
             @for ($i = 0; $i < 10; $i++)
                 <tr>
-                    <th scope="row">20140789</th>
-                    <td>Nguyễn Văn A</td>
-                    <td>CNTT2.4</td>
+                    <th scope="row">20141234</th>
+                    <td>Nguyễn Văn B</td>
+                    <td>CNTT2.3</td>
                     <td>K59</td>
-                    <td>Hệ Thống</td>
-                    <td>0124512332</td>
+                    <td>CNPM</td>
+                    <td>0987785412</td>
                     <td>IT4491</td>
                     <td>FPT</td>
                     <td>A</td>
-                    <td>A+</td>
+                    <td>-</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-xs">Sửa đánh giá</button>
                     </td>

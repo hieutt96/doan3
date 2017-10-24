@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="top-navbar">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chào, Admin <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chào, GVHD's name <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Thông báo</a></li>
                         <li><a href="#">Đăng xuất</a></li>
@@ -33,11 +33,11 @@
                 <li role="presentation"
                     @if($tab == 1 or $tab == 11 or $tab == 12 or $tab == 13)
                     class="active"
-                        @endif><a href="/admin-dat/1">Sinh Viên</a></li>
+                        @endif><a href="/gvhd/1">Sinh Viên</a></li>
                 <li role="presentation"
                     @if($tab == 2)
                     class="active"
-                        @endif><a href="/admin-dat/2">Doanh Nghiệp</a></li>
+                        @endif><a href="/gvhd/2">Doanh Nghiệp</a></li>
                 <li data-toggle="collapse" role="presentation" href="#danhGia">
                     <a class="nav-sub-container">
                         Đánh giá thực tập
@@ -53,20 +53,20 @@
                     <li role="presentation"
                         @if($tab == 31)
                         class="active"
-                            @endif><a href="/admin-dat/31">Đã đánh giá</a></li>
+                            @endif><a href="/gvhd/31">Đã đánh giá</a></li>
                     <li role="presentation"
                         @if($tab == 32)
                         class="active"
-                            @endif><a href="/admin-dat/32">Chưa đánh giá</a></li>
+                            @endif><a href="/gvhd/32">Chưa đánh giá</a></li>
                 </ul>
                 <li role="presentation"
                     @if($tab == 4)
                     class="active"
-                        @endif><a href="/admin-dat/4">Thông báo</a></li>
+                        @endif><a href="/gvhd/4">Thông báo</a></li>
                 <li role="presentation"
                     @if($tab == 5)
                     class="active"
-                        @endif><a href="/admin-dat/5">Gửi thông báo</a></li>
+                        @endif><a href="/gvhd/5">Gửi thông báo</a></li>
             </ul>
         </div>
         <div class="col-md-10">

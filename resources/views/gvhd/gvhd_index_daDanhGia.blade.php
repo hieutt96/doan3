@@ -1,4 +1,4 @@
-@extends('admin.dat_admin_layout')
+@extends('gvhd.gvhd_layout')
 
 @section('content')
     <div class="row">
@@ -46,10 +46,11 @@
                 <th scope="col">Lớp</th>
                 <th scope="col">Khóa</th>
                 <th scope="col">Bộ môn</th>
-                <th scope="col">CTDT</th>
                 <th scope="col">Số Điện Thoại</th>
-                <th scope="col">Email</th>
+                <th scope="col">Mã môn học</th>
                 <th scope="col">Công Ty thực tập</th>
+                <th scope="col">Đánh giá Công ty</th>
+                <th scope="col">Đánh giá GVHD</th>
                 <th scope="col">Thao tác</th>
             </tr>
             </thead>
@@ -62,21 +63,13 @@
                     <td>CNTT2.4</td>
                     <td>K59</td>
                     <td>Hệ Thống</td>
-                    <td>Kỹ sư</td>
                     <td>0124512332</td>
-                    <td>anv@gmail.com</td>
+                    <td>IT4491</td>
                     <td>FPT</td>
+                    <td>A</td>
+                    <td>A+</td>
                     <td>
-                        <div class="dropdown">
-                            <button class="glyphicon glyphicon-cog dropdown-toggle" type="button" id="tuyChon"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="tuyChon">
-                                <li><a href="{{url('/admin-dat/11')}}">Xem thông tin</a></li>
-                                <li><a href="#">Xóa</a></li>
-                            </ul>
-                        </div>
+                        <button type="button" class="btn btn-primary btn-xs">Sửa đánh giá</button>
                     </td>
                 </tr>
             @endfor

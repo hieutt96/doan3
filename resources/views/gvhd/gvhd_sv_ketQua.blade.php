@@ -1,11 +1,11 @@
-@extends('admin.dat_admin_layout')
+@extends('gvhd.gvhd_layout')
 
 @section('content')
     <div class="row">
         <ul class="nav nav-tabs">
-            <li role="presentation"><a href="/admin-dat/11">Thông tin chi tiết</a></li>
-            <li role="presentation"><a href="/admin-dat/12">Công việc</a></li>
-            <li role="presentation" class="active"><a href="/admin-dat/13">Kết quả đánh giá</a></li>
+            <li role="presentation"><a href="/gvhd/11">Thông tin chi tiết</a></li>
+            <li role="presentation"><a href="/gvhd/12">Công việc</a></li>
+            <li role="presentation" class="active"><a href="/gvhd/13">Kết quả đánh giá</a></li>
         </ul>
     </div>
     <div class="row">

@@ -21,30 +21,6 @@ class AdminController extends Controller
 		return view('admin.index')->with('companys',$companys);
 	}
 
-// 	Dat add ham index chi show giao dien admin chua có sử lý back end
-	public function index_dat($roll_id)
-	{
-	    if($roll_id == 1) {
-            return view('admin.dat_index_sv')->withTab($roll_id);
-        } elseif($roll_id == 11) {
-            return view('admin.dat_sv_tt')->withTab($roll_id);
-        } elseif($roll_id == 12) {
-	        return view('admin.dat_sv_cv')->withTab($roll_id);
-        } elseif($roll_id == 13) {
-	        return view('admin.dat_sv_kq')->withTab($roll_id);
-        } elseif($roll_id == 2) {
-	        return view('admin.dat_index_cty')->withTab($roll_id);
-        } elseif($roll_id == 31) {
-	        return view('admin.dat_index_daDanhGia')->withTab($roll_id);
-        } elseif($roll_id == 32) {
-	        return view('admin.dat_index_chuaDanhGia')->withTab($roll_id);
-        } elseif($roll_id == 4) {
-	        return view('admin.dat_thongBao')->withTab($roll_id);
-        } elseif($roll_id == 5) {
-	        return view('admin.dat_guiThongBao')->withTab($roll_id);
-        }
-	}
-
 
 	public function accept($id){
 		// dd("1asds");
