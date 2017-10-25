@@ -1,4 +1,4 @@
-@extends('gvhd.gvhd_layout')
+@extends('layouts.gvhd_layout')
 
 @section('content')
     <div class="row">
@@ -18,23 +18,19 @@
                 <button type="button" class="btn btn-default">CSV</button>
             </div>
         </div>
-        <div class="col-md-2">
-
+        <div class="col-md-1">
         </div>
-
-        <div class="col-md-2">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownHocKy"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Học kỳ
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownHocKy">
-                    <li><a href="#">20163</a></li>
-                    <li><a href="#">20171</a></li>
-                    <li><a href="#">20172</a></li>
-                </ul>
-            </div>
+        <div class="col-md-3">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label class="control-label" for="hocKy">Học kỳ:</label>
+                    <select id="hocKy" class="form-control" required>
+                        <option value="0">20163</option>
+                        <option value="1">20171</option>
+                        <option value="2">20172</option>
+                    </select>
+                </div>
+            </form>
         </div>
     </div>
     <div class="row">
@@ -82,15 +78,18 @@
             @endfor
             </tbody>
         </table>
+    </div>
 
-        <nav aria-label="Page navigation">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-5" style="padding-left: 150px">
             <ul class="pagination">
                 <li>
                     <a href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li><a href="#">1</a></li>
+                <li class="active"><a href="#">1</a></li>
                 <li><a href="#">2</a></li>
                 <li><a href="#">3</a></li>
                 <li><a href="#">4</a></li>
@@ -101,6 +100,21 @@
                     </a>
                 </li>
             </ul>
-        </nav>
+        </div>
+        <div class="col-md-3">
+            <form class="form-inline" style="padding-top: 20px">
+                <div class="form-group">
+                    <label class="control-label col-sm-7" for="numEntity">S sinh viên hiển thị:</label>
+                    <div class="col-sm-5">
+                        <select class="form-control" id="numEntity">
+                            <option>10</option>
+                            <option>30</option>
+                            <option>50</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 @endsection

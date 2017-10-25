@@ -53,6 +53,7 @@
                         @endif><a href="/pm/5">Phân công thực tập</a></li>
             </ul>
         </div>
+
         <div class="col-md-10">
             @yield('content')
         </div>

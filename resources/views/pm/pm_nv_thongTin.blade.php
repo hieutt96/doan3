@@ -1,4 +1,4 @@
-@extends('pm.pm_layout')
+@extends('layouts.pm_layout')
 
 @section('content')
     <div class="row">
@@ -56,10 +56,101 @@
     </div>
     <div class="row">
         <div class="col-md-2">
-            <button type="button" class="btn btn-primary">Sửa thông tin</button>
+            <button data-target="#suaTT" data-toggle="modal" type="button" class="btn btn-primary">Sửa thông tin</button>
+            {{--Modal--}}
+            <div id="suaTT" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><b>Sửa thông tin nhân viên</b></h4>
+                        </div>
+                        <div class="modal-body" style="padding-left: 30px; padding-right: 30px">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Tên nhân viên:</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" placeholder="Tên cũ ...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="chucVu" class="control-label col-sm-3">Chức vụ:</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" id="chucVu">
+                                            <option value="0">Developer</option>
+                                            <option value="1">Leader</option>
+                                            <option value="2">Fresher</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phongBan" class="control-label col-sm-3">Phòng ban:</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" id="phongBan">
+                                            <option value="0">Design</option>
+                                            <option value="1">Back-end</option>
+                                            <option value="2">Front-end</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Email:</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control" placeholder="Email cu ...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Ngày bắt đầu:</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" placeholder="Ngày cũ ...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Ngày kết thúc:</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" placeholder="...">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <button type="submit" class="btn btn-success" href="#">Lưu</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-1">
-            <button type="button" class="btn btn-danger">Xóa</button>
+            <button data-target="#xoaNV" data-toggle="modal" type="button" class="btn btn-danger">Xóa</button>
+            {{--Modal--}}
+            <div id="xoaNV" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><b>Xóa nhân viên</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Bạn chắc chắn xóa nhân viên [Tên nhân viên] không?
+                                Nếu xóa bạn sẽ không còn bất cứ thông tin nào liên quan
+                                đến nhân viên này.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" href="#">Xóa</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Hủy bỏ
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 @endsection

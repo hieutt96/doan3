@@ -1,4 +1,4 @@
-@extends('pm.pm_layout')
+@extends('layouts.pm_layout')
 
 @section('content')
 
