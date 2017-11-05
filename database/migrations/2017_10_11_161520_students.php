@@ -16,8 +16,8 @@ class Students extends Migration
         Schema::create('students',function(Blueprint $table){
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('hoten');
             $table->string('lop');
+            $table->integer('mssv')->unique();
             $table->string('grade');
             $table->string('ctdt');
             $table->string('bomon');
@@ -25,7 +25,6 @@ class Students extends Migration
             $table->boolean('laptop');
             $table->string('address');
             $table->string('phone');
-            $table->string('email_lien_he');
             $table->float('CPA');
             $table->string('TA')->nullable();
             $table->string('ktlt_base')->nullable();
@@ -33,12 +32,10 @@ class Students extends Migration
             $table->string('ktlt_master')->nullable();
             $table->string('quan_tri_he_thong')->nullable();
             $table->string('Other')->nullable();
-            $table->string('cty_da_thuc_tap')->nullable();
-            $table->string('favorite');
             $table->string('cty_dang_thuc_tap')->nullable();
+            $table->string('favorite');
             $table->string('ten_nv_phu_trach')->nullable();
             $table->string('email')->nullable();
-            $table->rememberToken();
             $table->timestamps();
         });
     }

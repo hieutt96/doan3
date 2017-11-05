@@ -26,7 +26,7 @@ class LoginController extends Controller
     		if(Auth::user()->level == 1){
     			return redirect('/');
     		}elseif(Auth::user()->level == 2){
-    			return redirect('/');
+    			return view('layouts.pm');   
     		}elseif(Auth::user()->level == 3){
     			return redirect('/');
     		}elseif(Auth::user()->level == 4){

@@ -22,6 +22,7 @@ class RegisterDNRequest extends FormRequest
 			'tenconty.min' => 'Có vẻ như tên công ty chưa đúng',
 			'diachi.min' => 'Có vẻ như địa chỉ của bạn chưa đúng',
 			'email.emailnv' =>'Email không hợp lệ',
+			'emaildn.email'=>'Email không hợp lệ',
 			'password.min' => 'Password quá ngắn',
 			'password.same' => 'Password nhập lại chưa khớp nhau'
 		];

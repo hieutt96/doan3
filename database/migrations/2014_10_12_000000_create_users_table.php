@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('status')->default(1);
             $table->integer('level');
-            $table->rememberToken();
+            $table->string('picture')->default('/image/background/default-img.jpg');
             $table->timestamps();
         });
     }

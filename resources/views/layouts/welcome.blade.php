@@ -117,8 +117,8 @@
                              <a class="navbar-brand" href="#">WebSiteHome</a>
                         </div>
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Trang Chủ </a></li>
-                        <li><a href="#">Hợp tác doanh nghiệp</a></li>
+                        <li><a href="#">Trang Chủ </a></li>
+                        <li><a href="{{route('hop-tac-doanh-nghiep')}}">Hợp tác doanh nghiệp</a></li>
                         <li><a href="#">Sinh viên </a></li>
                         <li><a href="#">Thông báo</a></li>
                         <li><a href="#">Giới thiệu</a></li>
@@ -127,5 +127,7 @@
                 </nav>
             </div>
         @yield('welcome')
+    @yield('script')
     </body>
+
 </html>

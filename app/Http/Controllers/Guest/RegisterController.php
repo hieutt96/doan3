@@ -35,11 +35,11 @@ class RegisterController extends Controller
     	$user->email = $request->email;
     	$user->password = bcrypt($request->password);
     	$user->level = 1;
+        $user->status = 1;
     	$user->save();
 
     	$student = new Student;
     	$student->user_id = $user->id;
-    	$student ->hoten = $request->name;
     	$student->lop=$request->class;
     	$student->grade=$request->grade;
     	$student->ctdt=$request->ctdt;
@@ -48,7 +48,7 @@ class RegisterController extends Controller
     	$student->laptop = $request->laptop;
     	$student->address=$request->address;
     	$student->phone = $request->phone;
-    	$student->email_lien_he = $request->mail;
+    	$student->mssv = $request->mssv;
     	$student->CPA = $request->cpa;
     	$student->TA = $request->english;
     	$student->ktlt_base = $request->ep1;
@@ -56,7 +56,6 @@ class RegisterController extends Controller
     	$student->ktlt_master = $request->ep3;
     	$student->quan_tri_he_thong = $request->ep4;
     	$student->Other = $request->ep5;
-    	$student->cty_da_thuc_tap = $request->cty;
         // dd($request->favorite);
     	$student->favorite = implode(",", ($request->favorite));
     	$student->cty_dang_thuc_tap = $request->cty2;
@@ -79,11 +78,8 @@ class RegisterController extends Controller
         $company->name = $request->tencongty;
         $company->diaChi = $request->diachi;
         $company->soLuongNV = $request->sonhanvien;
-        $company->soLuongNVIT = $request->sonhanvienit;
         $company->moTa = $request->mota;
         $company->namthanhlap = $request->namthanhlap;
-        $company->nhanVienPTTT = $request->hotennvpt;
-        $company->idNV = $user->id;
         $company->phone = $request->sodienthoai;
         $company->emailnv = $request->emailnv;
         $company->diaChiTT = $request->diachithuctap;
@@ -95,6 +91,7 @@ class RegisterController extends Controller
         $company->yeuCauNNSV = $request->yeucaungoaingu;
         $company->save();
         $leader = new Leader;
+        $leader->phone = $request->sodienthoai;
         $leader->user_id = $user->id;
         $leader->company_id = $company->id;
         $leader->save();

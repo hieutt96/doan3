@@ -11,7 +11,7 @@
                                                                                          style="cursor: pointer;"></span>
                 </p>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Xác nhận công ty</a></li>
+                    <li><a href="">Xác nhận công ty</a></li>
                     <li><a href="">Quản lí công ty</a></li>
                 </ul>
             </div>
@@ -41,9 +41,9 @@
                         <td>{{$company->phone}}</td>
                         <td>{{$company->soLuongSinhVienTT}}</td>
                         <td>
-                            <button class="btn btn-default col-lg-6" id="accept">Accept</button>
+                            <button class="btn btn-default col-lg-6 accept" >Accept</button>
                             <input type="hidden" name="" value="{{$company->id}}">
-                            <button class="btn btn-info col-lg-5 col-lg-offset-1" id="cancel">Cancel</button>
+                            <button class="btn btn-info col-lg-6 cancel" >Cancel</button>
                         </td>
                     </tr>
                 @endforeach

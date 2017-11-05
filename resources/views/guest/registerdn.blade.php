@@ -69,18 +69,7 @@
                         </span>
                    @endif
 				</div><br><br>
-				<div class="form-group {{ $errors->has('sonhanvienit') ? ' has-error' : '' }}">
-					<label class="col-lg-4 control-label">Số lượng nhân viên CNTT :</label>
-					<div class="col-lg-2">
-						<input type="number" name="sonhanvienit" placeholder="..." class="form-control" required>
-					</div>
 
-           			@if ($errors->has('sonhanvienit'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('sonhanvienit') }}</strong>
-                        </span>
-                   @endif
-				</div><br><br>
 				<div class="form-group {{ $errors->has('mota') ? ' has-error' : '' }}">
 					<label class="col-lg-3 control-label">Mô tả ngắn về công ty :</label>
 					<div class="col-lg-8">

@@ -1,20 +1,28 @@
-$('#accept').click(function(){
-	var data = {
-		id: $(this).next().val(),
-	}
-	console.log(data.id);
-	// console.log(data);
+$('.accept').click(function(){
+	$(this).closest("tr").fadeOut();
+	var	id = $(this).next().val();
 	$.ajax({
-		url :"/admin/accept/" + data.id,
+		url :"admin/accept/" + id,
 		type:"get",
 		dataType: "json",
-		data :data,
+		data :{'id':id},
 		success :function (data){
-			console.log(data.id);
-			$("#accept").parents("tr").first().fadeOut();	
-		},
-		error :function (){
-			alert("Error");
+			alert(data);	
+						
+		}
+	});
+});
+$('.cancel').click(function(){
+	$(this).closest("tr").fadeOut();
+	var id = $(this).siblings("input").val();
+	console.log(id);
+	$.ajax({
+		url :"admin/cancel/" + id,
+		type:"get",
+		dataType :"json",
+		data :{'id':id},
+		success:function(){
+
 		}
 	});
 });

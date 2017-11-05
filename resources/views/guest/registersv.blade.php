@@ -96,12 +96,12 @@
 	                            </span>
 	                        @endif
 						</div>
-						<div class="form-group {{$errors->has('mail') ?'has-error':''}}">
-							<label class="control-label"> Email liên hệ :</label>
-							<input type="email" name="mail" value="{{old('mail')}}" required class="form-control" placeholder="...">
-							@if($errors ->has('mail'))
+						<div class="form-group {{$errors->has('mssv') ?'has-error':''}}">
+							<label class="control-label"> Mã Số Sinh Viên :</label>
+							<input type="" name="mssv" value="{{old('mssv')}}" required class="form-control" placeholder="...">
+							@if($errors ->has('mssv'))
 								<span class="help-block">
-									<strong>{{$errors->first('mail')}}</strong>
+									<strong>{{$errors->first('mssv')}}</strong>
 								</span>
 							@endif
 						</div>
@@ -161,13 +161,6 @@
 							@endif
 					</div>
 
-					<div class="form-group {{$errors->has('cty')?'has-error':''}}" >
-							<label class="control-label">Các công ty đã thực tập :</label>
-							<textarea  type="text" name="cty" value="{{old('cty')}}"  class="form-control" placeholder="..."></textarea>
-							@if($errors->has('cty'))
-								<span class="help-block"><strong>{{$errors->first('cty')}}</strong></span>
-							@endif
-					</div>
 				</div>
 				<div class="row">
 					<div class="row">
