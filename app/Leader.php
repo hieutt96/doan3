@@ -9,10 +9,17 @@ class Leader extends Model
     protected $table = 'leaders';
     public function company()
     {
-    	return $this->hasMany('App\Company');
+    	return $this->belongsTo('App\Company');
     }
     public function user()
     {
-    	return $this->hasOne('App\User');
+    	return $this->belongsTo('App\User');
+    }
+    public function job(){
+    	return $this->hasMany('App\Job');
+    }
+
+    public function assignment(){
+    	return $this->hasMany('App\AssignMent');
     }
 }

@@ -30,7 +30,15 @@ class User extends Authenticatable
         return $this->hasOne('App\Student');
     }
 
-    public function company(){
-        return $this->belongTo('App\Company');
+    public function leader(){
+        return $this->hasOne('App\Leader');
+    }
+
+    public function notice(){
+        return $this->hasMany('App\Notice');
+    }
+
+    public function lecturer(){
+        return $this->hasOne('App\Lecturer');
     }
 }
