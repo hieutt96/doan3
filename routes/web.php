@@ -37,3 +37,20 @@ Route::get('admin-dashboard',['as'=>'admin-dashboard','uses'=>'Admin\AdminContro
 Route::get('/admin/accept/{id}','Admin\AdminController@accept');
 
 Route::get('admin-dat/{roll_id}', 'Admin\AdminController@index_dat');
+
+//--------------Start Students-Nhất-------------------------//
+Route::group(['prefix'=>'student'],function(){
+    Route::get('change-password','StudentController@getChangePassword');
+    Route::post('change-password','StudentController@postChangePassword');
+
+    Route::get('student-info','StudentController@getStudentInfo');
+    Route::post('student-info','StudentController@postStudentInfo');
+    Route::get('update-student-info','StudentController@getUpdateStudentInfo');
+    Route::post('update-student-info','StudentController@postUpdateStudentInfo');
+
+});
+Route::group(['prefix'=>'comment'],function(){
+  
+    Route::get('xoa/{id}/{idTinTuc}','CommentController@getXoa');
+});
+//---------------End Students-Nhất-------------------------//

@@ -41,13 +41,13 @@
     </head>
     <body>
         <div class="container" style="margin-bottom: 100px;">
-            <div class="row" style="background:#00FFFF;margin-top: 5px;">
+            <div class="row" style="background:#263c65; margin-top: 5px;">
                 <div class="col-sm-2">
                     <img src="{{asset('image/background/soict.png')}}" style="height: 150px;"  >
                 </div>
                 <div class="col-sm-7 col-lg-offset-1" style="height:150px; ">
-                    <h2 style="color: #0000FF" >Trường Đại Học Bách Khoa Hà Nội</h2>
-                    <h3 style="color: #0000FF"> Viện Công Nghệ Thông Tin Và Truyền Thông</h3>
+                    <h2 style="color: white" >Trường Đại Học Bách Khoa Hà Nội</h2>
+                    <h3 style="color: white"> Viện Công Nghệ Thông Tin Và Truyền Thông</h3>
                 </div>
                 <div class="col-lg-offset-1 col-lg-1">
                     <img src="{{asset('image/background/hust.jpg')}}" style="height: 150px;" />
