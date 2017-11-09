@@ -16,7 +16,8 @@
         <div class="collapse navbar-collapse" id="top-navbar">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chào, GVHD's name <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chào, GVHD's name <b
+                                class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Thông báo</a></li>
                         <li><a href="#">Đăng xuất</a></li>
@@ -45,20 +46,23 @@
                         <div class="caret-container"></div>
                     </a>
                 </li>
-                <ul class="nav nav-pills nav-stacked collapse
+                <li role="presentation">
+                    <ul class="nav nav-pills nav-stacked collapse
                     @if($tab == 31 or $tab == 32)
-                        in
-                    @endif
-                    " id="danhGia">
-                    <li role="presentation"
-                        @if($tab == 31)
-                        class="active"
-                            @endif><a href="/gvhd/31">Đã đánh giá</a></li>
-                    <li role="presentation"
-                        @if($tab == 32)
-                        class="active"
-                            @endif><a href="/gvhd/32">Chưa đánh giá</a></li>
-                </ul>
+                            in
+                       @endif
+                            " id="danhGia">
+                        <li role="presentation"
+                            @if($tab == 31)
+                            class="active"
+                                @endif><a href="/gvhd/31">Đã đánh giá</a></li>
+                        <li role="presentation"
+                            @if($tab == 32)
+                            class="active"
+                                @endif><a href="/gvhd/32">Chưa đánh giá</a></li>
+                    </ul>
+                </li>
+
                 <li role="presentation"
                     @if($tab == 4)
                     class="active"

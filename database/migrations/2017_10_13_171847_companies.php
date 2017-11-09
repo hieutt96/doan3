@@ -14,26 +14,24 @@ class Companies extends Migration
     public function up()
     {
         Schema::create('companies',function (Blueprint $table){
-            $table->increments('id');
-            $table->string('name')->unique();
+            $table->integer('idCompany');
+            $table->primary('idCompany');
+            $table->string('name');
+            $table->mediumText('CTDT');
             $table->string('diaChi');
-            $table->boolean('status')->default(0);
-            $table->integer('soLuongNV');
-            $table->integer('soLuongNVIT');
-            $table->integer('namthanhlap');
-            $table->string('moTa');
-            $table->string('nhanVienPTTT');
-            $table->integer('idNV');
-            $table->string('phone');
-            $table->string('emailnv');
-            $table->string('diaChiTT');
-            $table->string('thoiGianMongMuon');
-            $table->string('linhVucHoatDong');
-            $table->string('congNgheDaoTao');
-            $table->integer('soLuongSinhVienTT');
-            $table->string('yeuCauSV');
-            $table->string('yeuCauNNSV');
+            $table->tinyInteger('thoiGianMongMuon');
+            $table->longText('linhVucHoatDong');
+            $table->longText('congNgheDaoTao');
+            $table->integer('soLuongSVTT');
+            $table->longText('yCSV');
+            $table->string('yCNgoaiNgu');
+            $table->tinyInteger('status')->default(0);
+            $table->integer('namThanhLap');
             $table->string('picture')->default('/image/background/default-img.jpg');
+            $table->integer('soLuongNV');
+            $table->longText('moTa');
+            $table->string('soDienThoai');
+            $table->string('emailNV');
             $table->timestamps();
         });
     }

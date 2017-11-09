@@ -1,6 +1,6 @@
 <div class="row">
     <ul class="nav nav-tabs">
-        <li role="presentation"><a href="/{{$user_type}}/11">Thông tin chi tiết</a></li>
+        {{--<li role="presentation" class="active"><a href="/{{$user_type}}/sv/info/{{$student->id}}">Thông tin chi tiết</a></li>--}}
         <li role="presentation"><a href="/{{$user_type}}/12">Công việc</a></li>
         <li role="presentation" class="active"><a href="/{{$user_type}}/13">Kết quả đánh giá</a></li>
     </ul>

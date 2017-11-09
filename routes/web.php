@@ -37,4 +37,18 @@ Route::get('admin-dashboard',['as'=>'admin-dashboard','uses'=>'Admin\AdminContro
 Route::get('/admin/accept/{id}','Admin\AdminController@accept');
 
 Route::get('gvhd/{roll_id}', 'GVHD\GVHDController@index_dat');
+
+Route::get('/pm/sv', 'PM\PMController@indexSV');
+Route::get('/pm/sv/info/{sv_id}', 'PM\PMController@showSVInfo');
+//Route::get('pm/sv/search', 'PM\PMController@searchIndex');
+
+Route::get('/pm/chua-phan-cong', 'PM\PMController@chuaPhanCong');
+Route::post('/pm/phan-cong', 'PM\PMController@phanCong');
+
+Route::get('/pm/da-phan-cong', 'PM\PMController@daPhanCong');
+//Route::post('/pm/da-phan-cong', 'PM\PMController@phanCong');
+
+Route::get('pm/search-phan-cong', 'PM\PMController@searchPhanCong');
+
+
 Route::get('pm/{roll_id}', 'PM\PMController@index_dat');

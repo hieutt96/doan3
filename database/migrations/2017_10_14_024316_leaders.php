@@ -14,10 +14,11 @@ class Leaders extends Migration
     public function up()
     {
         Schema::create('leaders',function (Blueprint $table){
-            $table->increments('id');
             $table->integer('user_id');
-            $table->integer('company_id');
-            $table->boolean('level')->default(1);
+            $table->primary('user_id');
+            $table->integer('companyID');
+            $table->string('soDienThoai');
+            $table->string('congNgheLapTrinh');
             $table->timestamps();
         });
     }

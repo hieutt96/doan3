@@ -13,31 +13,29 @@ class Students extends Migration
      */
     public function up()
     {
-        Schema::create('students',function(Blueprint $table){
-            $table->increments('id');
+        Schema::create('students', function (Blueprint $table) {
             $table->integer('user_id');
-            $table->string('hoten');
+            $table->primary('user_id');
+            $table->string('MSSV');
             $table->string('lop');
-            $table->string('grade');
+            $table->string('khoa');
             $table->string('ctdt');
-            $table->string('bomon');
-            $table->boolean('gender');
+            $table->string('boMon');
+            $table->string('avatar');
+            $table->boolean('gioiTinh');
             $table->boolean('laptop');
-            $table->string('address');
-            $table->string('phone');
-            $table->string('email_lien_he');
+            $table->string('diaChi');
+            $table->string('sdt');
             $table->float('CPA');
-            $table->string('TA')->nullable();
-            $table->string('ktlt_base')->nullable();
-            $table->string('ktlt')->nullable();
-            $table->string('ktlt_master')->nullable();
-            $table->string('quan_tri_he_thong')->nullable();
-            $table->string('Other')->nullable();
-            $table->string('cty_da_thuc_tap')->nullable();
-            $table->string('favorite');
-            $table->string('cty_dang_thuc_tap')->nullable();
-            $table->string('ten_nv_phu_trach')->nullable();
-            $table->string('email')->nullable();
+            $table->string('tiengAnh')->nullable();
+            $table->string('kTLTCoTheDung')->nullable();
+            $table->string('kTLTThanhThao')->nullable();
+            $table->string('kyNangKhac')->nullable();
+            $table->string('nenTangMongMuonTT');
+            $table->string('idNVPhuTrach')->nullable();
+            $table->string('idGVPhuTrach')->nullable();
+            $table->string('idCongTyTT')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
@@ -50,6 +48,6 @@ class Students extends Migration
      */
     public function down()
     {
-       Schema::dropIfExists('students');
+        Schema::dropIfExists('students');
     }
 }

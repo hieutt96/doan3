@@ -34,7 +34,7 @@
                 <li role="presentation"
                     @if($tab == 1 or $tab == 11 or $tab == 12 or $tab == 13)
                     class="active"
-                        @endif><a href="/pm/1">Sinh Viên</a></li>
+                        @endif><a href="/pm/sv">Sinh Viên</a></li>
                 <li role="presentation"
                     @if($tab == 2 or $tab == 21 or $tab == 22)
                     class="active"
@@ -47,10 +47,30 @@
                     @if($tab == 4)
                     class="active"
                         @endif><a href="/pm/4">Thông báo</a></li>
-                <li role="presentation"
-                    @if($tab == 5)
-                    class="active"
-                        @endif><a href="/pm/5">Phân công thực tập</a></li>
+                <li data-toggle="collapse" role="presentation" href="#danhGia">
+                    <a class="nav-sub-container">
+                        Phân công
+                        <span class="caret arrow"></span>
+                        <div class="caret-container"></div>
+                    </a>
+                </li>
+                <li role="presentation">
+                <ul class="nav nav-pills nav-stacked collapse
+                    @if($tab == 51 or $tab == 52)
+                            in
+                       @endif
+                            " id="danhGia">
+                        <li role="presentation"
+                            @if($tab == 51)
+                            class="active"
+                                @endif><a href="/pm/da-phan-cong">Đã phân công</a></li>
+                        <li role="presentation"
+                            @if($tab == 52)
+                            class="active"
+                                @endif><a href="/pm/chua-phan-cong">Chưa phân công</a></li>
+                    </ul>
+                </li>
+
             </ul>
         </div>
 
