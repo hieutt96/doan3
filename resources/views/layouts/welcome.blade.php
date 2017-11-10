@@ -8,14 +8,37 @@
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- Custom Fonts -->
+       <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <style>
             .flex-center {
                 align-items: center;
                 display: flex;
                 justify-content: center;
             }
+            .container {
+                border: solid 1px #555;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0,0,0,0.6);
+                -moz-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+                -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+                -o-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+            }
+            .name-school{
+                height:150px;
+                text-align: center;
+                padding-top:15px;
+            }
             .position-ref {
                 position: relative;
+            }
+            .anh-hust{
+                height: 140px;
+                margin:10px 0 0 77px;
+            }
+            .anh-soict{
+                height: 150px;
+                margin:5px 0 5px 0;
             }
             .top-right {
                 position: absolute;
@@ -26,13 +49,12 @@
                 font-size: 84px;
             }
             .links > a,b {
-                color: #636b6f;
+                color: black;
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
-                text-transform: uppercase;
             }
             b:hover {
                 cursor: pointer;
@@ -40,17 +62,17 @@
         </style>
     </head>
     <body>
-        <div class="container" style="margin-bottom: 100px;">
-            <div class="row" style="background:#263c65; margin-top: 5px;">
-                <div class="col-sm-2">
-                    <img src="{{asset('image/background/soict.png')}}" style="height: 150px;"  >
+        <div class="container">
+            <div class="row" style="background:#263c65;">
+                <div class="col-sm-2" style="height: 160px;">
+                    <img class="anh-soict" src="{{asset('image/background/soict.png')}}"   >
                 </div>
-                <div class="col-sm-7 col-lg-offset-1" style="height:150px; ">
-                    <h2 style="color: white" >Trường Đại Học Bách Khoa Hà Nội</h2>
-                    <h3 style="color: white"> Viện Công Nghệ Thông Tin Và Truyền Thông</h3>
+                <div class="col-sm-8 name-school">
+                    <h3 style="color: white" >Trường Đại Học Bách Khoa Hà Nội</h2>
+                    <h2 style="color: white"> Viện Công Nghệ Thông Tin Và Truyền Thông</h2>
                 </div>
-                <div class="col-lg-offset-1 col-lg-1">
-                    <img src="{{asset('image/background/hust.jpg')}}" style="height: 150px;" />
+                <div class=" col-sm-2 ">
+                    <img class="anh-hust" src="{{asset('image/background/hust.jpg')}}"  />
                 </div>
             </div>
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -59,8 +81,8 @@
                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if(Auth::guest())
-                    <li><a href="{{ route('dang-nhap') }}"><b>Login</b></a></li>
-                    <li style="margin-top: 16px;"><b data-toggle="modal" data-target="#register">Register</b></li>
+                    <li><a href="{{ route('dang-nhap') }}"><b>Đăng nhập</b></a></li>
+                    <li style="margin-top: 16px;"><b data-toggle="modal" data-target="#register">Đăng ký</b></li>
                         <div class="modal fade col-lg-4 col-lg-offset-4" id="register" role="dialog" style="margin-top: 100px;">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -99,7 +121,7 @@
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                                        Logout
+                                        Đăng xuất
                                     </a>
                                    <form id="logout-form" action="{{ route('dang-xuat') }}" method="GET" style="display: none;">
                                         {{ csrf_field() }}
@@ -109,13 +131,10 @@
                         </li>
                          @endif
                 </ul>
-            </div><br><br><br>  
+            </div>
             <div class="row">
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
-                        <div class="navbar-header">
-                             <a class="navbar-brand" href="#">WebSiteHome</a>
-                        </div>
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Trang Chủ </a></li>
                         <li><a href="#">Hợp tác doanh nghiệp</a></li>

@@ -10,8 +10,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <!-- Custom Fonts -->
-       <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <style>
            .container-panel {
                 border: 1px solid #eeeeee;
@@ -87,8 +87,8 @@
                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if(Auth::guest())
-                    <li><a href="{{ route('dang-nhap') }}"><b>Login</b></a></li>
-                    <li style="margin-top: 16px;"><b data-toggle="modal" data-target="#register">Register</b></li>
+                    <li><a href="{{ route('dang-nhap') }}"><b>Đăng nhập</b></a></li>
+                    <li style="margin-top: 16px;"><b data-toggle="modal" data-target="#register">Đăng ký</b></li>
                         <div class="modal fade col-lg-4 col-lg-offset-4" id="register" role="dialog" style="margin-top: 100px;">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -119,14 +119,17 @@
                         @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                <span class="glyphicon glyphicon-user"></span>{{ Auth::user()->name }} 
                             </a>
                             <ul class="dropdown-menu" role="menu">
+                                <li><a href="route{{'student.change-password'}}">Đổi mật khẩu</a><li/>
+                                <li><a href="route{{'student.student-info'}}">Thông tin cá nhân</a><li/>
+                                <li><a href="route{{'update-student-info'}}">Cập nhật thông tin cá nhân</a><li/>
                                 <li>
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                                        Logout
+                                        Đăng xuất
                                     </a>
                                    <form id="logout-form" action="{{ route('dang-xuat') }}" method="GET" style="display: none;">
                                         {{ csrf_field() }}

@@ -7,6 +7,7 @@ use App\Http\Request\LoginRequest;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+//use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     public function __construct()
@@ -21,8 +22,10 @@ class LoginController extends Controller
     		'email' => $request->email,
     		'password'=> $request->password,
             'status' => 1
-    	];
+		];
+		dd($user);
     	if(Auth::attempt($user)){
+			
     		if(Auth::user()->level == 1){
     			return redirect('/');
     		}elseif(Auth::user()->level == 2){
@@ -32,16 +35,20 @@ class LoginController extends Controller
     		}elseif(Auth::user()->level == 4){
     			return redirect('/');
     		}elseif(Auth::user()->level ==5){
-    			return redirect('student/student_Info');
+    			return redirect('student.student_Info');
     		}else{
     			return redirect('/');
     		}
-    	}
-    	return redirect('dang-nhap')->with('invalid','Sai thông tin đăng nhập');
+		}
+		else {
+			return redirect('dang-nhap')->with('invalid','Sai thông tin đăng nhập');
+		}
+			
+	
     }
 
     public function logout(){
     	Auth::logout();
     	return redirect()->route('dang-nhap');
-    }
+	}
 }

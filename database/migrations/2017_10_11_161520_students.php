@@ -15,29 +15,27 @@ class Students extends Migration
     {
         Schema::create('students',function(Blueprint $table){
             $table->increments('id');
-            $table->string('Phone');
-            $table->integer('User_id');
-            $table->integer('registers_id');
-            $table->string('anhdaidien');
+            $table->integer('user_id');
             $table->string('lop');
-            $table->string('khoa');
-            $table->string('Ctdt');
+            $table->integer('mssv')->unique();
+            $table->string('grade');
+            $table->string('ctdt');
             $table->string('bomon');
-            $table->boolean('gioitinh');
+            $table->boolean('gender');
             $table->boolean('laptop');
-            $table->string('diachi');
+            $table->string('address');
+            $table->string('phone');
             $table->float('CPA');
-            $table->string('tienganh')->nullable();
-            $table->string('kynanglaptrinh_cothedung')->nullable();
-            $table->string('kynanglaptrinh_cothesudung')->nullable();
-            $table->string('kynanglaptrinh_thanhthao')->nullable();
-            $table->string('quantrihethong')->nullable();
-            $table->string('kynangkhac')->nullable();
-            $table->string('nentangmuonthuctap');
-            $table->string('ctydathuctap')->nullable();
-            $table->string('tennhanvienphutrach')->nullable();
-            $table->string('emailnhanvienphutrach')->nullable();
-            $table->rememberToken();
+            $table->string('TA')->nullable();
+            $table->string('ktlt_base')->nullable();
+            $table->string('ktlt')->nullable();
+            $table->string('ktlt_master')->nullable();
+            $table->string('quan_tri_he_thong')->nullable();
+            $table->string('Other')->nullable();
+            $table->string('cty_da_thuc_tap')->nullable();
+            $table->string('favorite');
+            $table->string('ten_nv_phu_trach')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

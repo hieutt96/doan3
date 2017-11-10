@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('student.index_student')
 @section('content')
 	<hr style="border-color:red;">
 	<div class="row col-lg-offset-1 "> 

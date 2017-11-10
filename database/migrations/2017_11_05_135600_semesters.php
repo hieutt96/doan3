@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Leaders extends Migration
+class Semesters extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class Leaders extends Migration
      */
     public function up()
     {
-        Schema::create('leaders',function (Blueprint $table){
+        Schema::create('semesters',function(Blueprint $table){
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('company_id');
-            $table->integer('phone');
-            $table->string('congnghelaptrinh')->nullable(); 
-            $table->timestamps();
+            $table->date('thoi_gian_dn_bat_dau_dk');
+            $table->date('thoi_gian_dn_ket_thuc_dk');
+            $table->date('thoi_gian_sv_bat_dau_dk');
+            $table->date('thoi_gian_sv_ket_thuc_dk');
         });
     }
 
@@ -30,6 +29,6 @@ class Leaders extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leaders');
+        Schema::dropIfExists('semesters');
     }
 }
