@@ -12,8 +12,8 @@ use Illuminate\Foundation\Http\FormRequest;
  		return [
  			'name'=>'min:5|max:30',
  			'mail'=>'email',
- 			'email'=>'email|max:50',
- 			'password'=>'min:6|same:re-password'
+ 			'email'=>'email|unique:users|max:50',
+ 			'password'=>'min:6|same:re-password',
  		];
  	}
  	public function messages(){

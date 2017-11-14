@@ -1,55 +1,31 @@
-@extends('layouts.panel')
-@section('content')
-    <div class="container">
-        <div class="col-lg-2">
-            <div class="row">
-                <label class="label-control"><span class="glyphicon glyphicon-home"></span> Dashboard</label>
-            </div>
-            <hr>
-            <div class="row dropdown">
-                <p class="dropdown-toggle " data-toggle="dropdown">Quản lí công ty <span class="caret"
-                                                                                         style="cursor: pointer;"></span>
-                </p>
-                <ul class="dropdown-menu">
-                    <li><a href="">Xác nhận công ty</a></li>
-                    <li><a href="">Quản lí công ty</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-10">
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Tên Công Ty</th>
-                    <th>Địa Chỉ</th>
-                    <th>Email</th>
-                    <th>Số điện thoại</th>
-                    <th>Số lượng SV có thể nhận</th>
-                    <th>Hoạt Động</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($companys as $company)
-                    <tr>
-                        <td>{{$company->id}}</td>
-                        <td>{{$company->name}}</td>
-                        <td>{{$company->diaChi}}</td>
-                        <td>
-                            {{$company->emailnv}}
-                        </td>
-                        <td>{{$company->phone}}</td>
-                        <td>{{$company->soLuongSinhVienTT}}</td>
-                        <td>
-                            <button class="btn btn-default col-lg-6 accept" >Accept</button>
-                            <input type="hidden" name="" value="{{$company->id}}">
-                            <button class="btn btn-info col-lg-6 cancel" >Cancel</button>
-                        </td>
-                    </tr>
+@extends('layouts.admin')
+@section('content_right')
+    <div class="row col-lg-12">
+        <div class="col-lg-offset-8 col-lg-2">
+            <select class="form-control" id="hocky">
+                <option value="">--Select--</option>
+                @foreach($hockys as $value)
+                    <option value="{{$value->hocky}}">{{$value->hocky}}</option>
                 @endforeach
-                </tbody>
-            </table>
+            </select>
         </div>
+        <div class="col-lg-2">
+            <button class="btn btn-info form-control" id="loc">Lọc</button>
+        </div>
+    </div>
+    <div class="row col-lg-12">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tabs1" data-toggle="tab">Danh sách công ty liên kết </a></li>
+            <li><a href="#tabs2" data-toggle="tab">Danh sách công ty yêu cầu</a></li>
+        </ul>
+    </div><br><br>
+    <div class="row col-lg-12 tab-content" style="margin-bottom: 10px;" id="hienthi">
+       <div class="tab-pane fade in active hienthi1" id="tabs1" >
+            <br>
+       </div>
+       <div class="tab-pane fade hienthi2" id="tabs2">
+           
+       </div>
     </div>
 @endsection
 @section('script')

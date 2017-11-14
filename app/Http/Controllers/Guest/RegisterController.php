@@ -51,14 +51,14 @@ class RegisterController extends Controller
     	$student->mssv = $request->mssv;
     	$student->CPA = $request->cpa;
     	$student->TA = $request->english;
-    	$student->ktlt_base = $request->ep1;
-    	$student->ktlt = $request->ep2;
-    	$student->ktlt_master = $request->ep3;
+    	$student->knlt_cothesudung = $request->ep1;
+    	$student->knlt_thanhthao = $request->ep2;
+    	$student->knlt_master = $request->ep3;
     	$student->quan_tri_he_thong = $request->ep4;
     	$student->Other = $request->ep5;
         // dd($request->favorite);
     	$student->favorite = implode(",", ($request->favorite));
-    	$student->cty_dang_thuc_tap = $request->cty2;
+    	$student->cty_da_thuc_tap = $request->cty2;
     	$student->ten_nv_phu_trach = $request->nv;
     	$student->email = $request->mailnv;
     	$student->save();	
@@ -67,6 +67,7 @@ class RegisterController extends Controller
 
     public function postRegisterDN(RegisterDNRequest $request)
     {
+        // dd("hieu");
         $user = new User;
         $user->email = $request->emaildn;
         $user->password = bcrypt($request->password);
@@ -87,7 +88,6 @@ class RegisterController extends Controller
         $company->linhVucHoatDong = $request->linhvuchoatdong;
         $company->congNgheDaoTao = $request->congnghedaotao;
         $company->soLuongSinhVienTT = $request->soluong;
-        $company->yeuCauSV = $request->yeucau;
         $company->yeuCauNNSV = $request->yeucaungoaingu;
         $company->save();
         $leader = new Leader;

@@ -18,7 +18,7 @@ class Results extends Migration
             $table->integer('student_id');
             $table->text('nhan_xet_nha_truong')->nullable();
             $table->float('diem');
-            $table->float('danh_gia_cong_ty');
+            $table->float('danh_gia_cua_cong_ty');
             $table->text('nhan_xet_cong_ty')->nullable();
             $table->string('nang_luc_it');
             $table->string('phuong_phap_lam_viec');

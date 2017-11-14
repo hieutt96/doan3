@@ -27,12 +27,12 @@ class Students extends Migration
             $table->string('phone');
             $table->float('CPA');
             $table->string('TA')->nullable();
-            $table->string('ktlt_base')->nullable();
-            $table->string('ktlt')->nullable();
-            $table->string('ktlt_master')->nullable();
+            $table->string('knlt_cothesudung')->nullable();
+            $table->string('knlt_thanhthao')->nullable();
+            $table->string('knlt_master')->nullable();
             $table->string('quan_tri_he_thong')->nullable();
             $table->string('Other')->nullable();
-            $table->string('cty_dang_thuc_tap')->nullable();
+            $table->string('cty_da_thuc_tap')->nullable();
             $table->string('favorite');
             $table->string('ten_nv_phu_trach')->nullable();
             $table->string('email')->nullable();

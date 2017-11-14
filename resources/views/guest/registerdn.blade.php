@@ -1,5 +1,6 @@
 @extends('layouts.panel')
 @section('content')
+	<script src="{{ asset('/js/ckeditor/ckeditor/ckeditor.js') }}"></script>
 	<hr style="border-width: 2px;color: red;">
 	<div class="row">
 		<a href="{{url('/')}}" style="font-size: 21px;"><h4 class="col-lg-2"><span class="glyphicon glyphicon-home"></span>Home</a></h4>
@@ -16,9 +17,10 @@
 		{{ csrf_field() }}	
 		<div class="row">
 			<div class="col-lg-3">
-				<img src="" style="height: 250px;width: 300px; border-radius: 10px;" >
+				<img src="" style="height: 250px;width: 300px; border-radius: 10px;" ><br><br>
 				<div class="row">
-					<button class="col-lg-offset-1 col-lg-10 btn btn-default">Chọn Ảnh</button>
+					<p class="col-lg-4">Chọn Ảnh:</p>
+					<input class="col-lg-8 btn btn-default" type="file" name="image">
 				</div>
 			</div>
 			<div class="col-lg-8 col-lg-offset-1">
@@ -73,7 +75,8 @@
 				<div class="form-group {{ $errors->has('mota') ? ' has-error' : '' }}">
 					<label class="col-lg-3 control-label">Mô tả ngắn về công ty :</label>
 					<div class="col-lg-8">
-						<textarea class="form-control" placeholder="..." name="mota"></textarea>
+						<textarea class="form-control" placeholder="..." name="mota" id="mota" rows="5"></textarea>
+						<script type="text/javascript">CKEDITOR.replace('mota');</script>
 					</div>
 
            			@if ($errors->has('mota'))
@@ -208,22 +211,6 @@
                    @endif
 				</div>
 			</div><br>
-
-			<div class="row">
-				<div class="col-lg-offset-2 form-group {{ $errors->has('yeucau') ? ' has-error' : '' }}">
-					<label class="col-lg-2 control-label">Yêu cầu về chuyên môn:</label>
-					<div class="col-lg-6">
-						<input type="text" name="yeucau" placeholder="..."  class="form-control">
-					</div>
-
-           			@if ($errors->has('yeucau'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('yeucau') }}</strong>
-                        </span>
-                   @endif
-				</div>
-			</div><br>
-
 
 			<div class="row">
 				<div class="col-lg-offset-2 form-group {{ $errors->has('yeucaungoaingu') ? ' has-error' : '' }}">

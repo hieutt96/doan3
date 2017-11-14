@@ -18,7 +18,7 @@ class Leaders extends Migration
             $table->integer('user_id');
             $table->integer('company_id');
             $table->integer('phone');
-            $table->string('congnghelaptrinh')->nullable(); 
+            $table->string('chuyenmon')->nullable(); 
             $table->timestamps();
         });
     }

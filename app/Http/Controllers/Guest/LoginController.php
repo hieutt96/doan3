@@ -23,19 +23,20 @@ class LoginController extends Controller
             'status' => 1
     	];
     	if(Auth::attempt($user)){
-    		if(Auth::user()->level == 1){
-    			return redirect('/');
-    		}elseif(Auth::user()->level == 2){
-    			return view('layouts.pm');   
-    		}elseif(Auth::user()->level == 3){
-    			return redirect('/');
-    		}elseif(Auth::user()->level == 4){
-    			return redirect('/');
-    		}elseif(Auth::user()->level ==5){
-    			return redirect('/');
-    		}else{
-    			return redirect('/');
-    		}
+            $a = Auth::user()->level;
+            switch ($a) {
+                case 1:
+                    return redirect('/');
+                case 2:
+                    return redirect('/');
+
+                case 3:
+                    return redirect('/');
+                case 4:
+                    return view('layouts.admin');
+                case 5:
+                    return redirect('/');
+            }
     	}
     	return redirect('dang-nhap')->with('invalid','Sai thông tin đăng nhập');
     }

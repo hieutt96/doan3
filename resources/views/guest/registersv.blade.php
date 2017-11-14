@@ -1,6 +1,5 @@
 @extends('layouts.panel')
 @section('content')
-	<hr style="border-color: red;">
 	<div class="row col-lg-offset-4"> 
 		<b><h2>Đăng Ký Dành Cho Sinh Viên</h2></b>
 	</div>
@@ -107,7 +106,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6">
+				<div class="col-lg-6 row">
 					<b style="font-size: 16px;"><span class="glyphicon glyphicon-star"></span>Kỹ Năng</b><br><br>
 					<div class="form-group {{$errors->has('cpa') ? 'has-error' : ''}}">
 						<label class="control-label">Điểm trung bình CPA :</label>
@@ -161,10 +160,10 @@
 							@endif
 					</div>
 
-				</div>
-				<div class="row">
-					<div class="row">
-						<b style="font-size: 20px; color: red;">Lĩnh vực mong muốn thực tập:</b>
+				</div><br>
+				<div class="row col-lg-12">
+					<div class="row ">
+						<b style="font-size: 21px; color: red;">Lĩnh vực mong muốn thực tập:</b>
 					</div><br>
 					<div class="col-lg-4 col-lg-offset-3">
 						<input type="checkbox" name="favorite[]" value="Mobie Android">
@@ -191,7 +190,7 @@
 						<label>Embedded</label><br><br>
 					</div>
 				</div><br><hr style="border-width: 2px;">
-				<div class="row">
+				<div class="row col-lg-12">
 					<div class="row"><b style="font-size: 20px; color: red;"> Phần dành cho Sinh Viên đã có công ty thực tập:</b></div><br>
 					<div class="col-lg-offset-1 col-lg-6">
 						<div class="form-group">
@@ -214,10 +213,10 @@
 						</div>
 					</div>
 				</div><br><hr style="border-width: 2px;">
-				<div class="row">
+				<div class="row col-lg-12">
 					<div class="row">
 						<b style="color: red;font-size: 20px;">Đăng ký tài khoản:</b>
-					</div>
+					</div><br>
 					<div class="col-lg-offset-1 col-lg-4">
 						<div class="form-group">
 							<label class="control-label">Email:</label>

@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use App\Company;
 use App\User;
 use App\Leader;
+use App\Semester;
 use App\Http\Controllers\Admin\MailController;
 class AdminController extends Controller
 {
@@ -16,31 +17,19 @@ class AdminController extends Controller
 	{
 		$this->middleware('guest')->except('logout');
 	}
-	public function show()
+	public function show_dn()
 	{
-		// dd("hieu");
-		$companys = Company::where('status',0)->get();
-		return view('admin.index')->with('companys',$companys);
+		$hockys = Company::select('hocky')->distinct('hocky')->get();
+		return view('admin.index',compact('hockys'));
 	}
 
-	public function accept($id){
-		$company = Company::find($id);
-		$company->status = 1;
-		$company->save();
-		if($company){
-			MailController::mailAccept($company);
-		}
-		$user = User::find($company->idNV);
-		$user ->status = 1;
-		$user->save();
-		return "Success !";
+	public function create(){
+		$lists = Semester::all();
+		return view('admin.create_semester',compact(['lists']));
 	}
-
-	public function cancel($id){
-		$company = Company::find($id);
-		$company->delete();
-		$user = User::find($company->idNV);
-		$user->delete();
-		Leader::where('company_id',$id)->delete();
+	public function filter_company_hocky($hocky){
+		$companys_request = Company::where('hocky',$hocky)->where('status',0)->get();
+		$companys_accept = Company::where('hocky',$hocky)->where('status',1)->get();
+		return [$companys_request,$companys_accept];
 	}
 }

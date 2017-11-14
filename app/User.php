@@ -41,4 +41,8 @@ class User extends Authenticatable
     public function lecturer(){
         return $this->hasOne('App\Lecturer');
     }
+
+    public function comment(){
+        return $this->hasMany('App\Comment');
+    }
 }

@@ -70,12 +70,12 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-lg-4 col-lg-offset-2">
+                                            <div class="col-lg-4 col-lg-offset-1">
                                                 <a href="{{route('dang-ky-sv')}}">
                                                     <img src="{{asset('/image/background/sv.png')}}" style="height: 80px;"></a>
                                                 <p>Sinh viên</p>
                                             </div>
-                                            <div class="col-lg-4 col-lg-offset-1">
+                                            <div class="col-lg-5 col-lg-offset-1">
                                                         <a href="{{route('dang-ky-dn')}}">
                                                         <img src="{{asset('/image/background/dn.jpeg')}}" style="height: 80px;"></a>
                                                         <p>Doanh nghiệp</p>

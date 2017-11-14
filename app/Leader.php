@@ -9,7 +9,7 @@ class Leader extends Model
     protected $table = 'leaders';
     public function company()
     {
-    	return $this->belongsTo('App\Company');
+    	return $this->belongsTo('App\Company','company_id');
     }
     public function user()
     {

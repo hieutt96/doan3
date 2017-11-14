@@ -59,12 +59,15 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav">
                     &nbsp;
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'Home') }}
+                    </a>
                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if(Auth::guest())
                     <li><a href="{{ route('dang-nhap') }}"><b>Login</b></a></li>
                     <li style="margin-top: 16px;"><b data-toggle="modal" data-target="#register">Register</b></li>
-                        <div class="modal fade col-lg-4 col-lg-offset-4" id="register" role="dialog" style="margin-top: 100px;">
+                        <div class="modal fade col-lg-5 col-lg-offset-4" id="register" role="dialog" style="margin-top: 100px;">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
