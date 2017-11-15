@@ -90,7 +90,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="tuyChon">
-                                <li><a href="/pm/sv/info/<?php echo e($stu->id); ?>">Chi tiết</a></li>
+                                <li><a href="/pm/sv/<?php echo e($stu->id); ?>/thong-tin">Chi tiết</a></li>
                                 <li><a href="#">Phân công Leader</a></li>
                             </ul>
                         </div>

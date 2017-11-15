@@ -3,14 +3,17 @@
 @section('content')
     <div class="row">
         <div class="col-md-5">
-            <div class="input-group stylish-input-group">
-                <input type="text" class="form-control" placeholder="Search">
-                <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-            </div>
+            <form action="/pm/nv" method="GET" role="search">
+                {{ csrf_field() }}
+                <div class="input-group">
+                    <input type="text" class="form-control" name="name"
+                           placeholder="Tìm theo tên"> <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+                </div>
+            </form>
         </div>
         <div class="col-md-2">
             <div class="btn-group" role="group" aria-label="...">
@@ -40,28 +43,43 @@
             <thead>
             <tr>
                 <th scope="col">Mã</th>
-                <th scope="col">Họ tên</th>
-                <th scope="col">Chức vụ</th>
-                <th scope="col">Phòng ban</th>
+                <th scope="col">
+                    @if($isSearch)
+                        Họ Tên
+                    @else
+                        @sortablelink('User.name', 'Họ Tên')
+                        <div class="glyphicon glyphicon-triangle-bottom"></div>
+                    @endif
+                </th>
+                <th scope="col">@sortablelink('chucVu', 'Chức Vụ')
+                    <div class="glyphicon glyphicon-triangle-bottom"></div>
+                </th>
+                <th scope="col">@sortablelink('phongBan', 'Phòng Ban')
+                    <div class="glyphicon glyphicon-triangle-bottom"></div>
+                </th>
                 <th scope="col">Email</th>
-                <th scope="col">Trạng thái</th>
+                <th scope="col">@sortablelink('trangThai', 'Trạng Thái')
+                    <div class="glyphicon glyphicon-triangle-bottom"></div>
+                </th>
                 <th scope="col">Thao tác</th>
             </tr>
             </thead>
             <tbody>
 
-            @for ($i = 0; $i < 10; $i++)
+            @foreach($leaders as $lead)
                 <tr>
-                    <th scope="row">{{$i}}</th>
-                    <td>Nguyễn Văn A</td>
-                    <td>Trưởng phòng</td>
-                    <td>{{$i}}</td>
-                    <td>anv@gmail.com</td>
-                    <td>Đang làm việc</td>
+                    <th scope="row">{{$lead->id}}</th>
+                    <td>{{$lead->user->name}}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{$lead->user->email}}</td>
+                    <td>-</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="...">
-                            <button  type="button" class="btn btn-default"><a href="/pm/21">Chi tiết NV</a></button>
-                            <button data-target="#xoaNV" data-toggle="modal" type="button" class="btn btn-default">Xóa NV</button>
+                            <button type="button" class="btn btn-default"><a href="/pm/nv/{{$lead->id}}/thong-tin-chi-tiet">Chi tiết NV</a></button>
+                            <button data-target="#xoaNV" data-toggle="modal" type="button" class="btn btn-default">Xóa
+                                NV
+                            </button>
                             {{--Modal--}}
                             <div id="xoaNV" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
@@ -73,8 +91,8 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>Bạn chắc chắn xóa nhân viên [Tên nhân viên] không?
-                                            Nếu xóa bạn sẽ không còn bất cứ thông tin nào liên quan
-                                            đến nhân viên này.</p>
+                                                Nếu xóa bạn sẽ không còn bất cứ thông tin nào liên quan
+                                                đến nhân viên này.</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger" href="#">Xóa</button>
@@ -89,9 +107,21 @@
                         </div>
                     </td>
                 </tr>
-            @endfor
+            @endforeach
             </tbody>
         </table>
+        @if(count($leaders) == 0)
+            <p><b>Không có kết quả phù hợp!</b></p>
+        @endif
+    </div>
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-5">
+            {!! $leaders->appends(\Request::except('page'))->render() !!}
+        </div>
+        <div class="col-md-3">
+        </div>
     </div>
 
 @endsection

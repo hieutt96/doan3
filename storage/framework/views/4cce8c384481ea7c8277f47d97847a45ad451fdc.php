@@ -1,14 +1,18 @@
 <?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-md-5">
-            <div class="input-group stylish-input-group">
-                <input type="text" class="form-control" placeholder="Search">
-                <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-            </div>
+            <form action="/pm/nv" method="GET" role="search">
+                <?php echo e(csrf_field()); ?>
+
+                <div class="input-group">
+                    <input type="text" class="form-control" name="name"
+                           placeholder="Tìm theo tên"> <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+                </div>
+            </form>
         </div>
         <div class="col-md-2">
             <div class="btn-group" role="group" aria-label="...">
@@ -38,28 +42,43 @@
             <thead>
             <tr>
                 <th scope="col">Mã</th>
-                <th scope="col">Họ tên</th>
-                <th scope="col">Chức vụ</th>
-                <th scope="col">Phòng ban</th>
+                <th scope="col">
+                    <?php if($isSearch): ?>
+                        Họ Tên
+                    <?php else: ?>
+                        <?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('User.name', 'Họ Tên'));?>
+                        <div class="glyphicon glyphicon-triangle-bottom"></div>
+                    <?php endif; ?>
+                </th>
+                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('chucVu', 'Chức Vụ'));?>
+                    <div class="glyphicon glyphicon-triangle-bottom"></div>
+                </th>
+                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('phongBan', 'Phòng Ban'));?>
+                    <div class="glyphicon glyphicon-triangle-bottom"></div>
+                </th>
                 <th scope="col">Email</th>
-                <th scope="col">Trạng thái</th>
+                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('trangThai', 'Trạng Thái'));?>
+                    <div class="glyphicon glyphicon-triangle-bottom"></div>
+                </th>
                 <th scope="col">Thao tác</th>
             </tr>
             </thead>
             <tbody>
 
-            <?php for($i = 0; $i < 10; $i++): ?>
+            <?php $__currentLoopData = $leaders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lead): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <th scope="row"><?php echo e($i); ?></th>
-                    <td>Nguyễn Văn A</td>
-                    <td>Trưởng phòng</td>
-                    <td><?php echo e($i); ?></td>
-                    <td>anv@gmail.com</td>
-                    <td>Đang làm việc</td>
+                    <th scope="row"><?php echo e($lead->id); ?></th>
+                    <td><?php echo e($lead->user->name); ?></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><?php echo e($lead->user->email); ?></td>
+                    <td>-</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="...">
-                            <button  type="button" class="btn btn-default"><a href="/pm/21">Chi tiết NV</a></button>
-                            <button data-target="#xoaNV" data-toggle="modal" type="button" class="btn btn-default">Xóa NV</button>
+                            <button type="button" class="btn btn-default"><a href="/pm/nv/<?php echo e($lead->id); ?>/thong-tin-chi-tiet">Chi tiết NV</a></button>
+                            <button data-target="#xoaNV" data-toggle="modal" type="button" class="btn btn-default">Xóa
+                                NV
+                            </button>
                             
                             <div id="xoaNV" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
@@ -71,8 +90,8 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>Bạn chắc chắn xóa nhân viên [Tên nhân viên] không?
-                                            Nếu xóa bạn sẽ không còn bất cứ thông tin nào liên quan
-                                            đến nhân viên này.</p>
+                                                Nếu xóa bạn sẽ không còn bất cứ thông tin nào liên quan
+                                                đến nhân viên này.</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger" href="#">Xóa</button>
@@ -87,9 +106,22 @@
                         </div>
                     </td>
                 </tr>
-            <?php endfor; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>
         </table>
+        <?php if(count($leaders) == 0): ?>
+            <p><b>Không có kết quả phù hợp!</b></p>
+        <?php endif; ?>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-5">
+            <?php echo $leaders->appends(\Request::except('page'))->render(); ?>
+
+        </div>
+        <div class="col-md-3">
+        </div>
     </div>
 
 <?php $__env->stopSection(); ?>

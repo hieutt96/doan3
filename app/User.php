@@ -31,12 +31,14 @@ class User extends Model
         'password', 'remember_token',
     ];
 
-    public function student(){
+    public function student()
+    {
         return $this->hasOne('App\Student', 'id', 'id');
     }
 
-    public function leader(){
-        return $this->hasOne('App\Leader');
+    public function leader()
+    {
+        return $this->hasOne('App\Leader', 'id', 'id');
     }
 
 

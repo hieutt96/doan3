@@ -38,7 +38,7 @@
                 <li role="presentation"
                     @if($tab == 2 or $tab == 21 or $tab == 22)
                     class="active"
-                        @endif><a href="/pm/2">Nhân Viên</a></li>
+                        @endif><a href="/pm/nv">Nhân Viên</a></li>
                 <li role="presentation"
                     @if($tab == 3)
                     class="active"

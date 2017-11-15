@@ -38,7 +38,7 @@
                 <li role="presentation"
                     <?php if($tab == 2 or $tab == 21 or $tab == 22): ?>
                     class="active"
-                        <?php endif; ?>><a href="/pm/2">Nhân Viên</a></li>
+                        <?php endif; ?>><a href="/pm/nv">Nhân Viên</a></li>
                 <li role="presentation"
                     <?php if($tab == 3): ?>
                     class="active"

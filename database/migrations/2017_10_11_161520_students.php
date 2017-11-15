@@ -14,8 +14,8 @@ class Students extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->integer('user_id');
-            $table->primary('user_id');
+            $table->integer('id');
+            $table->primary('id');
             $table->string('MSSV');
             $table->string('lop');
             $table->string('khoa');

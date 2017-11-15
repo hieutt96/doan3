@@ -14,8 +14,8 @@ class Leaders extends Migration
     public function up()
     {
         Schema::create('leaders',function (Blueprint $table){
-            $table->integer('user_id');
-            $table->primary('user_id');
+            $table->integer('id');
+            $table->primary('id');
             $table->integer('companyID');
             $table->string('soDienThoai');
             $table->string('congNgheLapTrinh');

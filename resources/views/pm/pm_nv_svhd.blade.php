@@ -1,23 +1,21 @@
 @extends('layouts.pm_layout')
 
 @section('content')
-    <div class="row">
-        <ul class="nav nav-tabs">
-            <li role="presentation"><a href="/pm/21">Thông tin chi tiết</a></li>
-            <li role="presentation" class="active"><a href="/pm/22">Sinh Viên Hướng Dẫn Thực Tập</a></li>
-        </ul>
-    </div>
+    @include('pm.pm_tabs', ['idLead' => $leader->id, 'tab' => 22])
     <div class="row" style="padding-top: 10px">
 
         <div class="col-md-6">
-            <div class="input-group stylish-input-group">
-                <input type="text" class="form-control" placeholder="Search">
-                <span class="input-group-addon">
-                        <button type="submit">
+            <form action="/pm/nv/{{$leader->id}}/sinh-vien-huong-dan" method="get" role="search">
+                {{ csrf_field() }}
+                <div class="input-group">
+                    <input type="text" class="form-control" name="name" placeholder="Tìm sinh viên theo tên">
+                    <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-            </div>
+                            </button>
+                        </span>
+                </div>
+            </form>
         </div>
         <div class="col-md-2">
             <div class="btn-group" role="group" aria-label="...">
@@ -45,48 +43,44 @@
             <thead>
             <tr>
                 <th scope="col">MSSV</th>
-                <th scope="col">Họ tên</th>
+                <th scope="col">@if($isSearch)
+                        Họ Tên
+                    @else
+                        @sortablelink('User.name', 'Họ Tên')
+                        <div class="glyphicon glyphicon-triangle-bottom"></div>
+                    @endif</th>
                 <th scope="col">Số Điện Thoại</th>
                 <th scope="col">Email</th>
-                <th scope="col">Khả năng tiếng anh</th>
+                <th scope="col">@sortablelink('tiengAnh', 'Khả năng tiếng anh')
+                    <div class="glyphicon glyphicon-triangle-bottom"></div>
+                </th>
                 <th scope="col">Khả năng lập trình</th>
                 <th scope="col">Lĩnh vực mong muốn</th>
             </tr>
             </thead>
             <tbody>
 
-            @for ($i = 0; $i < 10; $i++)
+            @foreach ($manaStus as $stu)
                 <tr>
-                    <th scope="row">20140789</th>
-                    <td>Nguyễn Văn A</td>
-                    <td>0124512332</td>
-                    <td>anv@gmail.com</td>
-                    <td>990 TOEIC</td>
-                    <td>Master Java</td>
-                    <td>Java</td>
+                    <th scope="row">{{$stu->MSSV}}</th>
+                    <td>{{$stu->user->name}}</td>
+                    <td>{{$stu->sdt}}</td>
+                    <td>{{$stu->user->email}}</td>
+                    <td>{{$stu->tiengAnh}}</td>
+                    <td>{{$stu->kTLTThanhThao}}</td>
+                    <td>-</td>
                 </tr>
-            @endfor
+            @endforeach
             </tbody>
         </table>
 
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-5">
+                {!! $manaStus->appends(\Request::except('page'))->render() !!}
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
     </div>
 @endsection

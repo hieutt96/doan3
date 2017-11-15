@@ -1,21 +1,20 @@
 <?php $__env->startSection('content'); ?>
-    <div class="row">
-        <ul class="nav nav-tabs">
-            <li role="presentation"><a href="/pm/21">Thông tin chi tiết</a></li>
-            <li role="presentation" class="active"><a href="/pm/22">Sinh Viên Hướng Dẫn Thực Tập</a></li>
-        </ul>
-    </div>
+    <?php echo $__env->make('pm.pm_tabs', ['idLead' => $leader->id, 'tab' => 22], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <div class="row" style="padding-top: 10px">
 
         <div class="col-md-6">
-            <div class="input-group stylish-input-group">
-                <input type="text" class="form-control" placeholder="Search">
-                <span class="input-group-addon">
-                        <button type="submit">
+            <form action="/pm/nv/<?php echo e($leader->id); ?>/sinh-vien-huong-dan" method="get" role="search">
+                <?php echo e(csrf_field()); ?>
+
+                <div class="input-group">
+                    <input type="text" class="form-control" name="name" placeholder="Tìm sinh viên theo tên">
+                    <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-            </div>
+                            </button>
+                        </span>
+                </div>
+            </form>
         </div>
         <div class="col-md-2">
             <div class="btn-group" role="group" aria-label="...">
@@ -43,49 +42,46 @@
             <thead>
             <tr>
                 <th scope="col">MSSV</th>
-                <th scope="col">Họ tên</th>
+                <th scope="col"><?php if($isSearch): ?>
+                        Họ Tên
+                    <?php else: ?>
+                        <?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('User.name', 'Họ Tên'));?>
+                        <div class="glyphicon glyphicon-triangle-bottom"></div>
+                    <?php endif; ?></th>
                 <th scope="col">Số Điện Thoại</th>
                 <th scope="col">Email</th>
-                <th scope="col">Khả năng tiếng anh</th>
+                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('tiengAnh', 'Khả năng tiếng anh'));?>
+                    <div class="glyphicon glyphicon-triangle-bottom"></div>
+                </th>
                 <th scope="col">Khả năng lập trình</th>
                 <th scope="col">Lĩnh vực mong muốn</th>
             </tr>
             </thead>
             <tbody>
 
-            <?php for($i = 0; $i < 10; $i++): ?>
+            <?php $__currentLoopData = $manaStus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <th scope="row">20140789</th>
-                    <td>Nguyễn Văn A</td>
-                    <td>0124512332</td>
-                    <td>anv@gmail.com</td>
-                    <td>990 TOEIC</td>
-                    <td>Master Java</td>
-                    <td>Java</td>
+                    <th scope="row"><?php echo e($stu->MSSV); ?></th>
+                    <td><?php echo e($stu->user->name); ?></td>
+                    <td><?php echo e($stu->sdt); ?></td>
+                    <td><?php echo e($stu->user->email); ?></td>
+                    <td><?php echo e($stu->tiengAnh); ?></td>
+                    <td><?php echo e($stu->kTLTThanhThao); ?></td>
+                    <td>-</td>
                 </tr>
-            <?php endfor; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>
         </table>
 
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-5">
+                <?php echo $manaStus->appends(\Request::except('page'))->render(); ?>
+
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
     </div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.pm_layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

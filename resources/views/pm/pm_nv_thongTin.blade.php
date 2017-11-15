@@ -1,12 +1,7 @@
 @extends('layouts.pm_layout')
 
 @section('content')
-    <div class="row">
-        <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="/pm/21">Thông tin chi tiết</a></li>
-            <li role="presentation"><a href="/pm/22">Sinh Viên Hướng Dẫn Thực Tập</a></li>
-        </ul>
-    </div>
+    @include('pm.pm_tabs', ['idLead' => $leader->id, 'tab' => 21])
     <div class="row" style="padding-top: 10px">
         <div class="col-md-6">
             <div class="row">
@@ -15,6 +10,7 @@
                         <a href="#">
                             <img class="img-thumbnail" height="300"
                                  src="https://scontent.fhan2-3.fna.fbcdn.net/v/t1.0-9/21150313_1983255908612615_7984369144769509920_n.jpg?oh=e7d602814b22e5004923d1083533c9a5&oe=5A7B87B1">
+                            {{--src="{{$leader->ava}}">--}}
                         </a>
                     </div>
                 </div>
@@ -23,7 +19,7 @@
                         <li class="list-group-item">Phòng ban: <b>Development</b></li>
                         <li class="list-group-item">Chức vụ: <b>Leader</b></li>
                         <li class="list-group-item">Lĩnh vực làm việc: <b>Lập trình IOS</b></li>
-                        <li class="list-group-item">Họ tên: <b>Nene</b></li>
+                        <li class="list-group-item">Họ tên: <b>{{$leader->user->name}}</b></li>
                         <li class="list-group-item">Giới tính: <b>Nữ</b></li>
                     </ul>
                 </div>
@@ -56,7 +52,8 @@
     </div>
     <div class="row">
         <div class="col-md-2">
-            <button data-target="#suaTT" data-toggle="modal" type="button" class="btn btn-primary">Sửa thông tin</button>
+            <button data-target="#suaTT" data-toggle="modal" type="button" class="btn btn-primary">Sửa thông tin
+            </button>
             {{--Modal--}}
             <div id="suaTT" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -116,7 +113,8 @@
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9">
                                         <button type="submit" class="btn btn-success" href="#">Lưu</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ
+                                        </button>
                                     </div>
                                 </div>
                             </form>
