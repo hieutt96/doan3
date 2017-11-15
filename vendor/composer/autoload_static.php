@@ -1380,6 +1380,7 @@ class ComposerStaticInit8f85fdaf670131026ee2a6be8bd349f9
         'Illuminate\\Foundation\\Testing\\Concerns\\InteractsWithContainer' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithContainer.php',
         'Illuminate\\Foundation\\Testing\\Concerns\\InteractsWithDatabase' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithDatabase.php',
         'Illuminate\\Foundation\\Testing\\Concerns\\InteractsWithExceptionHandling' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithExceptionHandling.php',
+        'Illuminate\\Foundation\\Testing\\Concerns\\InteractsWithRedis' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithRedis.php',
         'Illuminate\\Foundation\\Testing\\Concerns\\InteractsWithSession' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithSession.php',
         'Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php',
         'Illuminate\\Foundation\\Testing\\Concerns\\MocksApplicationServices' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MocksApplicationServices.php',
