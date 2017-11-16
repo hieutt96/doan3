@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-    <?php echo $__env->make('pm.pm_tabs', ['idLead' => $leader->id, 'tab' => 21], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make('pm.pm_tabs', ['idLead' => $leader->user_id, 'tab' => 21], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <div class="row" style="padding-top: 10px">
         <div class="col-md-6">
             <div class="row">
@@ -62,17 +62,20 @@
                             <h4 class="modal-title"><b>Sửa thông tin nhân viên</b></h4>
                         </div>
                         <div class="modal-body" style="padding-left: 30px; padding-right: 30px">
-                            <form class="form-horizontal">
+                            <form class="form-horizontal" id="editForm" action="/pm/nv/edit" method="post">
+                                <?php echo e(csrf_field()); ?>
+
+                                <input type="hidden" name="idLeader" value="<?php echo e($leader->user_id); ?>">
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Tên nhân viên:</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" placeholder="Tên cũ ...">
+                                        <input class="form-control" form="editForm" name="name" placeholder="Nhập tên ..." value="<?php echo e($leader->user->name); ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="chucVu" class="control-label col-sm-3">Chức vụ:</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" id="chucVu">
+                                        <select class="form-control" name="chucVu" id="chucVu">
                                             <option value="0">Developer</option>
                                             <option value="1">Leader</option>
                                             <option value="2">Fresher</option>
@@ -82,7 +85,7 @@
                                 <div class="form-group">
                                     <label for="phongBan" class="control-label col-sm-3">Phòng ban:</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" id="phongBan">
+                                        <select class="form-control" name="phongBan" id="phongBan">
                                             <option value="0">Design</option>
                                             <option value="1">Back-end</option>
                                             <option value="2">Front-end</option>
@@ -92,30 +95,36 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Email:</label>
                                     <div class="col-sm-9">
-                                        <input type="email" class="form-control" placeholder="Email cu ...">
+                                        <input type="email" class="form-control" name="email" placeholder="Nhập email ..." value="<?php echo e($leader->user->email); ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Ngày bắt đầu:</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" placeholder="Ngày cũ ...">
+                                        <input class="form-control" name="ngBatDau" placeholder="Nhập ngày bắt đầu ...">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Ngày kết thúc:</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" placeholder="...">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-9">
-                                        <button type="submit" class="btn btn-success" href="#">Lưu</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ
-                                        </button>
+                                        <input class="form-control" name="ngKetThuc" placeholder="Nhập ngày kết thúc ...">
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-sm-8"></div>
+                                <div class="col-sm-2">
+                                    <fieldset form="editForm">
+                                        <button form="editForm" type="submit" class="btn btn-success">Lưu</button>
+                                    </fieldset>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

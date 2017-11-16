@@ -1,9 +1,9 @@
 <?php $__env->startSection('content'); ?>
-    <?php echo $__env->make('pm.pm_tabs', ['idLead' => $leader->id, 'tab' => 22], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make('pm.pm_tabs', ['idLead' => $leader->user_id, 'tab' => 22], array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <div class="row" style="padding-top: 10px">
 
         <div class="col-md-6">
-            <form action="/pm/nv/<?php echo e($leader->id); ?>/sinh-vien-huong-dan" method="get" role="search">
+            <form action="/pm/nv/<?php echo e($leader->user_id); ?>/sinh-vien-huong-dan" method="get" role="search">
                 <?php echo e(csrf_field()); ?>
 
                 <div class="input-group">
@@ -41,6 +41,7 @@
         <table class="table">
             <thead>
             <tr>
+                <th scope="col">STT</th>
                 <th scope="col">MSSV</th>
                 <th scope="col"><?php if($isSearch): ?>
                         Họ Tên
@@ -59,17 +60,18 @@
             </thead>
             <tbody>
 
-            <?php $__currentLoopData = $manaStus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php for( $i = 0; $i < count($manaStus); $i++): ?>
                 <tr>
-                    <th scope="row"><?php echo e($stu->MSSV); ?></th>
-                    <td><?php echo e($stu->user->name); ?></td>
-                    <td><?php echo e($stu->sdt); ?></td>
-                    <td><?php echo e($stu->user->email); ?></td>
-                    <td><?php echo e($stu->tiengAnh); ?></td>
-                    <td><?php echo e($stu->kTLTThanhThao); ?></td>
+                    <th scope="row"><?php echo e($i + 1); ?></th>
+                    <td><?php echo e($manaStus[$i]->MSSV); ?></td>
+                    <td><?php echo e($manaStus[$i]->user->name); ?></td>
+                    <td><?php echo e($manaStus[$i]->sdt); ?></td>
+                    <td><?php echo e($manaStus[$i]->user->email); ?></td>
+                    <td><?php echo e($manaStus[$i]->tiengAnh); ?></td>
+                    <td><?php echo e($manaStus[$i]->kTLTThanhThao); ?></td>
                     <td>-</td>
                 </tr>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endfor; ?>
             </tbody>
         </table>
 

@@ -9,12 +9,12 @@
 namespace App\Http\Controllers\PM;
 
 use App\Http\Controllers\Controller;
+use App\Student_Job_Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Student;
 use App\User;
 use App\Leader;
-use Illuminate\Support\Facades\Input;
 
 class PMController extends Controller
 {
@@ -49,46 +49,59 @@ class PMController extends Controller
 
     public function indexSV(Request $request)
     {
-        if (sizeof($request->input('name'))) {
-            $search = $request->input('name');
-            $students = Student::join('users', 'students.id', '=', 'users.id')
-                ->where('users.name', 'like', '%' . $search . '%')
+        $semesters = array(20163, 20171, 20172);
+        if (sizeof($request->input('semester'))) {
+            $idSemester = $request->input('semester');
+        } else {
+            $idSemester = 20171;
+        }
+        $idCompany = rand(1, 3);
+        if (sizeof($request->input('search'))) {
+            $search = $request->input('search');
+            $students = Student::join('users', 'students.user_id', '=', 'users.id')
+                ->join('interships', 'students.user_id', '=', 'interships.student_id')
+                ->where([['users.name', 'like', '%' . $search . '%']
+                    , ['interships.company_id', '=', $idCompany]
+                    , ['interships.semester_id', '=', $idSemester]])
                 ->sortable()->simplePaginate(10);
+            if (count($students) == 0) {
+                $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
+                    ->where([['students.MSSV', 'like', '%' . $search . '%']
+                        , ['interships.company_id', '=', $idCompany]
+                        , ['interships.semester_id', '=', $idSemester]])
+                    ->sortable()->simplePaginate(10);
+            }
             $isSearch = true;
         } else {
-            $students = Student::sortable()->simplePaginate(10);
+            $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
+                ->where([['interships.company_id', '=', $idCompany]
+                    , ['interships.semester_id', '=', $idSemester]])
+                ->sortable()->simplePaginate(10);
             $isSearch = false;
         }
-        return view('pm.pm_index_sv', ['isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
+        return view('pm.pm_index_sv', ['semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
     }
 
     public function showSVInfo($idSV)
     {
         $student = Student::find($idSV);
-        return view('pm.pm_sv_thongTin', ['tab'=> 11, 'student' => $student]);
+        return view('pm.pm_sv_thongTin', ['tab' => 11, 'student' => $student]);
     }
 
-    public function chuaPhanCong(Request $request)
+    public function showSVCongViec($idSV)
     {
-        $leaders = User::where('level', '=', 2)->get();
-        if (sizeof($request->input('name'))) {
-            $search = $request->input('name');
-            $students = Student::join('users', 'students.id', '=', 'users.id')
-                ->where([['idNVPhuTrach', '=', NULL], ['users.name', 'like', '%' . $search . '%']])
-                ->sortable()->simplePaginate(10);
-            $isSearch = true;
-        } else {
-            $students = Student::where('idNVPhuTrach', '=', NULL)->sortable()->simplePaginate(10);
-            $isSearch = false;
-        }
-        return view('pm.pm_index_chuaPhanCong', ['isSearch' => $isSearch, 'leaders' => $leaders, 'students' => $students, 'tab' => 52]);
+        $student = Student::find($idSV);
+        $jobs = Student_Job_Assignment::where('student_id', '=', $idSV)
+            ->sortable()->simplePaginate(10);
+
+        return view('pm.pm_sv_congViec', ['jobs' => $jobs, 'tab' => 12, 'student' => $student]);
     }
 
     public function indexNV(Request $request)
     {
         if (sizeof($request->input('name'))) {
             $search = $request->input('name');
-            $leaders = Leader::join('users', 'leaders.id', '=', 'users.id')
+            $leaders = Leader::join('users', 'leaders.user_id', '=', 'users.id')
                 ->where('users.name', 'like', '%' . $search . '%')
                 ->sortable()->simplePaginate(10);
             $isSearch = true;
@@ -106,55 +119,83 @@ class PMController extends Controller
         return view('pm.pm_nv_thongTin', ['tab' => 21, 'leader' => $leader]);
     }
 
-    public function nvSVHD(Request $request, $idLead)
+    public function postSuaNV(Request $request)
     {
-//        $idLead = $request->input('idLead');
-        $leader = Leader::find($idLead);
-//        $manaStus = Student::where('idNVPhuTrach', '=', $idLead)->
-
-        if (sizeof($request->input('name'))) {
-            $search = $request->input('name');
-            $manaStus = Student::join('users', 'students.id', '=', 'users.id')
-                ->where([['users.name', 'like', '%' . $search . '%'],
-                    ['students.idNVPhuTrach', '=', $idLead]])
-                ->sortable()->simplePaginate(10);
-            $isSearch = true;
-        } else {
-            $manaStus = Student::where('students.idNVPhuTrach', '=', $idLead)
-                ->sortable()->simplePaginate(10);
-            $isSearch = false;
-        }
-
-        return view('pm.pm_nv_svhd', ['isSearch' => $isSearch,'tab' => 22, 'leader' => $leader, 'manaStus' => $manaStus]);
-    }
-
-    public function phanCong(Request $request)
-    {
-        $leader_id = $request->input('leaderSelect');
-        $students_id = $request->input('rowsCheck');
-        foreach ($students_id as $stu_id) {
-            $stu = Student::find((int)$stu_id);
-            $stu->idNVPhuTrach = (string)$leader_id;
-            $stu->save();
-        }
+        $idLeader = $request->input('idLeader');
+        $user = User::find($idLeader);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->save();
         return back();
     }
 
-    public function daPhanCong(Request $request)
+    public function nvSVHD(Request $request, $idLead)
     {
-        $leaders = User::where('level', '=', 2)->get();
-        if (sizeof($request->input('name'))) {
-            $search = $request->input('name');
-            $students = Student::join('users', 'students.id', '=', 'users.id')
-                ->where([['idNVPhuTrach', '<>', NULL], ['users.name', 'like', '%' . $search . '%']])
+        $leader = Leader::find($idLead);
+
+        if (sizeof($request->input('search'))) {
+            $search = $request->input('search');
+            $manaStus = Student::join('users', 'students.user_id', '=', 'users.id')
+                ->where([['users.name', 'like', '%' . $search . '%'],
+                    ['students.tenNVPhuTrach', '=',  $leader->user->name]])
                 ->sortable()->simplePaginate(10);
             $isSearch = true;
-
         } else {
-            $students = Student::where('idNVPhuTrach', '<>', NULL)->sortable()->simplePaginate(10);
+            $manaStus = Student::where('students.tenNVPhuTrach', '=', $leader->user->name)
+                ->sortable()->simplePaginate(10);
             $isSearch = false;
-
         }
-        return view('pm.pm_index_daPhanCong', ['isSearch' => $isSearch, 'leaders' => $leaders, 'students' => $students, 'tab' => 51]);
+
+        return view('pm.pm_nv_svhd', ['isSearch' => $isSearch, 'tab' => 22, 'leader' => $leader, 'manaStus' => $manaStus]);
+    }
+
+    public function getPhanCong(Request $request)
+    {
+        // Current Semester get from the system time or from the request
+        $currentSem = 20171;
+        // idCompany get form current PM being login
+        $idCompany = rand(1, 3);
+
+        $leaders = Leader::join('users', 'leaders.user_id', '=', 'users.id')
+            ->where([['users.level', '=', 2]
+                , ['leaders.idCompany', '=', $idCompany]])->get();
+        if (sizeof($request->input('search'))) {
+            $search = $request->input('search');
+            $students = Student::join('users', 'students.user_id', '=', 'users.id')
+                ->join('interships', 'students.user_id', '=', 'interships.student_id')
+                ->where([['users.name', 'like', '%' . $search . '%']
+                    , ['interships.company_id', '=', $idCompany]
+                    , ['interships.semester_id', '=', $currentSem]])
+                ->sortable()->simplePaginate(10);
+
+            if (count($students) == 0) {
+                $students = Student::join('users', 'students.user_id', '=', 'users.id')
+                    ->join('interships', 'students.user_id', '=', 'interships.student_id')
+                    ->where([['students.MSSV', 'like', '%' . $search . '%']
+                        , ['interships.company_id', '=', $idCompany]
+                        , ['interships.semester_id', '=', $currentSem]])
+                    ->sortable()->simplePaginate(10);
+            }
+
+            $isSearch = true;
+        } else {
+            $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
+                ->where([['interships.company_id', '=', $idCompany]
+                    , ['interships.semester_id', '=', $currentSem]])->sortable()->simplePaginate(10);
+            $isSearch = false;
+        }
+        return view('pm.pm_index_phanCong', ['isSearch' => $isSearch, 'leaders' => $leaders, 'students' => $students, 'tab' => 5]);
+    }
+
+    public function postPhanCong(Request $request)
+    {
+        $leader = $request->input('leaderSelect');
+        $students_id = $request->input('rowsCheck');
+        foreach ($students_id as $stu_id) {
+            $stu = Student::find((int)$stu_id);
+            $stu->tenNVPhuTrach = (string)$leader;
+            $stu->save();
+        }
+        return back();
     }
 }

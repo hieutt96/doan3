@@ -12,6 +12,7 @@ class Leader extends Model
     public $sortable = ['lop', 'khoa', 'boMon', 'ctdt', 'idNVPhuTrach', 'tiengAnh'];
 
     protected $table = 'leaders';
+    protected $primaryKey = 'user_id';
 
     public function company()
     {
@@ -20,6 +21,11 @@ class Leader extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'id', 'id');
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
+
+    public function student()
+    {
+        return$this->hasMany('App\Student');
     }
 }

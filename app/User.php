@@ -33,12 +33,12 @@ class User extends Model
 
     public function student()
     {
-        return $this->hasOne('App\Student', 'id', 'id');
+        return $this->hasOne('App\Student', 'user_id', 'id');
     }
 
     public function leader()
     {
-        return $this->hasOne('App\Leader', 'id', 'id');
+        return $this->hasOne('App\Leader', 'user_id', 'id');
     }
 
 

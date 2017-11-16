@@ -99,7 +99,7 @@
                         <td>
                             <div class="checkbox-inline">
                                 <input name="rowsCheck[]" class="stuCheck" type="checkbox"
-                                       value="<?php echo e($stu->id); ?>">
+                                       value="<?php echo e($stu->user_id); ?>">
                             </div>
                         </td>
                         <th scope="row"><?php echo e($stu->MSSV); ?></th>

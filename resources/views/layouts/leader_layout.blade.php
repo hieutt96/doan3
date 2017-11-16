@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="top-navbar">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chào, ProjectManager's name <b
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chào, {{$leader->user->name}} <b
                                 class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Thông báo</a></li>
@@ -34,23 +34,19 @@
                 <li role="presentation"
                     @if($tab == 1 or $tab == 11 or $tab == 12 or $tab == 13)
                     class="active"
-                        @endif><a href="/pm/sv">Sinh Viên</a></li>
+                        @endif><a href="/leader/sv">Sinh Viên</a></li>
                 <li role="presentation"
-                    @if($tab == 2 or $tab == 21 or $tab == 22)
+                    @if($tab == 2)
                     class="active"
-                        @endif><a href="/pm/nv">Nhân Viên</a></li>
+                        @endif><a href="/leader/2">Thông báo</a></li>
                 <li role="presentation"
                     @if($tab == 3)
                     class="active"
-                        @endif><a href="/pm/3">Bài viết</a></li>
+                        @endif><a href="/leader/tao-cong-viec">Tạo Công Việc</a></li>
                 <li role="presentation"
                     @if($tab == 4)
                     class="active"
-                        @endif><a href="/pm/4">Thông báo</a></li>
-                <li role="presentation" @if($tab == 5)
-                class="active"
-                        @endif><a href="/pm/phan-cong-leader">Phân công Leader</a>
-                </li>
+                        @endif><a href="/leader/danh-gia-sv">Đánh Giá Sinh Viên</a></li>
 
             </ul>
         </div>

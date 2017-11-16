@@ -1,7 +1,8 @@
 <div class="row">
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="/<?php echo e($user_type); ?>/sv/<?php echo e($student->id); ?>/thong-tin">Thông tin chi tiết</a></li>
-        <li role="presentation"><a href="/<?php echo e($user_type); ?>/12">Công việc</a></li>
+        <li role="presentation" class="active"><a href="/<?php echo e($user_type); ?>/sv/<?php echo e($student->user_id); ?>/thong-tin">Thông tin
+                chi tiết</a></li>
+        <li role="presentation"><a href="/<?php echo e($user_type); ?>/sv/<?php echo e($student->user_id); ?>/cong-viec">Công việc</a></li>
         <li role="presentation"><a href="/<?php echo e($user_type); ?>/13">Kết quả đánh giá</a></li>
     </ul>
 </div>

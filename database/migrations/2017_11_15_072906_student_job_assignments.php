@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Leaders extends Migration
+class StudentJobAssignments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class Leaders extends Migration
      */
     public function up()
     {
-        Schema::create('leaders',function (Blueprint $table){
-            $table->integer('user_id');
-            $table->primary('user_id');
-            $table->integer('idCompany');
-            $table->string('soDienThoai');
-            $table->string('chuyenMon');
+        Schema::create('student_job_assignments',function(Blueprint $table){
+            $table->increments('id');
+            $table->integer('student_id');
+            $table->integer('job_id');
+            $table->boolean('trang_thai');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class Leaders extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leaders');
+        //
     }
 }

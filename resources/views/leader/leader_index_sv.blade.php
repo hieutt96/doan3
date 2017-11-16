@@ -1,9 +1,9 @@
-@extends('layouts.pm_layout')
+@extends('layouts.leader_layout')
 
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <form action="/pm/sv" method="GET" id="filterForm">
+            <form action="/leader/sv" method="GET" id="filterForm">
                 {{ csrf_field() }}
                 <div class="input-group">
                     <input type="text" class="form-control" name="search"
@@ -30,9 +30,9 @@
                 <select id="hocKy" name="semester" form="filterForm" class="form-control" onchange="this.form.submit()" required>
                     @foreach($semesters as $sem)
                         <option value="{{$sem}}"
-                            @if ($selectedSem == $sem)
-                            selected
-                            @endif
+                                @if ($selectedSem == $sem)
+                                selected
+                                @endif
                         >{{$sem}}</option>
                     @endforeach
                 </select>
@@ -62,9 +62,6 @@
                 </th>
                 <th scope="col">Số Điện Thoại</th>
                 <th scope="col">Email</th>
-                <th scope="col">@sortablelink('tenNVPhuTrach', 'Leader')
-                    <div class="glyphicon glyphicon-triangle-bottom"></div>
-                </th>
             </tr>
             </thead>
             <tbody>
@@ -74,12 +71,11 @@
                 <tr>
                     <th scope="row">{{$i + 1}}</th>
                     <td scope="row">{{$students[$i]->MSSV}}</td>
-                    <td><a href="/pm/sv/{{$students[$i]->user_id}}/thong-tin">{{$students[$i]->user->name}}</a></td>
+                    <td><a href="/leader/sv/{{$students[$i]->user_id}}/thong-tin">{{$students[$i]->user->name}}</a></td>
                     <td>{{$students[$i]->khoa}}</td>
                     <td>{{$students[$i]->ctdt}}</td>
                     <td>{{$students[$i]->sdt}}</td>
                     <td>{{$students[$i]->user->email}}</td>
-                    <td>{{$students[$i]->tenNVPhuTrach}}</td>
                 </tr>
             @endfor
             </tbody>

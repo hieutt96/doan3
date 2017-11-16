@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
             <form action="/pm/nv" method="GET" role="search">
                 {{ csrf_field() }}
                 <div class="input-group">
@@ -15,23 +15,11 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-4">
             <div class="btn-group" role="group" aria-label="...">
                 <button type="button" class="btn btn-default">PDF</button>
                 <button type="button" class="btn btn-default">CSV</button>
             </div>
-        </div>
-        <div class="col-md-3">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label class="control-label" for="hocKy">Học kỳ:</label>
-                    <select id="hocKy" class="form-control" required>
-                        <option value="0">20163</option>
-                        <option value="1">20171</option>
-                        <option value="2">20172</option>
-                    </select>
-                </div>
-            </form>
         </div>
 
         <div class="col-md-2">
@@ -66,48 +54,46 @@
             </thead>
             <tbody>
 
-            @foreach($leaders as $lead)
+            @for ($i = 0; $i < count($leaders); $i++)
                 <tr>
-                    <th scope="row">{{$lead->id}}</th>
-                    <td>{{$lead->user->name}}</td>
+                    <th scope="row">{{$leaders[$i]->user_id}}</th>
+                    <td><a href="/pm/nv/{{$leaders[$i]->user_id}}/thong-tin-chi-tiet">{{$leaders[$i]->user->name}}</a>
+                    </td>
                     <td>-</td>
                     <td>-</td>
-                    <td>{{$lead->user->email}}</td>
+                    <td>{{$leaders[$i]->user->email}}</td>
                     <td>-</td>
                     <td>
-                        <div class="btn-group" role="group" aria-label="...">
-                            <button type="button" class="btn btn-default"><a href="/pm/nv/{{$lead->id}}/thong-tin-chi-tiet">Chi tiết NV</a></button>
-                            <button data-target="#xoaNV" data-toggle="modal" type="button" class="btn btn-default">Xóa
-                                NV
-                            </button>
-                            {{--Modal--}}
-                            <div id="xoaNV" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title"><b>Xóa nhân viên</b></h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Bạn chắc chắn xóa nhân viên [Tên nhân viên] không?
-                                                Nếu xóa bạn sẽ không còn bất cứ thông tin nào liên quan
-                                                đến nhân viên này.</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" href="#">Xóa</button>
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">
-                                                Hủy bỏ
-                                            </button>
-                                        </div>
+                        <button data-target="#xoaNV" data-toggle="modal" type="button" class="btn btn-default">Xóa
+                            NV
+                        </button>
+                        {{--Modal--}}
+                        <div id="xoaNV" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title"><b>Xóa nhân viên</b></h4>
                                     </div>
-
+                                    <div class="modal-body">
+                                        <p>Bạn chắc chắn xóa nhân viên [Tên nhân viên] không?
+                                            Nếu xóa bạn sẽ không còn bất cứ thông tin nào liên quan
+                                            đến nhân viên này.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" href="#">Xóa</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            Hủy bỏ
+                                        </button>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </td>
                 </tr>
-            @endforeach
+            @endfor
             </tbody>
         </table>
         @if(count($leaders) == 0)

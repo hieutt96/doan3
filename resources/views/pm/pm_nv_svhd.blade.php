@@ -1,11 +1,11 @@
 @extends('layouts.pm_layout')
 
 @section('content')
-    @include('pm.pm_tabs', ['idLead' => $leader->id, 'tab' => 22])
+    @include('pm.pm_tabs', ['idLead' => $leader->user_id, 'tab' => 22])
     <div class="row" style="padding-top: 10px">
 
         <div class="col-md-6">
-            <form action="/pm/nv/{{$leader->id}}/sinh-vien-huong-dan" method="get" role="search">
+            <form action="/pm/nv/{{$leader->user_id}}/sinh-vien-huong-dan" method="get" role="search">
                 {{ csrf_field() }}
                 <div class="input-group">
                     <input type="text" class="form-control" name="name" placeholder="Tìm sinh viên theo tên">
@@ -42,6 +42,7 @@
         <table class="table">
             <thead>
             <tr>
+                <th scope="col">STT</th>
                 <th scope="col">MSSV</th>
                 <th scope="col">@if($isSearch)
                         Họ Tên
@@ -60,17 +61,18 @@
             </thead>
             <tbody>
 
-            @foreach ($manaStus as $stu)
+            @for ( $i = 0; $i < count($manaStus); $i++)
                 <tr>
-                    <th scope="row">{{$stu->MSSV}}</th>
-                    <td>{{$stu->user->name}}</td>
-                    <td>{{$stu->sdt}}</td>
-                    <td>{{$stu->user->email}}</td>
-                    <td>{{$stu->tiengAnh}}</td>
-                    <td>{{$stu->kTLTThanhThao}}</td>
+                    <th scope="row">{{$i + 1}}</th>
+                    <td>{{$manaStus[$i]->MSSV}}</td>
+                    <td>{{$manaStus[$i]->user->name}}</td>
+                    <td>{{$manaStus[$i]->sdt}}</td>
+                    <td>{{$manaStus[$i]->user->email}}</td>
+                    <td>{{$manaStus[$i]->tiengAnh}}</td>
+                    <td>{{$manaStus[$i]->kTLTThanhThao}}</td>
                     <td>-</td>
                 </tr>
-            @endforeach
+            @endfor
             </tbody>
         </table>
 

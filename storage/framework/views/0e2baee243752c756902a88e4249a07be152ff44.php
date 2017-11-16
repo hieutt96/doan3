@@ -1,12 +1,12 @@
 <?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-md-6">
-            <form action="/pm/sv" method="GET" role="search">
+            <form action="/pm/sv" method="GET" id="filterForm">
                 <?php echo e(csrf_field()); ?>
 
                 <div class="input-group">
-                    <input type="text" class="form-control" name="name"
-                           placeholder="Tìm theo tên"> <span class="input-group-btn">
+                    <input type="text" class="form-control" name="search"
+                           placeholder="Tìm sinh viên theo tên hoặc MSSV"> <span class="input-group-btn">
                     <button type="submit" class="btn btn-default">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
@@ -24,22 +24,26 @@
         <div class="col-md-1">
         </div>
         <div class="col-md-3">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label class="control-label" for="hocKy">Học kỳ:</label>
-                    <select id="hocKy" class="form-control" required>
-                        <option value="0">20163</option>
-                        <option value="1">20171</option>
-                        <option value="2">20172</option>
-                    </select>
-                </div>
-            </form>
+            <fieldset class="form-inline" form="filterForm">
+                <label class="control-label" for="hocKy">Học kỳ:</label>
+                <select id="hocKy" name="semester" form="filterForm" class="form-control" onchange="this.form.submit()" required>
+                    <?php $__currentLoopData = $semesters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($sem); ?>"
+                            <?php if($selectedSem == $sem): ?>
+                            selected
+                            <?php endif; ?>
+                        ><?php echo e($sem); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </select>
+            </fieldset>
+
         </div>
     </div>
     <div class="row">
         <table class="table table-striped">
             <thead>
             <tr>
+                <th scope="col">STT</th>
                 <th scope="col">MSSV</th>
                 <th scope="col">
                     <?php if($isSearch): ?>
@@ -49,13 +53,7 @@
                         <div class="glyphicon glyphicon-triangle-bottom"></div>
                     <?php endif; ?>
                 </th>
-                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('lop', 'Lớp'));?>
-                    <div class="glyphicon glyphicon-triangle-bottom"></div>
-                </th>
                 <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('khoa', 'Khóa'));?>
-                    <div class="glyphicon glyphicon-triangle-bottom"></div>
-                </th>
-                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('boMon', 'Bộ Môn'));?>
                     <div class="glyphicon glyphicon-triangle-bottom"></div>
                 </th>
                 <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('ctdt', 'CTDT'));?>
@@ -63,40 +61,26 @@
                 </th>
                 <th scope="col">Số Điện Thoại</th>
                 <th scope="col">Email</th>
-                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('idNVPhuTrach', 'Leader'));?>
+                <th scope="col"><?php echo \Kyslik\ColumnSortable\SortableLink::render(array ('tenNVPhuTrach', 'Leader'));?>
                     <div class="glyphicon glyphicon-triangle-bottom"></div>
                 </th>
-                <th scope="col">Thao tác</th>
             </tr>
             </thead>
             <tbody>
 
 
-            <?php $__currentLoopData = $students; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php for($i = 0; $i < count($students); $i++): ?>
                 <tr>
-                    <th scope="row"><?php echo e($stu->id); ?></th>
-                    <td><?php echo e($stu->user->name); ?></td>
-                    <td><?php echo e($stu->lop); ?></td>
-                    <td><?php echo e($stu->khoa); ?></td>
-                    <td><?php echo e($stu->boMon); ?></td>
-                    <td><?php echo e($stu->ctdt); ?></td>
-                    <td><?php echo e($stu->sdt); ?></td>
-                    <td><?php echo e($stu->user->email); ?></td>
-                    <td><?php echo e($stu->idNVPhuTrach); ?></td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="glyphicon glyphicon-cog dropdown-toggle" type="button" id="tuyChon"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="tuyChon">
-                                <li><a href="/pm/sv/<?php echo e($stu->id); ?>/thong-tin">Chi tiết</a></li>
-                                <li><a href="#">Phân công Leader</a></li>
-                            </ul>
-                        </div>
-                    </td>
+                    <th scope="row"><?php echo e($i + 1); ?></th>
+                    <td scope="row"><?php echo e($students[$i]->MSSV); ?></td>
+                    <td><a href="/pm/sv/<?php echo e($students[$i]->user_id); ?>/thong-tin"><?php echo e($students[$i]->user->name); ?></a></td>
+                    <td><?php echo e($students[$i]->khoa); ?></td>
+                    <td><?php echo e($students[$i]->ctdt); ?></td>
+                    <td><?php echo e($students[$i]->sdt); ?></td>
+                    <td><?php echo e($students[$i]->user->email); ?></td>
+                    <td><?php echo e($students[$i]->tenNVPhuTrach); ?></td>
                 </tr>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endfor; ?>
             </tbody>
         </table>
         <?php if(count($students) == 0): ?>

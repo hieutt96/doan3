@@ -29,7 +29,7 @@
 
     <div class="row">
         <div class="col-md-2">
-            <ul class="nav nav-pills nav-stacked">
+            <ul class="nav nav-pills nav-stacked" style="background-color: #e7e7e7">
                 <li role="presentation"><h3>Dash Board</h3></li>
                 <li role="presentation"
                     <?php if($tab == 1 or $tab == 11 or $tab == 12 or $tab == 13): ?>
@@ -47,28 +47,9 @@
                     <?php if($tab == 4): ?>
                     class="active"
                         <?php endif; ?>><a href="/pm/4">Thông báo</a></li>
-                <li data-toggle="collapse" role="presentation" href="#danhGia">
-                    <a class="nav-sub-container">
-                        Phân công
-                        <span class="caret arrow"></span>
-                        <div class="caret-container"></div>
-                    </a>
-                </li>
-                <li role="presentation">
-                <ul class="nav nav-pills nav-stacked collapse
-                    <?php if($tab == 51 or $tab == 52): ?>
-                            in
-                       <?php endif; ?>
-                            " id="danhGia">
-                        <li role="presentation"
-                            <?php if($tab == 51): ?>
-                            class="active"
-                                <?php endif; ?>><a href="/pm/da-phan-cong">Đã phân công</a></li>
-                        <li role="presentation"
-                            <?php if($tab == 52): ?>
-                            class="active"
-                                <?php endif; ?>><a href="/pm/chua-phan-cong">Chưa phân công</a></li>
-                    </ul>
+                <li role="presentation" <?php if($tab == 5): ?>
+                class="active"
+                        <?php endif; ?>><a href="/pm/phan-cong-leader">Phân công Leader</a>
                 </li>
 
             </ul>

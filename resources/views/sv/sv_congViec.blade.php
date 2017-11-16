@@ -1,7 +1,8 @@
 <div class="row">
     <ul class="nav nav-tabs">
-{{--        <li role="presentation" class="active"><a href="/{{$user_type}}/sv/info/{{$student->id}}">Thông tin chi tiết</a></li>--}}
-        <li role="presentation" class="active"><a href="/{{$user_type}}/12">Công việc</a></li>
+        <li role="presentation"><a href="/{{$user_type}}/sv/{{$student->user_id}}/thong-tin">Thông tin chi tiết</a></li>
+        <li role="presentation" class="active"><a href="/{{$user_type}}/sv/{{$student->user_id}}/cong-viec">Công
+                việc</a></li>
         <li role="presentation"><a href="/{{$user_type}}/13">Kết quả đánh giá</a></li>
     </ul>
 </div>
@@ -31,10 +32,10 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Mã</th>
+            <th scope="col">STT</th>
             <th scope="col">Trạng thái</th>
             <th scope="col">Công việc</th>
-            <th scope="col">Thời gian ước lượng</th>
+            <th scope="col">Nội Dung</th>
             <th scope="col">Ngày tạo</th>
             <th scope="col">Ngày bắt đầu</th>
             <th scope="col">Ngày kết thúc</th>
@@ -43,15 +44,21 @@
         </thead>
         <tbody>
 
-        @for ($i = 0; $i < 10; $i++)
+        @for ($i = 0; $i < count($jobs); $i++)
             <tr>
-                <th scope="row">{{$i}}</th>
-                <td>Mới</td>
-                <td>Làm giao diện</td>
-                <td>2</td>
-                <td>10/8/2017</td>
-                <td>12/08/2017</td>
-                <td>-</td>
+                <th scope="row">{{$i + 1}}</th>
+                <td>@if($jobs[$i]->trang_thai == 1)
+                        Mới
+                    @else
+                        Hoàn Thành
+                    @endif
+                </td>
+                <td>{{$jobs[$i]->job->ten}}</td>
+                <td>{{$jobs[$i]->job->noiDung}}</td>
+                @php($creDate = new DateTime($jobs[$i]->created_at))
+                <td>{{$creDate->format('d-m-Y')}}</td>
+                <td>{{$jobs[$i]->job->tgBatDau}}</td>
+                <td>{{$jobs[$i]->job->tgKetThuc}}</td>
                 <td>-</td>
             </tr>
         @endfor
@@ -62,38 +69,10 @@
 
 <div class="row">
     <div class="col-md-4"></div>
-    <div class="col-md-5" style="padding-left: 150px">
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
+    <div class="col-md-5">
+        {!! $jobs->appends(\Request::except('page'))->render() !!}
     </div>
     <div class="col-md-3">
-        <form class="form-inline" style="padding-top: 20px">
-            <div class="form-group">
-                <label class="control-label col-sm-7" for="numEntity">Sô công việc hiển thị:</label>
-                <div class="col-sm-5">
-                    <select class="form-control" id="numEntity">
-                        <option>10</option>
-                        <option>30</option>
-                        <option>50</option>
-                        <option>100</option>
-                    </select>
-                </div>
-            </div>
-        </form>
     </div>
+</div>
 </div>

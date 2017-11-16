@@ -14,8 +14,8 @@ class Students extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->integer('id');
-            $table->primary('id');
+            $table->integer('user_id');
+            $table->primary('user_id');
             $table->string('MSSV');
             $table->string('lop');
             $table->string('khoa');
@@ -32,7 +32,7 @@ class Students extends Migration
             $table->string('kTLTThanhThao')->nullable();
             $table->string('kyNangKhac')->nullable();
             $table->string('nenTangMongMuonTT');
-            $table->string('idNVPhuTrach')->nullable();
+            $table->string('tenNVPhuTrach')->nullable();
             $table->string('idGVPhuTrach')->nullable();
             $table->string('idCongTyTT')->nullable();
 
