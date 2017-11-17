@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\PM;
 
 use App\Http\Controllers\Controller;
+use App\Result;
 use App\Student_Job_Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -85,7 +86,7 @@ class PMController extends Controller
     public function showSVInfo($idSV)
     {
         $student = Student::find($idSV);
-        return view('pm.pm_sv_thongTin', ['tab' => 11, 'student' => $student]);
+        return view('sv.sv_thongTin', ['tab' => 11, 'student' => $student, 'userType' => 'pm']);
     }
 
     public function showSVCongViec($idSV)
@@ -94,7 +95,16 @@ class PMController extends Controller
         $jobs = Student_Job_Assignment::where('student_id', '=', $idSV)
             ->sortable()->simplePaginate(10);
 
-        return view('pm.pm_sv_congViec', ['jobs' => $jobs, 'tab' => 12, 'student' => $student]);
+        return view('sv.sv_congViec', ['jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'pm']);
+    }
+
+    public function showSVKetQua($idSV)
+    {
+        $student = Student::find($idSV);
+        $result = Result::find($idSV);
+
+
+        return view('sv.sv_ketQua', ['result' => $result, 'tab' => 13, 'student' => $student, 'userType' => 'pm']);
     }
 
     public function indexNV(Request $request)
@@ -137,7 +147,7 @@ class PMController extends Controller
             $search = $request->input('search');
             $manaStus = Student::join('users', 'students.user_id', '=', 'users.id')
                 ->where([['users.name', 'like', '%' . $search . '%'],
-                    ['students.tenNVPhuTrach', '=',  $leader->user->name]])
+                    ['students.tenNVPhuTrach', '=', $leader->user->name]])
                 ->sortable()->simplePaginate(10);
             $isSearch = true;
         } else {

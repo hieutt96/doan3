@@ -10,12 +10,14 @@ namespace App\Http\Controllers\Leader;
 
 use App\Http\Controllers\Controller;
 use App\Job;
+use App\Result;
 use App\Student_Job_Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Student;
 use App\User;
 use App\Leader;
+use function Sodium\add;
 
 class LeaderController extends Controller
 {
@@ -60,6 +62,30 @@ class LeaderController extends Controller
             $isSearch = false;
         }
         return view('leader.leader_index_sv', ['leader' => $leader, 'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
+    }
+
+    public function showSVInfo($idSV)
+    {
+        $student = Student::find($idSV);
+        return view('sv.sv_thongTin', ['tab' => 11, 'student' => $student, 'userType' => 'leader']);
+    }
+
+    public function showSVCongViec($idSV)
+    {
+        $student = Student::find($idSV);
+        $jobs = Student_Job_Assignment::where('student_id', '=', $idSV)
+            ->sortable()->simplePaginate(10);
+
+        return view('sv.sv_congViec', ['jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'leader']);
+    }
+
+    public function showSVKetQua($idSV)
+    {
+        $student = Student::find($idSV);
+        $result = Result::find($idSV);
+
+
+        return view('sv.sv_ketQua', ['result' => $result, 'tab' => 13, 'student' => $student, 'userType' => 'leader']);
     }
 
     public function getTaoCV(Request $request)
@@ -126,22 +152,74 @@ class LeaderController extends Controller
         }
         return back();
     }
-//
-//    public function daPhanCong(Request $request)
-//    {
-//        $leaders = User::where('level', '=', 2)->get();
-//        if (sizeof($request->input('name'))) {
-//            $search = $request->input('name');
-//            $students = Student::join('users', 'students.user_id', '=', 'users.id')
-//                ->where([['idNVPhuTrach', '<>', NULL], ['users.name', 'like', '%' . $search . '%']])
-//                ->sortable()->simplePaginate(10);
-//            $isSearch = true;
-//
-//        } else {
-//            $students = Student::where('idNVPhuTrach', '<>', NULL)->sortable()->simplePaginate(10);
-//            $isSearch = false;
-//
-//        }
-//        return view('pm.pm_index_daPhanCong', ['isSearch' => $isSearch, 'leaders' => $leaders, 'students' => $students, 'tab' => 51]);
-//    }
+
+    public function getDanhGia(Request $request)
+    {
+        $idSemester = 20171;
+        $idLeader = 215;
+        $leader = Leader::find($idLeader);
+        if (sizeof($request->input('search'))) {
+            $search = $request->input('search');
+            $students = Student::join('users', 'students.user_id', '=', 'users.id')
+                ->join('interships', 'students.user_id', '=', 'interships.student_id')
+                ->where([['users.name', 'like', '%' . $search . '%']
+                    , ['students.tenNVPhuTrach', '=', $leader->user->name]
+                    , ['interships.semester_id', '=', $idSemester]])
+                ->sortable()->simplePaginate(10);
+            if (count($students) == 0) {
+                $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
+                    ->where([['students.MSSV', 'like', '%' . $search . '%']
+                        , ['students.tenNVPhuTrach', '=', $leader->user->name]
+                        , ['interships.semester_id', '=', $idSemester]])
+                    ->sortable()->simplePaginate(10);
+            }
+            $isSearch = true;
+        } else {
+            $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
+                ->where([['students.tenNVPhuTrach', '=', $leader->user->name]
+                    , ['interships.semester_id', '=', $idSemester]])
+                ->sortable()->simplePaginate(10);
+            $isSearch = false;
+        }
+
+        $totalJobs = array();
+        $outDateJobs = [];
+
+        for ($i = 0; $i < count($students); $i++)
+        {
+            $totalJobs[] = count($students[$i]->job);
+            $outDateJobs[] = count(Student_Job_Assignment::where([['student_id', '=', $students[$i]->user_id]
+                                                                , ['trang_thai', '=', 2]])->get());
+        }
+
+        return view('leader.leader_danhGia', ['outDateJobs' => $outDateJobs, 'totalJobs' => $totalJobs , 'isSearch' => $isSearch, 'students' => $students, 'tab' => 4]);
+    }
+
+    public function postDanhGia(Request $request)
+    {
+
+        if(count($request->input('rowsCheck')) > 0)
+        {
+            $stuIDs = $request->input('rowsCheck');
+            foreach ($stuIDs as $stuID)
+            {
+                $result = Result::find($stuID);
+                if(count($result) == 0)
+                {
+                    $result = new Result();
+                    $result->student_id = $stuID;
+                }
+                $result->nangLucIT = $request->input('nangLucIT');
+                $result->ppLamViec = $request->input('ppLamViec');
+                $result->nangLucNamBatCV = $request->input('nangLucNamBatCV');
+                $result->nangLucQuanLi = $request->input('nangLucQuanLi');
+                $result->tiengAnh = $request->input('tiengAnh');
+                $result->nangLucLamViecNhom = $request->input('nangLucLamViecNhom');
+                $result->danhGiaCongTy = $request->input('danhGiaCongTy');
+                $result->nhanXetCongTy = $request->input('nhanXetCongTy');
+                $result->save();
+            }
+        }
+        return back();
+    }
 }

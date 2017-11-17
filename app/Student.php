@@ -11,7 +11,7 @@ class Student extends Model
 
     public $sortable = ['lop', 'khoa', 'boMon', 'ctdt', 'tenNVPhuTrach', 'tiengAnh'];
 
-    protected $table = 'students';
+//    protected $table = 'students';
     protected $primaryKey = 'user_id';
 
     public function user()
@@ -31,6 +31,11 @@ class Student extends Model
 
     public function job()
     {
-        return $this->hasMany('App\Student_Job_Assignment');
+        return $this->hasMany('App\Student_Job_Assignment', 'student_id');
+    }
+
+    public function result()
+    {
+        return $this->hasOne('App\Result');
     }
 }

@@ -42,6 +42,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th scope="col">STT</th>
                     <th scope="col">
                         <div class="checkbox-inline" style="padding-bottom: 10px">
                             <label><input id="checkAll" type="checkbox" value="0"></label>
@@ -83,22 +84,23 @@
                 </thead>
                 <tbody>
 
-                <?php $__currentLoopData = $students; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php for($i = 0; $i < count($students); $i++): ?>
                     <tr>
+                        <th scope="row"><?php echo e($i + 1); ?></th>
                         <td>
                             <div class="checkbox-inline">
                                 <input name="rowsCheck[]" class="stuCheck" type="checkbox"
-                                       value="<?php echo e($stu->user_id); ?>">
+                                       value="<?php echo e($students[$i]->user_id); ?>">
                             </div>
                         </td>
-                        <th scope="row"><?php echo e($stu->MSSV); ?></th>
-                        <td><?php echo e($stu->user->name); ?></td>
-                        <td><?php echo e($stu->tiengAnh); ?></td>
-                        <td><?php echo e($stu->kTLTThanhThao); ?></td>
-                        <td><?php echo e($stu->nenTangMongMonTT); ?></td>
-                        <td><?php echo e($stu->tenNVPhuTrach); ?></td>
+                        <td><?php echo e($students[$i]->MSSV); ?></td>
+                        <td><?php echo e($students[$i]->user->name); ?></td>
+                        <td><?php echo e($students[$i]->tiengAnh); ?></td>
+                        <td><?php echo e($students[$i]->kTLTThanhThao); ?></td>
+                        <td><?php echo e($students[$i]->nenTangMongMonTT); ?></td>
+                        <td><?php echo e($students[$i]->tenNVPhuTrach); ?></td>
                     </tr>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endfor; ?>
                 </tbody>
             </table>
         </form>

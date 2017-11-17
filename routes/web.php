@@ -42,7 +42,7 @@ Route::get('gvhd/{roll_id}', 'GVHD\GVHDController@index_dat');
 Route::get('/pm/sv', 'PM\PMController@indexSV');
 Route::get('/pm/sv/{idSV}/thong-tin', 'PM\PMController@showSVInfo');
 Route::get('/pm/sv/{idSV}/cong-viec', 'PM\PMController@showSVCongViec');
-
+Route::get('/pm/sv/{idSV}/ket-qua', 'PM\PMController@showSVKetQua');
 
 Route::get('/pm/nv', 'PM\PMController@indexNV');
 Route::get('/pm/nv/{idLead}/thong-tin-chi-tiet', 'PM\PMController@nvChiTiet');
@@ -54,7 +54,13 @@ Route::post('/pm/phan-cong', 'PM\PMController@postPhanCong');
 
 // =========Route Leader
 Route::get('/leader/sv', 'Leader\LeaderController@indexSV');
+Route::get('/leader/sv/{idSV}/thong-tin', 'Leader\LeaderController@showSVInfo');
+Route::get('/leader/sv/{idSV}/cong-viec', 'Leader\LeaderController@showSVCongViec');
+Route::get('/leader/sv/{idSV}/ket-qua', 'Leader\LeaderController@showSVKetQua');
+
 Route::get('/leader/tao-cong-viec', 'Leader\LeaderController@getTaoCV');
 Route::post('/leader/tao-cv', 'Leader\LeaderController@postTaoCV');
+Route::get('/leader/danh-gia-sv', 'Leader\LeaderController@getDanhGia');
+Route::post('/leader/danh-gia', 'Leader\LeaderController@postDanhGia');
 
 Route::get('pm/{roll_id}', 'PM\PMController@index_dat');

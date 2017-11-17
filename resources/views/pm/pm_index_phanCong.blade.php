@@ -42,6 +42,7 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th scope="col">STT</th>
                     <th scope="col">
                         <div class="checkbox-inline" style="padding-bottom: 10px">
                             <label><input id="checkAll" type="checkbox" value="0"></label>
@@ -83,22 +84,23 @@
                 </thead>
                 <tbody>
 
-                @foreach ($students as $stu)
+                @for ($i = 0; $i < count($students); $i++)
                     <tr>
+                        <th scope="row">{{$i + 1}}</th>
                         <td>
                             <div class="checkbox-inline">
                                 <input name="rowsCheck[]" class="stuCheck" type="checkbox"
-                                       value="{{$stu->user_id}}">
+                                       value="{{$students[$i]->user_id}}">
                             </div>
                         </td>
-                        <th scope="row">{{$stu->MSSV}}</th>
-                        <td>{{$stu->user->name}}</td>
-                        <td>{{$stu->tiengAnh}}</td>
-                        <td>{{$stu->kTLTThanhThao}}</td>
-                        <td>{{$stu->nenTangMongMonTT}}</td>
-                        <td>{{$stu->tenNVPhuTrach}}</td>
+                        <td>{{$students[$i]->MSSV}}</td>
+                        <td>{{$students[$i]->user->name}}</td>
+                        <td>{{$students[$i]->tiengAnh}}</td>
+                        <td>{{$students[$i]->kTLTThanhThao}}</td>
+                        <td>{{$students[$i]->nenTangMongMonTT}}</td>
+                        <td>{{$students[$i]->tenNVPhuTrach}}</td>
                     </tr>
-                @endforeach
+                @endfor
                 </tbody>
             </table>
         </form>
