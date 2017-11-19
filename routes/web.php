@@ -44,7 +44,7 @@ Route::group(['prefix'=>'student'],function(){
     Route::post('change-password','StudentController@postChangePassword');
 
     Route::get('student-info','StudentController@getStudentInfo');
-    Route::post('student-info','StudentController@postStudentInfo');
+
     Route::get('update-student-info','StudentController@getUpdateStudentInfo');
     Route::post('update-student-info','StudentController@postUpdateStudentInfo');
 
@@ -54,3 +54,7 @@ Route::group(['prefix'=>'comment'],function(){
     Route::get('xoa/{id}/{idTinTuc}','CommentController@getXoa');
 });
 //---------------End Students-Nhất-------------------------//
+
+//Hợp tác doanh nghiệp
+Route::get('hop-tac-doanh-nghiep','StudentController@hopTacDoanhNghiep');
+Route::get('hop-tac-doanh-nghiep/{id}/{tendoanhnghiep}','StudentController@chiTietDoanhNghiep');

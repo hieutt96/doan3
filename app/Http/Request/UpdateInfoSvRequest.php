@@ -11,8 +11,8 @@ use Illuminate\Foundation\Http\FormRequest;
  	public function rules(){
  		return [
              'name'=>'required|min:5|max:30',
+             'mssv'=>'required',
              'lop'=>'required',
-             'khoa'=>'required',
              'ctdt'=>'required',
              'bomon'=>'required',
              'laptop'=>'required',
@@ -27,22 +27,24 @@ use Illuminate\Foundation\Http\FormRequest;
  	}
  	public function messages(){
  		return [
-        'name.required'=>'Bạn chưa nhập Họ Tên',
+            'name.required'=>'Bạn chưa nhập Họ Tên',
  		'name.min'=>'Họ tên phải có số ký tự từ 5->30',
- 		'name.max'=>'Họ tên phải có số ký tự từ 5->30',
- 		'khoa.required'=>'Bạn chưa nhập tên Khoa',
+            'name.max'=>'Họ tên phải có số ký tự từ 5->30',
+            'mssv.required'=>'Bạn chưa nhập MSSV',
+            'mssv.unique'=>'MSSV đã tồn tại',
+ 		'lop.required'=>'Bạn chưa nhập tên Lớp',
  		'ctdt.required'=>'Bạn chưa nhập tên Chương trình đào tạo',
  		'bomon.required'=>'Bạn chưa nhập tên Bộ môn',
  		'laptop.required'=>'Bạn chưa chọn có hay không có laptop',
  		'phone.required'=>'Bạn chưa nhập điện thoại',
  		'phone.min'=>'Số điện thoại phải có từ 10->12 số',
-        'phone.max'=>'Số điện thoại phải có từ 10->12 số',
-        'cpa.required'=>'Bạn chưa nhập CPA',
-        'english.required'=>'Bạn chưa nhập kỹ năng tiếng anh',
-        'ep1.required'=>'Bạn cần điền vào ô này',
-        'ep2.required'=>'Bạn chưa điền vào ô này',
-        'ep3.required'=>'Bạn chưa điền vào ô này',
-        'ep4.required'=>'Bạn chưa điền vào ô này'
+            'phone.max'=>'Số điện thoại phải có từ 10->12 số',
+            'cpa.required'=>'Bạn chưa nhập CPA',
+            'english.required'=>'Bạn chưa nhập kỹ năng tiếng anh',
+            'ep1.required'=>'Bạn cần điền vào ô này',
+            'ep2.required'=>'Bạn chưa điền vào ô này',
+            'ep3.required'=>'Bạn chưa điền vào ô này',
+            'ep4.required'=>'Bạn chưa điền vào ô này'
  			
  		];
  	}

@@ -27,10 +27,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     public function student(){
-        return $this->hasOne('App\Student');
+        return $this->hasOne('App\Student','user_id','id');
     }
 
     public function company(){
         return $this->belongTo('App\Company');
+    }
+    public function comment(){
+        return $this->hasMany('App\Comment','user_id','id');
     }
 }

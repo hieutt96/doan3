@@ -12,7 +12,8 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+		$this->middleware('guest')->except('logout');
+		view()->share('student',Auth::user());
     }
     public function getLogin(){
     	return view('auth.login');
@@ -23,9 +24,8 @@ class LoginController extends Controller
     		'password'=> $request->password,
             'status' => 1
 		];
-		dd($user);
+		//dd($user);
     	if(Auth::attempt($user)){
-			
     		if(Auth::user()->level == 1){
     			return redirect('/');
     		}elseif(Auth::user()->level == 2){
@@ -35,12 +35,13 @@ class LoginController extends Controller
     		}elseif(Auth::user()->level == 4){
     			return redirect('/');
     		}elseif(Auth::user()->level ==5){
-    			return redirect('student.student_Info');
+    			return redirect('/');
     		}else{
     			return redirect('/');
     		}
 		}
 		else {
+		
 			return redirect('dang-nhap')->with('invalid','Sai thông tin đăng nhập');
 		}
 			

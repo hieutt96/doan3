@@ -5,11 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Home</title>
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <base href="{!!asset('')!!}">
         <!-- Custom Fonts -->
-       <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      
+       <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,‌​100italic,300,300ita‌​lic,400italic,500,50‌​0italic,700,700itali‌​c,900italic,900' rel='stylesheet' type='text/css'>
         <style>
             .flex-center {
                 align-items: center;
@@ -23,11 +25,16 @@
                 -moz-box-shadow: 0 0 10px rgba(0,0,0,0.6);
                 -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
                 -o-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+                font-family: 'Roboto',sans-serif;
             }
             .name-school{
                 height:150px;
                 text-align: center;
                 padding-top:15px;
+            }
+            .dropdown-menu:hover >li {
+                
+
             }
             .position-ref {
                 position: relative;
@@ -51,7 +58,7 @@
             .links > a,b {
                 color: black;
                 padding: 0 25px;
-                font-size: 12px;
+                font-size: 15px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
@@ -113,11 +120,14 @@
                         @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                 <span style="margin-right:5px;" class="glyphicon glyphicon-user"></span>{{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
+                                <li><a tabindex="-1" href="{{ url('student/change-password') }}">Đổi mật khẩu</a><li/>
+                                <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a><li/>
+                                <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a><li/>
+                                <li class="divider"></li>
                                 <li>
-                                    <a href="">MyProfile</a>
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
@@ -127,6 +137,7 @@
                                         {{ csrf_field() }}
                                     </form>
                                 </li>
+                            
                             </ul>
                         </li>
                          @endif
@@ -137,14 +148,26 @@
                     <div class="container-fluid">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Trang Chủ </a></li>
-                        <li><a href="#">Hợp tác doanh nghiệp</a></li>
-                        <li><a href="#">Sinh viên </a></li>
+                        <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
+                        <li><a href="#">Công việc thực tập </a></li>
                         <li><a href="#">Thông báo</a></li>
                         <li><a href="#">Giới thiệu</a></li>
                     </ul>
                     </div>
                 </nav>
             </div>
+           
         @yield('welcome')
     </body>
+    <footer>
+     <div>
+            <div class="row" style="background: #263c65; color:white;">
+                    <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
+                        <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</b><br>
+                        <b >Trường Đại Học Bách Khoa Hà Nội</b><br>
+                        <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lí</p>
+                    </div>
+                </div>
+            </div>
+    </footer>
 </html>

@@ -12,19 +12,38 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <base href="{!!asset('')!!}">
         <style>
            .container-panel {
-                border: 1px solid #eeeeee;
+                border: solid 1px #555;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0,0,0,0.6);
+                -moz-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+                -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+                -o-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+                font-family: 'Roboto',sans-serif;
             }
             .row-heading{
                 background-color:#263c65;
-                margin-top: 5px;
                 color:#ffffff;
             }
             form{
                 padding-top:10px;
                 border: 1px solid #dddddd;
                 border-radius: 3px;
+            }
+             .anh-hust{
+                height: 140px;
+                margin:10px 0 0 77px;
+            }
+            .anh-soict{
+                height: 150px;
+                margin:5px 0 5px 0;
+            }
+             .name-school{
+                height:150px;
+                text-align: center;
+                padding-top:15px;
             }
             .form-info{
                 margin-bottom:20px;
@@ -69,15 +88,15 @@
 <body>
 	<div class="container container-panel" style="margin-bottom: 100px;">		
             <div class="row row-heading" >
-                <div class="col-sm-2">
-                    <img src="{{asset('image/background/soict.png')}}" style="height: 150px;"  >
+                <div class="col-sm-2" style="height: 160px;">
+                    <img class="anh-soict" src="{{asset('image/background/soict.png')}}" />
                 </div>
-                <div class="col-sm-7 col-lg-offset-1" style="height:150px; ">
+                <div class="col-sm-8 name-school">
                     <h2 style="color: white" >Trường Đại Học Bách Khoa Hà Nội</h2>
                     <h3 style="color: white"> Viện Công Nghệ Thông Tin Và Truyền Thông</h3>
                 </div>
-                <div class="col-lg-offset-1 col-lg-1 ">
-                    <img src="{{asset('image/background/hust.jpg')}}" style="height: 150px;" />
+                <div class="col-sm-2">
+                    <img class="anh-hust" src="{{asset('image/background/hust.jpg')}}" />
                 </div>
             </div>
 
@@ -101,7 +120,7 @@
                                             <div class="col-lg-4 col-lg-offset-2">
                                                 <a href="{{route('dang-ky-sv')}}">
                                                     <img src="{{asset('/image/background/sv.png')}}" style="height: 80px;"></a>
-                                                <p>Sinh viên</p>
+                                                <p>Công viện thực tập</p>
                                             </div>
                                             <div class="col-lg-4 col-lg-offset-1">
                                                         <a href="{{route('dang-ky-dn')}}">
@@ -119,12 +138,13 @@
                         @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <span class="glyphicon glyphicon-user"></span>{{ Auth::user()->name }} 
+                                <span style="margin-right:5px;" class="glyphicon glyphicon-user"></span>{{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="route{{'student.change-password'}}">Đổi mật khẩu</a><li/>
-                                <li><a href="route{{'student.student-info'}}">Thông tin cá nhân</a><li/>
-                                <li><a href="route{{'update-student-info'}}">Cập nhật thông tin cá nhân</a><li/>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                <li><a tabindex="-1" href="{{ url('student/change-password') }}">Đổi mật khẩu</a><li/>
+                                <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a><li/>
+                                <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a><li/>
+                                <li class="divider"></li>
                                 <li>
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();
@@ -140,7 +160,19 @@
                          @endif
                 </ul>
             </div>
-            <hr style="border-color: red;">
+             <div class="row">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Trang Chủ </a></li>
+                        <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
+                        <li><a href="#">Công việc thực tập </a></li>
+                        <li><a href="#">Thông báo</a></li>
+                        <li><a href="#">Giới thiệu</a></li>
+                    </ul>
+                    </div>
+                </nav>
+            </div>
             <div class="content">
             @yield('content')
             </div>
@@ -149,7 +181,7 @@
                     <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
                         <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</b><br>
                         <b >Trường Đại Học Bách Khoa Hà Nội</b><br>
-                        <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lí</p>
+                        <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
                     </div>
                 </div>
             </div>
