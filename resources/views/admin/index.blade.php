@@ -20,11 +20,11 @@
         </ul>
     </div><br><br>
     <div class="row col-lg-12 tab-content" style="margin-bottom: 10px;" id="hienthi">
-       <div class="tab-pane fade in active hienthi1" id="tabs1" >
+       <div class="tab-pane fade in active hienthi1" id="tabs1">
             <br>
        </div>
        <div class="tab-pane fade hienthi2" id="tabs2">
-           
+           <br>
        </div>
     </div>
 @endsection

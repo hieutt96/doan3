@@ -12,21 +12,24 @@ use App\User;
 use App\Student;
 use App\Company;
 use App\Leader;
+use App\Semester;
 class RegisterController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest')->except('logout');
+    // }
 
     public function getRegisterSV()
-    {
-    	return view('guest.registersv');
+    {   
+        $hockys = Semester::select('ten_hoc_ki')->distinct('ten_hoc_ki')->get();
+    	return view('guest.registersv')->with('hockys',$hockys);
     }
 
     public function getRegisterDN()
     {
-    	return view('guest.registerdn');
+        $hockys = Semester::select('ten_hoc_ki')->distinct('ten_hoc_ki')->get();
+    	return view('guest.registerdn')->with('hockys',$hockys);
     }
     public function postRegisterSV(RegisterSVRequest $request)
     {
@@ -79,6 +82,7 @@ class RegisterController extends Controller
         $company->name = $request->tencongty;
         $company->diaChi = $request->diachi;
         $company->soLuongNV = $request->sonhanvien;
+        $company->hocky = $request->hocky;
         $company->moTa = $request->mota;
         $company->namthanhlap = $request->namthanhlap;
         $company->phone = $request->sodienthoai;

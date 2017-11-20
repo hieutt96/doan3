@@ -9,10 +9,10 @@
 				<a href="">Quản Lí Sinh Viên</a>
 			</div><hr>
 			<div class="row active" id="dn">
-				<a href="">Quản Lí Doanh Nghiệp</a>
+				<a href="/admin-dashboard">Quản Lí Doanh Nghiệp</a>
 			</div><hr>
 			<div class="row">
-				<a href="">Quản Lí Giảng viên</a>
+				<a href="{{route('quan-li-giang-vien')}}">Quản Lí Giảng viên</a>
 			</div><hr>
 			<div class="row">
 				<a href="">Gửi thông báo</a>

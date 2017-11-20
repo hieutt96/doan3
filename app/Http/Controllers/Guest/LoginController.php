@@ -9,10 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 class LoginController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+
     public function getLogin(){
     	return view('auth.login');
     }
@@ -29,11 +26,10 @@ class LoginController extends Controller
                     return redirect('/');
                 case 2:
                     return redirect('/');
-
                 case 3:
                     return redirect('/');
                 case 4:
-                    return view('layouts.admin');
+                    return redirect()->route('admin-dashboard');
                 case 5:
                     return redirect('/');
             }

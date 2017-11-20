@@ -35,10 +35,22 @@ Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
 
 Route::get('hop-tac-doanh-nghiep',['as'=>'hop-tac-doanh-nghiep','uses'=>'Guest\HomeController@dsdoanhnghiep']);
 
-Route::get('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky','uses'=>'Admin\AdminController@create']);
+Route::get('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky','uses'=>'Admin\AdminController@createSemester']);
+
+Route::post('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky.post','uses'=>'Admin\AdminController@postCreateSemester']);
 
 Route::get('admin/accept/{id}','Admin\AdminController@accept');
 
 Route::get('admin-dashboard',['as'=>'admin-dashboard','uses'=>'Admin\AdminController@show_dn']);
 
 Route::get('admin/filter/company/{hocky}','Admin\AdminController@filter_company_hocky');
+
+Route::get('admin/accept/companyRequest/{id}',"Admin\AdminController@acceptCompanyRequest");
+
+Route::get('admin/delete/companyRequest/{id}',"Admin\AdminController@deleteCompanyRequest");
+
+Route::get('admin/delete/company/{id}','Admin\AdminController@deleteCompany');
+
+Route::get('admin/quan-li-giang-vien',['as'=>'quan-li-giang-vien','uses'=>'Admin\AdminController@manageLecturer']);
+
+Route::get('/admin/addlecturer','Admin\AdminController@addlecturer');

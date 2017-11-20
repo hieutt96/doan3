@@ -29,6 +29,6 @@ class Notices extends Migration
      */
     public function down()
     {
-        //
+         Schema::dropIfExists('notices');
     }
 }

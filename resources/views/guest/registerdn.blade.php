@@ -71,6 +71,16 @@
                         </span>
                    @endif
 				</div><br><br>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">Đăng kí cho học kỳ :</label>
+					<div class="col-lg-3">
+						<select name="hocky" class="form-control">
+							@foreach($hockys as $hocky)
+								<option value="{{$hocky->ten_hoc_ki}}">{{$hocky->ten_hoc_ki}}</option>
+							@endforeach
+						</select>
+					</div>
+				</div><br><br>
 
 				<div class="form-group {{ $errors->has('mota') ? ' has-error' : '' }}">
 					<label class="col-lg-3 control-label">Mô tả ngắn về công ty :</label>
