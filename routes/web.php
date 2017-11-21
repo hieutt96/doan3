@@ -15,11 +15,11 @@ Route::get('/', function () {
     return view('guest.home');
 });
 
-Route::get('dang-ky-doanh-nghiep',['as'=>'dang-ky-dn','uses'=>'Guest\RegisterController@getRegisterDN']);
+Route::get('dang-ky-doanh-nghiep',['as'=>'dang-ky-dn','uses'=>'Guest\RegisterController@getRegisterDN','middleware'=>'checkdateregisterdn']);
 
 Route::post('dang-ky-doanh-nghiep',['as'=>'dang-ky-dn.post','uses'=>'Guest\RegisterController@postRegisterDN']);
 
-Route::get('dang-ky-sinh-vien',['as'=>'dang-ky-sv','uses'=>'Guest\RegisterController@getRegisterSV']);
+Route::get('dang-ky-sinh-vien',['as'=>'dang-ky-sv','uses'=>'Guest\RegisterController@getRegisterSV','middleware'=>'checkdateregistersv']);
 
 Route::post('dang-ky-sinh-vien',['as'=>'dang-ky-sv.post','uses'=>'Guest\RegisterController@postRegisterSV']);
 
@@ -54,3 +54,7 @@ Route::get('admin/delete/company/{id}','Admin\AdminController@deleteCompany');
 Route::get('admin/quan-li-giang-vien',['as'=>'quan-li-giang-vien','uses'=>'Admin\AdminController@manageLecturer']);
 
 Route::get('/admin/addlecturer','Admin\AdminController@addlecturer');
+
+Route::get('/admin/thong-bao',['as'=>'thong-bao','uses'=>'Admin\AdminController@thongBao']);
+
+Route::post('/admin/thong-bao',['as'=>'thong-bao.post','uses'=>'Admin\AdminController@postThongBao']);

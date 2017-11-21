@@ -18,6 +18,8 @@ class Interships extends Migration
             $table->integer('company_id');
             $table->integer('student_id');
             $table->integer('semester_id');
+            $table->integer('lecturer_id');
+            $table->integer('leader_id')->nullable();
             $table->boolean('status');
             $table->timestamps();
         });

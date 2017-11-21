@@ -38,7 +38,7 @@ $(document).on('click','#them',function(){
 });
 
 $(document).on('click',"#delete",function(){
-	$(this).closest("form").remove();
+	$(this).closest("ol").remove();
 });	
 
 $(document).on('click',".submit",function(){

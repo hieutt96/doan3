@@ -96,6 +96,18 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="">MyProfile</a>
+                                    @if(Auth::user()->level == 2)
+                                        <a href="">Truy Cập Trang Quản Lí</a>
+                                    
+                                    @ifelse(Auth::user()->level == 3)
+                                        <a href="">Truy Cập Trang Quản Lí</a>
+
+                                    @ifelse(Auth::user()->level == 4)
+                                        <a href="">Truy hi Cập Trang Quản Lí</a>
+
+                                    @else(Auth::user()->level == 5)
+                                        <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
+                                    @endif
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

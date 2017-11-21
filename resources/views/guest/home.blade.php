@@ -6,6 +6,18 @@
         <strong>Success!</strong> {{$doanhnghiep}}
       </div>
     @endif
+    @if($hanche = Session::get('hanche'))
+      <div class="alert alert-danger alert-dismissable">
+        <a  class="close" data-dismiss="alert" aria-label="close">×</a>
+        <strong>Error!</strong> {{$hanche}}
+      </div>
+    @endif
+    @if($hanchedangkysv = Session::get('hanchedangkysv'))
+      <div class="alert alert-danger alert-dismissable">
+        <a  class="close" data-dismiss="alert" aria-label="close">×</a>
+        <strong>Error!</strong> {{$hanchedangkysv}}
+      </div>
+    @endif
     <div class=" row">
         <div class="col-lg-6">
             <img src="sadsa" style="height: 300px; width: 550px;">

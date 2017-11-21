@@ -18,8 +18,7 @@ class Leader extends Model
     public function job(){
     	return $this->hasMany('App\Job');
     }
-
-    public function assignment(){
-    	return $this->hasMany('App\AssignMent');
+    public function intership(){
+        return $this->hasMany('App\Intership');
     }
 }

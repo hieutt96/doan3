@@ -15,7 +15,7 @@
 				<a href="{{route('quan-li-giang-vien')}}">Quản Lí Giảng viên</a>
 			</div><hr>
 			<div class="row">
-				<a href="">Gửi thông báo</a>
+				<a href="{{route('thong-bao')}}">Gửi thông báo</a>
 			</div><hr>
 			<div class="row">
 				<a href="/admin/tao-lich-dang-ky-hoc-ky">Tạo Lịch Đăng Ký Cho Học Kỳ</a>

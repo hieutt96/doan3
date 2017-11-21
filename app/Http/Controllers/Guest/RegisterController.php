@@ -89,8 +89,9 @@ class RegisterController extends Controller
         $company->emailnv = $request->emailnv;
         $company->diaChiTT = $request->diachithuctap;
         $company->thoiGianMongMuon = $request->thoigiantt;
+        // dd($request->linhvuchoatdong);
+        $company->congNgheDaoTao = implode(',', $request->congnghedaotao);
         $company->linhVucHoatDong = $request->linhvuchoatdong;
-        $company->congNgheDaoTao = $request->congnghedaotao;
         $company->soLuongSinhVienTT = $request->soluong;
         $company->yeuCauNNSV = $request->yeucaungoaingu;
         $company->save();

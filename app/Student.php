@@ -13,9 +13,6 @@ class Student extends Model
     public function intership(){
     	return $this->hasMany('App\Intership');
     }
-    public function assignment(){
-    	return $this->hasOne('App\Assignment');
-    }
     public function result(){
     	return $this->hasOne('App\Result');
     }

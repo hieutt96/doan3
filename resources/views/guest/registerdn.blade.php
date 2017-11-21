@@ -179,7 +179,7 @@
 
 			<div class="row">
 				<div class="col-lg-offset-2 form-group {{ $errors->has('linhvuchoatdong') ? ' has-error' : '' }}">
-					<label class="col-lg-2 control-label">Lĩnh vực hoạt động </label>
+					<label class="col-lg-2 control-label">Lĩnh Vực Hoạt Động :</label>
 					<div class="col-lg-6">
 						<input type="text" name="linhvuchoatdong" placeholder="..." required class="form-control">
 					</div>
@@ -194,9 +194,18 @@
 
 			<div class="row">
 				<div class="col-lg-offset-2 form-group {{ $errors->has('congnghedaotao') ? ' has-error' : '' }}">
-					<label class="col-lg-2 control-label">Công nghệ có thể đào tạo:</label>
+					<label class="col-lg-2 control-label">Công Nghệ Đào Tạo</label>
 					<div class="col-lg-6">
-						<input type="text" name="congnghedaotao" placeholder="..." required class="form-control">
+						<select type="text" name="congnghedaotao[]" placeholder="..." required class="form-control" multiple="multiple">
+							<option value="PHP">PHP</option>
+							<option value="JAVA">JAVA</option>
+							<option value="Javascript">Javascript</option>
+							<option value="Ruby">Ruby</option>
+							<option value="C/C++">C/C++</option>
+							<option value="Python">Python</option>
+							<option value="Android">Android</option>
+							<option value=".NET">.NET</option>
+						</select>
 					</div>
 
            			@if ($errors->has('congnghedaotao'))

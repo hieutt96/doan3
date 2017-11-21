@@ -12,7 +12,7 @@ class RegisterDNRequest extends FormRequest
 			'tencongty' => 'min:5',
 			'diachi' => 'min:10',
 			'emailnv' =>'email',
-			'emaildn' => 'email',
+			'emaildn' => 'email|max:50',
 			'password' => 'min:6 |same:re-password'
 		];
 	}

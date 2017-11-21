@@ -11,6 +11,7 @@ use App\User;
 use App\Leader;
 use App\Semester;
 use App\Lecturer;
+use App\Notice;
 use App\Http\Controllers\Admin\MailController;
 class AdminController extends Controller
 {
@@ -86,5 +87,18 @@ class AdminController extends Controller
 			$lecturer->save();
 		}
 		return 1;
+	}
+
+	public function thongBao(){
+		return view('admin.notice');
+	}
+
+	public function postThongBao(NoticeRequest $request)
+	{
+		$nocite = new Notice;
+		$notice->user_id = Auth::user()->id;
+		$notice->noidung = $request->noidung;
+		$notice->ma_nguoi_nhan = $request->manguoinhan;
+		$notice->save();
 	}
 }

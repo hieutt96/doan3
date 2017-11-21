@@ -18,6 +18,7 @@ class Jobs extends Migration
             $table->string('ten_cong_viec');
             $table->date('thoi_gian_bat_dau');
             $table->date('thoi_gian_ket_thuc');
+            $table->text('noi_dung_chi_tiet'); 
             $table->integer('leader_id');
             $table->timestamps();
         });
