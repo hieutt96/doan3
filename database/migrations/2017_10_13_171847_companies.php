@@ -20,7 +20,7 @@ class Companies extends Migration
             $table->boolean('status')->default(0);
             $table->integer('soLuongNV');
             $table->integer('namthanhlap');
-            $table->string('moTa');
+            $table->text('moTa');
             $table->string('phone');
             $table->string('emailnv');
             $table->string('diaChiTT');
@@ -30,6 +30,7 @@ class Companies extends Migration
             $table->string('soLuongSinhVienTT');
             $table->string('yeuCauSV');
             $table->string('yeuCauNNSV');
+            $table->integer('hocky')->nullable();
             $table->string('picture')->default('/image/background/default-img.jpg');
             $table->timestamps();
         });

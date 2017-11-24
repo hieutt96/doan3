@@ -16,8 +16,10 @@ class Lecturers extends Migration
         Schema::create('lecturers',function(Blueprint $table){
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('phone');
-            $table->text('about');
+            $table->string('phone')->nullable();
+            $table->text('about')->nullable();
+            $table->integer('hocky');
+            $table->timestamps();
         });
     }
 

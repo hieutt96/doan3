@@ -47,26 +47,13 @@
 				<div id="panel-8053-1-0-0" class="so-panel widget widget_sow-image-grid panel-first-child panel-last-child" data-index="1">
 					<div class="so-widget-sow-image-grid so-widget-sow-image-grid-default-c361d6f3913e">
 						<div class="sow-image-grid-wrapper">
+							@foreach($doanhnghiep as $dn)
 							<div class="sow-image-grid-image">
-								<a href= "hop-tac-doanh-nghiep/{!!$doanhnghiep[0]->id!!}/{!!$doanhnghiep[0]->name!!}" target="_blank" ><img width="150" height="150" src="upload/imgCompany/{!!$doanhnghiep[0]->picture!!}" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="Samsung" srcset="upload/imgCompany/{!!$doanhnghiep[0]->picture!!} 150w, upload/imgCompany/{!!$doanhnghiep[0]->picture!!} 250w"
+								<a href= "hop-tac-doanh-nghiep/{!!$dn->id!!}/{!!$dn->name!!}" target="_blank" ><img width="150" height="150" src="upload/imgCompany/{!!$dn->picture!!}" class="attachment-thumbnail size-thumbnail"
+								 alt=""  srcset="upload/imgCompany/{!!$dn->picture!!} 150w, upload/imgCompany/{!!$dn->picture!!} 250w"
 								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/2-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="Microsoft" srcset="https://soict.hust.edu.vn/wp-content/uploads/2-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/2.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/3-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="Toshiba" srcset="https://soict.hust.edu.vn/wp-content/uploads/3-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/3.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/4-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="FPT Software" srcset="https://soict.hust.edu.vn/wp-content/uploads/4-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/4.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/4b-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="Viettel" srcset="https://soict.hust.edu.vn/wp-content/uploads/4b-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/4b.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
+							@endforeach
+							<!-- Dữ liệu cty demo-->
 							<div class="sow-image-grid-image">
 								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/6-150x150.png" class="attachment-thumbnail size-thumbnail"
 								 alt="" title="MISA" srcset="https://soict.hust.edu.vn/wp-content/uploads/6-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/6.png 250w"

@@ -11,7 +11,7 @@ use Auth;
  	public function rules(){
  		return [
              'old_password'=>'required',/*|same:'.Auth::user()->password,*/
-             'new_password'=>'required|min:3|max:32|different:old_password',
+             'new_password'=>'required|min:6|max:32|different:old_password',
              're_password'=>'required|same:new_password'
 
  		];
@@ -21,8 +21,8 @@ use Auth;
         'old_password.required'=>'Bạn chưa nhập mật khẩu cũ',
  		'old_password.same'=>'Nhập chưa đúng mật khẩu cũ',
  		'new_password.required'=>'Bạn chưa nhập mật khẩu mới',
- 		'new_password.min'=>'Mật khẩu phải có số ký tự từ 3->32',
- 		'new_password.max'=>'Mật khẩu phải có số ký tự từ 3->32',
+ 		'new_password.min'=>'Mật khẩu phải có số ký tự từ 6->32',
+ 		'new_password.max'=>'Mật khẩu phải có số ký tự từ 6->32',
  		'new_password.different'=>'Mật khẩu mới phải khác với mật khẩu cũ ',
  		're_password.required'=>'Bạn chưa nhập lại mật khẩu',
  		're_password.same'=>'Nhập chưa đúng với mật khẩu mới'	

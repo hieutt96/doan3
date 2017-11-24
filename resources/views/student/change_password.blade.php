@@ -1,8 +1,7 @@
 @extends('student.index_student')
 @section('content')
 	<div class="row col-lg-offset-1 "> 
-		<b><h2 >Đổi Mật Khẩu</h2></b>
-		<b><h3>Thay đổi mật khẩu. Mật khẩu mới phải có tối thiểu 8 ký tự</h3></b>
+		<b><h2 class="heading" style="margin-left:100px;">Đổi Mật Khẩu</h2></b>
 	</div>
 	<hr style="border-width: 2px;" class="col-lg-offset-1 ">
 	<div class="container">

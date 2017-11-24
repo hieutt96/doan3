@@ -8,7 +8,10 @@ use App\Student;
 use App\Comment;
 use App\Company; 
 use App\User;
+use App\Job;
+use App\Student_Job_Assignment;
 use Auth;
+use File;
 class StudentController extends Controller
 {
     //Thay đổi mật khẩu
@@ -53,7 +56,9 @@ class StudentController extends Controller
             //Lưu hình
             $file->move("upload/anhsinhvien",$picture);
              //Xóa ảnh cũ
-            unlink("upload/anhsinhvien/".$user->picture);
+            if(File::exists("upload/anhsinhvien/".$user->picture)){
+            File::delete("upload/anhsinhvien/".$user->picture);
+            }
             $user->picture = $picture;
             }
             $user->name = $request->name;
@@ -84,15 +89,27 @@ class StudentController extends Controller
         $doanhnghiep = Company::all();
         return view('student.hopTacDoanhNghiep',['doanhnghiep'=>$doanhnghiep]);
     }
-    
-    //hợp tác doanh nghiệp
+    //chi tiết doanh nghiệp
     public function chiTietDoanhNghiep($id){
         $doanhnghiep = Company::find($id);
-        $user = User::all();
-        $comment= Comment::all();
-        //$nguoidung= User::all();
-        return view('student.chiTietDoanhNghiep',['doanhnghiep'=>$doanhnghiep,'comment'=>$comment,'user'=>$user]);
-        
+        $doanhnghiepkhac = Company::orderByRaw('RAND()')->where('id','!=',$id)->take(2)->get();//thay đổi param in take() khi có dữ liệu
+        $comment= Comment::where('company_id','=',$id)->get();
+        return view('student.chiTietDoanhNghiep',['doanhnghiep'=>$doanhnghiep,'dn_khac'=>$doanhnghiepkhac,'comment'=>$comment]);  
+    }
+    //Công việc thực tập
+    public function getCongViecThucTap(){
+        $idSV = Auth::user()->id;
+        $job_assignment= Student_Job_Assignment::where('student_id','=',$idSV)->get();
+        return view('student.congViecThucTap',['job_assignment'=>$job_assignment]);
+    }
+    public function postCongViecThucTap(Request $request){
+        $idSV = Auth::user()->id;
+        $job_assignment= Student_Job_Assignment::where('student_id','=',$idSV)->get();
+        $job_assignment->id = $request->id;
+        $job_assignment->trang_thai = $request->trang_thai;
+        $job_assignment->save();
+        return back()->with('thongbao','Cập nhật công việc thành công !');
+
     }
    
 }

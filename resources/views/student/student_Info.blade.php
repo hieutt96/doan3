@@ -9,6 +9,9 @@
 hr {
 	margin-top:10px;
 }
+.heading{
+	margin-left:360px;
+}
 </style>
 @extends('student.index_student')
 @section('content')

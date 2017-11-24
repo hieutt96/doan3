@@ -48,6 +48,9 @@ Route::group(['prefix'=>'student'],function(){
     Route::get('update-student-info','StudentController@getUpdateStudentInfo');
     Route::post('update-student-info','StudentController@postUpdateStudentInfo');
 
+    //Công việc thực tập
+    Route::get('cong-viec-thuc-tap','StudentController@getCongViecThucTap');
+
 });
 Route::group(['prefix'=>'comment'],function(){
   
@@ -58,3 +61,8 @@ Route::group(['prefix'=>'comment'],function(){
 //Hợp tác doanh nghiệp
 Route::get('hop-tac-doanh-nghiep','StudentController@hopTacDoanhNghiep');
 Route::get('hop-tac-doanh-nghiep/{id}/{tendoanhnghiep}','StudentController@chiTietDoanhNghiep');
+
+//Comment
+Route::post('hop-tac-doanh-nghiep/{id}/{tendoangnghiep}','CommentController@postComment');
+
+

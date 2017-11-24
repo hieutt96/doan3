@@ -15,6 +15,7 @@ class Semesters extends Migration
     {
         Schema::create('semesters',function(Blueprint $table){
             $table->increments('id');
+            $table->string('ten_hoc_ky')->unique();
             $table->date('thoi_gian_dn_bat_dau_dk');
             $table->date('thoi_gian_dn_ket_thuc_dk');
             $table->date('thoi_gian_sv_bat_dau_dk');

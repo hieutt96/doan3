@@ -27,11 +27,6 @@
                 background-color:#263c65;
                 color:#ffffff;
             }
-            form{
-                padding-top:10px;
-                border: 1px solid #dddddd;
-                border-radius: 3px;
-            }
              .anh-hust{
                 height: 140px;
                 margin:10px 0 0 77px;
@@ -46,6 +41,9 @@
                 padding-top:15px;
             }
             .form-info{
+                 padding-top:10px;
+                border: 1px solid #dddddd;
+                border-radius: 3px;
                 margin-bottom:20px;
                 width:1040px;
                 margin-left:85px;
@@ -166,7 +164,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Trang Chủ </a></li>
                         <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
-                        <li><a href="#">Công việc thực tập </a></li>
+                        <li><a href="{{ url('student/cong-viec-thuc-tap') }}">Công việc thực tập </a></li>
                         <li><a href="#">Thông báo</a></li>
                         <li><a href="#">Giới thiệu</a></li>
                     </ul>

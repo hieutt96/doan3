@@ -149,7 +149,9 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Trang Chủ </a></li>
                         <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
-                        <li><a href="#">Công việc thực tập </a></li>
+                         @if(Auth::user())
+                        <li><a href="{{ url('student/cong-viec-thuc-tap')}}">Công việc thực tập </a></li>
+                         @endif
                         <li><a href="#">Thông báo</a></li>
                         <li><a href="#">Giới thiệu</a></li>
                     </ul>
