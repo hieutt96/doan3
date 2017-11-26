@@ -56,7 +56,8 @@ class PMController extends Controller
         } else {
             $idSemester = 20171;
         }
-        $idCompany = rand(1, 3);
+//        $idCompany = rand(1, 3);
+        $idCompany = 2;
         if (sizeof($request->input('search'))) {
             $search = $request->input('search');
             $students = Student::join('users', 'students.user_id', '=', 'users.id')
@@ -164,8 +165,8 @@ class PMController extends Controller
         // Current Semester get from the system time or from the request
         $currentSem = 20171;
         // idCompany get form current PM being login
-        $idCompany = rand(1, 3);
-
+//        $idCompany = rand(1, 3);
+        $idCompany = 2;
         $leaders = Leader::join('users', 'leaders.user_id', '=', 'users.id')
             ->where([['users.level', '=', 2]
                 , ['leaders.idCompany', '=', $idCompany]])->get();
