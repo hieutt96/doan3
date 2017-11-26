@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\PM;
 
 use App\Http\Controllers\Controller;
+use App\Notice;
 use App\Result;
 use App\Student_Job_Assignment;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\Student;
 use App\User;
 use App\Leader;
+use Session;
 
 class PMController extends Controller
 {
@@ -24,29 +26,29 @@ class PMController extends Controller
 //        Do something!
     }
 
-    public function index_dat($roll_id)
-    {
-        if ($roll_id == 11) {
-            return view('pm.pm_sv_thongTin')->withTab($roll_id);
-        } elseif ($roll_id == 12) {
-            return view('pm.pm_sv_congViec')->withTab($roll_id);
-        } elseif ($roll_id == 13) {
-            return view('pm.pm_sv_ketQua')->withTab($roll_id);
-        } elseif ($roll_id == 2) {
-            return view('pm.pm_index_nv')->withTab($roll_id);
-        } elseif ($roll_id == 21) {
-            return view('pm.pm_nv_thongTin')->withTab($roll_id);
-        } elseif ($roll_id == 22) {
-            return view('pm.pm_nv_svhd')->withTab($roll_id);
-        } elseif ($roll_id == 3) {
-            return view('pm.pm_index_baiViet')->withTab($roll_id);
-        } elseif ($roll_id == 4) {
-            return view('pm.pm_guithongBao')->withTab($roll_id);
-        } else {
-            $sv = Student::sortable()->simplePaginate(10);
-            return view('pm.pm_index_sv')->withTab(1)->withSv($sv);
-        }
-    }
+//    public function index_dat($roll_id)
+//    {
+//        if ($roll_id == 11) {
+//            return view('pm.pm_sv_thongTin')->withTab($roll_id);
+//        } elseif ($roll_id == 12) {
+//            return view('pm.pm_sv_congViec')->withTab($roll_id);
+//        } elseif ($roll_id == 13) {
+//            return view('pm.pm_sv_ketQua')->withTab($roll_id);
+//        } elseif ($roll_id == 2) {
+//            return view('pm.pm_index_nv')->withTab($roll_id);
+//        } elseif ($roll_id == 21) {
+//            return view('pm.pm_nv_thongTin')->withTab($roll_id);
+//        } elseif ($roll_id == 22) {
+//            return view('pm.pm_nv_svhd')->withTab($roll_id);
+//        } elseif ($roll_id == 3) {
+//            return view('pm.pm_index_baiViet')->withTab($roll_id);
+//        } elseif ($roll_id == 4) {
+//            return view('pm.pm_guithongBao')->withTab($roll_id);
+//        } else {
+//            $sv = Student::sortable()->simplePaginate(10);
+//            return view('pm.pm_index_sv')->withTab(1)->withSv($sv);
+//        }
+//    }
 
     public function indexSV(Request $request)
     {
@@ -195,7 +197,7 @@ class PMController extends Controller
                     , ['interships.semester_id', '=', $currentSem]])->sortable()->simplePaginate(10);
             $isSearch = false;
         }
-        return view('pm.pm_index_phanCong', ['isSearch' => $isSearch, 'leaders' => $leaders, 'students' => $students, 'tab' => 5]);
+        return view('pm.pm_index_phanCong', ['isSearch' => $isSearch, 'leaders' => $leaders, 'students' => $students, 'tab' => 3]);
     }
 
     public function postPhanCong(Request $request)
@@ -208,5 +210,41 @@ class PMController extends Controller
             $stu->save();
         }
         return back();
+    }
+
+    public function getGuiTB(Request $request)
+    {
+        $receUsers = ['Tất cả sinh viên', 'Tất cả leader'];
+        return view('layouts.guiThongBao', ['tab' => 4, 'receUsers' => $receUsers, 'userType' => 'pm']);
+    }
+
+    public function postGuiTB(Request $request)
+    {
+        $sentID = $request->input('nguoiGui');
+        $receID = $request->input('nguoiNhan');
+        $name = $request->input('ten');
+        $content = $request->input('noiDung');
+
+        $notice = new Notice();
+        $notice->user_id = $sentID;
+        $notice->ma_nguoi_nhan = $receID;
+        $notice->ten_tb = $name;
+        $notice->noi_dung = $content;
+        $notice->save();
+
+        return back();
+    }
+
+    public function getThongBao()
+    {
+//        $pmID = 220;
+//        $notices = Notice::where('ma_nguoi_nha', '=', $pmID)->simplePaginate(10);
+        $notices = [];
+        return view('layouts.thongBao', ['notices' => $notices,'userType' => 'pm']);
+    }
+
+    public function chiTietTB($noti_id){
+        $noti = Notice::find($noti_id);
+        return view('chiTietTB', ['noti' => $noti, 'userType' => 'pm']);
     }
 }

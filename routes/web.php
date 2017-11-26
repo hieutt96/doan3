@@ -36,31 +36,48 @@ Route::get('dang-xuat', ['as' => 'dang-xuat', 'uses' => 'Guest\LoginController@l
 Route::get('admin-dashboard', ['as' => 'admin-dashboard', 'uses' => 'Admin\AdminController@show']);
 Route::get('/admin/accept/{id}', 'Admin\AdminController@accept');
 
-Route::get('gvhd/{roll_id}', 'GVHD\GVHDController@index_dat');
-
 // =========Routes PM
+// sv
 Route::get('/pm/sv', 'PM\PMController@indexSV');
 Route::get('/pm/sv/{idSV}/thong-tin', 'PM\PMController@showSVInfo');
 Route::get('/pm/sv/{idSV}/cong-viec', 'PM\PMController@showSVCongViec');
 Route::get('/pm/sv/{idSV}/ket-qua', 'PM\PMController@showSVKetQua');
 
+// nv
 Route::get('/pm/nv', 'PM\PMController@indexNV');
 Route::get('/pm/nv/{idLead}/thong-tin-chi-tiet', 'PM\PMController@nvChiTiet');
 Route::get('/pm/nv/{idLead}/sinh-vien-huong-dan', 'PM\PMController@nvSVHD');
 Route::post('/pm/nv/edit', 'PM\PMController@postSuaNV');
 
+// phan cong leader
 Route::get('/pm/phan-cong-leader', 'PM\PMController@getPhanCong');
 Route::post('/pm/phan-cong', 'PM\PMController@postPhanCong');
 
+// thong bao
+Route::get('/pm/gui-thong-bao', 'PM\PMController@getGuiTB');
+Route::post('/pm/gui-tb', 'PM\PMController@postGuiTB');
+Route::get('/pm/thong-bao', 'PM\PMController@getThongBao');
+Route::get('/pm/thong-bao/{noti_id}/chi-tiet', 'PM\PMController@chiTietTB');
+
+
+
 // =========Route Leader
+//sv
 Route::get('/leader/sv', 'Leader\LeaderController@indexSV');
 Route::get('/leader/sv/{idSV}/thong-tin', 'Leader\LeaderController@showSVInfo');
 Route::get('/leader/sv/{idSV}/cong-viec', 'Leader\LeaderController@showSVCongViec');
 Route::get('/leader/sv/{idSV}/ket-qua', 'Leader\LeaderController@showSVKetQua');
 
+// tao cong viec
 Route::get('/leader/tao-cong-viec', 'Leader\LeaderController@getTaoCV');
 Route::post('/leader/tao-cv', 'Leader\LeaderController@postTaoCV');
+
+// danh gia sv
 Route::get('/leader/danh-gia-sv', 'Leader\LeaderController@getDanhGia');
 Route::post('/leader/danh-gia', 'Leader\LeaderController@postDanhGia');
 
-Route::get('pm/{roll_id}', 'PM\PMController@index_dat');
+// thong bao
+Route::get('/leader/gui-thong-bao', 'Leader\LeaderController@getGuiTB');
+Route::post('/leader/gui-tb', 'Leader\LeaderController@postGuiTB');
+Route::get('/leader/thong-bao', 'Leader\LeaderController@getThongBao');
+Route::get('/leader/thong-bao/{noti_id}/chi-tiet', 'Leader\LeaderController@chiTietTB');

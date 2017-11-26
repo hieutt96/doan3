@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Leader;
 
 use App\Http\Controllers\Controller;
 use App\Job;
+use App\Notice;
 use App\Result;
 use App\Student_Job_Assignment;
 use Illuminate\Http\Request;
@@ -122,7 +123,7 @@ class LeaderController extends Controller
                 ->sortable()->simplePaginate(10);
             $isSearch = false;
         }
-        return view('leader.leader_taoCV', ['leader' => $leader, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 3]);
+        return view('leader.leader_taoCV', ['leader' => $leader, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 2]);
     }
 
     public function postTaoCV(Request $request)
@@ -185,27 +186,23 @@ class LeaderController extends Controller
         $totalJobs = array();
         $outDateJobs = [];
 
-        for ($i = 0; $i < count($students); $i++)
-        {
+        for ($i = 0; $i < count($students); $i++) {
             $totalJobs[] = count($students[$i]->job);
             $outDateJobs[] = count(Student_Job_Assignment::where([['student_id', '=', $students[$i]->user_id]
-                                                                , ['trang_thai', '=', 2]])->get());
+                , ['trang_thai', '=', 2]])->get());
         }
 
-        return view('leader.leader_danhGia', ['outDateJobs' => $outDateJobs, 'totalJobs' => $totalJobs , 'isSearch' => $isSearch, 'students' => $students, 'tab' => 4]);
+        return view('leader.leader_danhGia', ['outDateJobs' => $outDateJobs, 'totalJobs' => $totalJobs, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 3]);
     }
 
     public function postDanhGia(Request $request)
     {
 
-        if(count($request->input('rowsCheck')) > 0)
-        {
+        if (count($request->input('rowsCheck')) > 0) {
             $stuIDs = $request->input('rowsCheck');
-            foreach ($stuIDs as $stuID)
-            {
+            foreach ($stuIDs as $stuID) {
                 $result = Result::find($stuID);
-                if(count($result) == 0)
-                {
+                if (count($result) == 0) {
                     $result = new Result();
                     $result->student_id = $stuID;
                 }
@@ -221,5 +218,47 @@ class LeaderController extends Controller
             }
         }
         return back();
+    }
+
+    public function getGuiTB(Request $request)
+    {
+        $receUsers = ['Tất cả sinh viên'];
+        return view('layouts.guiThongBao', ['tab' => 4, 'receUsers' => $receUsers, 'userType' => 'leader']);
+    }
+
+    public function postGuiTB(Request $request)
+    {
+        $sentID = $request->input('nguoiGui');
+        $receID = $request->input('nguoiNhan');
+        $name = $request->input('ten');
+        $content = $request->input('noiDung');
+
+        $notice = new Notice();
+        $notice->user_id = $sentID;
+        $notice->ma_nguoi_nhan = $receID;
+        $notice->ten_tb = $name;
+        $notice->noi_dung = $content;
+        $notice->save();
+
+        return back();
+    }
+
+    public function getThongBao()
+    {
+        $leaderID = 215;
+        $leader = Leader::find($leaderID);
+        $boss = Leader::join('users', 'leaders.user_id', '=', 'users.id')
+                        ->where([['users.level', '=', 3]
+                                ,['leaders.idCompany', '=', $leader->idCompany]])
+                        ->first();
+        $notices = Notice::where([['ma_nguoi_nhan', '=', 1], ['user_id', '=', $boss->user_id]])
+                        ->get();
+//                        ->simplePaginate(10);
+        return view('layouts.thongBao', ['notices' => $notices, 'userType' => 'leader']);
+    }
+
+    public function chiTietTB($noti_id){
+        $noti = Notice::find($noti_id);
+        return view('layouts.chiTietTB', ['noti' => $noti, 'userType' => 'leader']);
     }
 }
