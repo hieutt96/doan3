@@ -117,6 +117,21 @@
 
         </div>
         <div class="col-md-3">
+            <fieldset class="form-inline" style="padding-top: 20px" form="stuCheckForm">
+                <label class="control-label" for="paginate">Số SV hiển thị:</label>
+                <select id="paginate" name="pagiNum" form="filterForm" class="form-control" onchange="this.form.submit()"
+                        required>
+                    <option value="10" <?php if($selectedPag == 10): ?>
+                    selected
+                            <?php endif; ?>>10</option>
+                    <option value="50" <?php if($selectedPag == 50): ?>
+                    selected
+                            <?php endif; ?>>50</option>
+                    <option value="100" <?php if($selectedPag == 100): ?>
+                    selected
+                            <?php endif; ?>>100</option>
+                </select>
+            </fieldset>
         </div>
     </div>
 

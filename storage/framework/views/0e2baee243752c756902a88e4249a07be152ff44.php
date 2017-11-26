@@ -26,12 +26,13 @@
         <div class="col-md-3">
             <fieldset class="form-inline" form="filterForm">
                 <label class="control-label" for="hocKy">Học kỳ:</label>
-                <select id="hocKy" name="semester" form="filterForm" class="form-control" onchange="this.form.submit()" required>
+                <select id="hocKy" name="semester" form="filterForm" class="form-control" onchange="this.form.submit()"
+                        required>
                     <?php $__currentLoopData = $semesters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <option value="<?php echo e($sem); ?>"
-                            <?php if($selectedSem == $sem): ?>
-                            selected
-                            <?php endif; ?>
+                                <?php if($selectedSem == $sem): ?>
+                                selected
+                                <?php endif; ?>
                         ><?php echo e($sem); ?></option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
@@ -96,6 +97,21 @@
 
         </div>
         <div class="col-md-3">
+            <fieldset class="form-inline" style="padding-top: 20px" form="filterForm">
+                <label class="control-label" for="paginate">Số SV hiển thị:</label>
+                <select id="paginate" name="pagiNum" form="filterForm" class="form-control" onchange="this.form.submit()"
+                        required>
+                    <option value="10" <?php if($selectedPag == 10): ?>
+                            selected
+                            <?php endif; ?>>10</option>
+                    <option value="50" <?php if($selectedPag == 50): ?>
+                    selected
+                            <?php endif; ?>>50</option>
+                    <option value="100" <?php if($selectedPag == 100): ?>
+                    selected
+                            <?php endif; ?>>100</option>
+                </select>
+            </fieldset>
         </div>
     </div>
 <?php $__env->stopSection(); ?>
