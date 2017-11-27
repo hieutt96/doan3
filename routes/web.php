@@ -67,6 +67,7 @@ Route::get('/leader/sv', 'Leader\LeaderController@indexSV');
 Route::get('/leader/sv/{idSV}/thong-tin', 'Leader\LeaderController@showSVInfo');
 Route::get('/leader/sv/{idSV}/cong-viec', 'Leader\LeaderController@showSVCongViec');
 Route::get('/leader/sv/{idSV}/ket-qua', 'Leader\LeaderController@showSVKetQua');
+Route::post('/leader/cap-nhat-cv', 'Leader\LeaderController@postCapNhatCV');
 
 // tao cong viec
 Route::get('/leader/tao-cong-viec', 'Leader\LeaderController@getTaoCV');

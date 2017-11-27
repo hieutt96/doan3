@@ -91,7 +91,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="comment">Nhận Xét:</label>
-                                            <textarea class="form-control" name="nhanXetCongTy" rows="5" id="comment"></textarea>
+                                            <textarea class="form-control" form="danhGiaForm" name="nhanXetCongTy" rows="5" id="comment"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,6 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">STT</th>
                     <th scope="col">
                         <div class="checkbox-inline" style="padding-bottom: 10px">
                             <label><input id="checkAll" type="checkbox" value="0"></label>
@@ -143,6 +142,7 @@
                             });
                         </script>
                     </th>
+                    <th scope="col">STT</th>
                     <th scope="col">MSSV</th>
                     <th scope="col">
                         @if($isSearch)
@@ -164,20 +164,20 @@
 
                 @for ($i = 0; $i < count($students); $i++)
                     <tr>
-                        <th scope="row">{{$i + 1}}</th>
                         <td>
                             <div class="checkbox-inline">
                                 <input name="rowsCheck[]" class="stuCheck" type="checkbox"
                                        value="{{$students[$i]->user_id}}">
                             </div>
                         </td>
-                        <td scope="row">{{$students[$i]->MSSV}}</td>
+                        <th scope="row">{{$i + 1}}</th>
+                        <td>{{$students[$i]->MSSV}}</td>
                         <td><a href="/leader/sv/{{$students[$i]->user_id}}/thong-tin">{{$students[$i]->user->name}}</a>
                         </td>
                         <td>{{$totalJobs[$i]}}</td>
                         <td>{{$outDateJobs[$i]}}</td>
                         @if($totalJobs[$i] > 0)
-                            <td>{{(($totalJobs[$i] - $outDateJobs[$i])/$totalJobs[$i])*100}} %</td>
+                            <td>{{number_format((($totalJobs[$i] - $outDateJobs[$i])/$totalJobs[$i])*100, 2)}} %</td>
                         @else
                             <td>0 %</td>
                         @endif

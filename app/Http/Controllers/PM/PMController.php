@@ -113,7 +113,10 @@ class PMController extends Controller
     {
         $student = Student::find($idSV);
         $result = Result::find($idSV);
-
+        if (sizeof($result) == 0)
+        {
+            $result = new Result();
+        }
 
         return view('sv.sv_ketQua', ['result' => $result, 'tab' => 13, 'student' => $student, 'userType' => 'pm']);
     }

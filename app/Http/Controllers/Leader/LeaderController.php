@@ -80,10 +80,31 @@ class LeaderController extends Controller
         return view('sv.sv_congViec', ['jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'leader']);
     }
 
+    public function postCapNhatCV(Request $request)
+    {
+        if (count($request->input('rowsCheck')) > 0)
+        {
+            $trangThai = $request->input('trangThai');
+            $rowsCheck = $request->input('rowsCheck');
+            for ($i = 0; $i < count($rowsCheck); $i++)
+            {
+                $jobStu = Student_Job_Assignment::find($rowsCheck[$i]);
+                $jobStu->trang_thai = $trangThai;
+                $jobStu->save();
+            }
+        }
+
+        return back();
+    }
+
     public function showSVKetQua($idSV)
     {
         $student = Student::find($idSV);
         $result = Result::find($idSV);
+        if (sizeof($result) == 0)
+        {
+            $result = new Result();
+        }
 
 
         return view('sv.sv_ketQua', ['result' => $result, 'tab' => 13, 'student' => $student, 'userType' => 'leader']);
@@ -148,7 +169,7 @@ class LeaderController extends Controller
             $stu_job = new Student_Job_Assignment();
             $stu_job->job_id = $job->id;
             $stu_job->student_id = $stu_id;
-            $stu_job->trang_thai = 1;
+            $stu_job->trang_thai = 0;
             $stu_job->save();
         }
         return back();
@@ -184,12 +205,12 @@ class LeaderController extends Controller
         }
 
         $totalJobs = array();
-        $outDateJobs = [];
+        $outDateJobs = array();
 
         for ($i = 0; $i < count($students); $i++) {
             $totalJobs[] = count($students[$i]->job);
             $outDateJobs[] = count(Student_Job_Assignment::where([['student_id', '=', $students[$i]->user_id]
-                , ['trang_thai', '=', 2]])->get());
+                , ['trang_thai', '=', 0]])->get());
         }
 
         return view('leader.leader_danhGia', ['outDateJobs' => $outDateJobs, 'totalJobs' => $totalJobs, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 3]);

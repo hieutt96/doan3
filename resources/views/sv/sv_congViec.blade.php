@@ -33,42 +33,80 @@
         </div>
     </div>
     <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Trạng thái</th>
-                <th scope="col">Công việc</th>
-                <th scope="col">Nội Dung</th>
-                <th scope="col">Ngày tạo</th>
-                <th scope="col">Ngày bắt đầu</th>
-                <th scope="col">Ngày kết thúc</th>
-                <th scope="col">Ngày cập nhật</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            @for ($i = 0; $i < count($jobs); $i++)
+        <form method="post" id="capNhatForm" action="/leader/cap-nhat-cv">
+            {{ csrf_field() }}
+            <table class="table">
+                <thead>
                 <tr>
-                    <th scope="row">{{$i + 1}}</th>
-                    <td>@if($jobs[$i]->trang_thai == 1)
-                            Mới
-                        @else
-                            Hoàn Thành
-                        @endif
-                    </td>
-                    <td>{{$jobs[$i]->job->ten}}</td>
-                    <td>{{$jobs[$i]->job->noiDung}}</td>
-                    @php($creDate = new DateTime($jobs[$i]->created_at))
-                    <td>{{$creDate->format('d-m-Y')}}</td>
-                    <td>{{$jobs[$i]->job->tgBatDau}}</td>
-                    <td>{{$jobs[$i]->job->tgKetThuc}}</td>
-                    <td>-</td>
+                    <th scope="col">
+                        <div class="checkbox-inline" style="padding-bottom: 10px">
+                            <label><input id="checkAll" type="checkbox" value="0"></label>
+                        </div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#checkAll').on('click', function () {
+                                    if (this.checked) {
+                                        $('.stuCheck').each(function () {
+                                            this.checked = true;
+                                        });
+                                    } else {
+                                        $('.stuCheck').each(function () {
+                                            this.checked = false;
+                                        });
+                                    }
+                                });
+                            });
+                        </script>
+                    </th>
+                    <th scope="col">STT</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Công việc</th>
+                    <th scope="col">Nội Dung</th>
+                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Ngày bắt đầu</th>
+                    <th scope="col">Ngày kết thúc</th>
+                    <th scope="col">Ngày cập nhật</th>
                 </tr>
-            @endfor
+                </thead>
+                <tbody>
 
-            </tbody>
-        </table>
+                @for ($i = 0; $i < count($jobs); $i++)
+                    <tr>
+                        <td>
+                            <div class="checkbox-inline">
+                                <input name="rowsCheck[]" class="stuCheck" type="checkbox"
+                                       value="{{$jobs[$i]->id}}">
+                            </div>
+                        </td>
+                        <th scope="row">{{$i + 1}}</th>
+                        <td>@if($jobs[$i]->trang_thai == 0)
+                                Chưa Hoàn Thành
+                            @else
+                                Hoàn Thành
+                            @endif
+                        </td>
+                        <td>{{$jobs[$i]->job->ten}}</td>
+                        <td>{{$jobs[$i]->job->noiDung}}</td>
+                        @php($creDate = new DateTime($jobs[$i]->created_at))
+                        <td>{{$creDate->format('d-m-Y')}}</td>
+                        <td>{{$jobs[$i]->job->tgBatDau}}</td>
+                        <td>{{$jobs[$i]->job->tgKetThuc}}</td>
+                        <td>-</td>
+                    </tr>
+                @endfor
+
+                </tbody>
+            </table>
+            <div class="form-inline">
+                <label class="control-label" for="trangThai">Chọn trạng thái muốn cập nhật: </label>
+                <select class="form-control" name="trangThai" id="trangThai">
+                    <option value="0">Chưa Hoàn Thành</option>
+                    <option value="1">Hoàn Thành</option>
+                </select>
+                <button type="submit" class="btn btn-success">Cập Nhật</button>
+
+            </div>
+        </form>
     </div>
 
     <div class="row">
