@@ -58,3 +58,10 @@ Route::get('/admin/addlecturer','Admin\AdminController@addlecturer');
 Route::get('/admin/thong-bao',['as'=>'thong-bao','uses'=>'Admin\AdminController@thongBao']);
 
 Route::post('/admin/thong-bao',['as'=>'thong-bao.post','uses'=>'Admin\AdminController@postThongBao']);
+
+Route::get('/admin/chinh-sua-lich-dang-ky/{id}',['as'=>'chinh-sua-hoc-ky','uses'=>'Admin\AdminController@editSemester']);
+
+Route::post('/admin/chinh-sua-lich-dang-ky/{id}',['as'=>'chinh-sua-hoc-ky.post','uses'=>'Admin\AdminController@editSemesterPost']);
+
+Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
+Route::get('guest/find/leader','Guest\RegisterController@findLeader');

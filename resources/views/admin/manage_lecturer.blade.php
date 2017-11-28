@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 @section('content_right')
+	<div id="error">
+		
+	</div>
 	<div class="row col-lg-12">
 		<div class="col-lg-offset-10 col-lg-2">
 			<select class="form-control">

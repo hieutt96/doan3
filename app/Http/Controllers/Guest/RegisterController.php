@@ -13,6 +13,8 @@ use App\Student;
 use App\Company;
 use App\Leader;
 use App\Semester;
+use App\Intership;
+use DB;
 class RegisterController extends Controller
 {
     // public function __construct()
@@ -22,14 +24,26 @@ class RegisterController extends Controller
 
     public function getRegisterSV()
     {   
-        $hockys = Semester::select('ten_hoc_ki')->distinct('ten_hoc_ki')->get();
-    	return view('guest.registersv')->with('hockys',$hockys);
+        $a=[];
+        $hockys = Semester::all();
+        foreach($hockys as $hocky){
+            if ((date('Y-m-d')>$hocky->thoi_gian_sv_bat_dau_dk) && date('Y-m-d')<$hocky->thoi_gian_sv_ket_thuc_dk){
+                $a[] = $hocky;
+            }
+        }
+    	return view('guest.registersv')->with('hockys',$a);
     }
 
     public function getRegisterDN()
     {
-        $hockys = Semester::select('ten_hoc_ki')->distinct('ten_hoc_ki')->get();
-    	return view('guest.registerdn')->with('hockys',$hockys);
+        $a=[];
+        $hockys = Semester::all();
+        foreach($hockys as $hocky){
+            if ((date('Y-m-d')>$hocky->thoi_gian_dn_bat_dau_dk) && date('Y-m-d')<$hocky->thoi_gian_dn_ket_thuc_dk){
+                $a[] = $hocky;
+            }
+        }
+    	return view('guest.registerdn')->with('hockys',$a);
     }
     public function postRegisterSV(RegisterSVRequest $request)
     {
@@ -60,11 +74,40 @@ class RegisterController extends Controller
     	$student->quan_tri_he_thong = $request->ep4;
     	$student->Other = $request->ep5;
         // dd($request->favorite);
-    	$student->favorite = implode(",", ($request->favorite));
+    	if($request->favorite){
+            $student->favorite = implode(",", ($request->favorite));
+        }
     	$student->cty_da_thuc_tap = $request->cty2;
     	$student->ten_nv_phu_trach = $request->nv;
     	$student->email = $request->mailnv;
     	$student->save();	
+
+        if($request->luachon==0)    {
+            if($request->congty){
+                 $congtys = $request->congty;
+                foreach($congtys as $congty){
+                    $intership = new Intership;
+                    $intership->company_id = $congty;
+                    $intership->student_id =$student->id;
+                    $intership->semester_id = $request->hocky;
+                    $intership->status=0;
+                    $intership->save();
+                }
+            }else{
+                $intership = new Intership;
+                $intership->student_id = $student->id;
+                $intership->semester_id = $request->hocky;
+                $intership->status = 0;
+                $intership->save();
+            }
+        }elseif($request->luachon==1){
+            $intership = new Intership;
+            $intership->student_id = $student->id;
+            $intership->semester_id = $request->hocky;
+            $intership->company_id = $request->cty2;
+            $intership->status = 1;
+            $intership->save();
+        }
     	return redirect('dang-nhap')->with('status','Bạn đã đăng ký thành công hãy đăng nhập để tiếp tục.');
     }
 
@@ -91,7 +134,7 @@ class RegisterController extends Controller
         $company->thoiGianMongMuon = $request->thoigiantt;
         // dd($request->linhvuchoatdong);
         $company->congNgheDaoTao = implode(',', $request->congnghedaotao);
-        $company->linhVucHoatDong = $request->linhvuchoatdong;
+        $company->linhVucHoatDong = implode(',', $request->linhvuchoatdong);
         $company->soLuongSinhVienTT = $request->soluong;
         $company->yeuCauNNSV = $request->yeucaungoaingu;
         $company->save();
@@ -102,5 +145,19 @@ class RegisterController extends Controller
         $leader->save();
         return redirect('/')->with('doanhnghiep','Bạn đã đăng ký thành công ,yêu cầu của bạn đanhg chờ xét duyệt');
 
+    }
+
+    public function findCongty(Request $request){
+        $id = $request->hocky;
+        $hocky = Semester::find($id);
+        $ten_hoc_ky=$hocky->ten_hoc_ki;
+        $congty = Company::where('hocky','=',$ten_hoc_ky)->where('status',0)->get();
+        return $congty;
+    }
+
+    public function findLeader(Request $r){
+        $data = $r->all();
+        $user  = DB::table('leaders')->join('users','leaders.user_id','=','users.id')->join('companies','leaders.company_id','=','companies.id')->select('users.name','users.email')->where('companies.id','=',$data)->where('users.level','=',2)->get();
+        return $user;
     }
 }

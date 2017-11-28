@@ -9,10 +9,13 @@ use Illuminate\Http\Response;
 use App\Company;
 use App\User;
 use App\Leader;
-use App\Semester;
+use App\semester;
 use App\Lecturer;
 use App\Notice;
+use Validator;
 use App\Http\Controllers\Admin\MailController;
+use App\Http\Request\CreateSemesterRequest;
+use App\Http\Request\EditSemesterRequest;
 class AdminController extends Controller
 {
 
@@ -27,7 +30,7 @@ class AdminController extends Controller
 		return view('admin.create_semester',compact(['lists']));
 	}
 
-	public function postCreateSemester(Request $r){
+	public function postCreateSemester(CreateSemesterRequest $r){
 		$semester = new Semester;
 		$semester->ten_hoc_ki = $r->name;
 		$semester->thoi_gian_dn_bat_dau_dk = $r->thoi_gian_dn_bat_dau_dk;
@@ -73,20 +76,29 @@ class AdminController extends Controller
 	public function addlecturer(Request $request){
 		$data = $request->data;
 		$hocky = $request->hocky;
-		foreach($data as $d){
-			$user = new User;
-			$user->email = $d['email'];
-			$user->password = bcrypt($d['password']);
-			$user->level = 5;
-			$user->status = 1;
-			$user->save();
-
-			$lecturer = new Lecturer;
-			$lecturer->user_id = $user->id;
-			$lecturer->hocky = $hocky;
-			$lecturer->save();
+		foreach ($data as $key => $d) {
+			$validator = Validator::make($data[$key],[
+				"email"=>"required|email",
+				"password"=>"required|min:6"
+			],[]);
 		}
-		return 1;
+		if(sizeof($data)>0 && $validator->passes()){
+			foreach($data as $d){
+				$user = new User;
+				$user->email = $d['email'];
+				$user->password = bcrypt($d['password']);
+				$user->level = 5;
+				$user->status = 1;
+				$user->save();
+
+				$lecturer = new Lecturer;
+				$lecturer->user_id = $user->id;
+				$lecturer->hocky = $hocky;
+				$lecturer->save();
+			}
+				return response()->json(["success"=>"Thanh cong"]);	
+		};		
+		return response()->json(["error"=>$validator->errors()->all()]);
 	}
 
 	public function thongBao(){
@@ -100,5 +112,21 @@ class AdminController extends Controller
 		$notice->noidung = $request->noidung;
 		$notice->ma_nguoi_nhan = $request->manguoinhan;
 		$notice->save();
+	}
+
+	public function editSemester($id){
+		$hocky = Semester::find($id);	
+		// dd($hocky);
+		return view('admin.edit_semester')->with('hocky',$hocky);
+	}
+
+	public function editSemesterPost(EditSemesterRequest $request,$id){
+		$hocky = Semester::find($id);
+		$hocky->thoi_gian_dn_bat_dau_dk = $request->thoi_gian_dn_bat_dau_dk;
+		$hocky->thoi_gian_dn_ket_thuc_dk = $request->thoi_gian_dn_ket_thuc_dk;
+		$hocky->thoi_gian_sv_bat_dau_dk = $request->thoi_gian_sv_bat_dau_dk;
+		$hocky->thoi_gian_sv_ket_thuc_dk = $request->thoi_gian_sv_ket_thuc_dk;
+		$hocky->save();
+		return redirect()->route('admin-dashboard');
 	}
 }

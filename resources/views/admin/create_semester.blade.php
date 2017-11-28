@@ -1,12 +1,25 @@
 @extends('layouts.admin')
 @section('content_right')
 	<div class="row">
-		<div class="col-lg-offset-10 col-lg-2">
+		<div class="col-lg-offset-10 col-lg-2 row">
 			<button class="btn btn-info" data-toggle="modal" data-target="#mymodal">Tạo Mới</button>
+		</div><br><br>
+		<div class="row">
+			@if(count($errors))
+				<div class="alert alert-danger">
+					<strong>Whoops!</strong> There were some problems with your input.
+					<br/>
+					<ul>
+						@foreach($errors->all() as $error)
+						<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+			@endif
 		</div>
+
 		<div id="mymodal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
-
 			    <!-- Modal content-->
 			    <div class="modal-content">
 			      <div class="modal-header">
@@ -62,7 +75,7 @@
 						<td>{{$list->thoi_gian_dn_ket_thuc_dk}}</td>
 						<td>{{$list->thoi_gian_sv_bat_dau_dk}}</td>
 						<td>{{$list->thoi_gian_sv_ket_thuc_dk}}</td>
-						<td><button class="btn btn-primary">Edit</button></td>
+						<td><a href="/admin/chinh-sua-lich-dang-ky/{{$list->id}}"><button class="btn btn-primary" >Edit</button></a></td>
 					</tr>
 				@endforeach
 			</tbody>

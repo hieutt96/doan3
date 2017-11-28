@@ -1,7 +1,6 @@
 
 $(document).on('change','select',function(){
 	var hocky = $("select").val();
-	console.log(hocky);
 	if(hocky){
 		console.log(1);
 		$(".hienthi1").empty();
@@ -27,18 +26,24 @@ $(document).on('click','#them',function(){
 						<input type="password" class="col-lg-3 form-control password" name ="password" required></input>
 					</div>
 					<div class="col-lg-1">
-						<p class="" style="cursor:pointer" id="delete">&times;</p>
+						<p class="delete" style="cursor:pointer" >&times;</p>
 					</div>
 				</div>
 				<div class="row">
-					<button class="btn btn-info col-lg-offset-2 col-lg-7 submit">Submit</button>
+					<button class="btn btn-info col-lg-offset-2 col-lg-7 submit" id="submit1">Submit</button>
 				</div>
 			</ol>
 		`);
 });
 
-$(document).on('click',"#delete",function(){
+$(document).on('click',".delete",function(){
+
 	$(this).closest("ol").remove();
+	// console.log(1);
+	var search = $("#submit1");
+	if(typeof(search)==undefined){
+		console.log(1);
+	}
 });	
 
 $(document).on('click',".submit",function(){
@@ -61,11 +66,21 @@ $(document).on('click',".submit",function(){
 		dataType:"json",
 		data : {'data':data,'hocky':hocky},
 		success:function(data){
-			alert("Success");
-			$("ol").remove();
-		},
-		error:function(){
-			alert("Error");
+			if($.isEmptyObject(data.error)){
+				alert(data.success);
+			}else{
+				myfunction(data.error);
+			}
 		}
 	});
+	function myfunction(data){
+		$("#error").empty();
+		$.each(data,function(key,value){
+			$("#error").append(`<li class="alert alert-danger alert-dismissable">
+			  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			  <strong>Error!</strong>`+ value+`
+			</li>`);
+			// $("#error").append(`<li>`+value+`</li>`)
+		});
+	}
 });	

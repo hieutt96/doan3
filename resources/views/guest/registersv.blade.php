@@ -4,10 +4,21 @@
 		<b><h2>Đăng Ký Dành Cho Sinh Viên</h2></b>
 	</div>
 	<hr style="border-width: 2px;">
+	@if(count($errors))
+		<div class="alert alert-danger">
+			<strong>Whoops!</strong> There were some problems with your input.
+			<br/>
+			<ul>
+				@foreach($errors->all() as $error)
+				<li>{{ $error }}</li>
+				@endforeach
+			</ul>
+		</div>
+	@endif
 	<div class="container">
 		<form method="POST" action="{{route('dang-ky-sv.post')}}">
 			{{ csrf_field() }}			
-			<div>
+			<div class="row">
 				<div class="col-lg-6">
 					<b style="font-size: 16px;"><span class="glyphicon glyphicon-user"></span>  Thông Tin Sinh Viên</b>	
 					<br><br>	
@@ -159,60 +170,102 @@
 								<span class="help-block"><strong>{{$errors->first('ep5')}}</strong></span>
 							@endif
 					</div>
+					<div class="form-group {{ $errors->has('favorite') ? ' has-error' : '' }}">
+						<label class="col-lg-5 control-label">Công nghệ mong muốn đào tạo :</label>
+						<div class="col-lg-7">
+							<select name="favorite[]" placeholder="..."  class="form-control select2" multiple="multiple">
+								<option value="PHP">PHP</option>
+								<option value="JAVA">JAVA</option>
+								<option value="Javascript">Javascript</option>
+								<option value="Ruby">Ruby</option>
+								<option value="C/C++">C/C++</option>
+								<option value="Python">Python</option>
+								<option value="Android">Android</option>
+								<option value=".NET">.NET</option>
+							</select>
+							<script type="text/javascript">
+								$('.select2').select2({
+									maximumSelectionLength: 3
+								});
+							</script>
+						</div>
 
+	           			@if ($errors->has('favorite'))
+	                        <span class="help-block">
+	                            <strong>{{ $errors->first('favorite') }}</strong>
+	                        </span>
+	                   @endif
+					</div><br><br>
 				</div><br>
-				<div class="row col-lg-12">
-					<div class="row ">
-						<b style="font-size: 21px; color: red;">Lĩnh vực mong muốn thực tập:</b>
-					</div><br>
-					<div class="col-lg-4 col-lg-offset-3">
-						<input type="checkbox" name="favorite[]" value="Mobie Android">
-						<label>Mobie Android</label><br><br>
-						<input type="checkbox" name="favorite[]" value="Mobie IOS">
-						<label>Mobie IOS</label><br><br>
-						<input type="checkbox" name="favorite[]" value="JAVA Programming">
-						<label>JAVA Programming</label><br><br>
-						<input type="checkbox" name="favoritep[]" value="NET Programming">
-						<label>NET Programming</label><br><br>
-						<input type="checkbox" name="favorite[]" value="PHP Programming">
-						<label>PHP Programming</label><br><br>
+			</div><br>
+			<div class="col-lg-5 form-group">
+				<label class="col-lg-3 control-label">Học kỳ :</label>
+				<div class="col-lg-8">
+					<select name="hocky" class="select2 form-control" id="hocky" required>
+						<option value="0">--Chọn Học Kỳ--</option>
+						@foreach($hockys as $hocky)
+							<option value="{{$hocky->id}}">{{$hocky->ten_hoc_ki}}</option>
+						@endforeach
+					</select>
+				</div>
+			</div><br><hr>
+			<div class="row col-lg-12">
+				<div id="myform">
+					<div class="col-lg-5">
+						<label class="col-lg-12">Bạn đã có công ty thực tập chưa :</label>
 					</div>
-					<div class="col-lg-4">
-						<input type="checkbox" name="favorite[]" value="SystemAdmin">
-						<label>SystemAdmin (Quản trị hệ thống )</label><br><br>
-						<input type="checkbox" name="favorite[]" value="Web Programming">
-						<label>Web Programming</label><br><br>
-						<input type="checkbox" name="favorite[]" value="Desktop app Programming">
-						<label>Desktop app Programming</label><br><br>
-						<input type="checkbox" name="favorite[]" value="Serve Side">
-						<label>Serve Side ,system programming</label><br><br>
-						<input type="checkbox" name="favorite[]" value="Embedded">
-						<label>Embedded</label><br><br>
+					<div class="col-lg-3">
+						<input type="radio" name="luachon" value="0" required="required" class="">Chưa có công ty thực tập
 					</div>
-				</div><br><hr style="border-width: 2px;">
-				<div class="row col-lg-12">
-					<div class="row"><b style="font-size: 20px; color: red;"> Phần dành cho Sinh Viên đã có công ty thực tập:</b></div><br>
-					<div class="col-lg-offset-1 col-lg-6">
-						<div class="form-group">
-							<label class="control-label"> Tên Công Ty Thực Tập:</label>
-							<textarea class="form-control" name="cty2" placeholder="..."></textarea>
-						</div>
-						<div class="form-group {{$errors->has('nv') ? 'has-error':''}}">
-							<label class="control-label">Tên nhân viên phụ trách thực tập :</label>
-							<input type="text" name="nv" class="form-control" placeholder="..." value="{{old('nv')}}">
-							@if($errors->has('nv'))
-								<span class="help-block"><strong>{{$errors->first('nv')}}</strong></span>
-							@endif
-						</div>
-						<div class="form-group {{$errors->has('mailnv')?'has-error':''}}">
-							<label class="control-label">Email nhân viên phụ trách thực tập:</label>
-							<input type="email" name="mailnv" class="form-control" placeholder="..." value="{{old('mailnv')}}">
-							@if($errors->has('mailnv'))
-								<span class="help-block"><strong>{{$errors->first('mailnv')}}</strong></span>
-							@endif
-						</div>
+					<div class="col-lg-3">
+						<input type="radio" name="luachon" value="1">Đã có công ty thực tập
 					</div>
-				</div><br><hr style="border-width: 2px;">
+				</div>
+			</div>
+			<div class="row col-lg-12">
+				<div class="row"><b style="font-size: 20px; color: red;"> Phần dành cho Sinh Viên chưa có công ty thực tập:</b></div><br>
+				<div class="form-group row col-lg-7">
+						<label class="col-lg-5 control-label">Công Ty Mong Muốn Thực Tập:</label>
+						<div class="col-lg-6">
+							<select name="congty[]" class="form-control select2" multiple="multiple" id="dangkycongty">
+								
+							</select>
+							<script type="text/javascript">
+								$("#dangkycongty").select2();
+							</script>
+						</div>
+				</div>
+			</div>
+
+
+			<div class="row col-lg-12" >
+				<div class="row"><b style="font-size: 20px; color: red;"> Phần dành cho Sinh Viên đã có công ty thực tập:</b></div><br>
+				<div class="col-lg-offset-1 col-lg-6">
+					<div class="form-group">
+						<label class="control-label"> Tên Công Ty Thực Tập:</label>
+						<select class="form-control select2" name="cty2" placeholder="..." id="cty2" required>
+							<option value="">--Select--</option>
+						</select>
+						<script type="text/javascript">
+							$("#cty2").select2();
+						</script>
+					</div>
+					<div class="form-group {{$errors->has('nv') ? 'has-error':''}}">
+						<label class="control-label">Tên nhân viên phụ trách thực tập :</label>
+						<select type="text" name="nv" class="form-control select2" placeholder="..." value="{{old('nv')}}"></select>
+						@if($errors->has('nv'))
+							<span class="help-block"><strong>{{$errors->first('nv')}}</strong></span>
+						@endif
+					</div>
+					<div class="form-group {{$errors->has('mailnv')?'has-error':''}}">
+						<label class="control-label">Email nhân viên phụ trách thực tập:</label>
+						<select type="email" name="mailnv" class="form-control select2" placeholder="..." value="{{old('mailnv')}}"></select>
+						@if($errors->has('mailnv'))
+							<span class="help-block"><strong>{{$errors->first('mailnv')}}</strong></span>
+						@endif
+					</div>
+				</div>
+			</div><br><hr style="border-width: 2px;">
 				<div class="row col-lg-12">
 					<div class="row">
 						<b style="color: red;font-size: 20px;">Đăng ký tài khoản:</b>
@@ -237,5 +290,12 @@
 				</div><hr>
 			</div>
 		</form>
+	</form>
 	</div>
+@endsection
+@section('script')
+	<script type="text/javascript" src="{{asset('/js/guest/registersv.js')}}"></script>
+<!-- 	<script type="text/javascript">
+		$(".select2").select2();
+	</script> -->
 @endsection

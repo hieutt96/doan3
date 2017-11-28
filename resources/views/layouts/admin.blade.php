@@ -18,7 +18,7 @@
 				<a href="{{route('thong-bao')}}">Gửi thông báo</a>
 			</div><hr>
 			<div class="row">
-				<a href="/admin/tao-lich-dang-ky-hoc-ky">Tạo Lịch Đăng Ký Cho Học Kỳ</a>
+				<a href="/admin/tao-lich-dang-ky-hoc-ky">Danh Sách Học Kỳ</a>
 			</div><hr>
 		</div>
 		<div class="col-lg-9">

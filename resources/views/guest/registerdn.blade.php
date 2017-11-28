@@ -13,6 +13,17 @@
 		<h4 class=" col-lg-8"><span class="glyphicon glyphicon-fire"></span> Đăng ký thông tin doanh nghiệp</h4>
 	</div>
 	<hr>
+	@if(count($errors))
+		<div class="alert alert-danger">
+			<strong>Whoops!</strong> There were some problems with your input.
+			<br/>
+			<ul>
+				@foreach($errors->all() as $error)
+				<li>{{ $error }}</li>
+				@endforeach
+			</ul>
+		</div>
+	@endif
 	<form method="POST" action="{{route('dang-ky-dn.post')}}">
 		{{ csrf_field() }}	
 		<div class="row">
@@ -181,7 +192,19 @@
 				<div class="col-lg-offset-2 form-group {{ $errors->has('linhvuchoatdong') ? ' has-error' : '' }}">
 					<label class="col-lg-2 control-label">Lĩnh Vực Hoạt Động :</label>
 					<div class="col-lg-6">
-						<input type="text" name="linhvuchoatdong" placeholder="..." required class="form-control">
+						<select type="text" name="linhvuchoatdong[]" placeholder="..." required class="form-control select2" multiple="multiple">
+							<option value="PHP">PHP</option>
+							<option value="JAVA">JAVA</option>
+							<option value="Javascript">Javascript</option>
+							<option value="Ruby">Ruby</option>
+							<option value="C/C++">C/C++</option>
+							<option value="Python">Python</option>
+							<option value="Android">Android</option>
+							<option value=".NET">.NET</option>
+						</select>
+						<script type="text/javascript">
+							$('.select2').select2();
+						</script>
 					</div>
 
            			@if ($errors->has('linhvuchoatdong'))
@@ -196,7 +219,7 @@
 				<div class="col-lg-offset-2 form-group {{ $errors->has('congnghedaotao') ? ' has-error' : '' }}">
 					<label class="col-lg-2 control-label">Công Nghệ Đào Tạo</label>
 					<div class="col-lg-6">
-						<select type="text" name="congnghedaotao[]" placeholder="..." required class="form-control" multiple="multiple">
+						<select type="text" name="congnghedaotao[]" placeholder="..." required class="form-control select2" multiple="multiple">
 							<option value="PHP">PHP</option>
 							<option value="JAVA">JAVA</option>
 							<option value="Javascript">Javascript</option>
@@ -206,6 +229,9 @@
 							<option value="Android">Android</option>
 							<option value=".NET">.NET</option>
 						</select>
+						<script type="text/javascript">
+							$('.select2').select2();
+						</script>
 					</div>
 
            			@if ($errors->has('congnghedaotao'))
