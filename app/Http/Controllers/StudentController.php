@@ -10,8 +10,10 @@ use App\Company;
 use App\User;
 use App\Job;
 use App\Student_Job_Assignment;
+use App\Notice;
 use Auth;
 use File;
+
 class StudentController extends Controller
 {
     //Thay đổi mật khẩu
@@ -109,7 +111,38 @@ class StudentController extends Controller
         $job_assignment->trang_thai = $request->trang_thai;
         $job_assignment->save();
         return back()->with('thongbao','Cập nhật công việc thành công !');
-
+    }
+    //Thông báo chung cho tất cả Guest
+    public function getThongBaoChung(){
+        $notice = Notice::orderBy('created_at', 'desc')->paginate(7);
+        return view('student.thongBao.thongBaoChung',['notice'=>$notice]);
+       
+    }
+    public function chiTietThongBaoChung($id){
+        $notice = Notice::find($id);
+        return view('student.thongBao.chiTietThongBaoChung',['notice'=>$notice]);
+    } 
+    //Thông báo sinh viên phía doanh nghiep      
+    public function getThongBaoPhiaDoanhNghiep(){
+       $notice = Notice::where('ma_nguoi_nhan','=',Auth::user()->id)->orderBy('created_at', 'desc')->paginate(7);
+        return view('student.thongBao.thongBaoPhiaDoanhNghiep',['notice'=> $notice]);
+    }
+    public function chiTietThongBaoPhiaDoanhNghiep($id){
+        $notice = Notice::find($id);
+        return view('student.thongBao.chiTietThongBaoPhiaDoanhNghiep',['notice'=>$notice]);
+    }
+    //Thông báo sinh viên phía nhà trường  
+    public function getThongBaoPhiaNhaTruong(Request $request){
+        $notice = Notice::where('ma_nguoi_nhan','=',Auth::user()->id)->orderBy('created_at', 'desc')->paginate(7);
+        return view('student.thongBao.thongBaoPhiaNhaTruong',['notice'=>$notice]);
+    }
+    public function chiTietThongBaoPhiaNhaTruong($id){
+        $notice = Notice::find($id);
+        return view('student.thongBao.chiTietThongBaoPhiaNhaTruong',['notice'=>$notice]);
+    }
+    //Liên hệ nhà trường
+    public function lienHeNhaTruong(){
+        return view('student.lienHeNhaTruong');
     }
    
 }

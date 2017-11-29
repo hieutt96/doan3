@@ -35,7 +35,7 @@ class LoginController extends Controller
     		}elseif(Auth::user()->level == 4){
     			return redirect('/');
     		}elseif(Auth::user()->level ==5){
-    			return redirect('/');
+    			return redirect('home');
     		}else{
     			return redirect('/');
     		}

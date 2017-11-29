@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <base href="{!!asset('')!!}">
         <!-- Custom Fonts -->
       
@@ -147,13 +148,16 @@
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Trang Chủ </a></li>
+                        <li class="active"><a href="{{url('home')}}">Trang Chủ </a></li>
                         <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
                          @if(Auth::user())
                         <li><a href="{{ url('student/cong-viec-thuc-tap')}}">Công việc thực tập </a></li>
+                        <li><a href="{{ url('student/thong-bao-phia-nha-truong') }}">Thông báo</a></li>
                          @endif
-                        <li><a href="#">Thông báo</a></li>
-                        <li><a href="#">Giới thiệu</a></li>
+                        @if(Auth::guest())
+                        <li><a href="{{ url('thong-bao') }}">Thông báo</a></li>
+                        @endif
+                        <li><a href="{{url('lien-he')}}">Liên hệ</a></li>
                     </ul>
                     </div>
                 </nav>
@@ -167,7 +171,7 @@
                     <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
                         <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</b><br>
                         <b >Trường Đại Học Bách Khoa Hà Nội</b><br>
-                        <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lí</p>
+                        <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
                     </div>
                 </div>
             </div>

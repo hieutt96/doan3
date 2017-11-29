@@ -10,10 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('guest.home');
-});
+Route::get('home','trangChuController@trangchu');
+//Route::get('/','StudentController@getThongBaoChung');
 
 Route::get('dang-ky-doanh-nghiep',['as'=>'dang-ky-dn','uses'=>'Guest\RegisterController@getRegisterDN']);
 
@@ -50,6 +48,12 @@ Route::group(['prefix'=>'student'],function(){
 
     //Công việc thực tập
     Route::get('cong-viec-thuc-tap','StudentController@getCongViecThucTap');
+    //Thông báo sinh viên
+    Route::get('thong-bao-phia-nha-truong','StudentController@getThongBaoPhiaNhaTruong');
+    Route::get('thong-bao-phia-nha-truong/{id}','StudentController@chiTietThongBaoPhiaNhaTruong');
+
+    Route::get('thong-bao-phia-doanh-nghiep','StudentController@getThongBaoPhiaDoanhNghiep');
+    Route::get('thong-bao-phia-doanh-nghiep/{id}','StudentController@chiTietThongBaoPhiaDoanhNghiep');
 
 });
 Route::group(['prefix'=>'comment'],function(){
@@ -64,5 +68,10 @@ Route::get('hop-tac-doanh-nghiep/{id}/{tendoanhnghiep}','StudentController@chiTi
 
 //Comment
 Route::post('hop-tac-doanh-nghiep/{id}/{tendoangnghiep}','CommentController@postComment');
+//Liên hệ nhà trường
+Route::get('lien-he','StudentController@lienHeNhaTruong');
 
+//Thông báo chung cho Guest
+Route::get('thong-bao','StudentController@getThongBaoChung');
+Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');
 

@@ -12,6 +12,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
         <base href="{!!asset('')!!}">
         <style>
            .container-panel {
@@ -162,11 +163,15 @@
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Trang Chủ </a></li>
+                        <li class="active"><a href="{{url('home')}}">Trang Chủ </a></li>
                         <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
+                        @if(Auth::guest())
+                        <li><a href="{{ url('thong-bao') }}">Thông báo</a></li>
+                        @elseif(Auth::user())
                         <li><a href="{{ url('student/cong-viec-thuc-tap') }}">Công việc thực tập </a></li>
-                        <li><a href="#">Thông báo</a></li>
-                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="{{ url('student/thong-bao-phia-nha-truong') }}">Thông báo</a></li>
+                        @endif
+                        <li><a href="{{ url('lien-he')}}">Liên hệ</a></li>
                     </ul>
                     </div>
                 </nav>

@@ -88,7 +88,6 @@
             </div>
 
         </div>
-        <!-- /.row 
     </div>
     <!-- end Page Content -->
 @endsection
