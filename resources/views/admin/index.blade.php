@@ -5,13 +5,16 @@
             <select class="form-control" id="hocky">
                 <option value="">--Select--</option>
                 @foreach($hockys as $value)
-                    <option value="{{$value->hocky}}">{{$value->hocky}}</option>
+                    <option value="{{$value->ten_hoc_ki}}">{{$value->ten_hoc_ki}}</option>
                 @endforeach
             </select>
         </div>
         <div class="col-lg-2">
             <button class="btn btn-info form-control" id="loc">Lọc</button>
         </div>
+    </div>
+    <div class="row alert alert-default col-lg-12">
+        <strong>Học kì hiện tại là :{{$hocky_current}}</strong>
     </div>
     <div class="row col-lg-12">
         <ul class="nav nav-tabs">

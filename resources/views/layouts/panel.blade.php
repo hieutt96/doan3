@@ -45,7 +45,7 @@
 </head>
 <body>
 	<div class="container" style="margin-bottom: 100px;">		
-            <div class="row" style="background:#00FFFF;margin-top: 5px;">
+            <div class="row" style="background:#263C65;margin-top: 5px;">
                 <div class="col-sm-2">
                     <img src="{{asset('image/background/soict.png')}}" style="height: 150px;"  >
                 </div>
@@ -120,7 +120,7 @@
             <hr style="border-color: red;">
             @yield('content')
             <div>
-                <div class="row" style="background: #00FFFF;">
+                <div class="row" style="background: #263C65;">
                     <hr style="border-color: red; ">
                     <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
                         <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</b><br>

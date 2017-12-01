@@ -8,7 +8,7 @@ class Result extends Model
 {
 	protected $table = 'results';
 	
-    public function student(){
-    	return $this->belongsTo('App\Student');
+    public function intership(){
+    	return $this->hasOne('App\Intership');
     }
 }

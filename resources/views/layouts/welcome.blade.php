@@ -41,7 +41,7 @@
     </head>
     <body>
         <div class="container" style="margin-bottom: 100px;">
-            <div class="row" style="background:#00FFFF;margin-top: 5px;">
+            <div class="row" style="background:#263C65;margin-top: 5px;">
                 <div class="col-sm-2">
                     <img src="{{asset('image/background/soict.png')}}" style="height: 150px;"  >
                 </div>
@@ -106,10 +106,10 @@
                                         <a href="">Truy Cập Trang Quản Lí</a>
 
                                     @ifelse(Auth::user()->level == 4)
-                                        <a href="">Truy hi Cập Trang Quản Lí</a>
+                                        <a href="/admin-dashboard">Truy hi Cập Trang Quản Lí</a>
 
                                     @else(Auth::user()->level == 5)
-                                        <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
+                                        <a href="/">Truy Cập Trang Quản Lí</a>
                                     @endif
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();

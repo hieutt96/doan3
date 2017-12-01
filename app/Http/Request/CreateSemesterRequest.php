@@ -14,7 +14,9 @@ class CreateSemesterRequest extends FormRequest
 			'thoi_gian_dn_bat_dau_dk'=>'',
 			'thoi_gian_dn_ket_thuc_dk'=>'after:thoi_gian_dn_bat_dau_dk',
 			'thoi_gian_sv_bat_dau_dk'=>'after:thoi_gian_dn_ket_thuc_dk',
-			'thoi_gian_sv_ket_thuc_dk'=>'after:thoi_gian_sv_bat_dau_dk'
+			'thoi_gian_sv_ket_thuc_dk'=>'after:thoi_gian_sv_bat_dau_dk',
+			'thoi_gian_sv_bat_dau_thuc_tap'=>'after:thoi_gian_sv_ket_thuc_dk',
+			'thoi_gian_sv_ket_thuc_thuc_tap'=>'after:thoi_gian_sv_bat_dau_thuc_tap'
 		];
 	}
 

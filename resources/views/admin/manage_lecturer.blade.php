@@ -8,7 +8,7 @@
 			<select class="form-control">
 				<option value="">--Select--</option>
 				@foreach($hockys as $hocky)
-					<option value="{{$hocky->hocky}}">{{$hocky->hocky}}</option>
+					<option value="{{$hocky->ten_hoc_ki}}">{{$hocky->ten_hoc_ki}}</option>
 				@endforeach
 			</select>
 		</div>

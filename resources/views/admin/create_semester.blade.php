@@ -17,6 +17,9 @@
 				</div>
 			@endif
 		</div>
+		<div class="alert alert-default">
+			<strong>Học kỳ hiện tại là : {{$hocky_current}}</strong>
+		</div>
 
 		<div id="mymodal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
@@ -44,6 +47,12 @@
 				       		<div class="row">
 				       			Thời gian sinh viên kết thúc đăng ký:<input type="date" name="thoi_gian_sv_ket_thuc_dk" required>
 				       		</div><br>
+				       		<div class="row">
+				       			Thời gian sinh viên bắt đầu đi thực tập:<input type="date" name="thoi_gian_sv_ket_thuc_dk" required>
+				       		</div><br>
+				       		<div class="row">
+				       			Thời gian sinh viên kết thúc thực tập:<input type="date" name="thoi_gian_sv_ket_thuc_dk" required>
+				       		</div><br>
 				       		<div>
 				       			<button type="submit" class="btn btn-default form-control">Submit</button>
 				       		</div>
@@ -65,6 +74,8 @@
 				<th>Thời gian doanh nghiệp kết thúc đăng ký</th>
 				<th>Thời gian sinh viên bắt đầu đăng ký</th>
 				<th>Thời gian sinh viên kết thúc đăng ký</th>
+				<th>Thời gian sinh viên bắt đầu thực tập</th>
+				<th>Thời gian sinh viên kết thúc thực tập</th>
 				<th>Action</th>
 			</thead>
 			<tbody>
@@ -75,6 +86,8 @@
 						<td>{{$list->thoi_gian_dn_ket_thuc_dk}}</td>
 						<td>{{$list->thoi_gian_sv_bat_dau_dk}}</td>
 						<td>{{$list->thoi_gian_sv_ket_thuc_dk}}</td>
+						<td>{{$list->thoi_gian_sv_bat_dau_thuc_tap}}</td>
+						<td>{{$list->thoi_gian_sv_ket_thuc_thuc_tap}}</td>
 						<td><a href="/admin/chinh-sua-lich-dang-ky/{{$list->id}}"><button class="btn btn-primary" >Edit</button></a></td>
 					</tr>
 				@endforeach

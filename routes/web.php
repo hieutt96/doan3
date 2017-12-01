@@ -65,3 +65,13 @@ Route::post('/admin/chinh-sua-lich-dang-ky/{id}',['as'=>'chinh-sua-hoc-ky.post',
 
 Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
 Route::get('guest/find/leader','Guest\RegisterController@findLeader');
+
+Route::get('admin/managestudent','Admin\AdminController@manageSV');
+
+Route::get('/admin/find-student-semester','Admin\AdminController@findStudentSemester');
+
+Route::get('/admin/assignment_student/{hocky}','Admin\AdminController@assignment_student');
+
+Route::get('/admin/assignment_student','Admin\AdminController@assignmentStudent');
+
+Route::get('/lecturer/editprofile/{id}',)

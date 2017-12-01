@@ -46,6 +46,18 @@
 				</label>
 				<input type="date" name="thoi_gian_sv_ket_thuc_dk" value="{{$hocky->thoi_gian_sv_ket_thuc_dk}}" class=" col-lg-3">
 			</div>
+			<div class="row form-group ">
+				<label class="control-label col-lg-5">
+					Thời gian sinh viên bắt đầu thực tập:
+				</label>
+				<input type="date" name="thoi_gian_sv_bat_dau_thuc_tap" value="{{$hocky->thoi_gian_sv_bat_dau_thuc_tap}}" class=" col-lg-3">
+			</div>
+			<div class="row form-group ">
+				<label class="control-label col-lg-5">
+					Thời gian sinh viên kết thúc thực tập:
+				</label>
+				<input type="date" name="thoi_gian_sv_ket_thuc_thuc_tap" value="{{$hocky->thoi_gian_sv_ket_thuc_thuc_tap}}" class=" col-lg-3">
+			</div>
 			<div class="row">
 				<button class="btn btn-default form-control">
 					Submit

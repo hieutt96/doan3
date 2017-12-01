@@ -23,4 +23,7 @@ class Intership extends Model
     public function leader(){
         return $this->belongsTo('App\Leader');
     }
+    public function result(){
+        return $this->belongsTo('App\Result');
+    }
 }
