@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Kyslik\ColumnSortable\Sortable;
+// use Kyslik\ColumnSortable\Sortable;
 
-//use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+use Illuminate\Auth\Authenticable as AuthenticableTrait;
+class User extends Authenticatable
 {
-    use Sortable;
+    // use Sortable;
     use Notifiable;
     public $sortable = ['name'];
     /**
@@ -49,5 +50,5 @@ class User extends Model
 
     public function comment(){
         return $this->hasMany('App\Comment');
-    public function leader()
+    }
 }

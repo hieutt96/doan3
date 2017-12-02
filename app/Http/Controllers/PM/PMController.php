@@ -1,19 +1,3 @@
-
-<?php 
-	namespace App\Http\Controllers\PM;
-
-	use App\Http\Controllers\Controller;
-	use Illuminate\Support\Facades\DB;
-	class PMController extends Controller{
-		public function __construct(){
-			$this->middleware('guest')->except('logout');
-		}
-
-		public function show(){
-			return view('layouts.pm');
-		}
-	}
-
 <?php
 /**
  * Created by PhpStorm.
@@ -83,26 +67,26 @@ class PMController extends Controller
             $pagiNum = 10;
         }
 
-        $idCompany = 2;
+        $company_id = 2;
         if (sizeof($request->input('search'))) {
             $search = $request->input('search');
             $students = Student::join('users', 'students.user_id', '=', 'users.id')
                 ->join('interships', 'students.user_id', '=', 'interships.student_id')
                 ->where([['users.name', 'like', '%' . $search . '%']
-                    , ['interships.company_id', '=', $idCompany]
+                    , ['interships.company_id', '=', $company_id]
                     , ['interships.semester_id', '=', $idSemester]])
                 ->sortable()->paginate($pagiNum);
             if (count($students) == 0) {
                 $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
                     ->where([['students.MSSV', 'like', '%' . $search . '%']
-                        , ['interships.company_id', '=', $idCompany]
+                        , ['interships.company_id', '=', $company_id]
                         , ['interships.semester_id', '=', $idSemester]])
                     ->sortable()->paginate($pagiNum);
             }
             $isSearch = true;
         } else {
             $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
-                ->where([['interships.company_id', '=', $idCompany]
+                ->where([['interships.company_id', '=', $company_id]
                     , ['interships.semester_id', '=', $idSemester]])
                 ->sortable()->paginate($pagiNum);
             $isSearch = false;
@@ -200,16 +184,16 @@ class PMController extends Controller
         $currentSem = 20171;
         // idCompany get form current PM being login
 //        $idCompany = rand(1, 3);
-        $idCompany = 2;
+        $company_id = 2;
         $leaders = Leader::join('users', 'leaders.user_id', '=', 'users.id')
             ->where([['users.level', '=', 2]
-                , ['leaders.idCompany', '=', $idCompany]])->get();
+                , ['leaders.idCompany', '=', $company_id]])->get();
         if (sizeof($request->input('search'))) {
             $search = $request->input('search');
             $students = Student::join('users', 'students.user_id', '=', 'users.id')
                 ->join('interships', 'students.user_id', '=', 'interships.student_id')
                 ->where([['users.name', 'like', '%' . $search . '%']
-                    , ['interships.company_id', '=', $idCompany]
+                    , ['interships.company_id', '=', $company_id]
                     , ['interships.semester_id', '=', $currentSem]])
                 ->sortable()->paginate($pagiNum);
 
@@ -217,7 +201,7 @@ class PMController extends Controller
                 $students = Student::join('users', 'students.user_id', '=', 'users.id')
                     ->join('interships', 'students.user_id', '=', 'interships.student_id')
                     ->where([['students.MSSV', 'like', '%' . $search . '%']
-                        , ['interships.company_id', '=', $idCompany]
+                        , ['interships.company_id', '=', $company_id]
                         , ['interships.semester_id', '=', $currentSem]])
                     ->sortable()->paginate($pagiNum);
             }
@@ -225,7 +209,7 @@ class PMController extends Controller
             $isSearch = true;
         } else {
             $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
-                ->where([['interships.company_id', '=', $idCompany]
+                ->where([['interships.company_id', '=', $company_id]
                     , ['interships.semester_id', '=', $currentSem]])->sortable()->paginate($pagiNum);
             $isSearch = false;
         }
@@ -280,4 +264,3 @@ class PMController extends Controller
         return view('chiTietTB', ['noti' => $noti, 'userType' => 'pm']);
     }
 }
-

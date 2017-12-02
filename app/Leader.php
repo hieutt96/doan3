@@ -26,6 +26,6 @@ class Leader extends Model
     	return $this->hasMany('App\Job');
     }
     public function intership(){
-        return $this->hasMany('App\Intership')
+        return $this->hasMany('App\Intership');
     }
 }

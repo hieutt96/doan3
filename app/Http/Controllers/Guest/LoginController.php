@@ -19,8 +19,11 @@ class LoginController extends Controller
     		'password'=> $request->password,
             'status' => 1
     	];
+        // dd($user);
     	if(Auth::attempt($user)){
+            // dd($user);  
             $a = Auth::user()->level;
+            // dd($user);
             switch ($a) {
                 case 1:
                     return redirect('/');
