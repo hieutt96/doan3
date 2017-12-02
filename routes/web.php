@@ -74,4 +74,4 @@ Route::get('/admin/assignment_student/{hocky}','Admin\AdminController@assignment
 
 Route::get('/admin/assignment_student','Admin\AdminController@assignmentStudent');
 
-Route::get('/lecturer/editprofile/{id}',)
+Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
