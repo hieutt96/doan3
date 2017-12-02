@@ -10,7 +10,7 @@
 	            		
 		                <!-- item -->
 						@foreach($notice as $noti)
-							@if($noti->user->level==3)
+							@if($noti->user->level==4)
 					    <div class="row-item row">
 		        
 		                	<div class="border-right">

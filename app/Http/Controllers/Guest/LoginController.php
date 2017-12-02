@@ -10,11 +10,11 @@ use Illuminate\Http\Response;
 //use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
-    public function __construct()
-    {
-		$this->middleware('guest')->except('logout');
-		view()->share('student',Auth::user());
-    }
+    // public function __construct()
+    // {
+	// 	$this->middleware('guest')->except('logout');
+	// 	view()->share('student',Auth::user());
+    // }
     public function getLogin(){
     	return view('auth.login');
     }
@@ -26,18 +26,18 @@ class LoginController extends Controller
 		];
 		//dd($user);
     	if(Auth::attempt($user)){
-    		if(Auth::user()->level == 1){
-    			return redirect('/');
-    		}elseif(Auth::user()->level == 2){
-    			return redirect('/');
-    		}elseif(Auth::user()->level == 3){
-    			return redirect('/');
-    		}elseif(Auth::user()->level == 4){
-    			return redirect('/');
-    		}elseif(Auth::user()->level ==5){
+    		if(Auth::user()->level == 1){//Sinh viên
     			return redirect('home');
-    		}else{
+    		}elseif(Auth::user()->level == 2){//PM
     			return redirect('/');
+    		}elseif(Auth::user()->level == 3){//leader
+    			return redirect('/');
+    		}elseif(Auth::user()->level == 4){//Admin
+    			return redirect('/');
+    		}elseif(Auth::user()->level ==5){//GV hướng dẫn
+    			return redirect('/');
+    		}else{
+    			return redirect('/');//Guest
     		}
 		}
 		else {
@@ -50,6 +50,6 @@ class LoginController extends Controller
 
     public function logout(){
     	Auth::logout();
-    	return redirect()->route('dang-nhap');
+    	return redirect("/home");
 	}
 }
