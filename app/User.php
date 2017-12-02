@@ -13,7 +13,7 @@ class User extends Authenticatable
 {
     // use Sortable;
     use Notifiable;
-    public $sortable = ['name'];
+    // public $sortable = ['name'];
     /**
      * The attributes that are mass assignable.
      *
@@ -44,5 +44,8 @@ class User extends Authenticatable
     }
     public function notice(){
     	return $this->hasMany('App\Notice','user_id','id');
+    }
+    public function leader(){
+        return $this->hasOne('App\Leader');
     }
 }

@@ -143,7 +143,7 @@
                                         <a href="/admin-dashboard">Truy hi Cập Trang Quản Lí</a>
 
                                     @else(Auth::user()->level == 5)
-                                        <a href="/">Truy Cập Trang Quản Lí</a>
+                                        <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
                                     @endif
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();

@@ -22,13 +22,12 @@ class LoginController extends Controller
             'status' => 1
     	];
         // dd($user);
-		];
 		//dd($user);
     	if(Auth::attempt($user)){
     		if(Auth::user()->level == 1){//Sinh viên
     			return redirect('home');
     		}elseif(Auth::user()->level == 2){//PM
-    			return redirect('/');
+    			return redirect('/pm/sv');
     		}elseif(Auth::user()->level == 3){//leader
     			return redirect('/');
     		}elseif(Auth::user()->level == 4){//Admin
@@ -42,14 +41,11 @@ class LoginController extends Controller
 		else {
 		
 			return redirect('dang-nhap')->with('invalid','Sai thông tin đăng nhập');
-		}
-			
-	
-
+		}	
     }
 
     public function logout(){
     	Auth::logout();
-    	return redirect("/home");
+    	return redirect("/");
 	}
 }

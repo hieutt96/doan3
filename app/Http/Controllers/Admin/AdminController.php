@@ -66,11 +66,18 @@ class AdminController extends Controller
 
 	public function acceptCompanyRequest($id){
 		$company = Company::find($id);
-		$company->status =1;
-		$company->save();
-        if($company) {
-            MailController::mailAccept($company);
-        }
+		// $company->status =1;
+		// $company->save();
+  //       if($company) {
+  //           MailController::mailAccept($company);
+  //       }
+		$data = [];
+        $leaders = Leader::where('company_id',$id)->get();
+       		foreach ($leaders as $leader) {
+       			$data = $leader->id;
+       			$id = $leader->id;
+   				$user = DB::table('users')->join('leaders','users.id','=','leaders.user_id')->where('user_id',$id)->update(['status'=>1]);
+       		}
 		return $company;
 	}
 

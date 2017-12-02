@@ -2,12 +2,12 @@
 namespace App;
 use Illuminate\Database\Eloquent\Model;
 
-use Kyslik\ColumnSortable\Sortable;
+// use Kyslik\ColumnSortable\Sortable;
 
 class Leader extends Model
 {
-    use Sortable;
-    public $sortable = ['lop', 'khoa', 'boMon', 'ctdt', 'idNVPhuTrach', 'tiengAnh'];
+    // use Sortable;
+    // public $sortable = ['lop', 'khoa', 'boMon', 'ctdt', 'idNVPhuTrach', 'tiengAnh'];
 
     protected $table = 'leaders';
 
@@ -15,14 +15,14 @@ class Leader extends Model
     {
     	return $this->belongsTo('App\Company','company_id');
     }
-
     public function user()
     {
-    	return $this->belongsTo('App\User');
+    	return $this->belongsTo('App\User','user_id');
     }
     public function job(){
     	return $this->hasMany('App\Job');
     }
     public function intership(){
         return $this->hasMany('App\Intership');
+    }
 }

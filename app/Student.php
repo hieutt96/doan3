@@ -15,24 +15,13 @@ class Student extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'user_id', 'id');
+        return $this->belongsTo('App\User');
     }
 
     public function intership()
     {
         return $this->hasMany('App\Intership');
-    }
-
-    public function job()
-    {
-        return $this->hasMany('App\Student_Job_Assignment', 'student_id');
-    }
-
-    public function result()
-    {
-        return $this->hasOne('App\Result');
-    }
-    
+    }  
     public function student_job_assignment(){
     	return $this->hasMany('App\Student_Job_Assignment');
     }

@@ -20,4 +20,15 @@
       0 => 'Kyslik\\ColumnSortable\\ColumnSortableServiceProvider',
     ),
   ),
+  'cornford/googlmapper' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Cornford\\Googlmapper\\MapperServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Mapper' => 'Cornford\\Googlmapper\\Facades\\MapperFacade',
+    ),
+  ),
 );

@@ -14,6 +14,7 @@ class trangChuController extends Controller
         $doanhnghiep = Company::orderByRaw('RAND()')->take(3)->get();//thay đổi param in take() khi có dữ liệu
         view()->share('dn_khac',$doanhnghiep);
     }
+    
     function trangchu(){
         return view('guest.home');
     }

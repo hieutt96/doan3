@@ -71,13 +71,8 @@
         </style>
 </head>
 <body>
-<<<<<<< HEAD
 	<div class="container" style="margin-bottom: 100px;">		
             <div class="row" style="background:#263C65;margin-top: 5px;">
-=======
-	<div class="container container-panel" style="margin-bottom: 100px;">		
-            <div class="row row-heading" >
->>>>>>> 711b6098719f3aee45b3b76b9e00178ad5878357
                 <div class="col-sm-2">
                     <img src="{{asset('image/background/soict.png')}}" style="height: 150px;"  >
                 </div>
@@ -154,12 +149,7 @@
             @yield('content')
             </div>
             <div>
-<<<<<<< HEAD
-                <div class="row" style="background: #263C65;">
-                    <hr style="border-color: red; ">
-=======
                 <div class="row" style="background: #263c65; color:white;">
->>>>>>> 711b6098719f3aee45b3b76b9e00178ad5878357
                     <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
                         <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</b><br>
                         <b >Trường Đại Học Bách Khoa Hà Nội</b><br>

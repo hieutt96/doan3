@@ -63,12 +63,12 @@ $(document).on('click', ".accept1", function() {
 	console.log(id);
 	$(this).parent().parent().parent().fadeOut();
 	$.ajax({
-		url : "admin/accept/companyRequest/" + id,
+		url:"admin/accept/companyRequest/" + id,
 		type :"get",
 		dataType : "json",
 		data : {'id':id},
 		success:function(data){
-			alert("success");
+			console.log("success");
 			$("#tabs1").append(`<div class="row col-lg-12">
 				<div class="col-lg-3"><img style="width:170px" src=`+data.picture+` ></div>
 				<div class="col-lg-7 col-lg-offset-2">

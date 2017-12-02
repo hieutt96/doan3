@@ -1,14 +1,14 @@
 <?php
 
 namespace App;
-use Kyslik\ColumnSortable\Sortable;
+// use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    use Sortable;
+    // use Sortable;
 
-    public $sortable = ['tgBatDau', 'tgKetThuc'];
+    // public $sortable = ['tgBatDau', 'tgKetThuc'];
  
 	protected $table = "jobs";
 	
