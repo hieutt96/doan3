@@ -11,17 +11,11 @@ class Student extends Model
 
     public $sortable = ['lop', 'khoa', 'boMon', 'ctdt', 'tenNVPhuTrach', 'tiengAnh'];
 
-//    protected $table = 'students';
-    protected $primaryKey = 'user_id';
+    protected $table = 'students';
 
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
-    }
-
-    public function leader()
-    {
-        return $this->belongsTo('App\Leader', 'idNVPhuTrach', 'user_id');
     }
 
     public function intership()

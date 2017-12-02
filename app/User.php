@@ -36,19 +36,13 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Student', 'user_id', 'id');
     }
-    public function leader(){
-        return $this->hasOne('App\Leader');
-    }
-
-    public function notice(){
-        return $this->hasMany('App\Notice');
-    }
-
-    public function lecturer(){
-        return $this->hasOne('App\Lecturer');
-    }
-
     public function comment(){
-        return $this->hasMany('App\Comment');
+        return $this->hasMany('App\Comment','user_id','id');
+    }
+    public function job(){
+        return $this->hasMany('App\Job','id');
+    }
+    public function notice(){
+    	return $this->hasMany('App\Notice','user_id','id');
     }
 }

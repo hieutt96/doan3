@@ -29,7 +29,8 @@ class Companies extends Migration
             $table->string('linhVucHoatDong');
             $table->string('congNgheDaoTao');
             $table->string('soLuongSinhVienTT');
-            $table->string('yeuCauNNSV')->nullable();
+            $table->string('yeuCauSV');
+            $table->string('yeuCauNNSV');
             $table->integer('hocky')->nullable();
             $table->string('picture')->default('/image/background/default-img.jpg');
             $table->integer('soLuongNV');

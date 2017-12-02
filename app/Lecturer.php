@@ -15,3 +15,4 @@ class Lecturer extends Model
     	return $this->hasMany('App\Intership');
     }
 }
+

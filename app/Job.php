@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
@@ -20,8 +19,4 @@ class Job extends Model
     	return $this->belongsTo('App\Leader');
     }
 }
-
-
-
-
 

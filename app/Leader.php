@@ -1,10 +1,8 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
 
+use Kyslik\ColumnSortable\Sortable;
 
 class Leader extends Model
 {
@@ -27,5 +25,4 @@ class Leader extends Model
     }
     public function intership(){
         return $this->hasMany('App\Intership');
-    }
 }
