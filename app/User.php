@@ -2,13 +2,17 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Kyslik\ColumnSortable\Sortable;
 
-class User extends Authenticatable
+//use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Model
 {
+    use Sortable;
     use Notifiable;
-
+    public $sortable = ['name'];
     /**
      * The attributes that are mass assignable.
      *
@@ -26,10 +30,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function student(){
-        return $this->hasOne('App\Student');
-    }
 
+    public function student()
+    {
+        return $this->hasOne('App\Student', 'user_id', 'id');
+    }
     public function leader(){
         return $this->hasOne('App\Leader');
     }
@@ -44,5 +49,5 @@ class User extends Authenticatable
 
     public function comment(){
         return $this->hasMany('App\Comment');
-    }
+    public function leader()
 }

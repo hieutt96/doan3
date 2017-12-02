@@ -43,6 +43,7 @@ class AdminController extends Controller
 		return view('admin.create_semester',compact(['lists','hocky_current']));
 	}
 
+
 	public function postCreateSemester(CreateSemesterRequest $r){
 		$semester = new Semester;
 		$semester->ten_hoc_ki = $r->name;
@@ -61,6 +62,7 @@ class AdminController extends Controller
 		$companys_accept = Company::where('hocky',$hocky)->where('status',1)->get();
 		return [$companys_request,$companys_accept];
 	}
+
 
 	public function acceptCompanyRequest($id){
 		$company = Company::find($id);

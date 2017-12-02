@@ -1,11 +1,16 @@
 <?php
 
-namespace App;
 
+namespace App;
+use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
+    use Sortable;
+
+    public $sortable = ['tgBatDau', 'tgKetThuc'];
+ 
 	protected $table = "jobs";
 	
     public function student_job_assignment(){
@@ -15,3 +20,8 @@ class Job extends Model
     	return $this->belongsTo('App\Leader');
     }
 }
+
+
+
+
+

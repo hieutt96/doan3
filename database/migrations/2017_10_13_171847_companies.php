@@ -15,7 +15,8 @@ class Companies extends Migration
     {
         Schema::create('companies',function (Blueprint $table){
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name');
+            $table->mediumText('CTDT');
             $table->string('diaChi');
             $table->boolean('status')->default(0);
             $table->integer('soLuongNV');
@@ -31,6 +32,10 @@ class Companies extends Migration
             $table->string('yeuCauNNSV')->nullable();
             $table->integer('hocky')->nullable();
             $table->string('picture')->default('/image/background/default-img.jpg');
+            $table->integer('soLuongNV');
+            $table->longText('moTa');
+            $table->string('soDienThoai');
+            $table->string('emailNV');
             $table->timestamps();
         });
     }
