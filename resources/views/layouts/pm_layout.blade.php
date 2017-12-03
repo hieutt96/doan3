@@ -5,11 +5,11 @@
         <div class="collapse navbar-collapse" id="top-navbar">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chào, PM's name <b
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chào, {{Auth::user()->name}} <b
                                 class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/pm/thong-bao">Thông báo</a></li>
-                        <li><a href="#">Đăng xuất</a></li>
+                        <li><a href="/dang-xuat">Đăng xuất</a></li>
                     </ul>
                 </li>
             </ul>

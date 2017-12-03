@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 use App\Company;
 use App\User;
 use App\Leader;
-use App\semester;
+use App\Semester;
 use App\Lecturer;
 use App\Notice;
 use Validator;

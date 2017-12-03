@@ -29,11 +29,11 @@
                 <label class="control-label" for="hocKy">Học kỳ:</label>
                 <select id="hocKy" name="semester" form="filterForm" class="form-control" onchange="this.form.submit()" required>
                     @foreach($semesters as $sem)
-                        <option value="{{$sem}}"
-                                @if ($selectedSem == $sem)
+                        <option value="{{$sem->id}}"
+                                @if ($selectedSem == $sem->id)
                                 selected
                                 @endif
-                        >{{$sem}}</option>
+                        >{{$sem->ten_hoc_ki}}</option>
                     @endforeach
                 </select>
             </fieldset>
@@ -70,11 +70,11 @@
             @for ($i = 0; $i < count($students); $i++)
                 <tr>
                     <th scope="row">{{$i + 1}}</th>
-                    <td scope="row">{{$students[$i]->MSSV}}</td>
-                    <td><a href="/leader/sv/{{$students[$i]->user_id}}/thong-tin">{{$students[$i]->user->name}}</a></td>
-                    <td>{{$students[$i]->khoa}}</td>
+                    <td scope="row">{{$students[$i]->mssv}}</td>
+                    <td><a href="/leader/sv/{{$students[$i]->id}}/thong-tin">{{$students[$i]->user->name}}</a></td>
+                    <td>{{$students[$i]->grade}}</td>
                     <td>{{$students[$i]->ctdt}}</td>
-                    <td>{{$students[$i]->sdt}}</td>
+                    <td>{{$students[$i]->phone}}</td>
                     <td>{{$students[$i]->user->email}}</td>
                 </tr>
             @endfor

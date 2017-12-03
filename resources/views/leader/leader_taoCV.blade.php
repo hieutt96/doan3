@@ -33,16 +33,16 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Thời Gian Bắt Đầu:</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" form="taoCVForm" name="tgBatDau" placeholder="dd/mm/yyyy">
+                                            <input type="date" class="form-control" form="taoCVForm" name="tgBatDau" placeholder="dd/mm/yyyy">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Thời Gian Kết Thúc:</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" form="taoCVForm" name="tgKetThuc" placeholder="dd/mm/yyyy">
+                                            <input type="date" class="form-control" form="taoCVForm" name="tgKetThuc" placeholder="dd/mm/yyyy">
                                         </div>
                                     </div>
-                                    <input type="hidden" form="taoCVForm" value="{{$leader->user_id}}" name="idLeader">
+                                    <input type="hidden" form="taoCVForm" value="{{$leader->id}}" name="idLeader">
                                 </fieldset>
 
                             </div>
@@ -116,7 +116,7 @@
                             });
                         </script>
                     </th>
-                    <th scope="col">MSSV</th>
+                    <th scope="col">STT</th>
                     <th scope="col">
                         @if($isSearch)
                             Họ Tên
@@ -128,27 +128,27 @@
                     <th scope="col">@sortablelink('tiengAnh', 'Khả năng tiếng anh')
                         <div class="glyphicon glyphicon-triangle-bottom"></div>
                     </th>
-                    <th scope="col">Khả năng lập trình</th>
+                    {{--<th scope="col">Khả năng lập trình</th>--}}
                     <th scope="col">Lĩnh vực mong muốn</th>
                 </tr>
                 </thead>
                 <tbody>
 
-                @foreach ($students as $stu)
+                @for ($i = 0; $i < count($students); $i++)
                     <tr>
                         <td>
                             <div class="checkbox-inline">
                                 <input name="rowsCheck[]" class="stuCheck" type="checkbox"
-                                       value="{{$stu->user_id}}">
+                                       value="{{$students[$i]->id}}">
                             </div>
                         </td>
-                        <th scope="row">{{$stu->MSSV}}</th>
-                        <td>{{$stu->user->name}}</td>
-                        <td>{{$stu->tiengAnh}}</td>
-                        <td>{{$stu->kTLTThanhThao}}</td>
-                        <td>{{$stu->nenTangMongMonTT}}</td>
+                        <th scope="row">{{$i + 1}}</th>
+                        <td>{{$students[$i]->user->name}}</td>
+                        <td>{{$students[$i]->TA}}</td>
+                        <td>{{$students[$i]->knlt_thanhthao}}</td>
+{{--                        <td>{{$stu->nenTangMongMonTT}}</td>--}}
                     </tr>
-                @endforeach
+                @endfor
                 </tbody>
             </table>
         </form>

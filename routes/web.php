@@ -85,6 +85,10 @@ Route::get('/pm/nv', 'PM\PMController@indexNV');
 Route::get('/pm/nv/{idLead}/thong-tin-chi-tiet', 'PM\PMController@nvChiTiet');
 Route::get('/pm/nv/{idLead}/sinh-vien-huong-dan', 'PM\PMController@nvSVHD');
 Route::post('/pm/nv/edit', 'PM\PMController@postSuaNV');
+Route::post('/pm/tao-tk', 'PM\PMController@postTaoTK');
+Route::post('/pm/sua-tk', 'PM\PMController@postSuaTK');
+Route::post('/pm/xoa-tk', 'PM\PMController@postXoaTK');
+
 
 // phan cong leader
 Route::get('/pm/phan-cong-leader', 'PM\PMController@getPhanCong');
@@ -160,3 +164,7 @@ Route::get('lien-he','StudentController@lienHeNhaTruong');
 Route::get('thong-bao','StudentController@getThongBaoChung');
 Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

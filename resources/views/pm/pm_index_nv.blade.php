@@ -23,75 +23,126 @@
         </div>
 
         <div class="col-md-2">
-            <button type="button" class="btn btn-primary">Tạo tài khoản NV</button>
+            <button data-target="#taoTKNhanVien" data-toggle="modal" type="button" class="btn btn-primary">Tạo tài khoản
+                Leader
+            </button>
+            {{--Modal--}}
+            <div id="taoTKNhanVien" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><b>Tạo Tài Khoản cho Leader</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="taoTKForm" class="form-horizontal" action="/pm/tao-tk" method="post">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="ten">Tên Nhân Viên:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" name="name" id="ten">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="email">Email:</label>
+                                    <div class="col-sm-8">
+                                        <input type="email" class="form-control" name="email" id="email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="matKhau">Password:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" name="password" id="matKhau">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="sdt">Số Điện Thoại:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" name="phone" id="s">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="anh">Link ảnh đại diện:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" name="avatar" id="anh">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="phongBan">Phòng Ban:</label>
+                                    <div class="col-sm-8">
+                                        <select id="phongBan" name="phongBan" class="form-control">
+                                            <option value="IT">IT</option>
+                                            <option value="Nhân Sự">Nhân Sự</option>
+                                            <option value="Kế Toán">Kế Toán</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="chucVu">Chức Vụ:</label>
+                                    <div class="col-sm-8">
+                                        <select id="chucVu" name="chucVu" class="form-control">
+                                            <option value="Trưởng phòng">Trưởng Phòng</option>
+                                            <option value="Phó Phòng">Phó Phòng</option>
+                                            <option value="Nhân Viên Thường">Nhân Viên Thường</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="major">Chuyên Môn:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" name="chuyenMon" id="major">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-sm-7"></div>
+                            <div class="col-sm-3 ">
+                                <fieldset form="taoTKForm">
+                                    <button type="submit" form="taoTKForm" class="btn btn-success">
+                                        Tạo Tài Khoản
+                                    </button>
+                                </fieldset>
+                            </div>
+                            <div class="col-sm-2 ">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Hủy bỏ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Mã</th>
-                <th scope="col">
-                    @if($isSearch)
-                        Họ Tên
-                    @else
-                        @sortablelink('User.name', 'Họ Tên')
-                        <div class="glyphicon glyphicon-triangle-bottom"></div>
-                    @endif
-                </th>
-                <th scope="col">@sortablelink('chucVu', 'Chức Vụ')
+                <th scope="col">STT</th>
+                <th scope="col">Họ Tên</th>
+                <th scope="col">@sortablelink('phong_ban', 'Phòng Ban')
                     <div class="glyphicon glyphicon-triangle-bottom"></div>
                 </th>
-                <th scope="col">@sortablelink('phongBan', 'Phòng Ban')
+                <th scope="col">@sortablelink('chuc_vu', 'Chức Vụ')
                     <div class="glyphicon glyphicon-triangle-bottom"></div>
                 </th>
                 <th scope="col">Email</th>
-                <th scope="col">@sortablelink('trangThai', 'Trạng Thái')
-                    <div class="glyphicon glyphicon-triangle-bottom"></div>
-                </th>
-                <th scope="col">Thao tác</th>
             </tr>
             </thead>
             <tbody>
 
             @for ($i = 0; $i < count($leaders); $i++)
                 <tr>
-                    <th scope="row">{{$leaders[$i]->user_id}}</th>
-                    <td><a href="/pm/nv/{{$leaders[$i]->user_id}}/thong-tin-chi-tiet">{{$leaders[$i]->user->name}}</a>
+                    <th scope="row">{{$i + 1}}</th>
+                    <td><a href="/pm/nv/{{$leaders[$i]->id}}/thong-tin-chi-tiet">{{$leaders[$i]->user->name}}</a>
                     </td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>{{$leaders[$i]->phong_ban}}</td>
+                    <td>{{$leaders[$i]->chuc_vu}}</td>
                     <td>{{$leaders[$i]->user->email}}</td>
-                    <td>-</td>
-                    <td>
-                        <button data-target="#xoaNV" data-toggle="modal" type="button" class="btn btn-default">Xóa
-                            NV
-                        </button>
-                        {{--Modal--}}
-                        <div id="xoaNV" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title"><b>Xóa nhân viên</b></h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Bạn chắc chắn xóa nhân viên [Tên nhân viên] không?
-                                            Nếu xóa bạn sẽ không còn bất cứ thông tin nào liên quan
-                                            đến nhân viên này.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" href="#">Xóa</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                                            Hủy bỏ
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </td>
                 </tr>
             @endfor
             </tbody>

@@ -1,7 +1,7 @@
 @extends('layouts.pm_layout')
 
 @section('content')
-    @include('pm.pm_tabs', ['idLead' => $leader->user_id, 'tab' => 21])
+    @include('pm.pm_tabs', ['idLead' => $leader->id, 'tab' => 21])
     <div class="row" style="padding-top: 10px">
         <div class="col-md-6">
             <div class="row">
@@ -9,44 +9,41 @@
                     <div class="media-left">
                         <a href="#">
                             <img class="img-thumbnail" height="300"
-                                 src="https://scontent.fhan2-3.fna.fbcdn.net/v/t1.0-9/21150313_1983255908612615_7984369144769509920_n.jpg?oh=e7d602814b22e5004923d1083533c9a5&oe=5A7B87B1">
-                            {{--src="{{$leader->ava}}">--}}
+                                 {{--src="https://scontent.fhan2-3.fna.fbcdn.net/v/t1.0-9/21150313_1983255908612615_7984369144769509920_n.jpg?oh=e7d602814b22e5004923d1083533c9a5&oe=5A7B87B1">--}}
+                                src="{{$leader->user->picture}}">
                         </a>
                     </div>
                 </div>
                 <div class="col-md-7">
                     <ul class="list-group">
-                        <li class="list-group-item">Phòng ban: <b>Development</b></li>
-                        <li class="list-group-item">Chức vụ: <b>Leader</b></li>
-                        <li class="list-group-item">Lĩnh vực làm việc: <b>Lập trình IOS</b></li>
+                        <li class="list-group-item">Phòng ban: <b>{{$leader->phong_ban}}</b></li>
+                        <li class="list-group-item">Chức vụ: <b>{{$leader->chuc_vu}}</b></li>
+                        <li class="list-group-item">Lĩnh vực làm việc: <b>{{$leader->chuyenmon}}</b></li>
                         <li class="list-group-item">Họ tên: <b>{{$leader->user->name}}</b></li>
-                        <li class="list-group-item">Giới tính: <b>Nữ</b></li>
                     </ul>
                 </div>
             </div>
             <div class="row" style="padding-right: 15px">
                 <ul class="list-group">
-                    <li class="list-group-item">Ngày sinh: <b>22/01/1999</b></li>
-                    <li class="list-group-item">Địa chỉ đang ở: <b>Yên lạc, Kim Ngưu, HBT, Hà Nội</b></li>
-                    <li class="list-group-item">Sô điện thoại: <b>01235214523</b></li>
-                    <li class="list-group-item">Tài khoản: <b>nene1234@gmail.com</b></li>
+                    <li class="list-group-item">Sô điện thoại: <b>{{$leader->phone}}</b></li>
+                    <li class="list-group-item">Tài khoản: <b>{{$leader->user->email}}</b></li>
 
                 </ul>
             </div>
         </div>
         <div class="col-md-6">
             <div class="row">
-                <ul class="list-group">
-                    <li class="list-group-item">Laptop: <b>Có</b></li>
-                    <li class="list-group-item">Thời gian làm việc: <b>Fulltime</b></li>
-                    <li class="list-group-item">Ngày bắt đầu: <b>22/11/2011</b></li>
-                    <li class="list-group-item">Ngày kết thúc: <b></b></li>
-                    <li class="list-group-item">Số CMT: <b>123456789</b></li>
-                    <li class="list-group-item">Ngày cấp: <b>11/22/2012</b></li>
-                    <li class="list-group-item">Nơi cấp: <b>ThaiLand</b></li>
-                    <li class="list-group-item">Mã bảo hiểm: <b>9869586235</b></li>
-                    <li class="list-group-item">Mã thuế cá nhân: <b>12451263584</b></li>
-                </ul>
+                {{--<ul class="list-group">--}}
+                    {{--<li class="list-group-item">Laptop: <b>Có</b></li>--}}
+                    {{--<li class="list-group-item">Thời gian làm việc: <b>Fulltime</b></li>--}}
+                    {{--<li class="list-group-item">Ngày bắt đầu: <b>22/11/2011</b></li>--}}
+                    {{--<li class="list-group-item">Ngày kết thúc: <b></b></li>--}}
+                    {{--<li class="list-group-item">Số CMT: <b>123456789</b></li>--}}
+                    {{--<li class="list-group-item">Ngày cấp: <b>11/22/2012</b></li>--}}
+                    {{--<li class="list-group-item">Nơi cấp: <b>ThaiLand</b></li>--}}
+                    {{--<li class="list-group-item">Mã bảo hiểm: <b>9869586235</b></li>--}}
+                    {{--<li class="list-group-item">Mã thuế cá nhân: <b>12451263584</b></li>--}}
+                {{--</ul>--}}
             </div>
         </div>
     </div>
@@ -64,53 +61,54 @@
                             <h4 class="modal-title"><b>Sửa thông tin nhân viên</b></h4>
                         </div>
                         <div class="modal-body" style="padding-left: 30px; padding-right: 30px">
-                            <form class="form-horizontal" id="editForm" action="/pm/nv/edit" method="post">
+                            <form id="editForm" class="form-horizontal" action="/pm/sua-tk" method="post">
                                 {{ csrf_field() }}
-                                <input type="hidden" name="idLeader" value="{{$leader->user_id}}">
                                 <div class="form-group">
-                                    <label class="control-label col-sm-3">Tên nhân viên:</label>
-                                    <div class="col-sm-9">
-                                        <input class="form-control" form="editForm" name="name" placeholder="Nhập tên ..." value="{{$leader->user->name}}">
+                                    <label class="control-label col-sm-4" for="ten">Tên Nhân Viên:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" name="name" id="ten" value="{{$leader->user->name}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="sdt">Số Điện Thoại:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" name="phone" id="sdt" value="{{$leader->phone}}">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="chucVu" class="control-label col-sm-3">Chức vụ:</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" name="chucVu" id="chucVu">
-                                            <option value="0">Developer</option>
-                                            <option value="1">Leader</option>
-                                            <option value="2">Fresher</option>
+                                    <label class="control-label col-sm-4" for="anh">Link ảnh đại diện:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" name="avatar" id="anh" value="{{$leader->user->picture}}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4" for="phongBan">Phòng Ban:</label>
+                                    <div class="col-sm-8">
+                                        <select id="phongBan" name="phongBan" class="form-control">
+                                            <option value="IT">IT</option>
+                                            <option value="Nhân Sự">Nhân Sự</option>
+                                            <option value="Kế Toán">Kế Toán</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="phongBan" class="control-label col-sm-3">Phòng ban:</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" name="phongBan" id="phongBan">
-                                            <option value="0">Design</option>
-                                            <option value="1">Back-end</option>
-                                            <option value="2">Front-end</option>
+                                    <label class="control-label col-sm-4" for="chucVu">Chức Vụ:</label>
+                                    <div class="col-sm-8">
+                                        <select id="chucVu" name="chucVu" class="form-control">
+                                            <option value="Trưởng phòng">Trưởng Phòng</option>
+                                            <option value="Phó Phòng">Phó Phòng</option>
+                                            <option value="Nhân Viên Thường">Nhân Viên Thường</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-3">Email:</label>
-                                    <div class="col-sm-9">
-                                        <input type="email" class="form-control" name="email" placeholder="Nhập email ..." value="{{$leader->user->email}}">
+                                    <label class="control-label col-sm-4" for="major">Chuyên Môn:</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" name="chuyenMon" id="major" value="{{$leader->chuyenmon}}">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3">Ngày bắt đầu:</label>
-                                    <div class="col-sm-9">
-                                        <input class="form-control" name="ngBatDau" placeholder="Nhập ngày bắt đầu ...">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3">Ngày kết thúc:</label>
-                                    <div class="col-sm-9">
-                                        <input class="form-control" name="ngKetThuc" placeholder="Nhập ngày kết thúc ...">
-                                    </div>
-                                </div>
+                                <input value="{{$leader->id}}" name="idLeader" type="hidden">
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -143,15 +141,18 @@
                             <h4 class="modal-title"><b>Xóa nhân viên</b></h4>
                         </div>
                         <div class="modal-body">
-                            <p>Bạn chắc chắn xóa nhân viên [Tên nhân viên] không?
+                            <p>Bạn chắc chắn xóa nhân viên <b>{{$leader->user->name}}</b> không?
                                 Nếu xóa bạn sẽ không còn bất cứ thông tin nào liên quan
-                                đến nhân viên này.</p>
+                                đến <b>{{$leader->user->name}}</b>.</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" href="#">Xóa</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">
-                                Hủy bỏ
-                            </button>
+                            <form action="/pm/xoa-tk" method="post">
+                                {{ csrf_field() }}
+                                <input name="idLeader" value="{{$leader->id}}" type="hidden">
+                                <button type="submit" class="btn btn-danger">Xóa</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
+                            </form>
+
                         </div>
                     </div>
 

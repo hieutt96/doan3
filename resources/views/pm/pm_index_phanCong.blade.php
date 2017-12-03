@@ -72,10 +72,10 @@
                             <div class="glyphicon glyphicon-triangle-bottom"></div>
                         @endif
                     </th>
-                    <th scope="col">@sortablelink('tiengAnh', 'Khả năng tiếng anh')
+                    <th scope="col">@sortablelink('TA', 'Khả năng tiếng anh')
                         <div class="glyphicon glyphicon-triangle-bottom"></div>
                     </th>
-                    <th scope="col">Khả năng lập trình</th>
+                    {{--<th scope="col">Khả năng lập trình</th>--}}
                     <th scope="col">Lĩnh vực mong muốn</th>
                     <th scope="col">@sortablelink('tenNVPhuTrach', 'Leader')
                         <div class="glyphicon glyphicon-triangle-bottom"></div>
@@ -90,15 +90,20 @@
                         <td>
                             <div class="checkbox-inline">
                                 <input name="rowsCheck[]" class="stuCheck" type="checkbox"
-                                       value="{{$students[$i]->user_id}}">
+                                       value="{{$students[$i]->id}}">
                             </div>
                         </td>
-                        <td>{{$students[$i]->MSSV}}</td>
+                        <td>{{$students[$i]->mssv}}</td>
                         <td>{{$students[$i]->user->name}}</td>
-                        <td>{{$students[$i]->tiengAnh}}</td>
-                        <td>{{$students[$i]->kTLTThanhThao}}</td>
-                        <td>{{$students[$i]->nenTangMongMonTT}}</td>
-                        <td>{{$students[$i]->tenNVPhuTrach}}</td>
+                        <td>{{$students[$i]->TA}}</td>
+                        {{--<td>-</td>--}}
+                        <td>{{$students[$i]->knlt_thanhthao}}</td>
+                        <td>@if(sizeof($students[$i]->tenNVPhuTrach))
+                                {{$students[$i]->tenNVPhuTrach}}
+                            @else
+                                -
+                            @endif
+                        </td>
                     </tr>
                 @endfor
                 </tbody>

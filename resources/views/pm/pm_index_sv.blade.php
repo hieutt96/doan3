@@ -30,11 +30,11 @@
                 <select id="hocKy" name="semester" form="filterForm" class="form-control" onchange="this.form.submit()"
                         required>
                     @foreach($semesters as $sem)
-                        <option value="{{$sem}}"
-                                @if ($selectedSem == $sem)
+                        <option value="{{$sem->id}}"
+                                @if ($selectedSem == $sem->id)
                                 selected
                                 @endif
-                        >{{$sem}}</option>
+                        >{{$sem->ten_hoc_ki}}</option>
                     @endforeach
                 </select>
             </fieldset>
@@ -55,7 +55,7 @@
                         <div class="glyphicon glyphicon-triangle-bottom"></div>
                     @endif
                 </th>
-                <th scope="col">@sortablelink('khoa', 'Khóa')
+                <th scope="col">@sortablelink('grade', 'Khóa')
                     <div class="glyphicon glyphicon-triangle-bottom"></div>
                 </th>
                 <th scope="col">@sortablelink('ctdt', 'CTDT')
@@ -69,18 +69,21 @@
             </tr>
             </thead>
             <tbody>
-
-
             @for ($i = 0; $i < count($students); $i++)
                 <tr>
                     <th scope="row">{{$i + 1}}</th>
-                    <td scope="row">{{$students[$i]->MSSV}}</td>
-                    <td><a href="/pm/sv/{{$students[$i]->user_id}}/thong-tin">{{$students[$i]->user->name}}</a></td>
-                    <td>{{$students[$i]->khoa}}</td>
+                    <td scope="row">{{$students[$i]->mssv}}</td>
+                    <td><a href="/pm/sv/{{$students[$i]->id}}/thong-tin">{{$students[$i]->user->name}}</a></td>
+                    <td>{{$students[$i]->grade}}</td>
                     <td>{{$students[$i]->ctdt}}</td>
-                    <td>{{$students[$i]->sdt}}</td>
+                    <td>{{$students[$i]->phone}}</td>
                     <td>{{$students[$i]->user->email}}</td>
-                    <td>{{$students[$i]->tenNVPhuTrach}}</td>
+                    <td>@if(sizeof($students[$i]->tenNVPhuTrach))
+                            {{$students[$i]->tenNVPhuTrach}}
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
             @endfor
             </tbody>
@@ -99,17 +102,21 @@
         <div class="col-md-3">
             <fieldset class="form-inline" style="padding-top: 20px" form="filterForm">
                 <label class="control-label" for="paginate">Số SV hiển thị:</label>
-                <select id="paginate" name="pagiNum" form="filterForm" class="form-control" onchange="this.form.submit()"
+                <select id="paginate" name="pagiNum" form="filterForm" class="form-control"
+                        onchange="this.form.submit()"
                         required>
                     <option value="10" @if ($selectedPag == 10)
-                            selected
-                            @endif>10</option>
+                    selected
+                            @endif>10
+                    </option>
                     <option value="50" @if ($selectedPag == 50)
                     selected
-                            @endif>50</option>
+                            @endif>50
+                    </option>
                     <option value="100" @if ($selectedPag == 100)
                     selected
-                            @endif>100</option>
+                            @endif>100
+                    </option>
                 </select>
             </fieldset>
         </div>

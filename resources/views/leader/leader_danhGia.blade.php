@@ -153,9 +153,9 @@
                         @endif
                     </th>
                     <th scope="col">Tổng số CV</th>
-                    <th scope="col">Số CV quá hạn</th>
+                    <th scope="col">Số CV chưa hoàn thành</th>
                     <th scope="col">Mức độ hoàn thành</th>
-                    <th scope="col">Xếp Loại</th>
+                    {{--<th scope="col">Xếp Loại</th>--}}
 
                 </tr>
                 </thead>
@@ -167,12 +167,12 @@
                         <td>
                             <div class="checkbox-inline">
                                 <input name="rowsCheck[]" class="stuCheck" type="checkbox"
-                                       value="{{$students[$i]->user_id}}">
+                                       value="{{$students[$i]->id}}">
                             </div>
                         </td>
                         <th scope="row">{{$i + 1}}</th>
                         <td>{{$students[$i]->MSSV}}</td>
-                        <td><a href="/leader/sv/{{$students[$i]->user_id}}/thong-tin">{{$students[$i]->user->name}}</a>
+                        <td><a href="/leader/sv/{{$students[$i]->id}}/thong-tin">{{$students[$i]->user->name}}</a>
                         </td>
                         <td>{{$totalJobs[$i]}}</td>
                         <td>{{$outDateJobs[$i]}}</td>
@@ -181,8 +181,7 @@
                         @else
                             <td>0 %</td>
                         @endif
-                        <td>{{$students[$i]->user->email}}</td>
-                        <td>-</td>
+                        {{--<td>-</td>--}}
                     </tr>
                 @endfor
                 </tbody>

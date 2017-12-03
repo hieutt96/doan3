@@ -1,11 +1,11 @@
 @extends('layouts.pm_layout')
 
 @section('content')
-    @include('pm.pm_tabs', ['idLead' => $leader->user_id, 'tab' => 22])
+    @include('pm.pm_tabs', ['idLead' => $leader->id, 'tab' => 22])
     <div class="row" style="padding-top: 10px">
 
         <div class="col-md-6">
-            <form action="/pm/nv/{{$leader->user_id}}/sinh-vien-huong-dan" method="get" role="search">
+            <form action="/pm/nv/{{$leader->id}}/sinh-vien-huong-dan" method="get" role="search">
                 {{ csrf_field() }}
                 <div class="input-group">
                     <input type="text" class="form-control" name="name" placeholder="Tìm sinh viên theo tên">
@@ -52,10 +52,10 @@
                     @endif</th>
                 <th scope="col">Số Điện Thoại</th>
                 <th scope="col">Email</th>
-                <th scope="col">@sortablelink('tiengAnh', 'Khả năng tiếng anh')
+                <th scope="col">@sortablelink('TA', 'Khả năng tiếng anh')
                     <div class="glyphicon glyphicon-triangle-bottom"></div>
                 </th>
-                <th scope="col">Khả năng lập trình</th>
+                {{--<th scope="col">Khả năng lập trình</th>--}}
                 <th scope="col">Lĩnh vực mong muốn</th>
             </tr>
             </thead>
@@ -64,13 +64,13 @@
             @for ( $i = 0; $i < count($manaStus); $i++)
                 <tr>
                     <th scope="row">{{$i + 1}}</th>
-                    <td>{{$manaStus[$i]->MSSV}}</td>
+                    <td>{{$manaStus[$i]->mssv}}</td>
                     <td>{{$manaStus[$i]->user->name}}</td>
-                    <td>{{$manaStus[$i]->sdt}}</td>
+                    <td>{{$manaStus[$i]->phone}}</td>
                     <td>{{$manaStus[$i]->user->email}}</td>
-                    <td>{{$manaStus[$i]->tiengAnh}}</td>
-                    <td>{{$manaStus[$i]->kTLTThanhThao}}</td>
-                    <td>-</td>
+                    <td>{{$manaStus[$i]->TA}}</td>
+                    <td>{{$manaStus[$i]->knlt_thanhthao}}</td>
+                    {{--<td>-</td>--}}
                 </tr>
             @endfor
             </tbody>

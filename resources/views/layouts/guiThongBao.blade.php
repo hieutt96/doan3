@@ -13,11 +13,7 @@
                     {{ csrf_field() }}
                     {{--check PM, Leader dang dang nhap de lay id--}}
                     {{--input duoi day la tam thoi--}}
-                    @if($userType == 'pm')
-                        <input name="nguoiGui" value="220" type="hidden">
-                    @else
-                        <input name="nguoiGui" value="215" type="hidden">
-                    @endif
+                    <input name="nguoiGui" value="{{Auth::user()->id}}" type="hidden">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-5">
@@ -39,7 +35,7 @@
                             </div>
                         </div>
                         <label for="name">Tên Thông Báo:</label>
-                        <input name="ten" class="form-control" rows="5" id="name"></input>
+                        <input name="tenTB" class="form-control" id="name">
 
                         <label for="comment">Nội Dung:</label>
                         <textarea name="noiDung" class="form-control" rows="5" id="comment"></textarea>
