@@ -12,10 +12,11 @@
 	}
 
 	hr {
-		width: 70px;
-		text-align: center;
+		width: 0px;
+		padding-left:100px;
 		height: 1px;
 		border-top: 1px solid #333333;
+		margin-left:485px;
 	}
 
 	.row-dn {
@@ -34,71 +35,46 @@
 	a {
 		cursor:pointer;
 	}
+	label.control-label {
+    font-size: 15px;
+    padding-top: 10px;
+    padding-left: 111px;
+}
 </style>
 <div class="panel-layout">
 	<div class="row ">
-		<h1>Đồng hành cùng chúng tôi</h1>
-		<hr/>
-		<span class="line"></span>
+		<div class="col-sm-8">
+		<h1 style="padding-left:316px;">Đồng hành cùng chúng tôi</h1>
+		</div>
+		<div class="col-sm-4 ">
+			<div class="row ">
+			<div class="col-sm-6">
+			<label class="control-label">Học Kỳ: </label>
+			</div>
+			<div class="col-sm-6">
+			<select style="width:97px;"name="laptop" class="form-control" id="hocky">
+			@foreach($hocky->sortBy('hocky') as $hky)
+				<option value="{{$hky->hocky}}">{{$hky->hocky}}</option>
+			@endforeach
+			</select>
+			</div>
+			</div>
+		</div>
 	</div>
+	<hr/>
 	<div class="row row-dn">
 		<div class="col">
 			<div id="pgc-8053-1-0" class="panel-grid-cell">
 				<div id="panel-8053-1-0-0" class="so-panel widget widget_sow-image-grid panel-first-child panel-last-child" data-index="1">
 					<div class="so-widget-sow-image-grid so-widget-sow-image-grid-default-c361d6f3913e">
-						<div class="sow-image-grid-wrapper">
+						<div class="sow-image-grid-wrapper " id="doanhnghiep_hocky">
 							@foreach($doanhnghiep as $dn)
 							<div class="sow-image-grid-image">
 								<a href= "hop-tac-doanh-nghiep/{!!$dn->id!!}/{!!$dn->name!!}" target="_blank" ><img width="150" height="150" src="upload/imgCompany/{!!$dn->picture!!}" class="attachment-thumbnail size-thumbnail"
 								 alt=""  srcset="upload/imgCompany/{!!$dn->picture!!} 150w, upload/imgCompany/{!!$dn->picture!!} 250w"
 								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
 							@endforeach
-							<!-- Dữ liệu cty demo-->
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/6-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="MISA" srcset="https://soict.hust.edu.vn/wp-content/uploads/6-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/6.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/4c-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="VNPT" srcset="https://soict.hust.edu.vn/wp-content/uploads/4c-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/4c.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/5-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="Framgia" srcset="https://soict.hust.edu.vn/wp-content/uploads/5-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/5.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/7-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="BIDV" srcset="https://soict.hust.edu.vn/wp-content/uploads/7-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/7.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/VCCorp_new-150x150.jpg" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="VCCorp" srcset="https://soict.hust.edu.vn/wp-content/uploads/VCCorp_new-150x150.jpg 150w, https://soict.hust.edu.vn/wp-content/uploads/VCCorp_new.jpg 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/7d-1-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="CMC" srcset="https://soict.hust.edu.vn/wp-content/uploads/7d-1-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/7d-1.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/8-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="BKAV" srcset="https://soict.hust.edu.vn/wp-content/uploads/8-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/8.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/9-1-150x150.jpg" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="FIS" srcset="https://soict.hust.edu.vn/wp-content/uploads/9-1-150x150.jpg 150w, https://soict.hust.edu.vn/wp-content/uploads/9-1.jpg 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/10-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="Gameloft" srcset="https://soict.hust.edu.vn/wp-content/uploads/10-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/10.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/11-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="VNG" srcset="https://soict.hust.edu.vn/wp-content/uploads/11-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/11.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							<div class="sow-image-grid-image">
-								<a><img width="150" height="150" src="https://soict.hust.edu.vn/wp-content/uploads/logoALT_new-150x150.png" class="attachment-thumbnail size-thumbnail"
-								 alt="" title="AltPlus" srcset="https://soict.hust.edu.vn/wp-content/uploads/logoALT_new-150x150.png 150w, https://soict.hust.edu.vn/wp-content/uploads/logoALT_new.png 250w"
-								 sizes="(max-width: 150px) 100vw, 150px" style="display: block;"></a> </div>
-							
+
 						</div>
 					</div>
 				</div>
@@ -106,4 +82,16 @@
 		</div>
 	</div>
 </div>
+@endsection
+@section('script')
+<script>
+	$(document).ready(function(){
+		$("#hocky").change(function(){
+			var hocky = $(this).val();
+			$.get("ajax/hop-tac-doanh-nghiep/"+hocky,function(data){
+				$("#doanhnghiep_hocky").html(data);
+			});
+		});
+	});
+</script>
 @endsection

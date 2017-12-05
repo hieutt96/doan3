@@ -163,6 +163,8 @@
                 </nav>
             </div>
            
+       
+        @yield('script')
         @yield('welcome')
     </body>
     <footer>

@@ -75,3 +75,11 @@ Route::get('lien-he','StudentController@lienHeNhaTruong');
 Route::get('thong-bao','StudentController@getThongBaoChung');
 Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');
 
+Route::group(['prefix'=>'ajax'],function(){
+    
+      Route::get('hop-tac-doanh-nghiep/{hocky}','AjaxDoanhNghiepController@getDoanhNghiepTheoHocKy');
+  });
+//Tìm kiếm thông báo cho sinh viên
+Route::post('tim-kiem-thong-bao','StudentController@timKiemThongBao');
+//Tìm kiếm thông báo chung ở giao diện guest
+Route::post('tim-kiem-thong-bao-chung','StudentController@timKiemThongBaoChung');

@@ -7,7 +7,7 @@ class Job extends Model
 {
     protected $table = 'jobs';
     public function leader(){
-    	return $this->belongsTo('App\Leader');
+    	return $this->belongsTo('App\Leader','leader_id','id');
     }
     public function student_job_assignment(){
     	return $this->hasMany('App\Student_Job_Assignment');

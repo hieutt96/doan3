@@ -6,11 +6,11 @@ class Leader extends Model
     protected $table = 'leaders';
     public function company()
     {
-    	return $this->belongsTo('App\Company','company_id');
+    	return $this->belongsTo('App\Company','company_id','id');
     }
     public function user()
     {
-    	return $this->belongsTo('App\User');
+    	return $this->belongsTo('App\User','user_id','id');
     }
     public function job(){
     	return $this->hasMany('App\Job');

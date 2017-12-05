@@ -6,6 +6,6 @@ class Result extends Model
 	protected $table = 'results';
 	
     public function student(){
-    	return $this->belongsTo('App\Student');
+    	return $this->hasOne('App\Student');
     }
 }

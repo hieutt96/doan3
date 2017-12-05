@@ -12,6 +12,9 @@ h3{
 .time-notice {
     font-size:65px;
 }
+button.btn.btn-primary.btn-md {
+    height: 34px;
+}
 </style>
 @extends('student.index_student') 
 @section('content')
@@ -24,7 +27,22 @@ h3{
                     	Menu
                     </li>
                     <li class="list-group-item menu1">
-                        <input style="border: 1px solid black;" name="search"  id="search" type="text" class="form-control" placeholder="Search...">
+                     <form action=
+                     @if(Auth::user())
+                     {{"tim-kiem-thong-bao"}}
+                     @endif
+                     {{"tim-kiem-thong-bao-chung"}}
+                      method= "post">
+                     	<input type="hidden" name="_token" value={!!csrf_token()!!}>
+                            <div class="input-group col-md-12">
+                                <input type="text" class="search-query form-control" name="tukhoa" placeholder="Search" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary btn-md" type="submit">
+                                        <span class=" glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            </form>
                     </li>
                     @if(Auth::user())
                     <li class="list-group-item menu1">
