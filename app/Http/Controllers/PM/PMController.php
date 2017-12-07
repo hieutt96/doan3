@@ -16,10 +16,10 @@ use App\Semester;
 use App\Student_Job_Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Student;
 use App\User;
 use App\Leader;
+use App\Http\Request\ChangePasswordRequest;
 
 
 class PMController extends Controller
@@ -173,6 +173,13 @@ class PMController extends Controller
 
     public function postSuaTK(Request $request)
     {
+        $this->validate($request, array(
+            'idLeader' => 'required',
+            'phone' => '|numeric',
+            'chuyenMon' => 'required',
+            'name' => 'required',
+            'avatar' => 'required',
+        ));
         $idLeader = $request->input('idLeader');
 
         $leader = Leader::find($idLeader);
@@ -191,6 +198,9 @@ class PMController extends Controller
     }
 
     public function postXoaTK(Request $request){
+        $$this->validate($request, array(
+            'idLeader' => 'required'
+        ));
         $idLeader = $request->input('idLeader');
 
         $leader = Leader::find($idLeader);
@@ -288,14 +298,31 @@ class PMController extends Controller
         return back();
     }
 
+    public function getThongBao()
+    {
+//        $pmID = 220;
+//        $notices = Notice::where('ma_nguoi_nha', '=', $pmID)->paginate(10);
+        $notices = [];
+        return view('layouts.thongBao', ['tab' => 4,'notices' => $notices,'userType' => 'pm']);
+    }
+
+    public function chiTietTB($noti_id){
+        $noti = Notice::find($noti_id);
+        return view('chiTietTB', ['tab' => 4,'noti' => $noti, 'userType' => 'pm']);
+    }
+
     public function getGuiTB(Request $request)
     {
         $receUsers = ['Tất cả sinh viên', 'Tất cả leader'];
-        return view('layouts.guiThongBao', ['tab' => 4, 'receUsers' => $receUsers, 'userType' => 'pm']);
+        return view('layouts.guiThongBao', ['tab' => 5, 'receUsers' => $receUsers, 'userType' => 'pm']);
     }
 
     public function postGuiTB(Request $request)
     {
+        $this->validate($request, array(
+           'tenTB' => 'required',
+           'noiDung' => 'required'
+        ));
         $sentID = $request->input('nguoiGui');
         $receID = $request->input('nguoiNhan');
         $name = $request->input('tenTB');
@@ -311,16 +338,15 @@ class PMController extends Controller
         return back();
     }
 
-    public function getThongBao()
-    {
-//        $pmID = 220;
-//        $notices = Notice::where('ma_nguoi_nha', '=', $pmID)->paginate(10);
-        $notices = [];
-        return view('layouts.thongBao', ['notices' => $notices,'userType' => 'pm']);
+    public function getChangePass(){
+        return view('layouts.company_thayMK', ['userType' => 'pm']);
     }
 
-    public function chiTietTB($noti_id){
-        $noti = Notice::find($noti_id);
-        return view('chiTietTB', ['noti' => $noti, 'userType' => 'pm']);
+    public function postChangePass(ChangePasswordRequest $request){
+        $sinhvien = Auth::user();
+        $sinhvien->password = bcrypt($request->re_password);
+        $sinhvien->save();
+        return back()->with('thongbao','Mật khẩu mới đã được cập nhật thành công');
     }
+
 }

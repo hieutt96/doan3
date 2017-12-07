@@ -18,11 +18,9 @@ use App\Semester;
 use App\Student_Job_Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Student;
-use App\User;
 use App\Leader;
-use function Sodium\add;
+use App\Http\Request\ChangePasswordRequest;
 
 class LeaderController extends Controller
 {
@@ -172,7 +170,7 @@ class LeaderController extends Controller
         $this->validate($request, array(
             'noiDung' => 'required',
             'tgBatDau' => 'required',
-            'tgKetThuc' => 'required',
+            'tgKetThuc' => 'required|after:tgBatDau',
             'rowsCheck' => 'required',
         ));
 
@@ -255,13 +253,13 @@ class LeaderController extends Controller
 
             $this->validate($request, array(
                 'rowsCheck' => 'required',
-                'nangLucIT' => 'required',
-                'ppLamViec' => 'required',
-                'nangLucNamBatCV' => 'required',
-                'nangLucQuanLi' => 'required',
-                'tiengAnh' => 'required',
-                'nangLucLamViecNhom' => 'required',
-                'danhGiaCongTy' => 'required',
+                'nangLucIT' => 'required|max:5',
+                'ppLamViec' => 'required|max:5',
+                'nangLucNamBatCV' => 'required|max:5',
+                'nangLucQuanLi' => 'required|max:5',
+                'tiengAnh' => 'required|max:5',
+                'nangLucLamViecNhom' => 'required|max:5',
+                'danhGiaCongTy' => 'required|max:5',
                 'nhanXetCongTy' => 'required'
             ));
 
@@ -298,11 +296,15 @@ class LeaderController extends Controller
     public function getGuiTB(Request $request)
     {
         $receUsers = ['Tất cả sinh viên'];
-        return view('layouts.guiThongBao', ['tab' => 4, 'receUsers' => $receUsers, 'userType' => 'leader']);
+        return view('layouts.guiThongBao', ['tab' => 5, 'receUsers' => $receUsers, 'userType' => 'leader']);
     }
 
     public function postGuiTB(Request $request)
     {
+        $this->validate($request, array(
+            'ten' => 'required',
+            'noiDung' => 'required'
+        ));
         $sentID = $request->input('nguoiGui');
         $receID = $request->input('nguoiNhan');
         $name = $request->input('ten');
@@ -329,12 +331,24 @@ class LeaderController extends Controller
         $notices = Notice::where([['ma_nguoi_nhan', '=', 1], ['user_id', '=', $boss->id]])
             ->orderBy('created_at', 'desc')
             ->get();
-        return view('layouts.thongBao', ['notices' => $notices, 'userType' => 'leader']);
+        return view('layouts.thongBao', ['tab' => 4,'notices' => $notices, 'userType' => 'leader']);
     }
 
     public function chiTietTB($noti_id)
     {
         $noti = Notice::find($noti_id);
-        return view('layouts.chiTietTB', ['noti' => $noti, 'userType' => 'leader']);
+        return view('layouts.chiTietTB', ['tab' => 4, 'noti' => $noti, 'userType' => 'leader']);
     }
+
+    public function getChangePass(){
+        return view('layouts.company_thayMK', ['userType' => 'leader']);
+    }
+
+    public function postChangePass(ChangePasswordRequest $request){
+        $sinhvien = Auth::user();
+        $sinhvien->password = bcrypt($request->re_password);
+        $sinhvien->save();
+        return back()->with('thongbao','Mật khẩu mới đã được cập nhật thành công');
+    }
+
 }

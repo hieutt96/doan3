@@ -66,20 +66,20 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="ten">Tên Nhân Viên:</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" name="name" id="ten" value="{{$leader->user->name}}">
+                                        <input required class="form-control" name="name" id="ten" value="{{$leader->user->name}}">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="sdt">Số Điện Thoại:</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" name="phone" id="sdt" value="{{$leader->phone}}">
+                                        <input required class="form-control" name="phone" id="sdt" value="{{$leader->phone}}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="anh">Link ảnh đại diện:</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" name="avatar" id="anh" value="{{$leader->user->picture}}">
+                                        <input required class="form-control" name="avatar" id="anh" value="{{$leader->user->picture}}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -105,7 +105,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="major">Chuyên Môn:</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" name="chuyenMon" id="major" value="{{$leader->chuyenmon}}">
+                                        <input required class="form-control" name="chuyenMon" id="major" value="{{$leader->chuyenmon}}">
                                     </div>
                                 </div>
                                 <input value="{{$leader->id}}" name="idLeader" type="hidden">

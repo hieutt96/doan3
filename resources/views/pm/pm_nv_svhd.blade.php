@@ -18,10 +18,10 @@
             </form>
         </div>
         <div class="col-md-2">
-            <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default">PDF</button>
-                <button type="button" class="btn btn-default">CSV</button>
-            </div>
+            {{--<div class="btn-group" role="group" aria-label="...">--}}
+                {{--<button type="button" class="btn btn-default">PDF</button>--}}
+                {{--<button type="button" class="btn btn-default">CSV</button>--}}
+            {{--</div>--}}
         </div>
         <div class="col-md-1">
         </div>

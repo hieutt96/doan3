@@ -5,7 +5,7 @@
         <div class="row" style="padding-top: 10px">
             <div class="col-md-4">
                 <fieldset form="stuCheckForm" class="form-group form-inline">
-                    <button id="phanCong" type="submit" form="stuCheckForm" class="btn btn-primary">Phân công</button>
+                    <button disabled id="phanCong" type="submit" form="stuCheckForm" class="btn btn-primary">Phân công</button>
                     <select name="leaderSelect" form="stuCheckForm" class="form-control" required>
                         @foreach($leaders as $lead)
                             <option value="{{$lead->user->name}}">{{$lead->user->name}}</option>
@@ -28,10 +28,6 @@
 
             </div>
             <div class="col-md-2">
-                <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-default">PDF</button>
-                    <button type="button" class="btn btn-default">CSV</button>
-                </div>
             </div>
 
         </div>
@@ -47,21 +43,7 @@
                         <div class="checkbox-inline" style="padding-bottom: 10px">
                             <label><input id="checkAll" type="checkbox" value="0"></label>
                         </div>
-                        <script type="text/javascript">
-                            $(function () {
-                                $('#checkAll').on('click', function () {
-                                    if (this.checked) {
-                                        $('.stuCheck').each(function () {
-                                            this.checked = true;
-                                        });
-                                    } else {
-                                        $('.stuCheck').each(function () {
-                                            this.checked = false;
-                                        });
-                                    }
-                                });
-                            });
-                        </script>
+
                     </th>
                     <th scope="col">MSSV</th>
                     <th scope="col">
@@ -138,5 +120,24 @@
             </fieldset>
         </div>
     </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#checkAll').on('click', function () {
+                $('#phanCong').attr('disabled', false);
+                if (this.checked) {
+                    $('.stuCheck').each(function () {
+                        this.checked = true;
+                    });
+                } else {
+                    $('.stuCheck').each(function () {
+                        this.checked = false;
+                    });
+                }
+            });
+        });
+        $('.stuCheck').click(function() {
+            $('#phanCong').attr('disabled', false);
+        });
+    </script>
 
 @endsection

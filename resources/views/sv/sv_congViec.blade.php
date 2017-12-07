@@ -48,21 +48,6 @@
                             <div class="checkbox-inline" style="padding-bottom: 10px">
                                 <label><input id="checkAll" type="checkbox" value="0"></label>
                             </div>
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('#checkAll').on('click', function () {
-                                        if (this.checked) {
-                                            $('.stuCheck').each(function () {
-                                                this.checked = true;
-                                            });
-                                        } else {
-                                            $('.stuCheck').each(function () {
-                                                this.checked = false;
-                                            });
-                                        }
-                                    });
-                                });
-                            </script>
                         </th>
                         <th scope="col">STT</th>
                         <th scope="col">@sortablelink('trang_thai', 'Trạng thái')
@@ -90,7 +75,7 @@
                         <tr>
                             <td>
                                 <div class="checkbox-inline">
-                                    <input name="rowsCheck[]" class="stuCheck" type="checkbox"
+                                    <input name="rowsCheck[]" class="jobCheck" type="checkbox"
                                            value="{{$jobs[$i]->id}}">
                                 </div>
                             </td>
@@ -121,7 +106,7 @@
                             <option value="0">Chưa Hoàn Thành</option>
                             <option value="1">Hoàn Thành</option>
                         </select>
-                        <button type="submit" class="btn btn-success">Cập Nhật</button>
+                        <button disabled id="btn_suaTT" type="submit" class="btn btn-success">Cập Nhật</button>
 
                     </div>
             </form>
@@ -139,4 +124,23 @@
         </div>
     </div>
     </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#checkAll').on('click', function () {
+                $('#btn_suaTT').attr('disabled', false);
+                if (this.checked) {
+                    $('.jobCheck').each(function () {
+                        this.checked = true;
+                    });
+                } else {
+                    $('.jobCheck').each(function () {
+                        this.checked = false;
+                    });
+                }
+            });
+        });
+        $('.jobCheck').click(function() {
+            $('#btn_suaTT').attr('disabled', false);
+        });
+    </script>
 @endsection

@@ -15,11 +15,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-4">
-            <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default">PDF</button>
-                <button type="button" class="btn btn-default">CSV</button>
-            </div>
+        <div class="col-md-2">
         </div>
 
         <div class="col-md-2">
@@ -41,31 +37,31 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="ten">Tên Nhân Viên:</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" name="name" id="ten">
+                                        <input class="form-control" name="name" id="ten" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="email">Email:</label>
                                     <div class="col-sm-8">
-                                        <input type="email" class="form-control" name="email" id="email">
+                                        <input type="email" class="form-control" name="email" id="email" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="matKhau">Password:</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" name="password" id="matKhau">
+                                        <input type="password" class="form-control" name="password" id="matKhau"required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="sdt">Số Điện Thoại:</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" name="phone" id="s">
+                                        <input class="form-control" name="phone" id="sdt" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="anh">Link ảnh đại diện:</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" name="avatar" id="anh">
+                                        <input class="form-control" name="avatar" id="anh" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -91,7 +87,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="major">Chuyên Môn:</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" name="chuyenMon" id="major">
+                                        <input class="form-control" name="chuyenMon" id="major" required>
                                     </div>
                                 </div>
                             </form>
@@ -116,6 +112,8 @@
 
                 </div>
             </div>
+        </div>
+        <div class="col-md-2">
         </div>
     </div>
     <div class="row">

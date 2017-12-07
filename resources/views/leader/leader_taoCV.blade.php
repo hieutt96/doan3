@@ -4,7 +4,7 @@
     <div class="row">
         <div class="row" style="padding-top: 10px">
             <div class="col-md-4">
-                <button data-target="#taoCV" data-toggle="modal" type="button" class="btn btn-primary">
+                <button id="btn_taoCV" data-target="#taoCV" data-toggle="modal" type="button" class="btn btn-primary" disabled="disabled">
                     Tạo Công Việc
                 </button>
                 {{--Modal--}}
@@ -21,25 +21,28 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4" for="nd">Tên Công Việc:</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" form="taoCVForm" name="ten">
+                                            <input class="form-control" form="taoCVForm" name="ten" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-sm-4" for="nd">Nội Dung:</label>
                                         <div class="col-sm-8">
-                                            <textarea class="form-control" form="taoCVForm" rows="3" name="noiDung" id="nd"></textarea>
+                                            <textarea class="form-control" form="taoCVForm" rows="3" name="noiDung"
+                                                      id="nd" required></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Thời Gian Bắt Đầu:</label>
                                         <div class="col-sm-8">
-                                            <input type="date" class="form-control" form="taoCVForm" name="tgBatDau" placeholder="dd/mm/yyyy">
+                                            <input type="date" class="form-control" form="taoCVForm" name="tgBatDau"
+                                                   placeholder="dd/mm/yyyy" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Thời Gian Kết Thúc:</label>
                                         <div class="col-sm-8">
-                                            <input type="date" class="form-control" form="taoCVForm" name="tgKetThuc" placeholder="dd/mm/yyyy">
+                                            <input type="date" class="form-control" form="taoCVForm" name="tgKetThuc"
+                                                   placeholder="dd/mm/yyyy" required>
                                         </div>
                                     </div>
                                     <input type="hidden" form="taoCVForm" value="{{$leader->id}}" name="idLeader">
@@ -82,10 +85,10 @@
 
             </div>
             <div class="col-md-2">
-                <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-default">PDF</button>
-                    <button type="button" class="btn btn-default">CSV</button>
-                </div>
+                {{--<div class="btn-group" role="group" aria-label="...">--}}
+                {{--<button type="button" class="btn btn-default">PDF</button>--}}
+                {{--<button type="button" class="btn btn-default">CSV</button>--}}
+                {{--</div>--}}
             </div>
 
         </div>
@@ -100,21 +103,6 @@
                         <div class="checkbox-inline" style="padding-bottom: 10px">
                             <label><input id="checkAll" type="checkbox" value="0"></label>
                         </div>
-                        <script type="text/javascript">
-                            $(function () {
-                                $('#checkAll').on('click', function () {
-                                    if (this.checked) {
-                                        $('.stuCheck').each(function () {
-                                            this.checked = true;
-                                        });
-                                    } else {
-                                        $('.stuCheck').each(function () {
-                                            this.checked = false;
-                                        });
-                                    }
-                                });
-                            });
-                        </script>
                     </th>
                     <th scope="col">STT</th>
                     <th scope="col">
@@ -146,7 +134,7 @@
                         <td>{{$students[$i]->user->name}}</td>
                         <td>{{$students[$i]->TA}}</td>
                         <td>{{$students[$i]->knlt_thanhthao}}</td>
-{{--                        <td>{{$stu->nenTangMongMonTT}}</td>--}}
+                        {{--                        <td>{{$stu->nenTangMongMonTT}}</td>--}}
                     </tr>
                 @endfor
                 </tbody>
@@ -166,4 +154,23 @@
         <div class="col-md-3">
         </div>
     </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#checkAll').on('click', function () {
+                $('#btn_taoCV').attr('disabled', false);
+                if (this.checked) {
+                    $('.stuCheck').each(function () {
+                        this.checked = true;
+                    });
+                } else {
+                    $('.stuCheck').each(function () {
+                        this.checked = false;
+                    });
+                }
+            });
+        });
+        $('.stuCheck').click(function() {
+            $('#btn_taoCV').attr('disabled', false);
+        });
+    </script>
 @endsection

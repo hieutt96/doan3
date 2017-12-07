@@ -14,9 +14,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="thumbnail">
-                        <a href="#">
-                            <img class="portrait img-thumbnail" src="{{$student->user->picture}}">
-                        </a>
+                        <img class="portrait img-thumbnail" src="{{$student->user->picture}}">
                     </div>
                 </div>
                 <div class="col-md-7">

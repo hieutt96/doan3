@@ -100,6 +100,9 @@ Route::post('/pm/gui-tb', 'PM\PMController@postGuiTB');
 Route::get('/pm/thong-bao', 'PM\PMController@getThongBao');
 Route::get('/pm/thong-bao/{noti_id}/chi-tiet', 'PM\PMController@chiTietTB');
 
+// thay mat khau
+Route::get('/pm/thay-mat-khau', 'PM\PMController@getChangePass');
+Route::post('/pm/thay-mk', 'PM\PMController@postChangePass');
 
 
 // =========Route Leader
@@ -123,6 +126,10 @@ Route::get('/leader/gui-thong-bao', 'Leader\LeaderController@getGuiTB');
 Route::post('/leader/gui-tb', 'Leader\LeaderController@postGuiTB');
 Route::get('/leader/thong-bao', 'Leader\LeaderController@getThongBao');
 Route::get('/leader/thong-bao/{noti_id}/chi-tiet', 'Leader\LeaderController@chiTietTB');
+
+// thay mat khau
+Route::get('/leader/thay-mat-khau', 'Leader\LeaderController@getChangePass');
+Route::post('/leader/thay-mk', 'Leader\LeaderController@postChangePass');
 
 
 //--------------Start Students-Nhất-------------------------//

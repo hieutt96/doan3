@@ -1,25 +1,4 @@
-@extends('layouts.company_site_layout')
-
-@section('top-nav')
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="collapse navbar-collapse" id="top-navbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chào, {{Auth::user()->name}} <b
-                                class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/{{$userType}}/thong-bao">Thông báo</a></li>
-                        <li><a href="#">Đăng xuất</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-@endsection
-
-@section('left-nav')
-    <h2><b>Thông Báo</b></h2>
-@endsection
+@extends('layouts.'.$userType.'_layout')
 
 @section('content')
     @foreach($notices as $noti)

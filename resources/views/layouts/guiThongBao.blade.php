@@ -11,8 +11,6 @@
                 <h3>Gửi thông báo</h3>
                 <form action="/{{$userType}}/gui-tb" method="post">
                     {{ csrf_field() }}
-                    {{--check PM, Leader dang dang nhap de lay id--}}
-                    {{--input duoi day la tam thoi--}}
                     <input name="nguoiGui" value="{{Auth::user()->id}}" type="hidden">
                     <div class="form-group">
                         <div class="row">
@@ -25,20 +23,13 @@
                                 </select>
                             </div>
                             <div class="col-sm-7">
-                                {{--<label class="control-label" for="tenNguoi">Chọn tên người nhận</label>--}}
-                                {{--<select id="tenNguoi" class="form-control" required>--}}
-                                {{--<option value="0">User 1</option>--}}
-                                {{--<option value="1">User 2</option>--}}
-                                {{--<option value="2">User 3</option>--}}
-                                {{--<option value="3">User 4</option>--}}
-                                {{--</select>--}}
                             </div>
                         </div>
                         <label for="name">Tên Thông Báo:</label>
-                        <input name="tenTB" class="form-control" id="name">
+                        <input name="tenTB" class="form-control" id="name" required>
 
                         <label for="comment">Nội Dung:</label>
-                        <textarea name="noiDung" class="form-control" rows="5" id="comment"></textarea>
+                        <textarea name="noiDung" class="form-control" rows="5" id="comment" required></textarea>
                         <button type="submit" class="btn btn-success">Gửi</button>
                     </div>
                 </form>
