@@ -53,6 +53,7 @@
 			</div>
 			<div class="col-sm-6">
 			<select style="width:97px;"name="laptop" class="form-control" id="hocky">
+<<<<<<< HEAD
 			
 			@foreach($hocky->sortBy('hocky') as $hky)
 				@if($loop->last)
@@ -60,6 +61,10 @@
 				@else
 				<option value="{{$hky->hocky}}">{{$hky->hocky}}</option>
 				@endif
+=======
+			@foreach($hocky->sortBy('hocky') as $hky)
+				<option value="{{$hky->hocky}}">{{$hky->hocky}}</option>
+>>>>>>> d5ffbad20fd6c8698f279a5ced05d20f79527f92
 			@endforeach
 			</select>
 			</div>

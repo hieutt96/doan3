@@ -10,7 +10,11 @@
 </style>
 <div class="panel-layout">
     <h2 style="text-align:center;">Công việc  thực hiện</h2><br>
+<<<<<<< HEAD
     <h3>Thực tập tại công ty <span>{{$job_assignment[0]->job->leader->company->name}} Việt Nam</span> </h3>
+=======
+    <h3>Thực tập sinh công ty <span style="color:#f37911;">{{$job_assignment[0]->job->leader->company->name}}</span> Việt Nam</h3>
+>>>>>>> d5ffbad20fd6c8698f279a5ced05d20f79527f92
     <p>-<b> Nhân viên hướng dẫn:</b> {{$job_assignment[0]->job->leader->user->name}}</p>
     <p>- Sinh viên <b>{{Auth::user()->name}}</b> cùng với nhóm thực hiện các công việc trong bảng dưới đây</p>
     <p><span class="glyphicon glyphicon-alert"></span> <span style="color:red;">Chú ý</span>: Sinh viên cần hoàn thành công việc đúng thời hạn và báo lại để Leader  kiểm tra sau khi hoàn thành </p>

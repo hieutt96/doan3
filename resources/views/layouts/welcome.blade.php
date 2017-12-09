@@ -180,6 +180,8 @@
                 </nav>
             </div>
            
+       
+        @yield('script')
         @yield('welcome')
     @yield('script')
     </body>

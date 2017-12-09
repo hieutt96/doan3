@@ -13,6 +13,8 @@ use App\Student_Job_Assignment;
 use App\Notice;
 use Auth;
 use File;
+use Illuminate\Support\Facades\Hash;
+
 
 class StudentController extends Controller
 {
@@ -22,9 +24,13 @@ class StudentController extends Controller
     }
     public function postChangePassword(ChangePasswordRequest $request){  
         $sinhvien = Auth::user();
-        $sinhvien->password = bcrypt($request->re_password);
-        $sinhvien->save();
-        return back()->with('thongbao','Mật khẩu mới đã được cập nhật thành công');
+        if(Hash::check($request->input('old_password'), $sinhvien->password)){
+            $sinhvien->password = bcrypt($request->re_password);
+            $sinhvien->save();
+            return back()->with('thongbao','Mật khẩu mới đã được cập nhật thành công');
+        }else{
+            return back()->with('thongbao','Nhập chưa đúng mật khẩu cũ');
+        }
     }
 
     //Hiển thị thông tin người dùng
@@ -90,6 +96,10 @@ class StudentController extends Controller
     public function hopTacDoanhNghiep(){
         $hocky = Company::select('hocky')->distinct()->get();
         $doanhnghiep = Company::all();
+<<<<<<< HEAD
+=======
+        $hocky = Company::select('hocky')->distinct()->get();
+>>>>>>> d5ffbad20fd6c8698f279a5ced05d20f79527f92
         return view('student.hopTacDoanhNghiep',['doanhnghiep'=>$doanhnghiep,'hocky'=>$hocky]);
     }
     //chi tiết doanh nghiệp
@@ -125,7 +135,7 @@ class StudentController extends Controller
     } 
     //Thông báo sinh viên phía doanh nghiep      
     public function getThongBaoPhiaDoanhNghiep(){
-       $notice = Notice::where('ma_nguoi_nhan','=',Auth::user()->id)->orderBy('created_at', 'desc')->paginate(7);
+        $notice = Notice::where('ma_nguoi_nhan','=',Auth::user()->id)->orderBy('created_at', 'desc')->paginate(7);
         return view('student.thongBao.thongBaoPhiaDoanhNghiep',['notice'=> $notice]);
     }
     public function chiTietThongBaoPhiaDoanhNghiep($id){
@@ -141,6 +151,10 @@ class StudentController extends Controller
         $notice = Notice::find($id);
         return view('student.thongBao.chiTietThongBaoPhiaNhaTruong',['notice'=>$notice]);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d5ffbad20fd6c8698f279a5ced05d20f79527f92
     //Tìm kiếm thông báo
     public function timKiemThongBao(Request $request){
         $tukhoa = $request->tukhoa;

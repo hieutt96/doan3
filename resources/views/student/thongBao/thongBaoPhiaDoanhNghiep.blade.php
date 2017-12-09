@@ -10,7 +10,11 @@
 	            		
 		                <!-- item -->
 						@foreach($notice as $noti)
+<<<<<<< HEAD
 							@if($noti->user->level==2 || $noti->user->level==3)
+=======
+							@if($noti->user->level==2||$noti->user->level==3)
+>>>>>>> d5ffbad20fd6c8698f279a5ced05d20f79527f92
 					    <div class="row-item row">
 		        
 		                	<div class="border-right">
