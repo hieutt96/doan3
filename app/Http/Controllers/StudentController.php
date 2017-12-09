@@ -66,17 +66,17 @@ class StudentController extends Controller
             $user->name = $request->name;
             $user->student->mssv = $request->mssv;
             $user->student->lop= $request->lop;
+            $user->student->grade= $request->khoa;
             $user->student->ctdt= $request->ctdt;
-            $user->student->bomon= $request->bomon;
             $user->student->gender= $request->gender;
             $user->student->laptop= $request->laptop;
             $user->student->address= $request->diachi;
             $user->student->phone= $request->phone;
             $user->student->CPA= $request->cpa;
             $user->student->TA= $request->english;
-            $user->student->ktlt_base= $request->ep1;
-            $user->student->ktlt= $request->ep2;
-            $user->student->ktlt_master= $request->ep3;
+            $user->student->knlt_cothesudung= $request->ep1;
+            $user->student->knlt_thanhthao= $request->ep2;
+            $user->student->knlt_master= $request->ep3;
             $user->student->quan_tri_he_thong= $request->ep4;
             $user->student->Other= $request->ep5;
             $user->student->cty_da_thuc_tap= $request->cty;
@@ -88,13 +88,14 @@ class StudentController extends Controller
 
     //hợp tác doanh nghiệp
     public function hopTacDoanhNghiep(){
+        $hocky = Company::select('hocky')->distinct()->get();
         $doanhnghiep = Company::all();
-        return view('student.hopTacDoanhNghiep',['doanhnghiep'=>$doanhnghiep]);
+        return view('student.hopTacDoanhNghiep',['doanhnghiep'=>$doanhnghiep,'hocky'=>$hocky]);
     }
     //chi tiết doanh nghiệp
     public function chiTietDoanhNghiep($id){
         $doanhnghiep = Company::find($id);
-        $doanhnghiepkhac = Company::orderByRaw('RAND()')->where('id','!=',$id)->take(2)->get();//thay đổi param in take() khi có dữ liệu
+        $doanhnghiepkhac = Company::orderByRaw('RAND()')->where('id','!=',$id)->take(3)->get();//thay đổi param in take() khi có dữ liệu
         $comment= Comment::where('company_id','=',$id)->get();
         return view('student.chiTietDoanhNghiep',['doanhnghiep'=>$doanhnghiep,'dn_khac'=>$doanhnghiepkhac,'comment'=>$comment]);  
     }
@@ -139,6 +140,18 @@ class StudentController extends Controller
     public function chiTietThongBaoPhiaNhaTruong($id){
         $notice = Notice::find($id);
         return view('student.thongBao.chiTietThongBaoPhiaNhaTruong',['notice'=>$notice]);
+    }
+    //Tìm kiếm thông báo
+    public function timKiemThongBao(Request $request){
+        $tukhoa = $request->tukhoa;
+        $notice = Notice::where([['ma_nguoi_nhan','=',Auth::user()->id],['tieu_de','like',"%$tukhoa%"]])->orderBy('created_at', 'desc')->paginate(4);
+        return view('student.thongBao.timKiemThongBao',['notice'=> $notice,'tukhoa'=>$tukhoa]);
+    }
+    //Tìm kiếm thông báo chung
+    public function timKiemThongBaoChung(Request $request){
+        $tukhoa = $request->tukhoa;
+        $notice = Notice::where('tieu_de','like',"%$tukhoa%")->orderBy('created_at', 'desc')->paginate(4);
+        return view('student.thongBao.timKiemThongBaoChung',['notice'=> $notice,'tukhoa'=>$tukhoa]);
     }
     //Liên hệ nhà trường
     public function lienHeNhaTruong(){

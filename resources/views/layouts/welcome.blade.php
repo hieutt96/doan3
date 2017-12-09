@@ -71,9 +71,9 @@
     </head>
     <body>
         <div class="container" style="margin-bottom: 100px;">
-            <div class="row" style="background:#263C65;margin-top: 5px;">
+            <div class="row" style="background:#263C65;">
                 <div class="col-sm-2">
-                    <img src="{{asset('image/background/soict.png')}}" style="height: 150px;"  >
+                    <img src="{{asset('image/background/soict.png')}}" style="height: 160px;"  >
                 </div>
                 <div class="col-sm-8 name-school">
                     <h3 style="color: white" >Trường Đại Học Bách Khoa Hà Nội</h2>
@@ -132,18 +132,19 @@
                                 <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a><li/>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="">MyProfile</a>
+                                   
                                     @if(Auth::user()->level == 2)
-                                        <a href="">Truy Cập Trang Quản Lí</a>
+                                        <a href="">MyProfile</a>
+                                        <a href="">Truy Cập Trang Quản Lý</a>
                                     
-                                    @ifelse(Auth::user()->level == 3)
-                                        <a href="">Truy Cập Trang Quản Lí</a>
+                                    @elseif(Auth::user()->level == 3)
+                                        <a href="">Truy Cập Trang Quản Lý</a>
 
-                                    @ifelse(Auth::user()->level == 4)
-                                        <a href="/admin-dashboard">Truy hi Cập Trang Quản Lí</a>
+                                    @elseif(Auth::user()->level == 4)
+                                        <a href="/admin-dashboard">Truy Cập Trang Quản Lý</a>
 
-                                    @else(Auth::user()->level == 5)
-                                        <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
+                                    @elseif(Auth::user()->level == 5)
+                                        <a href="/admin-dashboard">Truy Cập Trang Quản Lý</a>
                                     @endif
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();
@@ -164,7 +165,7 @@
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="{{url('home')}}">Trang Chủ </a></li>
+                        <li class="active"><a href="{{url('/')}}">Trang Chủ </a></li>
                         <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
                          @if(Auth::user())
                         <li><a href="{{ url('student/cong-viec-thuc-tap')}}">Công việc thực tập </a></li>
@@ -185,9 +186,9 @@
     <footer>
      <div>
             <div class="row" style="background: #263c65; color:white;">
-                    <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
-                        <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</b><br>
-                        <b >Trường Đại Học Bách Khoa Hà Nội</b><br>
+                    <div class="col-lg-6 col-lg-offset-3" style="text-align: center;color:white;">
+                        <p style="color:white;padding-top:20px;">Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</p>
+                        <p style="color:white;" >Trường Đại Học Bách Khoa Hà Nội</p>
                         <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
                     </div>
                 </div>

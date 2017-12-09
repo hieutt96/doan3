@@ -37,13 +37,10 @@ hr {
 							<label class="control-label">MSSV:</label> {!!$student->mssv!!}
 						</div><hr>
 						<div class="form-group">
-							<label class="control-label">Lớp:</label> {!!$student->lop!!} 
+							<label class="control-label">Lớp:</label> {!!$student->lop!!} - {!!$student->grade!!}
 						</div><hr>
 						<div class="form-group">
 							<label class="control-label">Chương trình:</label> {!!Auth::user()->student->ctdt!!}
-						</div><hr>
-						<div class="form-group">
-							<label class="control-label">Bộ môn:</label> {!!Auth::user()->student->bomon!!}
 						</div><hr>
 						<div class="form-group">
 							<label class="control-label">Số điện thoại:</label> {!!Auth::user()->student->phone!!}

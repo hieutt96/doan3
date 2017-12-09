@@ -68,7 +68,7 @@
             </div>
             <!-- item -->
 						@foreach($notice_home as $noti)
-							@if($noti->user->level==3)
+							@if($noti->user->level==4)
 					    <div style="border-bottom:1px solid #cccccc; padding-bottom:5px;" class="row-item row">
 		    
 		                	<div class="border-right">
