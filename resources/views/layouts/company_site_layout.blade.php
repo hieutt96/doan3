@@ -11,6 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,‌​100italic,300,300ita‌​lic,400italic,500,50‌​0italic,700,700itali‌​c,900italic,900'
           rel='stylesheet' type='text/css'>
+    <script type="text/javascript" language="javascript" src="/ckeditor/ckeditor.js" ></script>
     <style>
         .flex-center {
             align-items: center;
@@ -115,11 +116,13 @@
         </nav>
     </div>
     <div class="row">
-        <div class="col-lg-2">
+        <div class="col-lg-2" style="border: 1px solid #bbbbbb; border-radius: 5px; padding-bottom: 10px">
             @yield('left-nav')
         </div>
-        <div class="col-lg-10" style="padding-bottom: 20px">
+        <div class="col-lg-10">
+            <div class="panel panel-default">
             @yield('content')
+            </div>
         </div>
     </div>
     <footer>

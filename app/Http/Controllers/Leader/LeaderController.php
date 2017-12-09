@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Leader;
 
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\CheckLeader;
+use App\Http\Request\EvaluationRequest;
 use App\Intership;
 use App\Job;
 use App\Notice;
@@ -246,49 +247,34 @@ class LeaderController extends Controller
         return view('leader.leader_danhGia', ['outDateJobs' => $outDateJobs, 'totalJobs' => $totalJobs, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 3]);
     }
 
-    public function postDanhGia(Request $request)
+    public function postDanhGia(EvaluationRequest $request)
     {
 
-        if (count($request->input('rowsCheck')) > 0) {
+        $stuIDs = $request->input('rowsCheck');
+        foreach ($stuIDs as $stuID) {
+            $intership = Intership::where('student_id', '=', $stuID)->first();
 
-            $this->validate($request, array(
-                'rowsCheck' => 'required',
-                'nangLucIT' => 'required|max:5',
-                'ppLamViec' => 'required|max:5',
-                'nangLucNamBatCV' => 'required|max:5',
-                'nangLucQuanLi' => 'required|max:5',
-                'tiengAnh' => 'required|max:5',
-                'nangLucLamViecNhom' => 'required|max:5',
-                'danhGiaCongTy' => 'required|max:5',
-                'nhanXetCongTy' => 'required'
-            ));
-
-            $stuIDs = $request->input('rowsCheck');
-            foreach ($stuIDs as $stuID) {
-                $intership = Intership::where('student_id', '=', $stuID)->first();
-
-                $result = Result::find($intership->result_id);
+            $result = Result::find($intership->result_id);
 //                dd($result->nhan_xet_cong_ty);
-                if (count($result) == 0) {
-                    $result = new Result();
-                    $result->save();
-                    $intership->result_id = $result->id;
-                    $intership->save();
-                }
-
-//                dd($result->nhan_xet_cong_ty);
-
-
-                $result->nang_luc_it = $request->input('nangLucIT');
-                $result->phuong_phap_lam_viec = $request->input('ppLamViec');
-                $result->nang_luc_nam_bat_cv = $request->input('nangLucNamBatCV');
-                $result->nang_luc_quan_li = $request->input('nangLucQuanLi');
-                $result->tieng_anh = $request->input('tiengAnh');
-                $result->nang_luc_lam_viec_nhom = $request->input('nangLucLamViecNhom');
-                $result->danh_gia_cua_cong_ty = $request->input('danhGiaCongTy');
-                $result->nhan_xet_cong_ty = $request->input('nhanXetCongTy');
+            if (count($result) == 0) {
+                $result = new Result();
                 $result->save();
+                $intership->result_id = $result->id;
+                $intership->save();
             }
+
+//                dd($result->nhan_xet_cong_ty);
+
+
+            $result->nang_luc_it = $request->input('nangLucIT');
+            $result->phuong_phap_lam_viec = $request->input('ppLamViec');
+            $result->nang_luc_nam_bat_cv = $request->input('nangLucNamBatCV');
+            $result->nang_luc_quan_li = $request->input('nangLucQuanLi');
+            $result->tieng_anh = $request->input('tiengAnh');
+            $result->nang_luc_lam_viec_nhom = $request->input('nangLucLamViecNhom');
+            $result->danh_gia_cua_cong_ty = $request->input('danhGiaCongTy');
+            $result->nhan_xet_cong_ty = $request->input('nhanXetCongTy');
+            $result->save();
         }
         return back();
     }
@@ -302,18 +288,18 @@ class LeaderController extends Controller
     public function postGuiTB(Request $request)
     {
         $this->validate($request, array(
-            'ten' => 'required',
+            'tenTB' => 'required',
             'noiDung' => 'required'
         ));
         $sentID = $request->input('nguoiGui');
         $receID = $request->input('nguoiNhan');
-        $name = $request->input('ten');
+        $name = $request->input('tenTB');
         $content = $request->input('noiDung');
 
         $notice = new Notice();
         $notice->user_id = $sentID;
         $notice->ma_nguoi_nhan = $receID;
-        $notice->ten_tb = $name;
+        $notice->tieu_de = $name;
         $notice->noi_dung = $content;
         $notice->save();
 
@@ -328,10 +314,12 @@ class LeaderController extends Controller
             ->where([['users.level', '=', 2]
                 , ['leaders.company_id', '=', $company_id]])
             ->first();
-        $notices = Notice::where([['ma_nguoi_nhan', '=', 1], ['user_id', '=', $boss->id]])
+        $revNotices = Notice::where([['ma_nguoi_nhan', '=', 1], ['user_id', '=', $boss->id]])
             ->orderBy('created_at', 'desc')
-            ->get();
-        return view('layouts.thongBao', ['tab' => 4,'notices' => $notices, 'userType' => 'leader']);
+            ->paginate(10);
+        $sendNotices = Notice::where('user_id', Auth::user()->id)->paginate(10);
+
+        return view('layouts.thongBao', ['tab' => 4, 'sendNotices' => $sendNotices, 'revNotices' => $revNotices, 'userType' => 'leader']);
     }
 
     public function chiTietTB($noti_id)
@@ -340,15 +328,17 @@ class LeaderController extends Controller
         return view('layouts.chiTietTB', ['tab' => 4, 'noti' => $noti, 'userType' => 'leader']);
     }
 
-    public function getChangePass(){
+    public function getChangePass()
+    {
         return view('layouts.company_thayMK', ['userType' => 'leader']);
     }
 
-    public function postChangePass(ChangePasswordRequest $request){
+    public function postChangePass(ChangePasswordRequest $request)
+    {
         $sinhvien = Auth::user();
         $sinhvien->password = bcrypt($request->re_password);
         $sinhvien->save();
-        return back()->with('thongbao','Mật khẩu mới đã được cập nhật thành công');
+        return back()->with('thongbao', 'Mật khẩu mới đã được cập nhật thành công');
     }
 
 }

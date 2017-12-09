@@ -20,6 +20,7 @@ use App\Student;
 use App\User;
 use App\Leader;
 use App\Http\Request\ChangePasswordRequest;
+use Mockery\Matcher\Not;
 
 
 class PMController extends Controller
@@ -301,14 +302,16 @@ class PMController extends Controller
     public function getThongBao()
     {
 //        $pmID = 220;
-//        $notices = Notice::where('ma_nguoi_nha', '=', $pmID)->paginate(10);
-        $notices = [];
-        return view('layouts.thongBao', ['tab' => 4,'notices' => $notices,'userType' => 'pm']);
+        $admins = User::where('level', 4)->first();
+        $revNotices = Notice::where([['ma_nguoi_nhan', '=', 4]
+                                , ['user_id', '=', $admins->id]])->paginate(10);
+        $sendNotices = Notice::where('user_id', Auth::user()->id)->paginate(10);
+        return view('layouts.thongBao', ['tab' => 4,'sendNotices' => $sendNotices,'revNotices' => $revNotices,'userType' => 'pm']);
     }
 
     public function chiTietTB($noti_id){
         $noti = Notice::find($noti_id);
-        return view('chiTietTB', ['tab' => 4,'noti' => $noti, 'userType' => 'pm']);
+        return view('layouts.chiTietTB', ['tab' => 4,'noti' => $noti, 'userType' => 'pm']);
     }
 
     public function getGuiTB(Request $request)
@@ -331,7 +334,7 @@ class PMController extends Controller
         $notice = new Notice();
         $notice->user_id = $sentID;
         $notice->ma_nguoi_nhan = $receID;
-        $notice->ten_tb = $name;
+        $notice->tieu_de = $name;
         $notice->noi_dung = $content;
         $notice->save();
 
