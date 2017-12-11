@@ -87,9 +87,6 @@
                 <ul class="nav navbar-nav">
                     &nbsp;
                </ul>
-                <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Home') }}
-                </a>
                 <ul class="nav navbar-nav navbar-right">
                     @if(Auth::guest())
                     <li><a href="{{ route('dang-nhap') }}"><b>Đăng nhập</b></a></li>

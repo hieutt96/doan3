@@ -18,13 +18,13 @@
 		                	<div class="border-right">
 		                		<div class="col-md-2">
 			                        <p>
-			                            <p><h1 class="time-notice">{{$noti->created_at->format('d')}}</h1><p>
-                                        <h4 style="margin-left:10px;">{{$noti->created_at->format('F')}}</h4>
+			                            <p><h1 class="time-notice">{{date('d', strtotime($noti->created_at))}}</h1><p>
+                                        <h4 style="margin-left:10px;">{{date('F', strtotime($noti->created_at))}}</h4>
 			                        </p>
 			                    </div>
 			                    <div class="col-md-10">
 			                        <h3>{!! doimau($noti->tieu_de,$tukhoa) !!}</h3>
-                                    <p><i style="color:#aaaaaa">Đăng bởi:{{$noti->user->name}} </i></p>
+                                    <p><i style="color:#aaaaaa">Đăng bởi:{{$noti->name}} </i></p>
 			                        <a class="btn btn-primary" href="student/thong-bao-phia-nha-truong/{{$noti->id}}">Chi tiết <span class="glyphicon glyphicon-chevron-right"></span></a>
 								</div>
 		                	</div>
@@ -36,9 +36,9 @@
 					</div>
 
 	            </div>
-				@section('pagination')
+				{{--  @section('pagination')
 				{{ $notice->links() }}
-				@endsection
+				@endsection  --}}
 				
         	</div>
 @endsection

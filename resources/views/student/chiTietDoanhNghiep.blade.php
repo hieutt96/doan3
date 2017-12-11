@@ -12,7 +12,7 @@
 
             <!-- Blog Post Content Column -->
             <div class="col-lg-9">
-               {{$doanhnghiep->moTa}}
+               {!!$doanhnghiep->moTa!!}
                 <hr>
 
                 <!-- Blog Comments -->
