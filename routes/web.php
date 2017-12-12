@@ -166,3 +166,15 @@ Route::get('lien-he','StudentController@lienHeNhaTruong');
 Route::get('thong-bao','StudentController@getThongBaoChung');
 Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');
 
+Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
+
+Route::get('hop-tac-doanh-nghiep',['as'=>'hop-tac-doanh-nghiep','uses'=>'Guest\HomeController@dsdoanhnghiep']);
+
+Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
+Route::get('guest/find/leader','Guest\RegisterController@findLeader');
+
+
+
+Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
+
+
