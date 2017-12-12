@@ -1,0 +1,37 @@
+.datePost {
+    color: #122b40;
+    float: left;
+    font-size: 70px;
+    line-height: 65px;
+    padding-left: 20px;
+}
+
+.monthPost {
+    color: #0d3625;
+    float: left;
+    font-size: 20px;
+    line-height: 15px;
+    padding-left: 20px;
+}
+
+
+.thumbnail {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+.thumbnail img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.thumbnail img.portrait {
+    width: 100%;
+    height: auto;
+}

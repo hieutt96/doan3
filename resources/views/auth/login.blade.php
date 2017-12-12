@@ -9,7 +9,7 @@
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('dang-nhap') }}">
-                        {{ csrf_field() }}
+                    <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                         @if($invalid=Session::get('invalid'))
                             <p class="help is-success">{{$invalid}}</p>
                             <hr>

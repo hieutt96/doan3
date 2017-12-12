@@ -7,8 +7,11 @@
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
+        "illuminate/pagination": "^5.5",
+        "kyslik/column-sortable": "^5.5",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "cornford/googlmapper": "2.*"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

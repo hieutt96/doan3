@@ -14,7 +14,33 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <!-- Custom Fonts -->
+       <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <style>
+           .container-panel {
+                border: 1px solid #eeeeee;
+            }
+            .row-heading{
+                background-color:#263c65;
+                margin-top: 5px;
+                color:#ffffff;
+            }
+            form{
+                padding-top:10px;
+                border: 1px solid #dddddd;
+                border-radius: 3px;
+            }
+            .form-info{
+                margin-bottom:20px;
+                width:1040px;
+                margin-left:85px;
+            }
+            .heading{
+                color:green;
+            }
+            .col-right{
+                margin-bottom: 20px;
+            }
             .flex-center {
                 align-items: center;
                 display: flex;
@@ -41,6 +67,7 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
+
         </style>
 </head>
 <body>
@@ -50,10 +77,10 @@
                     <img src="{{asset('image/background/soict.png')}}" style="height: 150px;"  >
                 </div>
                 <div class="col-sm-7 col-lg-offset-1" style="height:150px; ">
-                    <h2 style="color: #0000FF" >Trường Đại Học Bách Khoa Hà Nội</h2>
-                    <h3 style="color: #0000FF"> Viện Công Nghệ Thông Tin Và Truyền Thông</h3>
+                    <h2 style="color: white" >Trường Đại Học Bách Khoa Hà Nội</h2>
+                    <h3 style="color: white"> Viện Công Nghệ Thông Tin Và Truyền Thông</h3>
                 </div>
-                <div class="col-lg-offset-1 col-lg-1">
+                <div class="col-lg-offset-1 col-lg-1 ">
                     <img src="{{asset('image/background/hust.jpg')}}" style="height: 150px;" />
                 </div>
             </div>
@@ -118,10 +145,11 @@
                 </ul>
             </div>
             <hr style="border-color: red;">
+            <div class="content">
             @yield('content')
+            </div>
             <div>
-                <div class="row" style="background: #263C65;">
-                    <hr style="border-color: red; ">
+                <div class="row" style="background: #263c65; color:white;">
                     <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
                         <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</b><br>
                         <b >Trường Đại Học Bách Khoa Hà Nội</b><br>

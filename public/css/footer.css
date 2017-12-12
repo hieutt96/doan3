@@ -1,0 +1,47 @@
+/*=====================Footer Sart======================*/
+.footer {
+    background-color: #222c37;
+    height: 400px;
+    padding: 10px 40px;
+    color: white;
+    margin-top: 50px;
+    width:100%;
+  }
+  .content-footer {
+    float: left;
+    width: 100%;
+    font-weight: 300;
+    padding-bottom: 50px;
+  }
+  .col-1-footer , .col-2-footer ,.col-3-footer ,.col-4-footer {
+   width: 22%;
+   float: left;
+  }
+  .link-footer {
+    padding-left: 0;
+    margin-top: 10px;
+  }
+  .link-footer li {
+    list-style-type: none;
+    padding-top: 5px;
+    padding-left:  0;
+  }
+  #icon-footer li {
+    float: left;
+    padding-right: 3px ;
+  
+  }
+  .link-footer li a {
+    text-decoration: none;
+    color: #cfcfcf;
+  }
+  .copyright-footer {
+    padding: 10px 0;
+    font-size: 15px;
+  
+  }
+  .copyright-footer a, span  {
+    padding: 0 15px;
+    text-decoration: none;
+    color: white;
+  }

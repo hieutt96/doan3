@@ -13,15 +13,16 @@ class Students extends Migration
      */
     public function up()
     {
-        Schema::create('students',function(Blueprint $table){
+        Schema::create('students', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->string('lop');
             $table->integer('mssv')->unique();
             $table->string('grade');
             $table->string('ctdt');
-            $table->string('bomon');
-            $table->boolean('gender');
+            $table->string('boMon');
+            $table->string('avatar');
+            $table->boolean('gioiTinh');
             $table->boolean('laptop');
             $table->string('address');
             $table->string('phone');
@@ -47,6 +48,6 @@ class Students extends Migration
      */
     public function down()
     {
-       Schema::dropIfExists('students');
+        Schema::dropIfExists('students');
     }
 }

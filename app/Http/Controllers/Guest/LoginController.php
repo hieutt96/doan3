@@ -7,8 +7,10 @@ use App\Http\Request\LoginRequest;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+//use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
+
 
     public function getLogin(){
     	return view('auth.login');
@@ -19,26 +21,31 @@ class LoginController extends Controller
     		'password'=> $request->password,
             'status' => 1
     	];
+        // dd($user);
+		//dd($user);
     	if(Auth::attempt($user)){
-            $a = Auth::user()->level;
-            switch ($a) {
-                case 1:
-                    return redirect('/');
-                case 2:
-                    return redirect('/');
-                case 3:
-                    return redirect('/');
-                case 4:
-                    return redirect()->route('admin-dashboard');
-                case 5:
-                    return redirect('/');
-            }
-    	}
-    	return redirect('dang-nhap')->with('invalid','Sai thông tin đăng nhập');
+    		if(Auth::user()->level == 1){//Sinh viên
+    			return redirect('home');
+    		}elseif(Auth::user()->level == 2){//PM
+    			return redirect('/pm/sv');
+    		}elseif(Auth::user()->level == 3){//leader
+    			return redirect('/');
+    		}elseif(Auth::user()->level == 4){//Admin
+    			return redirect('/admin-dashboard');
+    		}elseif(Auth::user()->level ==5){//GV hướng dẫn
+    			return redirect('/');
+    		}else{
+    			return redirect('/');//Guest
+    		}
+		}
+		else {
+		
+			return redirect('dang-nhap')->with('invalid','Sai thông tin đăng nhập');
+		}	
     }
 
     public function logout(){
     	Auth::logout();
-    	return redirect()->route('dang-nhap');
-    }
+    	return redirect("/");
+	}
 }

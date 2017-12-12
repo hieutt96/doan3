@@ -10,26 +10,29 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/','trangChuController@trangchu');
+//Route::get('/','StudentController@getThongBaoChung');
 
-Route::get('/', function () {
-    return view('guest.home');
-});
 
 Route::get('dang-ky-doanh-nghiep',['as'=>'dang-ky-dn','uses'=>'Guest\RegisterController@getRegisterDN','middleware'=>'checkdateregisterdn']);
 
-Route::post('dang-ky-doanh-nghiep',['as'=>'dang-ky-dn.post','uses'=>'Guest\RegisterController@postRegisterDN']);
+Route::post('dang-ky-doanh-nghiep', ['as' => 'dang-ky-dn.post', 'uses' => 'Guest\RegisterController@postRegisterDN']);
 
 Route::get('dang-ky-sinh-vien',['as'=>'dang-ky-sv','uses'=>'Guest\RegisterController@getRegisterSV','middleware'=>'checkdateregistersv']);
 
-Route::post('dang-ky-sinh-vien',['as'=>'dang-ky-sv.post','uses'=>'Guest\RegisterController@postRegisterSV']);
+Route::post('dang-ky-sinh-vien', ['as' => 'dang-ky-sv.post', 'uses' => 'Guest\RegisterController@postRegisterSV']);
 
-Route::get('dang-nhap',['as'=>'dang-nhap','uses'=>'Guest\LoginController@getLogin']);
+Route::get('dang-nhap', ['as' => 'dang-nhap', 'uses' => 'Guest\LoginController@getLogin']);
 
-Route::post('dang-nhap',['as'=>'dang-nhap.post','uses'=>'Guest\LoginController@postLogin']);
+Route::post('dang-nhap', ['as' => 'dang-nhap.post', 'uses' => 'Guest\LoginController@postLogin']);
 
-Route::get('dang-xuat',['as'=>'dang-xuat','uses'=>'Guest\LoginController@logout']);
+Route::get('dang-xuat', ['as' => 'dang-xuat', 'uses' => 'Guest\LoginController@logout']);
+
 
 Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
+
+Route::get('admin/cancel/{id}','Admin\AdminController@cancel');
+
 
 Route::get('hop-tac-doanh-nghiep',['as'=>'hop-tac-doanh-nghiep','uses'=>'Guest\HomeController@dsdoanhnghiep']);
 
@@ -77,4 +80,94 @@ Route::group(['middleware'=>'admin'],function(){
 	Route::post('/admin/chinh-sua-lich-dang-ky/{id}',['as'=>'chinh-sua-hoc-ky.post','uses'=>'Admin\AdminController@editSemesterPost']);
 	Route::get('admin/cancel/{id}','Admin\AdminController@cancel');
 
+
 });
+
+Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
+
+
+// sv
+Route::get('/pm/sv', 'PM\PMController@indexSV');
+Route::get('/pm/sv/{idSV}/thong-tin', 'PM\PMController@showSVInfo');
+Route::get('/pm/sv/{idSV}/cong-viec', 'PM\PMController@showSVCongViec');
+Route::get('/pm/sv/{idSV}/ket-qua', 'PM\PMController@showSVKetQua');
+
+// nv
+Route::get('/pm/nv', 'PM\PMController@indexNV');
+Route::get('/pm/nv/{idLead}/thong-tin-chi-tiet', 'PM\PMController@nvChiTiet');
+Route::get('/pm/nv/{idLead}/sinh-vien-huong-dan', 'PM\PMController@nvSVHD');
+Route::post('/pm/nv/edit', 'PM\PMController@postSuaNV');
+
+// phan cong leader
+Route::get('/pm/phan-cong-leader', 'PM\PMController@getPhanCong');
+Route::post('/pm/phan-cong', 'PM\PMController@postPhanCong');
+
+// thong bao
+Route::get('/pm/gui-thong-bao', 'PM\PMController@getGuiTB');
+Route::post('/pm/gui-tb', 'PM\PMController@postGuiTB');
+Route::get('/pm/thong-bao', 'PM\PMController@getThongBao');
+Route::get('/pm/thong-bao/{noti_id}/chi-tiet', 'PM\PMController@chiTietTB');
+
+
+
+// =========Route Leader
+//sv
+Route::get('/leader/sv', 'Leader\LeaderController@indexSV');
+Route::get('/leader/sv/{idSV}/thong-tin', 'Leader\LeaderController@showSVInfo');
+Route::get('/leader/sv/{idSV}/cong-viec', 'Leader\LeaderController@showSVCongViec');
+Route::get('/leader/sv/{idSV}/ket-qua', 'Leader\LeaderController@showSVKetQua');
+Route::post('/leader/cap-nhat-cv', 'Leader\LeaderController@postCapNhatCV');
+
+// tao cong viec
+Route::get('/leader/tao-cong-viec', 'Leader\LeaderController@getTaoCV');
+Route::post('/leader/tao-cv', 'Leader\LeaderController@postTaoCV');
+
+// danh gia sv
+Route::get('/leader/danh-gia-sv', 'Leader\LeaderController@getDanhGia');
+Route::post('/leader/danh-gia', 'Leader\LeaderController@postDanhGia');
+
+// thong bao
+Route::get('/leader/gui-thong-bao', 'Leader\LeaderController@getGuiTB');
+Route::post('/leader/gui-tb', 'Leader\LeaderController@postGuiTB');
+Route::get('/leader/thong-bao', 'Leader\LeaderController@getThongBao');
+Route::get('/leader/thong-bao/{noti_id}/chi-tiet', 'Leader\LeaderController@chiTietTB');
+
+
+//--------------Start Students-Nhất-------------------------//
+Route::group(['prefix'=>'student'],function(){
+    Route::get('change-password','StudentController@getChangePassword');
+    Route::post('change-password','StudentController@postChangePassword');
+
+    Route::get('student-info','StudentController@getStudentInfo');
+
+    Route::get('update-student-info','StudentController@getUpdateStudentInfo');
+    Route::post('update-student-info','StudentController@postUpdateStudentInfo');
+
+    //Công việc thực tập
+    Route::get('cong-viec-thuc-tap','StudentController@getCongViecThucTap');
+    //Thông báo sinh viên
+    Route::get('thong-bao-phia-nha-truong','StudentController@getThongBaoPhiaNhaTruong');
+    Route::get('thong-bao-phia-nha-truong/{id}','StudentController@chiTietThongBaoPhiaNhaTruong');
+
+    Route::get('thong-bao-phia-doanh-nghiep','StudentController@getThongBaoPhiaDoanhNghiep');
+    Route::get('thong-bao-phia-doanh-nghiep/{id}','StudentController@chiTietThongBaoPhiaDoanhNghiep');
+
+});
+Route::group(['prefix'=>'comment'],function(){
+  
+    Route::get('xoa/{id}/{idTinTuc}','CommentController@getXoa');
+});
+//---------------End Students-Nhất-------------------------//
+
+//Hợp tác doanh nghiệp
+Route::get('hop-tac-doanh-nghiep','StudentController@hopTacDoanhNghiep');
+Route::get('hop-tac-doanh-nghiep/{id}/{tendoanhnghiep}','StudentController@chiTietDoanhNghiep');
+
+//Comment
+Route::post('hop-tac-doanh-nghiep/{id}/{tendoangnghiep}','CommentController@postComment');
+//Liên hệ nhà trường
+Route::get('lien-he','StudentController@lienHeNhaTruong');
+
+//Thông báo chung cho Guest
+Route::get('thong-bao','StudentController@getThongBaoChung');
+Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');

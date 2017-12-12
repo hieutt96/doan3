@@ -43,6 +43,7 @@ class AdminController extends Controller
 		return view('admin.create_semester',compact(['lists','hocky_current']));
 	}
 
+
 	public function postCreateSemester(CreateSemesterRequest $r){
 		$semester = new Semester;
 		$semester->ten_hoc_ki = $r->name;
@@ -62,13 +63,21 @@ class AdminController extends Controller
 		return [$companys_request,$companys_accept];
 	}
 
+
 	public function acceptCompanyRequest($id){
 		$company = Company::find($id);
-		$company->status =1;
-		$company->save();
-        if($company) {
-            MailController::mailAccept($company);
-        }
+		// $company->status =1;
+		// $company->save();
+  //       if($company) {
+  //           MailController::mailAccept($company);
+  //       }
+		$data = [];
+        $leaders = Leader::where('company_id',$id)->get();
+       		foreach ($leaders as $leader) {
+       			$data = $leader->id;
+       			$id = $leader->id;
+   				$user = DB::table('users')->join('leaders','users.id','=','leaders.user_id')->where('user_id',$id)->update(['status'=>1]);
+       		}
 		return $company;
 	}
 

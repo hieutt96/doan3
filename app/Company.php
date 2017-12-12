@@ -10,10 +10,10 @@ class Company extends Model
     public function leader(){
     	return $this->hasMany('App\Leader');
     }
-    public function comment(){
-    	return $this->hasMany('App\Comment');
-    }
     public function intership(){
     	return $this->hasMany('App\Intership');
+    }
+    public function comment(){
+    	return $this->hasMany('App\Comment');
     }
 }

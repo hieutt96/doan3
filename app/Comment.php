@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+
 	protected $table = 'comments';
 	
     public function company(){
@@ -15,3 +16,4 @@ class Comment extends Model
     	return $this->belongsTo('App\User');
     }
 }
+

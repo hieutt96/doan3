@@ -27,3 +27,4 @@ class Intership extends Model
         return $this->belongsTo('App\Result');
     }
 }
+
