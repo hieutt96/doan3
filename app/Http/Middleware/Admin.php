@@ -18,7 +18,7 @@ class Admin
         if( Auth::check() | Auth::user()->level==4){
             return $next($request);
         }else{
-          return redirect('/')->with('han-che-quyen',"Bạn không có quyền admin");
+          return redirect('/')->with('han_che_quyen',"Bạn không có quyền admin");
         }
     }
 }

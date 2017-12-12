@@ -60,6 +60,5 @@ class Kernel extends HttpKernel
         'admin'=>\App\Http\Middleware\Admin::class,
         'checkdateregisterdn'=>\App\Http\Middleware\CheckDateRegister::class,
         'checkdateregistersv'=>\App\Http\Middleware\CheckDateRegisterSV::class,
-
     ];
 }
