@@ -10,6 +10,7 @@ $(document).on('change','.hocky',function(){
 			success:function(data){
 				$(".hienthi1").empty();
 				$(".hienthi2").empty();
+				$(".hienthi3").empty();
 				console.log(data);
 				$("#tabs1").append(`
 						<div class="row">
@@ -29,11 +30,24 @@ $(document).on('change','.hocky',function(){
 						<div class="row">
 							<table class="table table-striped">
 								<tr>
-									<td>Mã số sinh viên</td>
-									<td>Tên sinh viên</td>
-									<td>Lớp</td>
-									<td>Khóa </td>
-									<td>Công ty thực tập</td>
+									<td class="col-lg-2">Mã số sinh viên</td>
+									<td class="col-lg-3">Tên sinh viên</td>
+									<td class="col-lg-2">Lớp</td>
+									<td class="col-lg-1" >Khóa </td>
+									<td class="col-lg-4">Công ty thực mong muốn thực tập</td>
+								</tr>
+							</table>
+						</div>
+						`);
+				$("#tabs3").append(`
+						<div class="row">
+							<table class="table table-striped">
+								<tr>
+									<td class="col-lg-2">Mã số sinh viên</td>
+									<td class="col-lg-3">Tên sinh viên</td>
+									<td class="col-lg-2">Lớp</td>
+									<td class="col-lg-1" >Khóa </td>
+									<td class="col-lg-4">Công ty thực thực tập</td>
 								</tr>
 							</table>
 						</div>
@@ -56,11 +70,24 @@ $(document).on('change','.hocky',function(){
 					for(var i=0;i<data[1].length;i++){
 						$("#tabs2").append(`<table class="table table-striped"> 
 							<tr>
-								<td>`+data[1][i].MSSV+`</td>
-								<td>`+data[1][i].ten+`</td>
-								<td>`+data[1][i].lop+`</td>
-								<td>`+data[1][i].grade+`</td>
-								<td>`+data[1][i].name+`</td>
+								<td class="col-lg-2">`+data[1][i].MSSV+`</td>
+								<td class="col-lg-3">`+data[1][i].ten+`</td>
+								<td class="col-lg-2">`+data[1][i].lop+`</td>
+								<td class="col-lg-1">`+data[1][i].grade+`</td>
+								<td class="col-lg-4">`+data[1][i].name+`</td>
+							</tr>
+						</table>`);
+					}
+				}
+				if(data[2].length > 0){
+					for(var i=0;i<data[2].length;i++){
+						$("#tabs3").append(`<table class="table table-striped"> 
+							<tr>
+								<td class="col-lg-2">`+data[2][i].MSSV+`</td>
+								<td class="col-lg-3">`+data[2][i].ten+`</td>
+								<td class="col-lg-2">`+data[2][i].lop+`</td>
+								<td class="col-lg-1">`+data[2][i].grade+`</td>
+								<td class="col-lg-4">`+data[2][i].name+`</td>
 							</tr>
 						</table>`);
 					}

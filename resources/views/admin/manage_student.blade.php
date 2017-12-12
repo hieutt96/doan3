@@ -28,10 +28,13 @@
 	<div class="row col-lg-12">
 		<ul class="nav nav-tabs">
 			<li><a href="#tabs1" data-toggle="tab">
-				Danh sách sinh viên đã phân công theo công ty
+				Kết quả sinh viên theo học kỳ
+			</a></li>
+			<li><a href="#tabs3" data-toggle="tab">
+				Danh sách sinh viên thực tập theo học kỳ 
 			</a></li>
 			<li><a href="#tabs2" data-toggle="tab">
-				Danh sách sinh viên đăng ký công ty
+				Danh sách sinh viên đăng ký theo học kỳ
 			</a></li>
 		</ul>
 	</div>
@@ -40,6 +43,9 @@
 			 
 		</div>
 		<div class="tab-pane fade hienthi2" id="tabs2">
+			
+		</div>
+		<div class="tab-pane fade hienthi3" id="tabs3">
 			
 		</div>
 	</div>

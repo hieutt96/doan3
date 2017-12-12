@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <base href="{!!asset('')!!}">
         <!-- Custom Fonts -->
       
@@ -131,19 +130,20 @@
                                 <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a><li/>
                                 <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a><li/>
                                 <li class="divider"></li>
+                              <!--   <li>Hieu</li> -->
                                 <li>
                                     <a href="">MyProfile</a>
-                                    @if(Auth::user()->level == 2)
+                                    @if(Auth::User()->level == 2)
                                         <a href="">Truy Cập Trang Quản Lí</a>
-                                    
-                                    @ifelse(Auth::user()->level == 3)
+                                    @endif
+                                    @if(Auth::User()->level == 3)
                                         <a href="">Truy Cập Trang Quản Lí</a>
-
-                                    @ifelse(Auth::user()->level == 4)
-                                        <a href="/admin-dashboard">Truy hi Cập Trang Quản Lí</a>
-
-                                    @else(Auth::user()->level == 5)
+                                    @endif
+                                    @if(Auth::User()->level == 4)
                                         <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
+                                    @endif
+                                    @if(Auth::User()->level == 5)
+                                        <a href="/">Truy Cập Trang Quản Lí</a>
                                     @endif
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();

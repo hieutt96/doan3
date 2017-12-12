@@ -1,6 +1,7 @@
 
 $(document).on('change','select',function(){
 	var hocky = $("select").val();
+	console.log(hocky);
 	if(hocky){
 		console.log(1);
 		$(".hienthi1").empty();
@@ -9,6 +10,44 @@ $(document).on('change','select',function(){
 			<button class="btn btn-info" id="them">+Thêm</button>
 			<hr>
 			</div>`);
+		$("#tabs2").append(
+			`<table class="table table-striped">
+				<tr>
+					<th class="col-lg-1">STT</th>
+					<th class="col-lg-2">Tên</th>
+					<th class="col-lg-3">Email</th>
+					<th class="col-lg-2">Phone</th>
+					<th class="col-lg-4">Công ty phụ trách</th>
+				</tr>
+			 </table>
+			 `);
+		$.ajax({
+			url:"/admin/danh-sach-giang-vien",
+			type:"get",
+			dataType:"json",
+			data:{'hocky':hocky},
+			success:function(data){
+				console.log(data);
+				if(data.length >0){
+					for(var i=0;i<data.length;i++){
+						$("#tabs2").append(`
+						<table class="table table-striped">
+							<tr>
+								<td class="col-lg-1">`+i+`</td>
+								<td class="col-lg-2">`+data[i]['name']+`</td>
+								<td class="col-lg-3">`+data[i]['email']+`</td>
+								<td class="col-lg-2">`+data[i]['phone']+`</td>
+								<th class="col-lg-4">`+data[i]['tencongty']+`</th>
+							</tr>
+						</table>
+							`);
+					}
+				}
+			},
+			error:function(){
+				alert("Error");
+			}
+		});
 	}
 });
 

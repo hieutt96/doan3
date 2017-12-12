@@ -20,7 +20,8 @@
 					<option value="0">Mọi Người</option>
 					<option value="1">Tất cả giảng viên</option>
 					<option value="2">Tất cả sinh viên</option>
-					<option value="3">Tât cả công ty</option>
+					<option value="3">Tât cả leader</option>
+					<option value="4">Tât cả PM</option>
 				</select>
 			</div>
 		</div><br>
