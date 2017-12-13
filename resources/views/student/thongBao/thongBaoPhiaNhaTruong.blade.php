@@ -36,10 +36,7 @@
                 @endif
             @endforeach
             <!-- end item -->
-
-
             </div>
-
         </div>
         @section('pagination')
             {{ $notice->links() }}

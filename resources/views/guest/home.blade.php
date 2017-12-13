@@ -12,6 +12,12 @@
         <strong>Error!</strong> {{$hanche}}
       </div>
     @endif
+    @if($han_che_quyen = Session::get('han_che_quyen'))
+      <div class="alert alert-danger alert-dismissable">
+        <a  class="close" data-dismiss="alert" aria-label="close">×</a>
+        <strong>Error!</strong> {{$han_che_quyen}}
+      </div>
+    @endif
     @if($hanchedangkysv = Session::get('hanchedangkysv'))
       <div class="alert alert-danger alert-dismissable">
         <a  class="close" data-dismiss="alert" aria-label="close">×</a>
@@ -68,7 +74,7 @@
             </div>
             <!-- item -->
 						@foreach($notice_home as $noti)
-							@if($noti->user->level==3)
+							@if($noti->user->level==4 && $noti->ma_nguoi_nhan==0)
 					    <div style="border-bottom:1px solid #cccccc; padding-bottom:5px;" class="row-item row">
 		    
 		                	<div class="border-right">

@@ -28,52 +28,72 @@ Route::post('dang-nhap', ['as' => 'dang-nhap.post', 'uses' => 'Guest\LoginContro
 
 Route::get('dang-xuat', ['as' => 'dang-xuat', 'uses' => 'Guest\LoginController@logout']);
 
+
 Route::get('admin/cancel/{id}','Admin\AdminController@cancel');
+
+
+Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
+
+Route::get('admin/cancel/{id}','Admin\AdminController@cancel');
+
+
 
 Route::get('hop-tac-doanh-nghiep',['as'=>'hop-tac-doanh-nghiep','uses'=>'Guest\HomeController@dsdoanhnghiep']);
 
-Route::get('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky','uses'=>'Admin\AdminController@createSemester']);
+Route::group(['middleware'=>'admin'],function(){
+        Route::get('admin/accept/{id}','Admin\AdminController@accept');
 
-Route::post('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky.post','uses'=>'Admin\AdminController@postCreateSemester']);
+        Route::get('admin-dashboard',['as'=>'admin-dashboard','uses'=>'Admin\AdminController@show_dn']);
 
-Route::get('admin/accept/{id}','Admin\AdminController@accept');
+        Route::get('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky','uses'=>'Admin\AdminController@createSemester']);
 
-Route::get('admin-dashboard',['as'=>'admin-dashboard','uses'=>'Admin\AdminController@show_dn']);
+        Route::post('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky.post','uses'=>'Admin\AdminController@postCreateSemester']);
 
-Route::get('admin/filter/company/{hocky}','Admin\AdminController@filter_company_hocky');
+        Route::get('admin/filter/company/{hocky}','Admin\AdminController@filter_company_hocky');
 
-Route::get('admin/accept/companyRequest/{id}',"Admin\AdminController@acceptCompanyRequest");
+        Route::get('admin/accept/companyRequest/{id}',"Admin\AdminController@acceptCompanyRequest");
 
-Route::get('admin/delete/companyRequest/{id}',"Admin\AdminController@deleteCompanyRequest");
+        Route::get('admin/delete/companyRequest/{id}',"Admin\AdminController@deleteCompanyRequest");
 
-Route::get('admin/delete/company/{id}','Admin\AdminController@deleteCompany');
+        Route::get('admin/delete/company/{id}','Admin\AdminController@deleteCompany');
 
-Route::get('admin/quan-li-giang-vien',['as'=>'quan-li-giang-vien','uses'=>'Admin\AdminController@manageLecturer']);
+        Route::get('admin/quan-li-giang-vien',['as'=>'quan-li-giang-vien','uses'=>'Admin\AdminController@manageLecturer']);
 
-Route::get('/admin/addlecturer','Admin\AdminController@addlecturer');
+        Route::get('/admin/addlecturer','Admin\AdminController@addlecturer');
 
-Route::get('/admin/thong-bao',['as'=>'thong-bao','uses'=>'Admin\AdminController@thongBao']);
+        Route::get('/admin/thong-bao',['as'=>'thong-bao','uses'=>'Admin\AdminController@thongBao']);
 
-Route::post('/admin/thong-bao',['as'=>'thong-bao.post','uses'=>'Admin\AdminController@postThongBao']);
+        Route::post('/admin/thong-bao',['as'=>'thong-bao.post','uses'=>'Admin\AdminController@postThongBao']);
 
-Route::get('/admin/chinh-sua-lich-dang-ky/{id}',['as'=>'chinh-sua-hoc-ky','uses'=>'Admin\AdminController@editSemester']);
+        Route::get('/admin/chinh-sua-lich-dang-ky/{id}',['as'=>'chinh-sua-hoc-ky','uses'=>'Admin\AdminController@editSemester']);
 
-Route::post('/admin/chinh-sua-lich-dang-ky/{id}',['as'=>'chinh-sua-hoc-ky.post','uses'=>'Admin\AdminController@editSemesterPost']);
+        Route::post('/admin/chinh-sua-lich-dang-ky/{id}',['as'=>'chinh-sua-hoc-ky.post','uses'=>'Admin\AdminController@editSemesterPost']);
+        
+        Route::get('/admin/phan-cong-giang-vien/{hocky}','Admin\AdminController@assignmentLecturer');
+        Route::get('admin/managestudent','Admin\AdminController@manageSV');
 
-Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
-Route::get('guest/find/leader','Guest\RegisterController@findLeader');
+        Route::get('/admin/find-student-semester','Admin\AdminController@findStudentSemester');
 
-Route::get('admin/managestudent','Admin\AdminController@manageSV');
+        Route::get('/admin/assignment_student/{hocky}','Admin\AdminController@assignment_student');
 
-Route::get('/admin/find-student-semester','Admin\AdminController@findStudentSemester');
+        Route::get('/admin/assignment_student','Admin\AdminController@assignmentStudent');
 
-Route::get('/admin/assignment_student/{hocky}','Admin\AdminController@assignment_student');
+        Route::get('/admin/assignment_lecturer','Admin\AdminController@assignmentLecturerForCompany');
 
-Route::get('/admin/assignment_student','Admin\AdminController@assignmentStudent');
+        Route::get('/admin/danh-sach-giang-vien','Admin\AdminController@listLecturer');
+
+
+
+		Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
+		Route::get('guest/find/leader','Guest\RegisterController@findLeader');
+
+
+});
+
 
 Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
 
-// =========Routes PM
+
 // sv
 Route::get('/pm/sv', 'PM\PMController@indexSV');
 Route::get('/pm/sv/{idSV}/thong-tin', 'PM\PMController@showSVInfo');
@@ -171,7 +191,39 @@ Route::get('lien-he','StudentController@lienHeNhaTruong');
 Route::get('thong-bao','StudentController@getThongBaoChung');
 Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');
 
+<<<<<<< HEAD
+
+Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
+
+Route::get('hop-tac-doanh-nghiep',['as'=>'hop-tac-doanh-nghiep','uses'=>'Guest\HomeController@dsdoanhnghiep']);
+
+Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
+Route::get('guest/find/leader','Guest\RegisterController@findLeader');
+
+
+
+Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
+=======
+Route::group(['prefix'=>'ajax'],function(){
+    
+      Route::get('hop-tac-doanh-nghiep/{hocky}','AjaxDoanhNghiepController@getDoanhNghiepTheoHocKy');
+  });
+//Tìm kiếm thông báo cho sinh viên
+Route::post('tim-kiem-thong-bao','StudentController@timKiemThongBao');
+//Tìm kiếm thông báo chung ở giao diện guest
+Route::post('tim-kiem-thong-bao-chung','StudentController@timKiemThongBaoChung');
+
+Route::group(['prefix'=>'ajax'],function(){
+    
+      Route::get('hop-tac-doanh-nghiep/{hocky}','AjaxDoanhNghiepController@getDoanhNghiepTheoHocKy');
+  });
+//Tìm kiếm thông báo cho sinh viên
+Route::post('tim-kiem-thong-bao','StudentController@timKiemThongBao');
+//Tìm kiếm thông báo chung ở giao diện guest
+Route::post('tim-kiem-thong-bao-chung','StudentController@timKiemThongBaoChung');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+>>>>>>> 078a16f21ca52eae0f9771739eded9112ff04713
+

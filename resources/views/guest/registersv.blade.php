@@ -42,6 +42,15 @@
 	                            </span>
 	                        @endif
 						</div>
+						<div class="form-group {{$errors->has('mssv') ?'has-error':''}}">
+							<label class="control-label"> Mã Số Sinh Viên :</label>
+							<input type="" name="mssv" value="{{old('mssv')}}" required class="form-control" placeholder="...">
+							@if($errors ->has('mssv'))
+								<span class="help-block">
+									<strong>{{$errors->first('mssv')}}</strong>
+								</span>
+							@endif
+						</div>
 						<div class="form-group {{$errors->has('grade')?'has-error' :''}}">
 							<label class="control-label">Khóa :</label>
 							<input type="text" name="grade" placeholder="..." class="form-control" value= "{{old ('grade')}}" required>
@@ -105,15 +114,6 @@
 	                                <strong>{{ $errors->first('phone') }}</strong>
 	                            </span>
 	                        @endif
-						</div>
-						<div class="form-group {{$errors->has('mssv') ?'has-error':''}}">
-							<label class="control-label"> Mã Số Sinh Viên :</label>
-							<input type="" name="mssv" value="{{old('mssv')}}" required class="form-control" placeholder="...">
-							@if($errors ->has('mssv'))
-								<span class="help-block">
-									<strong>{{$errors->first('mssv')}}</strong>
-								</span>
-							@endif
 						</div>
 					</div>
 				</div>
@@ -215,35 +215,46 @@
 						<label class="col-lg-12">Bạn đã có công ty thực tập chưa :</label>
 					</div>
 					<div class="col-lg-3">
-						<input type="radio" name="luachon" value="0" required="required" class="">Chưa có công ty thực tập
+						<input type="radio" name="luachon" value="0" required="required" class="luachon1">Chưa có công ty thực tập
 					</div>
 					<div class="col-lg-3">
-						<input type="radio" name="luachon" value="1">Đã có công ty thực tập
+						<input type="radio" name="luachon" value="1" class="luachon2">Đã có công ty thực tập
 					</div>
 				</div>
 			</div>
-			<div class="row col-lg-12">
+			<script type="text/javascript">
+				$(document).on('click',"[name='luachon']",function(){
+					var luachon = $(this).val();
+					console.log(luachon);
+					if(luachon==0){
+						$(".1").show();
+						$(".2").hide();
+					}else{
+						$(".1").hide();
+						$(".2").show();
+					}
+				});
+			</script>
+			<div class="row 1" style="display: none;margin: 10px;">
 				<div class="row"><b style="font-size: 20px; color: red;"> Phần dành cho Sinh Viên chưa có công ty thực tập:</b></div><br>
-				<div class="form-group row col-lg-7">
-						<label class="col-lg-5 control-label">Công Ty Mong Muốn Thực Tập:</label>
-						<div class="col-lg-6">
-							<select name="congty[]" class="form-control select2" multiple="multiple" id="dangkycongty">
-								
-							</select>
-							<script type="text/javascript">
-								$("#dangkycongty").select2();
-							</script>
-						</div>
+				<div class="col-lg-offset-1 col-lg-8 row">
+						<label class="control-label">Công Ty Mong Muốn Thực Tập:</label>
+						<select name="congty[]" class="form-control select2" multiple="multiple" id="dangkycongty" style="width: 500px;">
+							
+						</select>
+						<script type="text/javascript">
+							$(".select2").select2();
+						</script>
 				</div>
 			</div>
 
 
-			<div class="row col-lg-12" >
+			<div class="row col-lg-12 2" style="display: none;">
 				<div class="row"><b style="font-size: 20px; color: red;"> Phần dành cho Sinh Viên đã có công ty thực tập:</b></div><br>
 				<div class="col-lg-offset-1 col-lg-6">
 					<div class="form-group">
 						<label class="control-label"> Tên Công Ty Thực Tập:</label>
-						<select class="form-control select2" name="cty2" placeholder="..." id="cty2" required>
+						<select class="form-control select2" name="cty2" placeholder="..." id="cty2" required style="width: 500px;">
 							<option value="">--Select--</option>
 						</select>
 						<script type="text/javascript">

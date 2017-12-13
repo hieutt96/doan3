@@ -24,7 +24,7 @@
 			</ul>
 		</div>
 	@endif
-	<form method="POST" action="{{route('dang-ky-dn.post')}}">
+	<form method="POST" action="{{route('dang-ky-dn.post')}}" enctype="multipart/form-data">
 		{{ csrf_field() }}	
 		<div class="row">
 			<div class="col-lg-3">

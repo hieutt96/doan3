@@ -130,38 +130,33 @@
                             </button>
 
                         </div>
-                    </div>
-                </div>
-            @else
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <span style="margin-right:5px;" class="glyphicon glyphicon-user"></span>{{ Auth::user()->name }}
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a tabindex="-1" href="{{ url('student/change-password') }}">Đổi mật khẩu</a>
-                        <li/>
-                        <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a>
-                        <li/>
-                        <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a>
-                        <li/>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="">MyProfile</a>
-                            @if(Auth::user()->level == 2)
-                                <a href="">Truy Cập Trang Quản Lí</a>
-
-                                @ifelse(Auth::user()->level == 3)
-                                <a href="">Truy Cập Trang Quản Lí</a>
-
-                                @ifelse(Auth::user()->level == 4)
-                                <a href="/admin-dashboard">Truy hi Cập Trang Quản Lí</a>
-
-                            @else(Auth::user()->level == 5)
-                                <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
-                            @endif
-                            <a href="{{ route('dang-xuat') }}"
-                               onclick="event.preventDefault();
+                        @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                 <span style="margin-right:5px;" class="glyphicon glyphicon-user"></span>{{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a tabindex="-1" href="{{ url('student/change-password') }}">Đổi mật khẩu</a><li/>
+                                <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a><li/>
+                                <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a><li/>
+                                <li class="divider"></li>
+                              <!--   <li>Hieu</li> -->
+                                <li>
+                                    <a href="">MyProfile</a>
+                                    @if(Auth::User()->level == 2)
+                                        <a href="">Truy Cập Trang Quản Lí</a>
+                                    @endif
+                                    @if(Auth::User()->level == 3)
+                                        <a href="">Truy Cập Trang Quản Lí</a>
+                                    @endif
+                                    @if(Auth::User()->level == 4)
+                                        <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
+                                    @endif
+                                    @if(Auth::User()->level == 5)
+                                        <a href="/">Truy Cập Trang Quản Lí</a>
+                                    @endif
+                                    <a href="{{ route('dang-xuat') }}"
+                                        onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                 Đăng xuất
                             </a>

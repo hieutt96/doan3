@@ -25,7 +25,7 @@ class LoginController extends Controller
 		//dd($user);
     	if(Auth::attempt($user)){
     		if(Auth::user()->level == 1){//Sinh viên
-    			return redirect('home');
+    			return redirect('/');
     		}elseif(Auth::user()->level == 2){//PM
     			return redirect('/pm/sv');
     		}elseif(Auth::user()->level == 3){//leader

@@ -22,7 +22,8 @@
 						<div class="form-group {{$errors->has('old_password')?'has-error' :''}} ">
 							<label class="control-label">Mật khẩu cũ:</label>
 							<input type="password" name="old_password"  class="form-control">
-							@if ($errors->has('old_password') && Hash::check(Input::get('old_password'),Auth::user()->password))
+							@if ($errors->has('old_password'))
+							 {{--  && Hash::check(Input::get('old_password'),Auth::user()->password)  --}}
 	                            <span class="help-block">
 	                                <strong>{{ $errors->first('old_password') }}</strong>
 	                            </span>

@@ -9,15 +9,9 @@
     <!-- Page Content -->
     <div class="panel-layout">
         <div class="row">
-
-            <!-- Blog Post Content Column -->
             <div class="col-lg-9">
-               {{$doanhnghiep->moTa}}
+               {!!$doanhnghiep->moTa!!}
                 <hr>
-
-                <!-- Blog Comments -->
-
-                <!-- Comments Form -->
                 @if(Auth::user())
                 <div class="well">
                      @if(session('thongbao'))
@@ -37,10 +31,7 @@
                 @endif
 
                 <hr>
-
-                <!-- Posted Comments comment->sortByDesc('created_at') -->
                 @foreach($comment->sortByDesc('created_at') as $cm)
-                <!-- Comment -->
                 <div class="media">
                     <a class="pull-left" style="margin-right:10px;"href="#">
                        <img style="border-radius:50%;" width="64" height="64" src="upload/anhsinhvien/{!!$cm->user->picture!!}" class="attachment-thumbnail size-thumbnail"

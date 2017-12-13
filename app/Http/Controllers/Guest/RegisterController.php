@@ -133,6 +133,12 @@ class RegisterController extends Controller
         $company->diaChiTT = $request->diachithuctap;
         $company->thoiGianMongMuon = $request->thoigiantt;
         // dd($request->linhvuchoatdong);
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $file->move(public_path().'/image/doanhnghiep/',time().$file->getClientOriginalExtension());
+            $user->avatar= '/image/doanhnghiep/'.time().$file->getClientOriginalExtension();
+        }
+
         $company->congNgheDaoTao = implode(',', $request->congnghedaotao);
         $company->linhVucHoatDong = implode(',', $request->linhvuchoatdong);
         $company->soLuongSinhVienTT = $request->soluong;
@@ -151,7 +157,7 @@ class RegisterController extends Controller
         $id = $request->hocky;
         $hocky = Semester::find($id);
         $ten_hoc_ky=$hocky->ten_hoc_ki;
-        $congty = Company::where('hocky','=',$ten_hoc_ky)->where('status',0)->get();
+        $congty = Company::where('hocky','=',$ten_hoc_ky)->where('status',1)->get();
         return $congty;
     }
 
