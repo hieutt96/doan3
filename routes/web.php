@@ -191,7 +191,7 @@ Route::get('lien-he','StudentController@lienHeNhaTruong');
 Route::get('thong-bao','StudentController@getThongBaoChung');
 Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');
 
-<<<<<<< HEAD
+
 
 Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
 
@@ -203,7 +203,7 @@ Route::get('guest/find/leader','Guest\RegisterController@findLeader');
 
 
 Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
-=======
+
 Route::group(['prefix'=>'ajax'],function(){
     
       Route::get('hop-tac-doanh-nghiep/{hocky}','AjaxDoanhNghiepController@getDoanhNghiepTheoHocKy');
@@ -225,5 +225,5 @@ Route::post('tim-kiem-thong-bao-chung','StudentController@timKiemThongBaoChung')
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
->>>>>>> 078a16f21ca52eae0f9771739eded9112ff04713
+
 
