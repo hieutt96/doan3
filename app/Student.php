@@ -9,7 +9,7 @@ class Student extends Model
 {
     use Sortable;
 
-    public $sortable = ['lop', 'khoa', 'boMon', 'ctdt', 'tenNVPhuTrach', 'tiengAnh'];
+//    public $sortable = ['lop', 'khoa', 'boMon', 'ctdt', 'tenNVPhuTrach', 'tiengAnh'];
 
     protected $table = 'students';
 
@@ -21,8 +21,15 @@ class Student extends Model
     public function intership()
     {
         return $this->hasMany('App\Intership');
-    }  
-    public function student_job_assignment(){
-    	return $this->hasMany('App\Student_Job_Assignment');
     }
+
+    public function student_job_assignment()
+    {
+        return $this->hasMany('App\Student_Job_Assignment');
+    }
+
+//    public function leader()
+//    {
+//        return $this->belongsTo('App\Leader', 'leader_id');
+//    }
 }

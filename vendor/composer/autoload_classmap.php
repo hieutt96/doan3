@@ -34,6 +34,8 @@ return array(
     'App\\Http\\Middleware\\Admin' => $baseDir . '/app/Http/Middleware/Admin.php',
     'App\\Http\\Middleware\\CheckDateRegister' => $baseDir . '/app/Http/Middleware/CheckDateRegister.php',
     'App\\Http\\Middleware\\CheckDateRegisterSV' => $baseDir . '/app/Http/Middleware/CheckDateRegisterSV.php',
+    'App\\Http\\Middleware\\CheckLeader' => $baseDir . '/app/Http/Middleware/CheckLeader.php',
+    'App\\Http\\Middleware\\CheckPM' => $baseDir . '/app/Http/Middleware/CheckPM.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\RedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/RedirectIfAuthenticated.php',
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',

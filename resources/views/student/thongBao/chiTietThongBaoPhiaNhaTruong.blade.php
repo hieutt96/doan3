@@ -9,9 +9,11 @@
 	            	<div class="panel-body">
 	            		
 		                <!-- item -->
+
 						<h2>{!!$notice->tieu_de!!}</h2>
                         <p><i style="color:#aaaaaa">Đăng bởi:{{$notice->user->name}} | Ngày đăng: {{$notice->created_at->format('d/m/Y')}}</i></p>
                         <div class="content-notice">{!!$notice->noi_dung!!}</div>
+
 		                <!-- end item -->
 		                
 						

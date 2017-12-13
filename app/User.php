@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-// use Kyslik\ColumnSortable\Sortable;
+ use Kyslik\ColumnSortable\Sortable;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Illuminate\Auth\Authenticable as AuthenticableTrait;
 class User extends Authenticatable
 {
-    // use Sortable;
+    use Sortable;
     use Notifiable;
     // public $sortable = ['name'];
     /**
@@ -46,6 +46,6 @@ class User extends Authenticatable
     	return $this->hasMany('App\Notice','user_id','id');
     }
     public function leader(){
-        return $this->hasOne('App\Leader');
+        return $this->hasOne('App\Leader', 'user_id', 'id');
     }
 }

@@ -350,6 +350,8 @@ class ComposerStaticInit8f85fdaf670131026ee2a6be8bd349f9
         'App\\Http\\Middleware\\Admin' => __DIR__ . '/../..' . '/app/Http/Middleware/Admin.php',
         'App\\Http\\Middleware\\CheckDateRegister' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckDateRegister.php',
         'App\\Http\\Middleware\\CheckDateRegisterSV' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckDateRegisterSV.php',
+        'App\\Http\\Middleware\\CheckLeader' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckLeader.php',
+        'App\\Http\\Middleware\\CheckPM' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckPM.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',

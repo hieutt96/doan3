@@ -29,7 +29,7 @@ class LoginController extends Controller
     		}elseif(Auth::user()->level == 2){//PM
     			return redirect('/pm/sv');
     		}elseif(Auth::user()->level == 3){//leader
-    			return redirect('/');
+    			return redirect('/leader/sv');
     		}elseif(Auth::user()->level == 4){//Admin
     			return redirect('/admin-dashboard');
     		}elseif(Auth::user()->level ==5){//GV hướng dẫn
