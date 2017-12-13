@@ -170,8 +170,8 @@ class LeaderController extends Controller
     {
         $this->validate($request, array(
             'noiDung' => 'required',
-            'tgBatDau' => 'required',
-            'tgKetThuc' => 'required|after:tgBatDau',
+            'tgBatDau' => 'required|date',
+            'tgKetThuc' => 'required|date|after:tgBatDau',
             'rowsCheck' => 'required',
         ));
 

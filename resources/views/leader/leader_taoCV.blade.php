@@ -3,6 +3,17 @@
 @section('content')
     <div class="panel-body">
         <div class="row">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
+        <div class="row">
             <div class="col-md-4">
                 <button id="btn_taoCV" data-target="#taoCV" data-toggle="modal" type="button"
                         class="btn btn-primary" disabled="disabled">
