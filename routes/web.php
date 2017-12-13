@@ -105,6 +105,10 @@ Route::get('/pm/nv', 'PM\PMController@indexNV');
 Route::get('/pm/nv/{idLead}/thong-tin-chi-tiet', 'PM\PMController@nvChiTiet');
 Route::get('/pm/nv/{idLead}/sinh-vien-huong-dan', 'PM\PMController@nvSVHD');
 Route::post('/pm/nv/edit', 'PM\PMController@postSuaNV');
+Route::post('/pm/tao-tk', 'PM\PMController@postTaoTK');
+Route::post('/pm/sua-tk', 'PM\PMController@postSuaTK');
+Route::post('/pm/xoa-tk', 'PM\PMController@postXoaTK');
+
 
 // phan cong leader
 Route::get('/pm/phan-cong-leader', 'PM\PMController@getPhanCong');
@@ -116,6 +120,9 @@ Route::post('/pm/gui-tb', 'PM\PMController@postGuiTB');
 Route::get('/pm/thong-bao', 'PM\PMController@getThongBao');
 Route::get('/pm/thong-bao/{noti_id}/chi-tiet', 'PM\PMController@chiTietTB');
 
+// thay mat khau
+Route::get('/pm/thay-mat-khau', 'PM\PMController@getChangePass');
+Route::post('/pm/thay-mk', 'PM\PMController@postChangePass');
 
 
 // =========Route Leader
@@ -139,6 +146,10 @@ Route::get('/leader/gui-thong-bao', 'Leader\LeaderController@getGuiTB');
 Route::post('/leader/gui-tb', 'Leader\LeaderController@postGuiTB');
 Route::get('/leader/thong-bao', 'Leader\LeaderController@getThongBao');
 Route::get('/leader/thong-bao/{noti_id}/chi-tiet', 'Leader\LeaderController@chiTietTB');
+
+// thay mat khau
+Route::get('/leader/thay-mat-khau', 'Leader\LeaderController@getChangePass');
+Route::post('/leader/thay-mk', 'Leader\LeaderController@postChangePass');
 
 
 //--------------Start Students-Nhất-------------------------//
@@ -180,6 +191,7 @@ Route::get('lien-he','StudentController@lienHeNhaTruong');
 Route::get('thong-bao','StudentController@getThongBaoChung');
 Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');
 
+<<<<<<< HEAD
 
 Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
 
@@ -191,4 +203,27 @@ Route::get('guest/find/leader','Guest\RegisterController@findLeader');
 
 
 Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
+=======
+Route::group(['prefix'=>'ajax'],function(){
+    
+      Route::get('hop-tac-doanh-nghiep/{hocky}','AjaxDoanhNghiepController@getDoanhNghiepTheoHocKy');
+  });
+//Tìm kiếm thông báo cho sinh viên
+Route::post('tim-kiem-thong-bao','StudentController@timKiemThongBao');
+//Tìm kiếm thông báo chung ở giao diện guest
+Route::post('tim-kiem-thong-bao-chung','StudentController@timKiemThongBaoChung');
+
+Route::group(['prefix'=>'ajax'],function(){
+    
+      Route::get('hop-tac-doanh-nghiep/{hocky}','AjaxDoanhNghiepController@getDoanhNghiepTheoHocKy');
+  });
+//Tìm kiếm thông báo cho sinh viên
+Route::post('tim-kiem-thong-bao','StudentController@timKiemThongBao');
+//Tìm kiếm thông báo chung ở giao diện guest
+Route::post('tim-kiem-thong-bao-chung','StudentController@timKiemThongBaoChung');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+>>>>>>> 078a16f21ca52eae0f9771739eded9112ff04713
 

@@ -1,57 +1,91 @@
-@extends('layouts.company_site_layout')
+<style>
+    .col-md-2 {
+        text-align: center;
+        padding-top: 10px;
+    }
 
-@section('top-nav')
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="collapse navbar-collapse" id="top-navbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Chào, {{$userType}}'s name <b
-                                class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/{{$userType}}/thong-bao">Thông báo</a></li>
-                        <li><a href="#">Đăng xuất</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-@endsection
+    .col-md-10 {
+        border-left: 1px solid #dddddd;
+    }
 
-@section('left-nav')
-    <h2><b>Thông Báo</b></h2>
-@endsection
+    h3 {
+        padding-top: 0px;
+    }
 
+    .time-notice {
+        font-size: 65px;
+    }
+</style>
+@extends('layouts.'.$userType.'_layout')
 @section('content')
-    @foreach($notices as $noti)
-        <div class="row" style="padding-bottom: 10px">
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="row">
-                        <div class="datePost">
-                            {{date('d', strtotime($noti->created_at))}}</div>
-                        </div>
-                    <div class="row">
-                        <div class="monthPost">
-                            {{date('M Y', strtotime($noti->created_at))}}</div>
-                        </div>
-                </div>
-                <div class="col-sm-10">
-                    <div class="row">
-                        <h4><b>{{$noti->ten_tb}}</b></h4>
+    <div class="panel-heading" style="background-color:#263c65; color:white;">
+        <h3 style="margin-top:0px; margin-bottom:0px;">Thông Báo Đến</h3>
+    </div>
+
+    <div class="panel-body">
+        @foreach($revNotices as $notice)
+            <div class="row-item row">
+
+                <div class="border-right">
+                    <div class="col-md-2">
+                        <h1 class="time-notice">{{$notice->created_at->format('d')}}</h1>
+                        <p>
+                        <h4 style="margin-left:10px;">{{$notice->created_at->format('F')}}</h4>
+                        </p>
                     </div>
-                    <div class="row">
-                        <h5>Người gửi: {{$noti->user->name}}</h5>
+                    <div class="col-md-10">
+                        <h3>{{$notice->tieu_de}}</h3>
+                        <p><i style="color:#aaaaaa">Đăng bởi:{{$notice->user->name}} </i></p>
+                        <a class="btn btn-primary" href="/{{$userType}}/thong-bao/{{$notice->id}}/chi-tiet">Chi
+                            tiết <span class="glyphicon glyphicon-chevron-right"></span></a>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p>{{substr($noti->noi_dung,0,200)}} ...
-                        <a href="/{{$userType}}/thong-bao/{{$noti->id}}/chi-tiet"><b><u>Xem Tiếp</u></b></a>
-                    </p>
                 </div>
 
+                <div class="break"></div>
             </div>
+            <hr>
+        @endforeach
+
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-5">
+            {!! $revNotices->appends(\Request::except('page'))->render() !!}
         </div>
-    @endforeach
+    </div>
+    <br>
+    <div class="panel-heading" style="background-color:#263c65; color:white;">
+        <h3 style="margin-top:0px; margin-bottom:0px;">Thông Báo Đã Gửi</h3>
+    </div>
+
+    <div class="panel-body">
+        @foreach($sendNotices as $$notice)
+            <div class="row-item row">
+
+                <div class="border-right">
+                    <div class="col-md-2">
+                        <h1 class="time-notice">{{$$notice->created_at->format('d')}}</h1>
+                        <p>
+                        <h4 style="margin-left:10px;">{{$$notice->created_at->format('F')}}</h4>
+                        </p>
+                    </div>
+                    <div class="col-md-10">
+                        <h3>{{$$notice->tieu_de}}</h3>
+                        <p><i style="color:#aaaaaa">Đăng bởi:{{$$notice->user->name}} </i></p>
+                        <a class="btn btn-primary" href="/{{$userType}}/thong-bao/{{$$notice->id}}/chi-tiet">Chi
+                            tiết <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
+                </div>
+
+                <div class="break"></div>
+            </div>
+            <hr>
+        @endforeach
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-5">
+            {!! $sendNotices->appends(\Request::except('page'))->render() !!}
+        </div>
+    </div>
 @endsection

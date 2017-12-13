@@ -35,7 +35,7 @@ class Students extends Migration
             $table->string('Other')->nullable();
             $table->string('cty_da_thuc_tap')->nullable();
             $table->string('favorite');
-            $table->string('ten_nv_phu_trach')->nullable();
+            $table->string('leader_id')->nullable();
             $table->string('email')->nullable();
             $table->timestamps();
         });

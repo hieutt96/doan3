@@ -9,57 +9,36 @@
 namespace App\Http\Controllers\PM;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\CheckPM;
 use App\Notice;
 use App\Result;
+use App\Semester;
 use App\Student_Job_Assignment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Student;
 use App\User;
 use App\Leader;
-use Session;
+use App\Http\Request\ChangePasswordRequest;
+use Mockery\Matcher\Not;
+
 
 class PMController extends Controller
 {
     public function __construct()
     {
-//        Do something!
+        $this->middleware(CheckPM::class);
     }
 
-//    public function index_dat($roll_id)
-//    {
-//        if ($roll_id == 11) {
-//            return view('pm.pm_sv_thongTin')->withTab($roll_id);
-//        } elseif ($roll_id == 12) {
-//            return view('pm.pm_sv_congViec')->withTab($roll_id);
-//        } elseif ($roll_id == 13) {
-//            return view('pm.pm_sv_ketQua')->withTab($roll_id);
-//        } elseif ($roll_id == 2) {
-//            return view('pm.pm_index_nv')->withTab($roll_id);
-//        } elseif ($roll_id == 21) {
-//            return view('pm.pm_nv_thongTin')->withTab($roll_id);
-//        } elseif ($roll_id == 22) {
-//            return view('pm.pm_nv_svhd')->withTab($roll_id);
-//        } elseif ($roll_id == 3) {
-//            return view('pm.pm_index_baiViet')->withTab($roll_id);
-//        } elseif ($roll_id == 4) {
-//            return view('pm.pm_guithongBao')->withTab($roll_id);
-//        } else {
-//            $sv = Student::sortable()->paginate(10);
-//            return view('pm.pm_index_sv')->withTab(1)->withSv($sv);
-//        }
-//    }
 
     public function indexSV(Request $request)
     {
-
-        $semesters = array(20163, 20171, 20172);
+        $semesters = Semester::all();
         if (sizeof($request->input('semester'))) {
             $idSemester = $request->input('semester');
         } else {
-            $idSemester = 20171;
+            $idSemester = 1;
         }
-//        $idCompany = rand(1, 3);
 
         if (sizeof($request->input('pagiNum'))) {
             $pagiNum = $request->input('pagiNum');
@@ -67,30 +46,34 @@ class PMController extends Controller
             $pagiNum = 10;
         }
 
-        $company_id = 2;
+        $company_id = Auth::user()->leader->company_id;
         if (sizeof($request->input('search'))) {
             $search = $request->input('search');
             $students = Student::join('users', 'students.user_id', '=', 'users.id')
-                ->join('interships', 'students.user_id', '=', 'interships.student_id')
+                ->join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['users.name', 'like', '%' . $search . '%']
                     , ['interships.company_id', '=', $company_id]
                     , ['interships.semester_id', '=', $idSemester]])
+                ->select('students.*')
                 ->sortable()->paginate($pagiNum);
             if (count($students) == 0) {
-                $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
+                $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
                     ->where([['students.MSSV', 'like', '%' . $search . '%']
                         , ['interships.company_id', '=', $company_id]
                         , ['interships.semester_id', '=', $idSemester]])
+                    ->select('students.*')
                     ->sortable()->paginate($pagiNum);
             }
             $isSearch = true;
         } else {
-            $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
+            $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['interships.company_id', '=', $company_id]
                     , ['interships.semester_id', '=', $idSemester]])
+                ->select('students.*')
                 ->sortable()->paginate($pagiNum);
             $isSearch = false;
         }
+
         return view('pm.pm_index_sv', ['selectedPag' => $pagiNum,'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
     }
 
@@ -100,12 +83,19 @@ class PMController extends Controller
         return view('sv.sv_thongTin', ['tab' => 11, 'student' => $student, 'userType' => 'pm']);
     }
 
-    public function showSVCongViec($idSV)
+    public function showSVCongViec(Request $request, $idSV)
     {
         $student = Student::find($idSV);
-        $jobs = Student_Job_Assignment::where('student_id', '=', $idSV)
-            ->sortable()->paginate(10);
-
+        if (sizeof($request->input('search'))) {
+            $search = $request->input('search');
+            $jobs = Student_Job_Assignment::join('jobs', 'student_job_assignments.job_id', '=', 'jobs.id')
+                ->where([['jobs.ten_cong_viec', 'like', '%' . $search . '%']
+                    ,['student_job_assignments.student_id', '=', $idSV]])
+                ->sortable()->simplePaginate(10);
+        }else{
+            $jobs = Student_Job_Assignment::where('student_id', '=', $idSV)
+                ->sortable()->simplePaginate(10);
+        }
         return view('sv.sv_congViec', ['jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'pm']);
     }
 
@@ -123,14 +113,23 @@ class PMController extends Controller
 
     public function indexNV(Request $request)
     {
+
+        $company_id = Auth::user()->leader->company_id;
+
         if (sizeof($request->input('name'))) {
             $search = $request->input('name');
             $leaders = Leader::join('users', 'leaders.user_id', '=', 'users.id')
-                ->where('users.name', 'like', '%' . $search . '%')
+                ->where([['users.name', 'like', '%' . $search . '%']
+                        ,['leaders.company_id', '=', $company_id]
+                        ,['users.level', '=', 3]])
                 ->sortable()->paginate(10);
             $isSearch = true;
         } else {
-            $leaders = Leader::sortable()->paginate(10);
+            $leaders = Leader::join('users', 'leaders.user_id', '=', 'users.id')
+                            ->where([['leaders.company_id', '=', $company_id]
+                                    ,['users.level', '=', 3]])
+                            ->select('leaders.*', 'users.name', 'users.email')
+                            ->sortable()->paginate(10);
             $isSearch = false;
         }
         return view('pm.pm_index_nv', ['isSearch' => $isSearch, 'leaders' => $leaders, 'tab' => 2]);
@@ -143,14 +142,75 @@ class PMController extends Controller
         return view('pm.pm_nv_thongTin', ['tab' => 21, 'leader' => $leader]);
     }
 
-    public function postSuaNV(Request $request)
-    {
-        $idLeader = $request->input('idLeader');
-        $user = User::find($idLeader);
+    public function postTaoTK(Request $request){
+        $this->validate($request, array(
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+        ));
+
+        $company_id = Auth::user()->leader->company_id;
+
+        $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->picture = $request->input('avatar');
+        $user->level = 3;
+        $user->status = 1;
         $user->save();
+
+        $leader = new Leader();
+        $leader->user_id = $user->id;
+        $leader->company_id = $company_id;
+        $leader->phone = $request->input('phone');
+        $leader->phong_ban = $request->input('phongBan');
+        $leader->chuc_vu = $request->input('chucVu');
+        $leader->chuyenmon = $request->input('chuyenMon');
+        $leader->save();
+
+        return back()->with('thong_bao', 'Tạo Tài Khoản thành công!');
+    }
+
+    public function postSuaTK(Request $request)
+    {
+        $this->validate($request, array(
+            'idLeader' => 'required',
+            'phone' => '|numeric',
+            'chuyenMon' => 'required',
+            'name' => 'required',
+            'avatar' => 'required',
+        ));
+        $idLeader = $request->input('idLeader');
+
+        $leader = Leader::find($idLeader);
+        $leader->phone = $request->input('phone');
+        $leader->phong_ban = $request->input('phongBan');
+        $leader->chuc_vu = $request->input('chucVu');
+        $leader->chuyenmon = $request->input('chuyenMon');
+        $leader->save();
+
+        $user = User::find($leader->user_id);
+        $user->name = $request->input('name');
+        $user->picture = $request->input('avatar');
+        $user->save();
+
         return back();
+    }
+
+    public function postXoaTK(Request $request){
+        $$this->validate($request, array(
+            'idLeader' => 'required'
+        ));
+        $idLeader = $request->input('idLeader');
+
+        $leader = Leader::find($idLeader);
+        $leader->delete();
+        $user = User::find($leader->user_id);
+        $user->delete();
+
+        return redirect('/pm/nv');
+
     }
 
     public function nvSVHD(Request $request, $idLead)
@@ -180,37 +240,48 @@ class PMController extends Controller
         } else {
             $pagiNum = 10;
         }
-        // Current Semester get from the system time or from the request
-        $currentSem = 20171;
+        // Current Semester
+        $allhocky = Semester::all();
+        $idCurrentSem = 1;
+        foreach($allhocky as $hocky){
+            if((date('Y-m-d') < $hocky->thoi_gian_sv_ket_thuc_thuc_tap) &&(date('Y-m-d')>$hocky->thoi_gian_dn_bat_dau_dk) ){
+                $idCurrentSem = $hocky->id;
+                    break;
+            }
+        }
         // idCompany get form current PM being login
-//        $idCompany = rand(1, 3);
-        $company_id = 2;
+        $company_id = Auth::user()->leader->company_id;
+
         $leaders = Leader::join('users', 'leaders.user_id', '=', 'users.id')
-            ->where([['users.level', '=', 2]
-                , ['leaders.idCompany', '=', $company_id]])->get();
+            ->where([['users.level', '=', 3]
+                , ['leaders.company_id', '=', $company_id]])->get();
         if (sizeof($request->input('search'))) {
             $search = $request->input('search');
             $students = Student::join('users', 'students.user_id', '=', 'users.id')
-                ->join('interships', 'students.user_id', '=', 'interships.student_id')
+                ->join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['users.name', 'like', '%' . $search . '%']
                     , ['interships.company_id', '=', $company_id]
-                    , ['interships.semester_id', '=', $currentSem]])
+                    , ['interships.semester_id', '=', $idCurrentSem]])
+                ->select('students.*')
                 ->sortable()->paginate($pagiNum);
 
             if (count($students) == 0) {
                 $students = Student::join('users', 'students.user_id', '=', 'users.id')
-                    ->join('interships', 'students.user_id', '=', 'interships.student_id')
-                    ->where([['students.MSSV', 'like', '%' . $search . '%']
+                    ->join('interships', 'students.id', '=', 'interships.student_id')
+                    ->where([['students.mssv', 'like', '%' . $search . '%']
                         , ['interships.company_id', '=', $company_id]
-                        , ['interships.semester_id', '=', $currentSem]])
+                        , ['interships.semester_id', '=', $idCurrentSem]])
+                    ->select('students.*')
                     ->sortable()->paginate($pagiNum);
             }
 
             $isSearch = true;
         } else {
-            $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
+            $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['interships.company_id', '=', $company_id]
-                    , ['interships.semester_id', '=', $currentSem]])->sortable()->paginate($pagiNum);
+                    , ['interships.semester_id', '=', $idCurrentSem]])
+                ->select('students.*')
+                ->sortable()->paginate($pagiNum);
             $isSearch = false;
         }
         return view('pm.pm_index_phanCong', ['selectedPag' => $pagiNum, 'isSearch' => $isSearch, 'leaders' => $leaders, 'students' => $students, 'tab' => 3]);
@@ -228,39 +299,57 @@ class PMController extends Controller
         return back();
     }
 
+    public function getThongBao()
+    {
+//        $pmID = 220;
+        $admins = User::where('level', 4)->first();
+        $revNotices = Notice::where([['ma_nguoi_nhan', '=', 4]
+                                , ['user_id', '=', $admins->id]])->paginate(10);
+        $sendNotices = Notice::where('user_id', Auth::user()->id)->paginate(10);
+        return view('layouts.thongBao', ['tab' => 4,'sendNotices' => $sendNotices,'revNotices' => $revNotices,'userType' => 'pm']);
+    }
+
+    public function chiTietTB($noti_id){
+        $noti = Notice::find($noti_id);
+        return view('layouts.chiTietTB', ['tab' => 4,'noti' => $noti, 'userType' => 'pm']);
+    }
+
     public function getGuiTB(Request $request)
     {
         $receUsers = ['Tất cả sinh viên', 'Tất cả leader'];
-        return view('layouts.guiThongBao', ['tab' => 4, 'receUsers' => $receUsers, 'userType' => 'pm']);
+        return view('layouts.guiThongBao', ['tab' => 5, 'receUsers' => $receUsers, 'userType' => 'pm']);
     }
 
     public function postGuiTB(Request $request)
     {
+        $this->validate($request, array(
+           'tenTB' => 'required',
+           'noiDung' => 'required'
+        ));
         $sentID = $request->input('nguoiGui');
         $receID = $request->input('nguoiNhan');
-        $name = $request->input('ten');
+        $name = $request->input('tenTB');
         $content = $request->input('noiDung');
 
         $notice = new Notice();
         $notice->user_id = $sentID;
         $notice->ma_nguoi_nhan = $receID;
-        $notice->ten_tb = $name;
+        $notice->tieu_de = $name;
         $notice->noi_dung = $content;
         $notice->save();
 
         return back();
     }
 
-    public function getThongBao()
-    {
-//        $pmID = 220;
-//        $notices = Notice::where('ma_nguoi_nha', '=', $pmID)->paginate(10);
-        $notices = [];
-        return view('layouts.thongBao', ['notices' => $notices,'userType' => 'pm']);
+    public function getChangePass(){
+        return view('layouts.company_thayMK', ['userType' => 'pm']);
     }
 
-    public function chiTietTB($noti_id){
-        $noti = Notice::find($noti_id);
-        return view('chiTietTB', ['noti' => $noti, 'userType' => 'pm']);
+    public function postChangePass(ChangePasswordRequest $request){
+        $sinhvien = Auth::user();
+        $sinhvien->password = bcrypt($request->re_password);
+        $sinhvien->save();
+        return back()->with('thongbao','Mật khẩu mới đã được cập nhật thành công');
     }
+
 }

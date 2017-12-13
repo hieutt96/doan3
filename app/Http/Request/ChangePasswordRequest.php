@@ -10,7 +10,7 @@ use Auth;
  {
  	public function rules(){
  		return [
-             'old_password'=>'required',/*|same:'.Auth::user()->password,*/
+             'old_password'=>'required',
              'new_password'=>'required|min:6|max:32|different:old_password',
              're_password'=>'required|same:new_password'
 

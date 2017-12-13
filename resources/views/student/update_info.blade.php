@@ -19,7 +19,7 @@
 							<label class="control-label">Ảnh đại diện *</label>
 							<p>
 							<img width="200" height="200" src="upload/anhsinhvien/{!!Auth::user()->picture!!}" class="attachment-thumbnail size-thumbnail"
-								  title="Sinh viên" srcset="upload/anhsinhvien/{!!Auth::user()->picture!!} 200w, upload/anhsinhvien/{!!Auth::user()->picture!!} 250w"
+								  title="" srcset="upload/anhsinhvien/{!!Auth::user()->picture!!} 200w, upload/anhsinhvien/{!!Auth::user()->picture!!} 250w"
 								 sizes="(max-width: 200px) 150vw, 200px" style="display: block;">
                             </p>
 							@if(session('loi'))
@@ -53,11 +53,20 @@
 	                       @endif
 						</div>
 						<div class="form-group {{ $errors->has('lop') ? ' has-error' : '' }}">
-							<label class="control-label">Lớp - Khóa *</label>
+							<label class="control-label">Lớp *</label>
 							<input type="text" name="lop" class="form-control" placeholder="..." value="{!!Auth::user()->student->lop!!} ">
 	               			@if ($errors->has('lop'))
 	                            <span class="help-block">
 	                                <strong>{{ $errors->first('lop') }}</strong>
+	                            </span>
+	                        @endif
+						</div>
+						<div class="form-group {{ $errors->has('khoa') ? ' has-error' : '' }}">
+							<label class="control-label">Khóa *</label>
+							<input type="text" name="khoa" class="form-control" placeholder="..." value="{!!Auth::user()->student->grade!!} ">
+	               			@if ($errors->has('grade'))
+	                            <span class="help-block">
+	                                <strong>{{ $errors->first('grade') }}</strong>
 	                            </span>
 	                        @endif
 						</div>
@@ -73,22 +82,6 @@
 								 @endif
 							    value="{{$val}}">{{$val}}
 								</option>
-							@endforeach
-							</select>
-						</div>
-						<div class="form-group">
-						   <?php $bomon_arr = [0=>'',1=>'Hệ Thống Thông Tin',2=>'Công Nghệ Phần Mềm',
-						   3=>'Khoa Học Máy Tính',4=>'Truyền Thông Và Mạng Máy Tính',5=>'An Toàn Thông Tin',
-						   6=>'Kỹ Thuật Máy Tính'] ?>
-							<label class="control-label">Bộ Môn *</label>
-							<select name="bomon" class="form-control" >
-							@foreach($bomon_arr as $key=> $val)
-							    <option 
-								 @if(Auth::user()->student->bomon==$val)
-								 {!!"selected"!!}
-								 @endif
-								 value="{!!$val!!}">{!!$val!!}
-								 </option>
 							@endforeach
 							</select>
 						</div>
@@ -140,7 +133,7 @@
 					{{--<b style="font-size: 16px;"><span class="glyphicon glyphicon-star"></span> Kỹ Năng</b>--}}<br><br>	
 					 <div class="form-group col-right {{$errors->has('phone')?'has-error' :''}}">
 							<label class="control-label">Số điện thoại *</label>
-							<input type="text" name="phone" value="{!!Auth::user()->student->phone!!} " placeholder="..." class="form-control" >
+							<input type="txt" name="phone" value="{!!Auth::user()->student->phone!!} " placeholder="" class="form-control" >
 							@if ($errors->has('phone'))
 	                            <span class="help-block">
 	                                <strong>{{ $errors->first('phone') }}</strong>
@@ -163,21 +156,21 @@
 					</div>
 					<div class="form-group col-right{{$errors->has('ep1')?'has-error':''}}">
 						<label class="control-label">Kỹ năng lập trình - Có thể sử dụng *</label>
-						<textarea  type="text" name="ep1" value=" " class="form-control" placeholder="">{!!Auth::user()->student->ktlt_base!!}</textarea>
+						<textarea  type="text" name="ep1" value=" " class="form-control" placeholder="">{!!Auth::user()->student->knlt_cothesudung!!}</textarea>
 						@if($errors->has('ep1'))
 							<span class="help-block"><strong>{{$erros->first('ep1')}}</strong></span>
 						@endif
 					</div>
 					<div class="form-group col-right{{$errors->has('ep2')?'has-error':''}}" >
 							<label class="control-label">Kỹ năng lập trình - mức độ thành thạo *</label>
-							<textarea  type="text" name="ep2" value=""  class="form-control" placeholder="">{!!Auth::user()->student->ktlt!!}</textarea>
+							<textarea  type="text" name="ep2" value=""  class="form-control" placeholder="">{!!Auth::user()->student->knlt_thanhthao!!}</textarea>
 							@if($errors->has('ep2'))
 								<span class="help-block"><strong>{{$errors->first('ep2')}}</strong></span>
 							@endif
 					</div>					
 					<div class="form-group col-right {{$errors->has('ep3')?'has-error':''}}" >
 							<label class="control-label">Kỹ năng lập trình - mức độ làm chủ được công nghệ,có kinh nghiệm thực tế tốt *</label>
-							<textarea  type="text" name="ep3" value=""  class="form-control" placeholder="...">{!!Auth::user()->student->ktlt_master!!}</textarea>
+							<textarea  type="text" name="ep3" value=""  class="form-control" placeholder="...">{!!Auth::user()->student->knlt_master!!}</textarea>
 							@if($errors->has('ep3'))
 								<span class="help-block"><strong>{{$errors->first('ep3')}}</strong></span>
 							@endif

@@ -42,7 +42,7 @@
                 padding-top:15px;
             }
             .form-info{
-                 padding-top:10px;
+                padding-top:10px;
                 border: 1px solid #dddddd;
                 border-radius: 3px;
                 margin-bottom:20px;
@@ -81,6 +81,7 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
+           
 
         </style>
 </head>
@@ -91,8 +92,8 @@
                     <img class="anh-soict" src="{{asset('image/background/soict.png')}}" />
                 </div>
                 <div class="col-sm-8 name-school">
-                    <h2 style="color: white" >Trường Đại Học Bách Khoa Hà Nội</h2>
-                    <h3 style="color: white"> Viện Công Nghệ Thông Tin Và Truyền Thông</h3>
+                    <h3 style="color: white" >Trường Đại Học Bách Khoa Hà Nội</h3>
+                    <h2 style="color: white"> Viện Công Nghệ Thông Tin Và Truyền Thông</h2>
                 </div>
                 <div class="col-sm-2">
                     <img class="anh-hust" src="{{asset('image/background/hust.jpg')}}" />
@@ -163,7 +164,7 @@
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="{{url('home')}}">Trang Chủ </a></li>
+                        <li class="active"><a href="{{url('/')}}">Trang Chủ </a></li>
                         <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
                         @if(Auth::guest())
                         <li><a href="{{ url('thong-bao') }}">Thông báo</a></li>
@@ -179,15 +180,17 @@
             <div class="content">
             @yield('content')
             </div>
+        <footer>
             <div>
                 <div class="row" style="background: #263c65; color:white;">
                     <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
-                        <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</b><br>
-                        <b >Trường Đại Học Bách Khoa Hà Nội</b><br>
+                        <p style="padding-top:20px;">Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông </p>
+                        <p>Trường Đại Học Bách Khoa Hà Nội</p>
                         <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
                     </div>
                 </div>
             </div>
+        </footer>
 	</div>
     @yield('script')
 </body>

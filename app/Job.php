@@ -1,12 +1,16 @@
 <?php
 
 namespace App;
-// use Kyslik\ColumnSortable\Sortable;
+ use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    // use Sortable;
+<<<<<<< HEAD
+    //use Sortable;
+=======
+     use Sortable;
+>>>>>>> 23611ef6f3d87b595d09ac39416fbb0927e01071
 
     // public $sortable = ['tgBatDau', 'tgKetThuc'];
  
@@ -16,7 +20,7 @@ class Job extends Model
     	return $this->hasMany('App\Student_Job_Assignment');
     }
     public function leader(){
-    	return $this->belongsTo('App\Leader');
+    	return $this->belongsTo('App\Leader','leader_id','user_id');
     }
 }
 
