@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    // use Sortable;
+    //use Sortable;
 
     // public $sortable = ['tgBatDau', 'tgKetThuc'];
  
@@ -16,7 +16,7 @@ class Job extends Model
     	return $this->hasMany('App\Student_Job_Assignment');
     }
     public function leader(){
-    	return $this->belongsTo('App\Leader');
+    	return $this->belongsTo('App\Leader','leader_id','user_id');
     }
 }
 

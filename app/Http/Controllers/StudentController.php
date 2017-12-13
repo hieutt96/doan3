@@ -13,7 +13,9 @@ use App\Student_Job_Assignment;
 use App\Notice;
 use Auth;
 use File;
-
+use Illuminate\Support\Facades\Hash;
+use DB;
+use Illuminate\Support\Collection;
 class StudentController extends Controller
 {
     //Thay đổi mật khẩu
@@ -22,9 +24,13 @@ class StudentController extends Controller
     }
     public function postChangePassword(ChangePasswordRequest $request){  
         $sinhvien = Auth::user();
-        $sinhvien->password = bcrypt($request->re_password);
-        $sinhvien->save();
-        return back()->with('thongbao','Mật khẩu mới đã được cập nhật thành công');
+        if(Hash::check($request->input('old_password'), $sinhvien->password)){
+            $sinhvien->password = bcrypt($request->re_password);
+            $sinhvien->save();
+            return back()->with('thongbao','Mật khẩu mới đã được cập nhật thành công');
+        }else{
+            return back()->with('thongbao','Nhập chưa đúng mật khẩu cũ');
+        }
     }
 
     //Hiển thị thông tin người dùng
@@ -66,35 +72,36 @@ class StudentController extends Controller
             $user->name = $request->name;
             $user->student->mssv = $request->mssv;
             $user->student->lop= $request->lop;
+            $user->student->grade= $request->khoa;
             $user->student->ctdt= $request->ctdt;
-            $user->student->bomon= $request->bomon;
             $user->student->gender= $request->gender;
             $user->student->laptop= $request->laptop;
             $user->student->address= $request->diachi;
             $user->student->phone= $request->phone;
             $user->student->CPA= $request->cpa;
             $user->student->TA= $request->english;
-            $user->student->ktlt_base= $request->ep1;
-            $user->student->ktlt= $request->ep2;
-            $user->student->ktlt_master= $request->ep3;
+            $user->student->knlt_cothesudung= $request->ep1;
+            $user->student->knlt_thanhthao= $request->ep2;
+            $user->student->knlt_master= $request->ep3;
             $user->student->quan_tri_he_thong= $request->ep4;
             $user->student->Other= $request->ep5;
             $user->student->cty_da_thuc_tap= $request->cty;
             $user->save();
             $user->student->save();
             return redirect("student/update-student-info")->with('thongbao','Bạn
-            đã cập nhật thông tin thành công');
+       đã cập nhật thành công');
     }
 
     //hợp tác doanh nghiệp
     public function hopTacDoanhNghiep(){
         $doanhnghiep = Company::all();
-        return view('student.hopTacDoanhNghiep',['doanhnghiep'=>$doanhnghiep]);
+        $hocky = Company::select('hocky')->distinct()->get();
+        return view('student.hopTacDoanhNghiep',['doanhnghiep'=>$doanhnghiep,'hocky'=>$hocky]);
     }
     //chi tiết doanh nghiệp
     public function chiTietDoanhNghiep($id){
         $doanhnghiep = Company::find($id);
-        $doanhnghiepkhac = Company::orderByRaw('RAND()')->where('id','!=',$id)->take(2)->get();//thay đổi param in take() khi có dữ liệu
+        $doanhnghiepkhac = Company::orderByRaw('RAND()')->where('id','!=',$id)->take(3)->get();//thay đổi param in take() khi có dữ liệu
         $comment= Comment::where('company_id','=',$id)->get();
         return view('student.chiTietDoanhNghiep',['doanhnghiep'=>$doanhnghiep,'dn_khac'=>$doanhnghiepkhac,'comment'=>$comment]);  
     }
@@ -114,7 +121,11 @@ class StudentController extends Controller
     }
     //Thông báo chung cho tất cả Guest
     public function getThongBaoChung(){
-        $notice = Notice::orderBy('created_at', 'desc')->paginate(7);
+        $notice= DB::table('users')
+        ->join('notices','notices.user_id','=','users.id')
+        ->where('users.level',4)
+        ->where('notices.ma_nguoi_nhan',0)
+        ->get();
         return view('student.thongBao.thongBaoChung',['notice'=>$notice]);
        
     }
@@ -124,8 +135,29 @@ class StudentController extends Controller
     } 
     //Thông báo sinh viên phía doanh nghiep      
     public function getThongBaoPhiaDoanhNghiep(){
-       $notice = Notice::where('ma_nguoi_nhan','=',Auth::user()->id)->orderBy('created_at', 'desc')->paginate(7);
-        return view('student.thongBao.thongBaoPhiaDoanhNghiep',['notice'=> $notice]);
+        //leader
+        $notice_leader = DB::table('interships')
+        ->join('notices','notices.user_id','=','interships.leader_id')
+        ->join('users','notices.user_id','=','users.id')
+        ->where('interships.student_id',Auth::user()->id)
+        ->where('interships.status','=',1)
+        ->where('notices.ma_nguoi_nhan','=',2)
+        ->get();
+        //pm
+        $notice_pm = DB::table('interships')
+        ->join('companies','companies.id','=','interships.company_id')
+        ->join('leaders','leaders.company_id','=','companies.id')
+        ->join('notices','notices.user_id','=','leaders.user_id')
+        ->join('users','notices.user_id','=','users.id')
+        ->where('interships.student_id',Auth::user()->id)
+        ->where('interships.status','=',1)
+        ->where('notices.ma_nguoi_nhan','=',2)
+        ->get();
+        foreach($notice_leader as $notile){
+
+            $notice_pm->push($notile);
+        }
+        return view('student.thongBao.thongBaoPhiaDoanhNghiep',['notice'=>$notice_pm]);
     }
     public function chiTietThongBaoPhiaDoanhNghiep($id){
         $notice = Notice::find($id);
@@ -133,12 +165,96 @@ class StudentController extends Controller
     }
     //Thông báo sinh viên phía nhà trường  
     public function getThongBaoPhiaNhaTruong(Request $request){
-        $notice = Notice::where('ma_nguoi_nhan','=',Auth::user()->id)->orderBy('created_at', 'desc')->paginate(7);
-        return view('student.thongBao.thongBaoPhiaNhaTruong',['notice'=>$notice]);
+        //admin
+        $notice_admin = DB::table('users')
+        ->join('notices','notices.user_id','=','users.id')
+        ->where('users.level',4)
+        ->where('notices.ma_nguoi_nhan',0)
+        ->get();
+
+        //giangvien
+        $notice_gv = DB::table('interships')
+        ->join('lecturers','interships.lecturer_id','=','lecturers.user_id')
+        ->join('notices','notices.user_id','=','lecturers.user_id')
+        ->join('users','users.id','=','notices.user_id')
+        ->where('interships.student_id',Auth::user()->id)
+        ->where('interships.status',1)
+        ->where('notices.ma_nguoi_nhan',2)
+        ->get();
+        foreach($notice_admin as $notile){
+            $notice_gv->push($notile);            
+        }
+        return view('student.thongBao.thongBaoPhiaNhaTruong',['notice'=>$notice_gv]);
+        
     }
     public function chiTietThongBaoPhiaNhaTruong($id){
         $notice = Notice::find($id);
         return view('student.thongBao.chiTietThongBaoPhiaNhaTruong',['notice'=>$notice]);
+    }
+    public function timKiemThongBao(Request $request){
+        //$tukhoa = $request->tukhoa;
+        $tukhoa = $request->tukhoa;
+        $notice_leader = DB::table('interships')
+        ->join('notices','notices.user_id','=','interships.leader_id')
+        ->join('users','users.id','=','notices.user_id')
+        ->where('interships.student_id',Auth::user()->id)
+        ->where('interships.status','=',1)
+        ->where('notices.ma_nguoi_nhan','=',2)
+        ->where('notices.tieu_de','like','%'.$tukhoa.'%')
+        ->get();
+         
+        //pm
+        $notice_pm = DB::table('interships')
+        ->join('companies','companies.id','=','interships.company_id')
+        ->join('leaders','leaders.company_id','=','companies.id')
+        ->join('notices','notices.user_id','=','leaders.user_id')
+        ->join('users','users.id','=','notices.user_id')
+        ->where('interships.student_id',Auth::user()->id)
+        ->where('interships.status','=',1)
+        ->where('notices.ma_nguoi_nhan','=',2)
+        ->where('notices.tieu_de','like','%'.$tukhoa.'%')
+        ->get();
+        //admin
+        $notice_admin = DB::table('users')
+        ->join('notices','notices.user_id','=','users.id')
+        ->where('users.level',4)
+        ->where('notices.ma_nguoi_nhan',0)
+        ->where('notices.tieu_de','like','%'.$tukhoa.'%')
+        ->get();
+
+        //giangvien
+        $notice_gv = DB::table('interships')
+        ->join('lecturers','interships.lecturer_id','=','lecturers.user_id')
+        ->join('notices','notices.user_id','=','lecturers.user_id')
+        ->join('users','users.id','=','notices.user_id')
+        ->where('interships.student_id',Auth::user()->id)
+        ->where('interships.status',1)
+        ->where('notices.ma_nguoi_nhan',2)
+        ->where('notices.tieu_de','like','%'.$tukhoa.'%')
+        ->get();
+        foreach($notice_admin as $notile){
+            $notice_gv->push($notile);            
+        }
+        foreach($notice_leader as $notile){
+            $notice_pm->push($notile);
+        }
+        foreach($notice_gv as $notile){
+            $notice_pm->push($notile);
+        }
+        $notice_pm = $notice_pm->sortByDesc('created_at'); 
+       return view('student.thongBao.timKiemThongBao',['notice'=> $notice_pm,'tukhoa'=>$tukhoa]);
+    }
+    //Tìm kiếm thông báo chung
+    public function timKiemThongBaoChung(Request $request){
+        $tukhoa = $request->tukhoa;
+        $notice= DB::table('users')
+        ->join('notices','notices.user_id','=','users.id')
+        ->where('users.level',4)
+        ->where('notices.ma_nguoi_nhan',0)
+        ->where('notices.tieu_de','like','%'.$tukhoa.'%')
+        ->get();
+        return view('student.thongBao.timKiemThongBaoChung',['notice'=> $notice,'tukhoa'=>$tukhoa]);
+        
     }
     //Liên hệ nhà trường
     public function lienHeNhaTruong(){

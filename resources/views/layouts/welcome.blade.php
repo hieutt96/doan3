@@ -10,8 +10,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <base href="{!!asset('')!!}">
-        <!-- Custom Fonts -->
-      
+        <!-- Custom Fonts -->     
        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,‌​100italic,300,300ita‌​lic,400italic,500,50‌​0italic,700,700itali‌​c,900italic,900' rel='stylesheet' type='text/css'>
         <style>
             .flex-center {
@@ -71,9 +70,9 @@
     </head>
     <body>
         <div class="container" style="margin-bottom: 100px;">
-            <div class="row" style="background:#263C65;margin-top: 5px;">
+            <div class="row" style="background:#263C65;">
                 <div class="col-sm-2">
-                    <img src="{{asset('image/background/soict.png')}}" style="height: 150px;"  >
+                    <img src="{{asset('image/background/soict.png')}}" style="height: 160px;"  >
                 </div>
                 <div class="col-sm-8 name-school">
                     <h3 style="color: white" >Trường Đại Học Bách Khoa Hà Nội</h2>
@@ -87,9 +86,6 @@
                 <ul class="nav navbar-nav">
                     &nbsp;
                </ul>
-                <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Home') }}
-                </a>
                 <ul class="nav navbar-nav navbar-right">
                     @if(Auth::guest())
                     <li><a href="{{ route('dang-nhap') }}"><b>Đăng nhập</b></a></li>
@@ -114,9 +110,8 @@
                                                         <p>Doanh nghiệp</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                         <button type="button" class="btn btn-default" data-dismiss="modal" style="left: 5%;">Close</button>
+                                    </div>                                  
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" style="left: 5%;">Close</button>
                                     
                                 </div>
                             </div>
@@ -132,18 +127,19 @@
                                 <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a><li/>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="">MyProfile</a>
+                                   
                                     @if(Auth::user()->level == 2)
-                                        <a href="">Truy Cập Trang Quản Lí</a>
+                                        <a href="">MyProfile</a>
+                                        <a href="">Truy Cập Trang Quản Lý</a>
                                     
-                                    @ifelse(Auth::user()->level == 3)
-                                        <a href="">Truy Cập Trang Quản Lí</a>
+                                    @elseif(Auth::user()->level == 3)
+                                        <a href="">Truy Cập Trang Quản Lý</a>
 
-                                    @ifelse(Auth::user()->level == 4)
-                                        <a href="/admin-dashboard">Truy hi Cập Trang Quản Lí</a>
+                                    @elseif(Auth::user()->level == 4)
+                                        <a href="/admin-dashboard">Truy Cập Trang Quản Lý</a>
 
-                                    @else(Auth::user()->level == 5)
-                                        <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
+                                    @elseif(Auth::user()->level == 5)
+                                        <a href="/admin-dashboard">Truy Cập Trang Quản Lý</a>
                                     @endif
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();
@@ -164,7 +160,7 @@
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="{{url('home')}}">Trang Chủ </a></li>
+                        <li class="active"><a href="{{url('/')}}">Trang Chủ </a></li>
                         <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
                          @if(Auth::user())
                         <li><a href="{{ url('student/cong-viec-thuc-tap')}}">Công việc thực tập </a></li>
@@ -178,16 +174,15 @@
                     </div>
                 </nav>
             </div>
-           
         @yield('welcome')
     @yield('script')
     </body>
     <footer>
      <div>
             <div class="row" style="background: #263c65; color:white;">
-                    <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
-                        <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</b><br>
-                        <b >Trường Đại Học Bách Khoa Hà Nội</b><br>
+                    <div class="col-lg-6 col-lg-offset-3" style="text-align: center;color:white;">
+                        <p style="color:white;padding-top:20px;">Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông tin và truyền thông</p>
+                        <p style="color:white;" >Trường Đại Học Bách Khoa Hà Nội</p>
                         <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
                     </div>
                 </div>

@@ -8,9 +8,13 @@ class Result extends Model
 {
 	protected $table = 'results';	
 	
+
     public function intership(){
     	return $this->hasOne('App\Intership');
-    }
+
+    // public function student(){
+    // 	return $this->hasOne('App\Student');
+    // }
 }
 
 ?>
