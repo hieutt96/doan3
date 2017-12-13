@@ -89,7 +89,7 @@ class StudentController extends Controller
             $user->save();
             $user->student->save();
             return redirect("student/update-student-info")->with('thongbao','Bạn
-       +h công');
+       đã cập nhật thành công');
     }
 
     //hợp tác doanh nghiệp
