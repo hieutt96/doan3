@@ -28,7 +28,15 @@ Route::post('dang-nhap', ['as' => 'dang-nhap.post', 'uses' => 'Guest\LoginContro
 
 Route::get('dang-xuat', ['as' => 'dang-xuat', 'uses' => 'Guest\LoginController@logout']);
 
+
 Route::get('admin/cancel/{id}','Admin\AdminController@cancel');
+
+
+Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
+
+Route::get('admin/cancel/{id}','Admin\AdminController@cancel');
+
+
 
 Route::get('hop-tac-doanh-nghiep',['as'=>'hop-tac-doanh-nghiep','uses'=>'Guest\HomeController@dsdoanhnghiep']);
 
@@ -73,13 +81,19 @@ Route::group(['middleware'=>'admin'],function(){
         Route::get('/admin/assignment_lecturer','Admin\AdminController@assignmentLecturerForCompany');
 
         Route::get('/admin/danh-sach-giang-vien','Admin\AdminController@listLecturer');
+
+
+
+		Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
+		Route::get('guest/find/leader','Guest\RegisterController@findLeader');
+
+
 });
 
-Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
-Route::get('guest/find/leader','Guest\RegisterController@findLeader');
+
 Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
 
-// =========Routes PM
+
 // sv
 Route::get('/pm/sv', 'PM\PMController@indexSV');
 Route::get('/pm/sv/{idSV}/thong-tin', 'PM\PMController@showSVInfo');
@@ -166,6 +180,7 @@ Route::get('lien-he','StudentController@lienHeNhaTruong');
 Route::get('thong-bao','StudentController@getThongBaoChung');
 Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');
 
+
 Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
 
 Route::get('hop-tac-doanh-nghiep',['as'=>'hop-tac-doanh-nghiep','uses'=>'Guest\HomeController@dsdoanhnghiep']);
@@ -176,5 +191,4 @@ Route::get('guest/find/leader','Guest\RegisterController@findLeader');
 
 
 Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
-
 
