@@ -36,9 +36,5 @@
             <!-- end item -->
             </div>
         </div>
-        @section('pagination')
-            {{ $notice->links() }}
-        @endsection
-
     </div>
 @endsection
