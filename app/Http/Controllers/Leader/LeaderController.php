@@ -39,6 +39,12 @@ class LeaderController extends Controller
             $idSemester = $request->input('semester');
         } else {
             $idSemester = 1;
+            foreach ($semesters as $hocky) {
+                if ((date('Y-m-d') < $hocky->thoi_gian_sv_ket_thuc_thuc_tap) && (date('Y-m-d') > $hocky->thoi_gian_dn_bat_dau_dk)) {
+                    $idSemester = $hocky->id;
+                    break;
+                }
+            }
         }
 
         $leader = Auth::user();
@@ -279,10 +285,9 @@ class LeaderController extends Controller
         return back();
     }
 
-    public function getGuiTB(Request $request)
+    public function getGuiTB()
     {
-        $receUsers = ['Tất cả sinh viên'];
-        return view('layouts.guiThongBao', ['tab' => 5, 'receUsers' => $receUsers, 'userType' => 'leader']);
+        return view('layouts.guiThongBao', ['tab' => 5, 'userType' => 'leader']);
     }
 
     public function postGuiTB(Request $request)
@@ -316,8 +321,8 @@ class LeaderController extends Controller
             ->first();
         $revNotices = Notice::where([['ma_nguoi_nhan', '=', 1], ['user_id', '=', $boss->id]])
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
-        $sendNotices = Notice::where('user_id', Auth::user()->id)->paginate(10);
+            ->paginate(5);
+        $sendNotices = Notice::where('user_id', Auth::user()->id)->paginate(5);
 
         return view('layouts.thongBao', ['tab' => 4, 'sendNotices' => $sendNotices, 'revNotices' => $revNotices, 'userType' => 'leader']);
     }

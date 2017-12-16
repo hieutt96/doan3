@@ -145,7 +145,7 @@ class PMController extends Controller
     public function postTaoTK(Request $request){
         $this->validate($request, array(
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users,email',
             'password' => 'required'
         ));
 
@@ -199,7 +199,7 @@ class PMController extends Controller
     }
 
     public function postXoaTK(Request $request){
-        $$this->validate($request, array(
+        $this->validate($request, array(
             'idLeader' => 'required'
         ));
         $idLeader = $request->input('idLeader');
@@ -304,8 +304,8 @@ class PMController extends Controller
 //        $pmID = 220;
         $admins = User::where('level', 4)->first();
         $revNotices = Notice::where([['ma_nguoi_nhan', '=', 4]
-                                , ['user_id', '=', $admins->id]])->paginate(10);
-        $sendNotices = Notice::where('user_id', Auth::user()->id)->paginate(10);
+                                , ['user_id', '=', $admins->id]])->paginate(5);
+        $sendNotices = Notice::where('user_id', Auth::user()->id)->paginate(5);
         return view('layouts.thongBao', ['tab' => 4,'sendNotices' => $sendNotices,'revNotices' => $revNotices,'userType' => 'pm']);
     }
 
@@ -316,8 +316,7 @@ class PMController extends Controller
 
     public function getGuiTB(Request $request)
     {
-        $receUsers = ['Tất cả sinh viên', 'Tất cả leader'];
-        return view('layouts.guiThongBao', ['tab' => 5, 'receUsers' => $receUsers, 'userType' => 'pm']);
+        return view('layouts.guiThongBao', ['tab' => 5, 'userType' => 'pm']);
     }
 
     public function postGuiTB(Request $request)

@@ -3,6 +3,17 @@
 @section('content')
     <div class="panel-body">
         <div class="row">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <form action="/pm/nv" method="GET" role="search">
                     {{ csrf_field() }}

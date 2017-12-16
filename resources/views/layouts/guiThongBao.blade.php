@@ -17,9 +17,10 @@
                             <div class="col-sm-7">
                                 <label class="control-label" for="user">Chọn kiểu người nhận</label>
                                 <select id="user" name="nguoiNhan" class="form-control" required>
-                                    @for ($i = 0; $i < count($receUsers); $i++)
-                                        <option value="{{$i+2}}">{{$receUsers[$i]}}</option>
-                                    @endfor
+                                    <option value="2">Tất cả sinh viên quản lý</option>
+                                    @if(Auth::user()->level == 2)
+                                        <option value="3">Tất cả Leader quản lý</option>
+                                    @endif
                                 </select>
                             </div>
                             <div class="col-sm-5">

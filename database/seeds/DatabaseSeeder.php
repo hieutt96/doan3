@@ -5,6 +5,8 @@ use App\User;
 use App\Student;
 use App\Intership;
 use App\Leader;
+use App\Lecturer;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,22 +18,22 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 //        $numStu = 500;
-        $names = ['Nguyễn Văn Tuấn', 'Đoàn Dự', 'Phạm Văn Hải', 'Tấn Tài', 'Đào Quang Anh', 'Hỏa Văn Bạo', 'Hoàng	Thành Công',
+        $names = ['Nguyễn Văn Hạo', 'Trần Văn Sơn', 'Nguyễn Hồng Quang', 'Nguyễn Văn Tuấn', 'Đoàn Dự', 'Phạm Văn Hải', 'Tấn Tài', 'Đào Quang Anh', 'Hỏa Văn Bạo', 'Hoàng	Thành Công',
             'Hoàng Đăng	Đức', 'Nguyễn Thu Hường', 'Ưng Hoàng Phúc', 'Hà Anh Tuấn', 'Đức Phúc', 'Bích Phương', 'Phương Ly'];
-
+//
         $sDT = ['01245321563', '01452365225', '0145236254', '0986325652', '0985547745', '01232012254', '0989965523',
             '01245563325', '0987874785', '01212456632', '0904145523'];
-        $lop = ['CNTT2.1', 'CNTT2.2', 'CNTT2.3', 'CNTT2.4'];
-        $nenTangMongMuon = ['Mobie Android', 'Mobie IOS', 'JAVA Programming', '.NET Programming', 'PHP Programming',
-            'SystemAdmin', 'Web Programming', 'Desktop app Programming',
-            'Serve Side', 'Embedded'];
-        $khoa = ['K59', 'K60', 'K61', 'K62', 'K58', 'K57'];
-        $ctdt = ['Kỹ Sư', 'Tài Năng', 'Cử Nhân', 'Chất Lượng Cao'];
-        $avatar = ['1', '2', '3', '4', '5', '6'];
-        $gioiTinh = ['0', '1'];
-        $laptop = ['0', '1'];
-        $diaChi = ['Hai Bà Trưng, Hà Nội', 'Thanh Xuân, Hà Nội', 'Hoàn Kiếm, Hà Nội', 'Ba Đình, Hà Nội', 'Từ Liêm, Hà Nội'];
-
+//        $lop = ['CNTT2.1', 'CNTT2.2', 'CNTT2.3', 'CNTT2.4'];
+//        $nenTangMongMuon = ['Mobie Android', 'Mobie IOS', 'JAVA Programming', '.NET Programming', 'PHP Programming',
+//            'SystemAdmin', 'Web Programming', 'Desktop app Programming',
+//            'Serve Side', 'Embedded'];
+//        $khoa = ['K59', 'K60', 'K61', 'K62', 'K58', 'K57'];
+//        $ctdt = ['Kỹ Sư', 'Tài Năng', 'Cử Nhân', 'Chất Lượng Cao'];
+//        $avatar = ['1', '2', '3', '4', '5', '6'];
+//        $gioiTinh = ['0', '1'];
+//        $laptop = ['0', '1'];
+//        $diaChi = ['Hai Bà Trưng, Hà Nội', 'Thanh Xuân, Hà Nội', 'Hoàn Kiếm, Hà Nội', 'Ba Đình, Hà Nội', 'Từ Liêm, Hà Nội'];
+//
 //        for ($i = 0; $i < $numStu; $i++) {
 //
 //            $user = new User();
@@ -66,10 +68,10 @@ class DatabaseSeeder extends Seeder
 //            $intership->save();
 //        }
 
-        $numLeader = 80;
-        $phongBan = ['IT', 'Nhân Sự', 'Kế Toán'];
-        $chucVu = ['Trưởng Phòng', 'Phó Phòng', 'Nhân Viên Thường'];
-
+//        $numLeader = 80;
+//        $phongBan = ['IT', 'Nhân Sự', 'Kế Toán'];
+//        $chucVu = ['Trưởng Phòng', 'Phó Phòng', 'Nhân Viên Thường'];
+//
 //        for ($i = 0; $i < $numLeader; $i++) {
 //            $user = new User();
 //            $user->name = $names[array_rand($names, 1)];
@@ -89,6 +91,29 @@ class DatabaseSeeder extends Seeder
 //            $leader->chuyenmon = $nenTangMongMuon[array_rand($nenTangMongMuon,1)];
 //            $leader->save();
 //        }
+
+//        $numLeacturer = 30;
+//        for ($i = 0; $i < $numLeacturer; $i++) {
+//            $user = new User();
+//            $user->name = $names[array_rand($names, 1)];
+//            $user->email = 'lecturer_' . $i . '@gmail.com';
+//            $user->password = bcrypt('123456');
+//            $user->picture = '/image/ava/ava' . rand(1, 6) . '.jpg';
+//            $user->level = 5;
+//            $user->status = 1;
+//            $user->save();
+//
+//            $lecturer = new Lecturer();
+//            $lecturer->user_id = $user->id;
+//            $lecturer->phone = $sDT[array_rand($sDT,1)];
+//            $lecturer->save();
+//        }
+
+        for ($i = 10; $i< 500; $i++){
+            $user = Student::find($i);
+            $user->tenGVPhuTrach = $names[array_rand($names, 1)];
+            $user->save();
+        }
 
     }
 }

@@ -32,4 +32,7 @@ class Student extends Model
 //    {
 //        return $this->belongsTo('App\Leader', 'leader_id');
 //    }
+    public function result(){
+        return $this->hasOne('App\Result');
+    }
 }
