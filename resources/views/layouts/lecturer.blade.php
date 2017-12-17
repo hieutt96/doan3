@@ -18,7 +18,7 @@
 			</div><hr>
 			<div class="row">
 				<div class="col-lg-4">
-					<span class="alert alert-info">Học Kỳ Hiện Tại :{{$hocky_current}}</span>
+					<span class="alert alert-info">Học Kỳ Hiện Tại :{{$hocky_current->ten_hoc_ki}}</span>
 				</div>
 			</div>
 			@yield('content_right')

@@ -15,7 +15,7 @@ $(document).on('click','#submit',function(){
 			data:{'idGiangVien':idGiangVien,'array_company':array_company},
 			success:function(data){
 				$(".idCongTy:checked").each(function(){
-					$(this).closest("tr").fadeOut();
+					$(this).closest("tr").remove();
 				});
 			},
 			error:function(){

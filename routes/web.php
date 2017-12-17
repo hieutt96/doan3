@@ -90,6 +90,7 @@ Route::group(['middleware'=>'admin'],function(){
 
 Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
 
+Route::get('/lecturer/cap-nhap-thong-tin','Lecturer\LecturerController@updateInfo');
 
 // sv
 Route::get('/pm/sv', 'PM\PMController@indexSV');

@@ -28,6 +28,7 @@ $(document).on('change','#hocky',function(){
 $(document).on('change','#cty2',function(){
 	var company = $(this).val();
 	$("[name='nv']").empty();
+	$("[name='mailnv']").empty();
 	console.log(company);
 	if(company){
 		$.ajax({

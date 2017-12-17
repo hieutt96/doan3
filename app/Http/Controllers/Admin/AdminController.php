@@ -14,6 +14,7 @@ use App\Lecturer;
 use App\Notice;
 use Validator;
 use App\Intership;
+use App\Result;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Request\CreateSemesterRequest;
 use App\Http\Request\EditSemesterRequest;
@@ -198,7 +199,8 @@ class AdminController extends Controller
 			->join('users','students.user_id','=','users.id')
 			->select(DB::raw('group_concat(distinct companies.name separator ",") as tencongty'),'users.name as ten','students.MSSV as mssv','students.lop','students.grade',DB::raw('SUM(interships.status) as sum'))
 			->where('interships.semester_id',$data)
-			->whereIn('interships.status',[0,2])
+			->where('interships.status',0)
+			->orwhere('interships.status',5)
 			->groupBy('interships.student_id')
 			->get();
 		return [$listsv1,$listsv2];
@@ -224,8 +226,8 @@ class AdminController extends Controller
 			->select('users.name as tensinhvien','interships.student_id as student_id',DB::raw('group_concat(distinct companies.name separator ",") as tencongty'),DB::raw('SUM(interships.status) as sum'))
 			->where('semesters.ten_hoc_ki',$hocky)
 			->groupBy('interships.student_id')
-			->havingRaw('sum < 3')
-			->havingRaw('sum > 1')			
+			->havingRaw('sum < 6')
+			->havingRaw('sum > 4')			
 			->get();
 		$listsv3 = DB::table('interships')
 			->join('semesters','interships.semester_id','=','semesters.id')
@@ -234,8 +236,8 @@ class AdminController extends Controller
 			->select('users.name as tensinhvien','interships.student_id as student_id',DB::raw('SUM(interships.status) as sum'))
 			->where('semesters.ten_hoc_ki',$hocky)
 			->groupBy('interships.student_id')
-			->havingRaw('sum < 4')
-			->havingRaw('sum > 2')
+			->havingRaw('sum < 11')
+			->havingRaw('sum > 9')
 			->get();
 		// dd($listsv3);
 		$listCompany = Company::where('status',1)->where('hocky',$hocky)->get();
@@ -258,10 +260,13 @@ class AdminController extends Controller
 			if( $total <= $max_student)
 			{
 				foreach($array_students as $student){
+				$result = new Result;
+				$result->save();
 				$intership = new Intership;
 				$intership->company_id = $congty;
 				$intership->semester_id = $semester_current->id;
 				$intership->student_id = $student;
+				$intership->result_id = $result->id;
 				$intership->status = 1;
 				$intership->save();
 				}
@@ -272,11 +277,14 @@ class AdminController extends Controller
 			}
 		}else{
 				foreach($array_students as $student){
+				$result = new Result;
+				$result->save();
 				$intership = new Intership;
 				$intership->company_id = $congty;
 				$intership->semester_id = $semester_current->id;
 				$intership->student_id = $student;
 				$intership->status = 1;
+				$intership->result_id = $result->id;
 				$intership->save();
 				return 1;
 			}
@@ -311,11 +319,13 @@ class AdminController extends Controller
 		->select('companies.name',DB::raw('count(interships.status) as sosinhviendangky'),'companies.soLuongSinhVienTT as gioihan','companies.id')
 		->where('companies.status',1)
 		->where('interships.status','=',1)
-		// ->where(DB::raw('SUM(interships.lecturer_id)=0'))
+		// ->whereNull('interships.lecturer_id')
 		->where('companies.hocky',$hocky)
 		->groupBy('interships.company_id','interships.lecturer_id')
-		->havingRaw('sum(interships.lecturer_id)<1')
+		// ->havingRaw('sum(interships.lecturer_id)<1')
+		->orhavingraw('sum(interships.lecturer_id)=0')
 		->get();
+		// dd($companies);
 		$hockys = Semester::select('id','ten_hoc_ki')->distinct()->get();
 		$allhocky = Semester::all();
 		foreach($allhocky as $hocky){

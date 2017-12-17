@@ -33,7 +33,10 @@ class LoginController extends Controller
     		}elseif(Auth::user()->level == 4){//Admin
     			return redirect('/admin-dashboard');
     		}elseif(Auth::user()->level ==5){//GV hướng dẫn
-    			return redirect('/');
+                // if(Auth::user()->name ==''){
+                //     return redirect('/lecturer/cap-nhap-thong-tin');
+                // }
+    			return redirect('/lecturer/manage_student');
     		}else{
     			return redirect('/');//Guest
     		}

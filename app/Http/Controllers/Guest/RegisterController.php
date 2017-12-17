@@ -28,7 +28,6 @@ class RegisterController extends Controller
         $semester = new Semester();
 
         $hockys = $semester->getAllSemester();
-        // dd($hockys);
         foreach($hockys as $hocky){
             if ((date('Y-m-d') > $hocky->thoi_gian_sv_bat_dau_dk) && date('Y-m-d') < $hocky->thoi_gian_sv_ket_thuc_dk){
                 $a[] = $hocky;
@@ -103,7 +102,7 @@ class RegisterController extends Controller
                 $intership = new Intership;
                 $intership->student_id = $student->id;
                 $intership->semester_id = $request->hocky;
-                $intership->status = 3;
+                $intership->status = 10;
                 $intership->save();
             }
         }elseif($request->luachon==1){
@@ -111,7 +110,7 @@ class RegisterController extends Controller
             $intership->student_id = $student->id;
             $intership->semester_id = $request->hocky;
             $intership->company_id = $request->cty2;
-            $intership->status = 2;
+            $intership->status = 5;
             $intership->save();
         }
     	return redirect('dang-nhap')->with('status','Bạn đã đăng ký thành công hãy đăng nhập để tiếp tục.');
