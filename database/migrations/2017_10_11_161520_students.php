@@ -17,7 +17,7 @@ class Students extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('lop');
-            $table->integer('mssv')->unique();
+            $table->integer('mssv');
             $table->string('grade');
             $table->string('ctdt');
             $table->string('boMon');

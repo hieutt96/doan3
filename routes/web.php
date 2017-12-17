@@ -86,10 +86,7 @@ Route::group(['middleware'=>'admin'],function(){
 
 		Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
 		Route::get('guest/find/leader','Guest\RegisterController@findLeader');
-
-
 });
-
 
 Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
 

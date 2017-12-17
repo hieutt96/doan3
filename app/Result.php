@@ -15,7 +15,7 @@ class Result extends Model
     // public function student(){
     // 	return $this->hasOne('App\Student');
     // }
+	}
 }
-
 ?>
 

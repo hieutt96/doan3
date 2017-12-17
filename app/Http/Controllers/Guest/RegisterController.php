@@ -17,17 +17,20 @@ use App\Intership;
 use DB;
 class RegisterController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('guest')->except('logout');
-    // }
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
 
     public function getRegisterSV()
     {   
         $a=[];
-        $hockys = Semester::all();
+        $semester = new Semester();
+
+        $hockys = $semester->getAllSemester();
+        // dd($hockys);
         foreach($hockys as $hocky){
-            if ((date('Y-m-d')>$hocky->thoi_gian_sv_bat_dau_dk) && date('Y-m-d')<$hocky->thoi_gian_sv_ket_thuc_dk){
+            if ((date('Y-m-d') > $hocky->thoi_gian_sv_bat_dau_dk) && date('Y-m-d') < $hocky->thoi_gian_sv_ket_thuc_dk){
                 $a[] = $hocky;
             }
         }
@@ -37,7 +40,9 @@ class RegisterController extends Controller
     public function getRegisterDN()
     {
         $a=[];
-        $hockys = Semester::all();
+        $semester = new Semester();
+
+        $hockys = $semester->getAllSemester();
         foreach($hockys as $hocky){
             if ((date('Y-m-d')>$hocky->thoi_gian_dn_bat_dau_dk) && date('Y-m-d')<$hocky->thoi_gian_dn_ket_thuc_dk){
                 $a[] = $hocky;
@@ -47,6 +52,7 @@ class RegisterController extends Controller
     }
     public function postRegisterSV(RegisterSVRequest $request)
     {
+        // dd("hieu");
     	$user = new User;
     	$user->name = $request->name;
     	$user->email = $request->email;
@@ -97,7 +103,7 @@ class RegisterController extends Controller
                 $intership = new Intership;
                 $intership->student_id = $student->id;
                 $intership->semester_id = $request->hocky;
-                $intership->status = 0;
+                $intership->status = 3;
                 $intership->save();
             }
         }elseif($request->luachon==1){
@@ -105,7 +111,7 @@ class RegisterController extends Controller
             $intership->student_id = $student->id;
             $intership->semester_id = $request->hocky;
             $intership->company_id = $request->cty2;
-            $intership->status = 1;
+            $intership->status = 2;
             $intership->save();
         }
     	return redirect('dang-nhap')->with('status','Bạn đã đăng ký thành công hãy đăng nhập để tiếp tục.');
@@ -135,10 +141,11 @@ class RegisterController extends Controller
         // dd($request->linhvuchoatdong);
         if($request->hasFile('image')){
             $file = $request->file('image');
-            $file->move(public_path().'/image/doanhnghiep/',time().$file->getClientOriginalExtension());
-            $user->avatar= '/image/doanhnghiep/'.time().$file->getClientOriginalExtension();
+            $time = time();
+            $file->move(public_path().'/image/doanhnghiep/',$time.$file->getClientOriginalExtension());
+            $company->picture= '/image/doanhnghiep/'.$time.$file->getClientOriginalExtension();
         }
-
+        // dd($file);
         $company->congNgheDaoTao = implode(',', $request->congnghedaotao);
         $company->linhVucHoatDong = implode(',', $request->linhvuchoatdong);
         $company->soLuongSinhVienTT = $request->soluong;

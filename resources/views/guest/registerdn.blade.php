@@ -28,17 +28,17 @@
 		{{ csrf_field() }}	
 		<div class="row">
 			<div class="col-lg-3">
-				<img src="" style="height: 250px;width: 300px; border-radius: 10px;" ><br><br>
-				<div class="row">
+				<img src="" style="height: 250px;width: 300px; border-radius: 10px;" >
+				<div class="row" style="margin-top:30px; ">
 					<p class="col-lg-4">Chọn Ảnh:</p>
-					<input class="col-lg-8 btn btn-default" type="file" name="image">
+					<input class="col-lg-8" type="file" name="image">
 				</div>
 			</div>
 			<div class="col-lg-8 col-lg-offset-1">
 				<div class="form-group {{ $errors->has('tenconty') ? ' has-error' : '' }}">
 					<label  class="col-lg-2 control-label">Tên Công Ty:</label>
 					<div class="col-lg-9">
-						<input type="text" name="tencongty" placeholder="..." class=" form-control" required>
+						<input type="text" name="tencongty" placeholder="..." class=" form-control" required minlength=3>
 					</div>					
            			@if ($errors->has('tencongty'))
                         <span class="help-block">
@@ -49,7 +49,7 @@
 				<div class="form-group {{ $errors->has('diachi') ? ' has-error' : '' }}">
 					<label class="col-lg-2 control-label">Địa Chỉ :</label>
 					<div class="col-lg-9">
-						<textarea name="diachi" placeholder="..." class="form-control" required></textarea>
+						<textarea name="diachi" placeholder="..." class="form-control" required minlength="10"></textarea>
 					</div>
 
            			@if ($errors->has('diachi'))
@@ -73,7 +73,7 @@
 				<div class="form-group {{ $errors->has('sonhanvien') ? ' has-error' : '' }}">
 					<label class="col-lg-3 control-label" >Số lượng nhân viên :</label>
 					<div class="col-lg-2">
-						<input type="number" name="sonhanvien" placeholder="..." class="form-control" required>
+						<input type="number" name="sonhanvien" placeholder="..." class="form-control" required min=0>
 					</div>
 
            			@if ($errors->has('sonhanvien'))
@@ -108,7 +108,7 @@
 				</div>
 			</div>
 		</div><br><hr style="border-color: red;">
-		<div >
+		<div class="" >
 			<div class="row">
 				<label class="control-label" style="font-size: 18px;"><span class="glyphicon glyphicon-info-sign"></span> Thông tin liên hệ :</label>
 			</div><hr>
@@ -116,7 +116,7 @@
 				<div class="form-group col-lg-offset-2 {{ $errors->has('hotennvpt') ? ' has-error' : '' }}">
 					<label class="col-lg-3 control-label"><span class="glyphicon glyphicon-star"></span> Họ tên nhân viên phụ trách thực tập :</label>
 					<div class="col-lg-6">
-						<input type="text" name="hotennvpt" placeholder="..." required class="form-control">
+						<input type="text" name="hotennvpt" placeholder="..." required class="form-control" minlength=10 maxlength=50>
 					</div>
 
            			@if ($errors->has('hotennvpt'))
@@ -128,7 +128,7 @@
 				<div class="form-group col-lg-offset-2 {{ $errors->has('sodienthoai') ? ' has-error' : '' }}">
 					<label class="col-lg-3 control-label"><span class="glyphicon glyphicon-star"></span>Số điện thoại :</label>
 					<div class="col-lg-6">
-						<input type="text" name="sodienthoai" placeholder="..." class="form-control" required>
+						<input type="text" name="sodienthoai" placeholder="..." class="form-control" required minlength=8 maxlength=14>
 					</div>
 
            			@if ($errors->has('sodienthoai'))
@@ -246,7 +246,7 @@
 				<div class="col-lg-offset-2 form-group {{ $errors->has('soluong') ? ' has-error' : '' }}">
 					<label class="col-lg-4 control-label">Số lượng sinh viên có thể nhận :</label>
 					<div class="col-lg-4">
-						<input type="text" name="soluong" placeholder="..." required class="form-control">
+						<input type="number" name="soluong" placeholder="..." required class="form-control" min=0>
 					</div>
 
            			@if ($errors->has('soluong'))

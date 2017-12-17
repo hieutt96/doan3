@@ -1,7 +1,7 @@
 @extends("layouts.panel")
 @section('content')
 	<div class="row">
-		<div class="col-lg-3 content_left">
+		<div class="col-lg-2 content_left">
 			<div class="row">
 				<a href="">Danh sách sinh viên đăng ký trên Sis</a> 
 			</div><hr>
@@ -21,7 +21,7 @@
 				<a href="/admin/tao-lich-dang-ky-hoc-ky">Danh Sách Học Kỳ</a>
 			</div><hr>
 		</div>
-		<div class="col-lg-9">
+		<div class="col-lg-10">
 			<div class="row col-lg-12" >
 				<div class="col-lg-offset-3 col-lg-9 form-group">
 					<div class="col-lg-7 col-lg-offset-2">

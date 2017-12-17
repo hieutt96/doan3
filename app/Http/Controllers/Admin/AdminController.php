@@ -17,6 +17,8 @@ use App\Intership;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Request\CreateSemesterRequest;
 use App\Http\Request\EditSemesterRequest;
+use App\Http\Request\NoticeRequest;
+use Auth;
 class AdminController extends Controller
 {
 
@@ -69,7 +71,7 @@ class AdminController extends Controller
         if($company) {
         	$company->status =1;
         	$company->save();
-        	// MailController::mailAccept($company);
+        	MailController::mailAccept($company);
         }
 		$users = DB::table('users')->join('leaders','users.id','=','leaders.user_id')->where('company_id',$id)->update(['status'=>1]);
 		return $company;
@@ -102,7 +104,7 @@ class AdminController extends Controller
 		$hocky = $request->hocky;
 		foreach ($data as $key => $d) {
 			$validator = Validator::make($data[$key],[
-				"email"=>"required|email",
+				"email"=>"required|email|unique:users,email",
 				"password"=>"required|min:6"
 			],[]);
 		}
@@ -126,16 +128,23 @@ class AdminController extends Controller
 	}
 
 	public function thongBao(){
-		return view('admin.notice');
+		$hocky = new Semester();
+		$semester_current= $hocky->getSemesterCurrent();
+		return view('admin.notice',compact('semester_current'));
 	}
 
-	public function postThongBao(NoticeRequest $request)
-	{
-		$nocite = new Notice;
+	public function postThongBao(Request $request)
+	{	
+		$notice = new Notice();
+		$notice->tieu_de = $request->tieu_de;
+		$notice->noi_dung = $request->noi_dung;
+		$notice->ma_nguoi_nhan = $request->ma_nguoi_nhan;
 		$notice->user_id = Auth::user()->id;
-		$notice->noidung = $request->noidung;
-		$notice->ma_nguoi_nhan = $request->manguoinhan;
 		$notice->save();
+		$hocky = new Semester();
+		$semester_current= $hocky->getSemesterCurrent();
+		// return redirect('/');
+		return redirect()->route('thong-bao',['semester_current'=>$semester_current])->with('success','Bạn Đã Gửi Thông Báo Thành Công');
 	}
 
 	public function editSemester($id){
@@ -168,7 +177,9 @@ class AdminController extends Controller
 	}
 
 	public function findStudentSemester(Request $request){
+
 		$data = $request->all();
+
 		$listsv1 = DB::table('interships')
 			->join('companies','interships.company_id','=','companies.id')
 			->join('students','interships.student_id','=','students.id')
@@ -180,30 +191,22 @@ class AdminController extends Controller
 			->where('interships.status',1)
 			->get();
 
-		$listsv2 = DB::table('interships')
+		$listsv2 =  DB::table('interships')
 			->join('companies','interships.company_id','=','companies.id')
 			->join('semesters','interships.semester_id','=','semesters.id')
 			->join('students','interships.student_id','=','students.id')
 			->join('users','students.user_id','=','users.id')
-			->select('students.MSSV','users.name as ten','students.lop','students.grade','companies.name')
-			->where('interships.semester_id','=',$data)
-			->where('interships.status',0)
+			->select(DB::raw('group_concat(distinct companies.name separator ",") as tencongty'),'users.name as ten','students.MSSV as mssv','students.lop','students.grade',DB::raw('SUM(interships.status) as sum'))
+			->where('interships.semester_id',$data)
+			->whereIn('interships.status',[0,2])
+			->groupBy('interships.student_id')
 			->get();
-		$listsv3 = DB::table('interships')
-			->join('companies','interships.company_id','=','companies.id')
-			->join('semesters','interships.semester_id','=','semesters.id')
-			->join('students','interships.student_id','=','students.id')
-			->join('users','students.user_id','=','users.id')
-			->select('students.MSSV','users.name as ten','students.lop','students.grade','companies.name')
-			->where('interships.semester_id','=',$data)
-			->where('interships.status',1)
-			->get();
-		return [$listsv1,$listsv2,$listsv3];
+		return [$listsv1,$listsv2];
 	}
 
 	public function assignment_student($hocky){
 		// dd("hieu");
-		$listsv =  DB::table('interships')
+		$listsv1 =  DB::table('interships')
 			->join('companies','interships.company_id','=','companies.id')
 			->join('semesters','interships.semester_id','=','semesters.id')
 			->join('students','interships.student_id','=','students.id')
@@ -212,21 +215,73 @@ class AdminController extends Controller
 			->where('semesters.ten_hoc_ki',$hocky)
 			->groupBy('interships.student_id')
 			->havingRaw('SUM(interships.status) < 1')
-			->paginate(10);
-		// dd($listsv);
+			->get();
+		$listsv2 = DB::table('interships')
+			->join('companies','interships.company_id','=','companies.id')
+			->join('semesters','interships.semester_id','=','semesters.id')
+			->join('students','interships.student_id','=','students.id')
+			->join('users','students.user_id','=','users.id')
+			->select('users.name as tensinhvien','interships.student_id as student_id',DB::raw('group_concat(distinct companies.name separator ",") as tencongty'),DB::raw('SUM(interships.status) as sum'))
+			->where('semesters.ten_hoc_ki',$hocky)
+			->groupBy('interships.student_id')
+			->havingRaw('sum < 3')
+			->havingRaw('sum > 1')			
+			->get();
+		$listsv3 = DB::table('interships')
+			->join('semesters','interships.semester_id','=','semesters.id')
+			->join('students','interships.student_id','=','students.id')
+			->join('users','students.user_id','=','users.id')
+			->select('users.name as tensinhvien','interships.student_id as student_id',DB::raw('SUM(interships.status) as sum'))
+			->where('semesters.ten_hoc_ki',$hocky)
+			->groupBy('interships.student_id')
+			->havingRaw('sum < 4')
+			->havingRaw('sum > 2')
+			->get();
+		// dd($listsv3);
 		$listCompany = Company::where('status',1)->where('hocky',$hocky)->get();
-		return view('admin.assignment_student',compact(['listsv','hocky','listCompany']));
+		return view('admin.assignment_student',compact(['listsv1','listsv2','listsv3','hocky','listCompany']));
 	}
 
 	public function assignmentStudent(Request $request){
-		// $data = $request->all();
-		$array_students =$request->array_student;
+		$array_students = $request->array_student;
 		$congty = $request->congty;
-		// $type = gettype($array_students);
-		foreach($array_students as $array_student){
-			DB::table('interships')->where('company_id',$congty)->where('student_id',$array_student)->update(['status'=>1]);
+		$hocky = $request->hocky;
+		$semester_current = Semester::where('ten_hoc_ki',$hocky)->first();
+
+		$max_student = Company::find($congty)->soLuongSinhVienTT;
+
+		if($max_student>0){
+			$count_student_register = Intership::where('company_id',$congty)
+			->where('status',1)->count();
+			$student_register = sizeof($array_students);
+			$total = $count_student_register+$student_register;
+			if( $total <= $max_student)
+			{
+				foreach($array_students as $student){
+				$intership = new Intership;
+				$intership->company_id = $congty;
+				$intership->semester_id = $semester_current->id;
+				$intership->student_id = $student;
+				$intership->status = 1;
+				$intership->save();
+				}
+			return 1;
+			}else{
+				$sinh_vien_co_the_them = $max_student - $count_student_register;
+				return response()->json(['error'=>$sinh_vien_co_the_them]);
+			}
+		}else{
+				foreach($array_students as $student){
+				$intership = new Intership;
+				$intership->company_id = $congty;
+				$intership->semester_id = $semester_current->id;
+				$intership->student_id = $student;
+				$intership->status = 1;
+				$intership->save();
+				return 1;
+			}
 		}
-		return 1;
+		return $max_student;
 	}
 
 	public function listLecturer(Request $request){
@@ -251,15 +306,15 @@ class AdminController extends Controller
 		->select('users.name as name','users.email as email','lecturers.id as id')
 		->get();
 		// dd($hocky);
-		$companies  =DB::table('companies')
+		$companies  = DB::table('companies')
 		->join('interships','interships.company_id','=','companies.id')
+		->select('companies.name',DB::raw('count(interships.status) as sosinhviendangky'),'companies.soLuongSinhVienTT as gioihan','companies.id')
 		->where('companies.status',1)
 		->where('interships.status','=',1)
 		// ->where(DB::raw('SUM(interships.lecturer_id)=0'))
 		->where('companies.hocky',$hocky)
 		->groupBy('interships.company_id','interships.lecturer_id')
 		->havingRaw('sum(interships.lecturer_id)<1')
-		->select('companies.name',DB::raw('count(interships.status) as sosinhviendangky'),'companies.soLuongSinhVienTT as gioihan','companies.id')
 		->get();
 		$hockys = Semester::select('id','ten_hoc_ki')->distinct()->get();
 		$allhocky = Semester::all();

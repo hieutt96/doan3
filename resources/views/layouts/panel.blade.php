@@ -15,7 +15,6 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
         <!-- Custom Fonts -->
-       <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <style>
            .container-panel {
                 border: 1px solid #eeeeee;
@@ -105,15 +104,17 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-lg-4 col-lg-offset-2">
+                                            <div class="col-lg-4 col-lg-offset-1">
                                                 <a href="{{route('dang-ky-sv')}}">
-                                                    <img src="{{asset('/image/background/sv.png')}}" style="height: 80px;"></a>
+                                                    <img src="{{asset('/image/background/sv.png')}}" style="height: 80px;">
+                                                </a>
                                                 <p>Sinh viên</p>
                                             </div>
-                                            <div class="col-lg-4 col-lg-offset-1">
-                                                        <a href="{{route('dang-ky-dn')}}">
-                                                        <img src="{{asset('/image/background/dn.jpeg')}}" style="height: 80px;"></a>
-                                                        <p>Doanh nghiệp</p>
+                                            <div class="col-lg-offset-1 col-lg-4 ">
+                                                <a href="{{route('dang-ky-dn')}}">
+                                                    <img src="{{asset('/image/background/dn.jpeg')}}" style="height: 80px;">
+                                                </a>
+                                                <p>Doanh nghiệp</p>
                                             </div>
                                         </div>
                                     </div>

@@ -12,7 +12,7 @@ use Illuminate\Foundation\Http\FormRequest;
  		return [
  			'name'=>'min:5|max:30',
  			'mail'=>'email',
- 			'email'=>'email|unique:users|max:50',
+ 			'email'=>'email|unique:users,email|max:50',
  			'password'=>'min:6|same:re-password',
  		];
  	}
@@ -22,6 +22,7 @@ use Illuminate\Foundation\Http\FormRequest;
  			'name.max'=>'Có vẻ như tên bạn quá dài',
  			'mail.email'=>'Email không hợp lệ',
  			'email.email'=>'Email không hợp lệ',
+ 			'email.unique'=>"Email đã tồn tại.",
  			'password.min'=>'Password của bạn quá ngắn',
  			'password.same'=>'Mật khẩu không khớp,Vui lòng nhập lại'
  		];

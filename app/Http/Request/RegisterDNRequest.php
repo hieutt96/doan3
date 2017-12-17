@@ -9,11 +9,13 @@ class RegisterDNRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'tencongty' => 'min:5',
+			'tencongty' => 'unique:companies,name|min:5',
 			'diachi' => 'min:10',
-			'emailnv' =>'email',
+			'phone'=>'min:8',
+			'emailnv' =>'email|unique:users,email|max:50',
 			'emaildn' => 'email|unique:users,email|max:50',
-			'password' => 'min:6 |same:re-password'
+			'password' => 'min:6 |same:re-password',
+			'image'=>'image|mimes:jpeg,png,jpg,gif,svg'
 		];
 	}
 

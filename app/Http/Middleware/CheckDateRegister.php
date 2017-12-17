@@ -18,7 +18,7 @@ class CheckDateRegister
         $times = Semester::all();
         $a='';
         foreach ($times as $time) {
-            if(date('Y-m-d')>$time->thoi_gian_dn_bat_dau_dk && date('Y-m-d')<$time->thoi_gian_dn_ket_thuc_dk){
+            if(date('Y-m-d')>= $time->thoi_gian_dn_bat_dau_dk && date('Y-m-d')<$time->thoi_gian_dn_ket_thuc_dk){
                 $a = 1;
             }
         }

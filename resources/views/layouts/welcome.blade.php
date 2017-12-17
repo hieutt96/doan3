@@ -10,8 +10,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <base href="{!!asset('')!!}">
-    <!-- Custom Fonts -->
-
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,‌​100italic,300,300ita‌​lic,400italic,500,50‌​0italic,700,700itali‌​c,900italic,900'
           rel='stylesheet' type='text/css'>
     <style>
@@ -20,7 +18,6 @@
             display: flex;
             justify-content: center;
         }
-
         .container {
             border: solid 1px #555;
             background-color: #fff;
@@ -30,13 +27,11 @@
             -o-box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
             font-family: 'Roboto', sans-serif;
         }
-
         .name-school {
             height: 150px;
             text-align: center;
             padding-top: 15px;
         }
-
         .dropdown-menu:hover > li {
 
         }
@@ -49,22 +44,18 @@
             height: 140px;
             margin: 10px 0 0 77px;
         }
-
         .anh-soict {
             height: 150px;
             margin: 5px 0 5px 0;
         }
-
         .top-right {
             position: absolute;
             right: 10px;
             top: 18px;
         }
-
         .title {
             font-size: 84px;
         }
-
         .links > a, b {
             color: black;
             padding: 0 25px;
@@ -118,7 +109,7 @@
                                             <img src="{{asset('/image/background/sv.png')}}" style="height: 80px;"></a>
                                         <p>Sinh viên</p>
                                     </div>
-                                    <div class="col-lg-5 col-lg-offset-1">
+                                    <div class="col-lg-4 ">
                                         <a href="{{route('dang-ky-dn')}}">
                                             <img src="{{asset('/image/background/dn.jpeg')}}" style="height: 80px;"></a>
                                         <p>Doanh nghiệp</p>
@@ -140,7 +131,6 @@
                                 <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a><li/>
                                 <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a><li/>
                                 <li class="divider"></li>
-                              <!--   <li>Hieu</li> -->
                                 <li>
                                     <a href="">MyProfile</a>
                                     @if(Auth::User()->level == 2)
@@ -195,10 +185,10 @@
         <div>
             <div class="row" style="background: #263c65; color:white;">
                 <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
-                    <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông
+                    <p >Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông
                         tin
-                        và truyền thông</b><br>
-                    <b>Trường Đại Học Bách Khoa Hà Nội</b><br>
+                        và truyền thông</p><br>
+                    <p>Trường Đại Học Bách Khoa Hà Nội</p><br>
                     <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
                 </div>
             </div>

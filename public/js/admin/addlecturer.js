@@ -113,6 +113,7 @@ $(document).on('click',".submit",function(){
 		}
 	});
 	function myfunction(data){
+		alert("Error");
 		$("#error").empty();
 		$.each(data,function(key,value){
 			$("#error").append(`<li class="alert alert-danger alert-dismissable">

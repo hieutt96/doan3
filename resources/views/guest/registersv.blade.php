@@ -121,7 +121,7 @@
 					<b style="font-size: 16px;"><span class="glyphicon glyphicon-star"></span>Kỹ Năng</b><br><br>
 					<div class="form-group {{$errors->has('cpa') ? 'has-error' : ''}}">
 						<label class="control-label">Điểm trung bình CPA :</label>
-						<input type="text" name="cpa" value="{{old('cpa')}}" required class="form-control" placeholder="...">
+						<input type="number" step=0.01 name="cpa" value="{{old('cpa')}}" required class="form-control" placeholder="..." min=0 max=4>
 						@if($errors->has('cpa'))
 							<span class="help-block"><strong>{{$errors->first('cpa')}}</strong></span>
 						@endif
