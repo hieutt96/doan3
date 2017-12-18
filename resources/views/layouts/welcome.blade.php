@@ -165,7 +165,7 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{url('home')}}">Trang Chủ </a></li>
+                    <li class="active"><a href="{{url('/')}}">Trang Chủ </a></li>
                     <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
                     @if(Auth::user())
                         <li><a href="{{ url('student/cong-viec-thuc-tap')}}">Công việc thực tập </a></li>

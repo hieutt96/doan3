@@ -92,8 +92,23 @@ Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent
 
 Route::get('/lecturer/cap-nhap-thong-tin','Lecturer\LecturerController@updateInfo');
 
+Route::post('/lecturer/cap-nhap-thong-tin',['as'=>'updateInfoPost','uses'=>'Lecturer\LecturerController@updateInfoPost']);
+
+Route::get('/lecturer/quan-li-sinh-vien','Lecturer\LecturerController@findStudentSemester');
+
+Route::get('/lecturer/get-result-student','Lecturer\LecturerController@getResultStudent');
+
+Route::get('/lecturer/update-result-student','Lecturer\LecturerController@updateResultStudent');
+
+Route::get('/lecturer/thong-bao','Lecturer\LecturerController@findNoticeOfLecturer');
+
+Route::get('/lecturer/gui-thong-bao',['as'=>'sent-notice','uses'=>'Lecturer\LecturerController@sentNotice']);
+
+Route::post('/lecturer/gui-thong-bao','Lecturer\LecturerController@sentNoticePost');
+
+Route::get('/lecturer/receive',['as'=>'lecturer-receive-notice','uses'=>'Lecturer\LecturerController@receviceNotice']);
 // sv
-Route::get('/pm/sv', 'PM\PMController@indexSV');
+Route::get('/pm/sv','PM\PMController@indexSV');
 Route::get('/pm/sv/{idSV}/thong-tin', 'PM\PMController@showSVInfo');
 Route::get('/pm/sv/{idSV}/cong-viec', 'PM\PMController@showSVCongViec');
 Route::get('/pm/sv/{idSV}/ket-qua', 'PM\PMController@showSVKetQua');

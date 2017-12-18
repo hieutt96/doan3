@@ -131,6 +131,7 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
+                                    <a href="/lecturer/cap-nhap-thong-tin">Cập Nhập Thông Tin</a>
                                     <a href="{{ route('dang-xuat') }}"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
