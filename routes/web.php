@@ -191,12 +191,6 @@ Route::get('lien-he','StudentController@lienHeNhaTruong');
 Route::get('thong-bao','StudentController@getThongBaoChung');
 Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');
 
-
-
-Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
-
-Route::get('hop-tac-doanh-nghiep',['as'=>'hop-tac-doanh-nghiep','uses'=>'Guest\HomeController@dsdoanhnghiep']);
-
 Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
 Route::get('guest/find/leader','Guest\RegisterController@findLeader');
 
@@ -227,3 +221,23 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+// ============ Route GVHD
+// sv
+Route::get('/gvhd/sv', 'GVHD\GVHDController@indexSV');
+Route::get('/gvhd/sv/{idSV}/thong-tin', 'GVHD\GVHDController@showSVInfo');
+Route::get('/gvhd/sv/{idSV}/cong-viec', 'GVHD\GVHDController@showSVCongViec');
+Route::get('/gvhd/sv/{idSV}/ket-qua', 'GVHD\GVHDController@showSVKetQua');
+
+// danh gia sv
+Route::get('/gvhd/danh-gia-thuc-tap', 'GVHD\GVHDController@getDanhGia');
+Route::post('/gvhd/danh-gia', 'GVHD\GVHDController@postDanhGia');
+
+// thong bao
+Route::get('/gvhd/gui-thong-bao', 'GVHD\GVHDController@getGuiTB');
+Route::post('/gvhd/gui-tb', 'GVHD\GVHDController@postGuiTB');
+Route::get('/gvhd/thong-bao', 'GVHD\GVHDController@getThongBao');
+Route::get('/gvhd/thong-bao/{noti_id}/chi-tiet', 'GVHD\GVHDController@chiTietTB');
+
+// thay mat khau
+Route::get('/gvhd/thay-mat-khau', 'GVHD\GVHDController@getChangePass');
+Route::post('/gvhd/thay-mk', 'GVHD\GVHDController@postChangePass');

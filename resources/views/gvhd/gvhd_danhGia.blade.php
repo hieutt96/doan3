@@ -1,10 +1,10 @@
-@extends('layouts.leader_layout')
+@extends('layouts.gvhd_layout')
 
 @section('content')
     <div class="panel-body">
         <div class="row">
             <div class="col-md-6">
-                <form action="/leader/danh-gia-sv" method="GET" id="filterForm">
+                <form action="/gvhd/danh-gia-thuc-tap" method="GET" id="filterForm">
                     {{ csrf_field() }}
                     <div class="input-group">
                         <input type="text" class="form-control" name="search"
@@ -35,70 +35,27 @@
                             </div>
                             <div class="modal-body" style="padding-left: 30px; padding-right: 30px">
                                 <fieldset class="form-horizontal" form="danhGiaForm">
-                                    <p style="color: red"><i>Tất cả điểm trên thang 5</i></p>
-
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label class="control-label col-sm-7">Năng lực IT:</label>
-                                                <div class="col-sm-5">
-                                                    <input type="number" class="form-control" form="danhGiaForm"
-                                                           name="nangLucIT"
-                                                           placeholder=" " required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-7">Phương pháp làm việc:</label>
-                                                <div class="col-sm-5">
-                                                    <input type="number" class="form-control" form="danhGiaForm"
-                                                           name="ppLamViec"
-                                                           placeholder=" " required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-7">Năng lực năm bắt:</label>
-                                                <div class="col-sm-5">
-                                                    <input type="number" class="form-control" form="danhGiaForm"
-                                                           name="nangLucNamBatCV"
-                                                           placeholder=" " required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-7">Năng lực quản lý:</label>
-                                                <div class="col-sm-5">
-                                                    <input type="number" class="form-control" form="danhGiaForm"
-                                                           name="nangLucQuanLi"
-                                                           placeholder=" " required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-7">Năng lực tiếng anh:</label>
-                                                <div class="col-sm-5">
-                                                    <input type="number" class="form-control" form="danhGiaForm"
-                                                           name="tiengAnh"
-                                                           placeholder=" " required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-7">Năng lực làm việc nhóm:</label>
-                                                <div class="col-sm-5">
-                                                    <input type="number" class="form-control" form="danhGiaForm"
-                                                           name="nangLucLamViecNhom"
-                                                           placeholder=" " required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Xếp Loại:</label>
-                                                <div class="col-sm-8">
-                                                    <input type="number" class="form-control" form="danhGiaForm"
-                                                           name="danhGiaCongTy" placeholder=" " required>
-                                                </div>
+                                                <label class="control-label" for="diem">Xếp Loại:</label>
+                                                <select class="form-control" id="diem" form="danhGiaForm"
+                                                        name="diem">
+                                                    <option value="4">A+</option>
+                                                    <option value="4">A</option>
+                                                    <option value="3.5">B+</option>
+                                                    <option value="3">B</option>
+                                                    <option value="2.5">C+</option>
+                                                    <option value="2">C</option>
+                                                    <option value="1.5">D+</option>
+                                                    <option value="1">d</option>
+                                                    <option value="0">F</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="comment">Nhận Xét:</label>
-                                                <textarea class="form-control" form="danhGiaForm" name="nhanXetCongTy"
+                                                <textarea class="form-control" form="danhGiaForm"
+                                                          name="nhanXetGiangVien"
                                                           rows="5" id="comment" required></textarea>
                                             </div>
                                         </div>
@@ -137,7 +94,7 @@
             @endif
         </div>
         <div class="row">
-            <form method="post" id="danhGiaForm" action="/leader/danh-gia">
+            <form method="post" id="danhGiaForm" action="/gvhd/danh-gia">
                 {{ csrf_field() }}
                 <table class="table table-striped">
                     <thead>
@@ -157,11 +114,9 @@
                                 <div class="glyphicon glyphicon-triangle-bottom"></div>
                             @endif
                         </th>
-                        <th scope="col">Tổng số CV</th>
-                        <th scope="col">Số CV chưa hoàn thành</th>
-                        <th scope="col">Mức độ hoàn thành</th>
-                        {{--<th scope="col">Xếp Loại</th>--}}
-
+                        <th scope="col">Khóa</th>
+                        <th scope="col">Đánh Giá Công Ty</th>
+                        <th scope="col">Đánh Giá Giảng Viên</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -177,17 +132,16 @@
                             </td>
                             <th scope="row">{{$i + 1}}</th>
                             <td>{{$students[$i]->mssv}}</td>
-                            <td><a href="/leader/sv/{{$students[$i]->id}}/thong-tin">{{$students[$i]->user->name}}</a>
+                            <td><a href="/gvhd/sv/{{$students[$i]->id}}/thong-tin">{{$students[$i]->user->name}}</a>
                             </td>
-                            <td>{{$totalJobs[$i]}}</td>
-                            <td>{{$outDateJobs[$i]}}</td>
-                            @if($totalJobs[$i] > 0)
-                                <td>{{number_format((($totalJobs[$i] - $outDateJobs[$i])/$totalJobs[$i])*100, 2)}}%
-                                </td>
+                            <td>{{$students[$i]->grade}}</td>
+                            @if(sizeof($results[$i]) == 0)
+                                <td>-</td>
+                                <td>-</td>
                             @else
-                                <td>0 %</td>
+                                <td>{{$results[$i]->danh_gia_cua_cong_ty}}</td>
+                                <td>{{$results[$i]->diem}}</td>
                             @endif
-                            {{--<td>-</td>--}}
                         </tr>
                     @endfor
                     </tbody>

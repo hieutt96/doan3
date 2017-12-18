@@ -3,13 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Intership extends Model
 {
-	protected $table = 'interships';
+    use Sortable;
+
+    protected $table = 'interships';
 
     public function company(){
-    	return $this->belongsTo('App\Company','company_id');
+    	return $this->belongsTo('App\Company');
     }
     public function lecturer(){
     	return $this->belongsTo('App\Lecturer');

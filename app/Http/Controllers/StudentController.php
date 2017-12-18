@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Leader;
 use Illuminate\Http\Request;
 use App\Http\Request\UpdateInfoSvRequest;
 use App\Http\Request\ChangePasswordRequest;
@@ -108,11 +109,13 @@ class StudentController extends Controller
     }
     //Công việc thực tập
     public function getCongViecThucTap(){
-        $idSV = Auth::user()->id;
-
-
-        $job_assignment= Student_Job_Assignment::where('student_id','=',$idSV)->get();
-        return view('student.congViecThucTap',['job_assignment'=>$job_assignment]);
+        $student = Student::where('user_id', Auth::user()->id)->first();
+        $company = Company::join('interships', 'companies.id', '=', 'interships.company_id')
+                            ->where([['interships.status', '=', '1']
+                                    ,['interships.student_id','=', $student->id]])
+                            ->first();
+        $job_assignment = Student_Job_Assignment::where('student_id', '=', $student->id)->get();
+        return view('student.congViecThucTap',['student' => $student, 'company' => $company, 'job_assignment'=>$job_assignment]);
     }
     public function postCongViecThucTap(Request $request){
         $idSV = Auth::user()->id;

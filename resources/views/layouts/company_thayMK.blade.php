@@ -1,4 +1,11 @@
 @extends('layouts.company_site_layout')
+
+@section('left-nav')
+    <div class="row" style="margin-left: 20px">
+        <h3><a href="{{URL::previous()}}"><div class="glyphicon glyphicon-arrow-left"></div>&nbsp;Trở lại</a></h3>
+    </div>
+@endsection
+
 @section('content')
     <div class="row col-lg-offset-1 ">
         <b><h2 class="heading" style="margin-left:100px;">Đổi Mật Khẩu</h2></b>

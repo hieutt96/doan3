@@ -131,7 +131,7 @@ class AdminController extends Controller
 
 	public function postThongBao(NoticeRequest $request)
 	{
-		$nocite = new Notice;
+		$notice = new Notice;
 		$notice->user_id = Auth::user()->id;
 		$notice->noidung = $request->noidung;
 		$notice->ma_nguoi_nhan = $request->manguoinhan;
