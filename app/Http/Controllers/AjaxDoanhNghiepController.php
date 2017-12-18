@@ -5,7 +5,7 @@ use App\Company;
 class AjaxDoanhNghiepController extends Controller
 {
    public function getDoanhNghiepTheoHocKy($hocky){
-        $doanhnghiep = Company::where('hocky',$hocky)->get(); 
+        $doanhnghiep = Company::where('hocky',$hocky)->where('status','=',1)->get(); 
         foreach($doanhnghiep as $dn)
         {
             echo " <div class='sow-image-grid-image'>

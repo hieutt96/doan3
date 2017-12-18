@@ -96,7 +96,8 @@ class StudentController extends Controller
 
     //hợp tác doanh nghiệp
     public function hopTacDoanhNghiep(){
-        $doanhnghiep = Company::all();
+        $hockymax = Company::max('hocky');
+        $doanhnghiep = DB::table('companies')->where('status','=',1)->where('hocky','>=',$hockymax)->get();
         $hocky = Company::select('hocky')->distinct()->get();
         return view('student.hopTacDoanhNghiep',['doanhnghiep'=>$doanhnghiep,'hocky'=>$hocky]);
     }
