@@ -1,3 +1,4 @@
+
 @extends('layouts.panel')
 @section('content')
 	<script src="{{ asset('/js/ckeditor/ckeditor/ckeditor.js') }}"></script>

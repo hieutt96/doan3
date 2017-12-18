@@ -97,9 +97,7 @@
         <ul class="nav navbar-nav">
             &nbsp;
         </ul>
-        <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Home') }}
-        </a>
+       
         <ul class="nav navbar-nav navbar-right">
             @if(Auth::guest())
                 <li><a href="{{ route('dang-nhap') }}"><b>Đăng nhập</b></a></li>
@@ -175,7 +173,7 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{url('home')}}">Trang Chủ </a></li>
+                    <li class="active"><a href="{{url('/')}}">Trang Chủ </a></li>
                     <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
                     @if(Auth::user())
                         <li><a href="{{ url('student/cong-viec-thuc-tap')}}">Công việc thực tập </a></li>
@@ -195,11 +193,11 @@
         <div>
             <div class="row" style="background: #263c65; color:white;">
                 <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
-                    <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông
-                        tin
-                        và truyền thông</b><br>
-                    <b>Trường Đại Học Bách Khoa Hà Nội</b><br>
-                    <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
+                    <p style="padding-top:20px;" >Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông
+                        tin và truyền thông</p>
+                    <p>Trường Đại Học Bách Khoa Hà Nội</p>
+                    <p style="font-style:
+                    oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
                 </div>
             </div>
         </div>

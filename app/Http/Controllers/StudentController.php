@@ -49,7 +49,8 @@ class StudentController extends Controller
         if($request->hasFile('anh')){
             $file = $request->file('anh');
             $duoi = $file->getClientOriginalExtension();
-           if($duoi !='jpg' && $duoi !='png' && $duoi != 'jpeg')
+           if($duoi !='jpg' && $duoi !='png' && $duoi != 'jpe
+           g')
             {
                 return redirect('student/update-student-info')->with('loi','Bạn
                 chỉ được chọn file có đuôi là jpg, png, jpeg');
@@ -108,6 +109,8 @@ class StudentController extends Controller
     //Công việc thực tập
     public function getCongViecThucTap(){
         $idSV = Auth::user()->id;
+
+
         $job_assignment= Student_Job_Assignment::where('student_id','=',$idSV)->get();
         return view('student.congViecThucTap',['job_assignment'=>$job_assignment]);
     }
