@@ -23,7 +23,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Student;
 use App\Http\Request\ChangePasswordRequest;
 
-class GVHDController extends Controller{
+class GVHDController extends Controller
+{
     public function __construct()
     {
 //        Do something
@@ -39,11 +40,12 @@ class GVHDController extends Controller{
             $idSemester = $request->input('semester');
         } else {
             $idSemester = 1;
-        }
-
-        $orderBy = 'desc';
-        if(sizeof($request->input('orderBy'))){
-            $orderBy = $request->input('orderBy');
+            foreach ($semesters as $hocky) {
+                if ((date('Y-m-d') < $hocky->thoi_gian_sv_ket_thuc_thuc_tap) && (date('Y-m-d') > $hocky->thoi_gian_dn_bat_dau_dk)) {
+                    $idSemester = $hocky->id;
+                    break;
+                }
+            }
         }
 
         $gvhd = Auth::user();
@@ -54,38 +56,47 @@ class GVHDController extends Controller{
                 ->where([['users.name', 'like', '%' . $search . '%']
                     , ['students.tenGVPhuTrach', '=', $gvhd->name]
                     , ['interships.semester_id', '=', $idSemester]])
-                ->select('students.*', 'interships.company_id')
-                ->orderBy('interships.company_id', $orderBy)
+                ->select('students.*')
                 ->sortable()->simplePaginate(10);
             if (count($students) == 0) {
                 $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
                     ->where([['students.MSSV', 'like', '%' . $search . '%']
                         , ['students.tenGVPhuTrach', '=', $gvhd->name]
                         , ['interships.semester_id', '=', $idSemester]])
-                    ->orderBy('interships.company_id', $orderBy)
-                    ->select('students.*', 'interships.company_id')
+                    ->select('students.*')
                     ->sortable()->simplePaginate(10);
             }
             $isSearch = true;
+            $companies = array();
+            for ($i = 0; $i < count($students); $i++) {
+                $companies[] = Company::join('interships', 'companies.id', '=', 'interships.company_id')
+                    ->where('interships.student_id', '=', $students[$i]->id)
+                    ->select('companies.name')
+                    ->first();
+            }
+
+            return view('gvhd.gvhd_index_sv', ['search' => $search, 'companies' => $companies, 'gvhd' => $gvhd, 'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
+
         } else {
             $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['students.tenGVPhuTrach', '=', $gvhd->name]
                     , ['interships.semester_id', '=', $idSemester]])
-                ->orderBy('interships.company_id', $orderBy)
-                ->select('students.*', 'interships.company_id')
+                ->select('students.*')
                 ->sortable()->simplePaginate(10);
+
             $isSearch = false;
+            $companies = array();
+            for ($i = 0; $i < count($students); $i++) {
+                $companies[] = Company::join('interships', 'companies.id', '=', 'interships.company_id')
+                    ->where('interships.student_id', '=', $students[$i]->id)
+                    ->select('companies.name')
+                    ->first();
+            }
+
+            return view('gvhd.gvhd_index_sv', ['companies' => $companies, 'gvhd' => $gvhd, 'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
+
         }
 
-        $companies = array();
-        for ($i = 0; $i < count($students); $i++) {
-            $companies[] = Company::join('interships', 'companies.id', '=', 'interships.company_id')
-                ->where('interships.student_id', '=', $students[$i]->id)
-                ->select('companies.name')
-                ->first();
-        }
-
-        return view('gvhd.gvhd_index_sv', ['orderBy' => $orderBy, 'companies' => $companies, 'gvhd' => $gvhd, 'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
     }
 
     public function showSVInfo($idSV)
@@ -103,12 +114,14 @@ class GVHDController extends Controller{
                 ->where([['jobs.ten_cong_viec', 'like', '%' . $search . '%']
                     , ['student_job_assignments.student_id', '=', $idSV]])
                 ->sortable()->simplePaginate(10);
+            $isSearch = true;
+            return view('sv.sv_congViec', ['isSearch' => $isSearch, 'search' => $search, 'jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'gvhd']);
         } else {
             $jobs = Student_Job_Assignment::where('student_id', '=', $idSV)
                 ->sortable()->simplePaginate(10);
+            $isSearch = false;
+            return view('sv.sv_congViec', ['isSearch' => $isSearch, 'jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'gvhd']);
         }
-
-        return view('sv.sv_congViec', ['jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'gvhd']);
     }
 
     public function showSVKetQua($idSV)
@@ -126,7 +139,8 @@ class GVHDController extends Controller{
         return view('sv.sv_ketQua', ['result' => $result, 'tab' => 13, 'student' => $student, 'userType' => 'gvhd']);
     }
 
-    public function getDanhGia(Request $request){
+    public function getDanhGia(Request $request)
+    {
 
         $allhocky = Semester::all();
         $idCurrentSem = 1;
@@ -141,7 +155,7 @@ class GVHDController extends Controller{
 
         if (sizeof($request->input('search'))) {
             $search = $request->input('search');
-            $students = Student::join('users', 'students.id', '=', 'users.id')
+            $students = Student::join('users', 'students.user_id', '=', 'users.id')
                 ->join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['users.name', 'like', '%' . $search . '%']
                     , ['students.tenGVPhuTrach', '=', $gvhd->name]
@@ -149,7 +163,7 @@ class GVHDController extends Controller{
                 ->select('students.*')
                 ->sortable()->simplePaginate(10);
             if (count($students) == 0) {
-                $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
+                $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
                     ->where([['students.MSSV', 'like', '%' . $search . '%']
                         , ['students.tenGVPhuTrach', '=', $gvhd->name]
                         , ['interships.semester_id', '=', $idCurrentSem]])
@@ -157,34 +171,42 @@ class GVHDController extends Controller{
                     ->sortable()->simplePaginate(10);
             }
             $isSearch = true;
+            $results = array();
+            for ($i = 0; $i < count($students); $i++) {
+                $results[] = Result::join('interships', 'results.id', '=', 'interships.result_id')
+                    ->where('interships.student_id', '=', $students[$i]->id)
+                    ->select('results.*')
+                    ->first();
+            }
+            return view('gvhd.gvhd_danhGia', ['search' => $search, 'results' => $results, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 2]);
+
         } else {
-            $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
+            $students = Student::join('interships', 'students.user_id', '=', 'interships.student_id')
                 ->where([['students.tenGVPhuTrach', '=', $gvhd->name]
                     , ['interships.semester_id', '=', $idCurrentSem]])
                 ->select('students.*')
                 ->sortable()->simplePaginate(10);
             $isSearch = false;
+            $results = array();
+            for ($i = 0; $i < count($students); $i++) {
+                $results[] = Result::join('interships', 'results.id', '=', 'interships.result_id')
+                    ->where('interships.student_id', '=', $students[$i]->id)
+                    ->select('results.*')
+                    ->first();
+            }
+            return view('gvhd.gvhd_danhGia', ['results' => $results, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 2]);
+
         }
 
-        $results = array();
-
-        for ($i = 0; $i < count($students); $i++) {
-            $results[] = Result::join('interships', 'results.id', '=', 'interships.result_id')
-                                ->where('interships.student_id', '=', $students[$i]->id)
-                                ->select('results.*')
-                                ->first();
-        }
-
-        return view('gvhd.gvhd_danhGia', ['results' => $results, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 2]);
 
     }
 
     public function postDanhGia(Request $request)
     {
         $this->validate($request, array(
-           'rowsCheck' => 'required',
-           'diem' => 'required',
-           'nhanXetGiangVien' => 'required',
+            'rowsCheck' => 'required',
+            'diem' => 'required',
+            'nhanXetGiangVien' => 'required',
         ));
 
         $stuIDs = $request->input('rowsCheck');
@@ -241,7 +263,7 @@ class GVHDController extends Controller{
         $revNotices = Notice::where([['ma_nguoi_nhan', '=', 1]
             , ['user_id', '=', $admins->id]])->paginate(5);
         $sendNotices = Notice::where('user_id', Auth::user()->id)->paginate(5);
-        return view('layouts.thongBao', ['tab' => 3,'sendNotices' => $sendNotices,'revNotices' => $revNotices,'userType' => 'gvhd']);
+        return view('layouts.thongBao', ['tab' => 3, 'sendNotices' => $sendNotices, 'revNotices' => $revNotices, 'userType' => 'gvhd']);
     }
 
     public function chiTietTB($noti_id)
@@ -251,14 +273,16 @@ class GVHDController extends Controller{
     }
 
 
-    public function getChangePass(){
+    public function getChangePass()
+    {
         return view('layouts.company_thayMK', ['userType' => 'gvhd']);
     }
 
-    public function postChangePass(ChangePasswordRequest $request){
+    public function postChangePass(ChangePasswordRequest $request)
+    {
         $sinhvien = Auth::user();
         $sinhvien->password = bcrypt($request->re_password);
         $sinhvien->save();
-        return back()->with('thongbao','Mật khẩu mới đã được cập nhật thành công');
+        return back()->with('thongbao', 'Mật khẩu mới đã được cập nhật thành công');
     }
 }

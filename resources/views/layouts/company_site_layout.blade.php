@@ -45,7 +45,7 @@
 
         .anh-hust {
             height: 140px;
-            margin: 10px 0 0 77px;
+            margin: 5px 0 5px 77px;
         }
 
         .anh-soict {
@@ -74,6 +74,11 @@
 
         b:hover {
             cursor: pointer;
+        }
+
+        .table {
+            margin-top: 10px;
+            border: solid #bbbbbb 1px;
         }
     </style>
 </head>
@@ -131,11 +136,10 @@
         <div>
             <div class="row" style="background: #263c65; color:white;">
                 <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
-                    <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông
-                        tin
-                        và truyền thông</b><br>
-                    <b>Trường Đại Học Bách Khoa Hà Nội</b><br>
-                    <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
+                    <p style="padding-top: 20px">Bản quyền <span class="glyphicon glyphicon-copyright-mark">
+                        </span> thuộc về viện Công nghệ thông tin và truyền thông</p>
+                    <p>Trường Đại Học Bách Khoa Hà Nội</p>
+                    <p style="font-style: oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
                 </div>
             </div>
         </div>

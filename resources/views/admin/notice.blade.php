@@ -3,8 +3,13 @@
 	<script src="{{ asset('/js/ckeditor/ckeditor/ckeditor.js') }}"></script>
 	<hr style="border-width: 2px;color: red;">
 	<form method="POST" action="{{route('thong-bao.post')}}" style="margin-bottom: 20px;">
+		{{ csrf_field() }}
 		<div class="row">
 			<div class="col-lg-8">
+				<div class="form-group">
+					<label for="tieuDe">Tiêu Đề: </label>
+					<input class="form-control" id="tieuDe" name="tieuDe" required>
+				</div>
 				<div class="form-group">
 					<label for="noidung">Nội dung :</label>
 					<div  class="">
@@ -15,7 +20,7 @@
 				</div>
 			</div>
 			<div class="col-lg-3">
-				<label for="nguoinhan">Người gửi :</label>
+				<label for="nguoinhan">Người nhận :</label>
 				<select name="manguoinhan" class="form-control" id="nguoinhan" required>
 					<option value="0">Mọi Người</option>
 					<option value="1">Tất cả giảng viên</option>

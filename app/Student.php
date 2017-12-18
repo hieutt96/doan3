@@ -9,7 +9,7 @@ class Student extends Model
 {
     use Sortable;
 
-//    public $sortable = ['lop', 'khoa', 'boMon', 'ctdt', 'tenNVPhuTrach', 'tiengAnh'];
+    public $sortable = ['lop', 'grade', 'boMon', 'ctdt', 'tenNVPhuTrach', 'tiengAnh'];
 
     protected $table = 'students';
 
@@ -20,7 +20,7 @@ class Student extends Model
 
     public function intership()
     {
-        return $this->hasMany('App\Intership');
+        return $this->hasOne('App\Intership');
     }
 
     public function student_job_assignment()

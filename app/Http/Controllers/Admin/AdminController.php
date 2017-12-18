@@ -12,11 +12,14 @@ use App\Leader;
 use App\Semester;
 use App\Lecturer;
 use App\Notice;
-use Validator;
+use Illuminate\Validation\Validator;
 use App\Intership;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Request\CreateSemesterRequest;
 use App\Http\Request\EditSemesterRequest;
+use App\Http\Request\NoticeRequest;
+use Auth;
+
 class AdminController extends Controller
 {
 
@@ -133,9 +136,12 @@ class AdminController extends Controller
 	{
 		$notice = new Notice;
 		$notice->user_id = Auth::user()->id;
-		$notice->noidung = $request->noidung;
+		$notice->tieu_de = $request->input('tieuDe');
+		$notice->noi_dung = $request->noidung;
 		$notice->ma_nguoi_nhan = $request->manguoinhan;
 		$notice->save();
+
+		return back();
 	}
 
 	public function editSemester($id){

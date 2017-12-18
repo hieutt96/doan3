@@ -66,6 +66,8 @@ class LeaderController extends Controller
                     ->sortable()->simplePaginate(10);
             }
             $isSearch = true;
+            return view('leader.leader_index_sv', ['search' => $search, 'leader' => $leader, 'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
+
         } else {
             $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['students.tenNVPhuTrach', '=', $leader->name]
@@ -73,8 +75,9 @@ class LeaderController extends Controller
                 ->select('students.*')
                 ->sortable()->simplePaginate(10);
             $isSearch = false;
+            return view('leader.leader_index_sv', ['leader' => $leader, 'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
+
         }
-        return view('leader.leader_index_sv', ['leader' => $leader, 'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
     }
 
     public function showSVInfo($idSV)
@@ -92,12 +95,17 @@ class LeaderController extends Controller
                 ->where([['jobs.ten_cong_viec', 'like', '%' . $search . '%']
                     , ['student_job_assignments.student_id', '=', $idSV]])
                 ->sortable()->simplePaginate(10);
+            $isSearch = true;
+            return view('sv.sv_congViec', ['isSearch' => $isSearch, 'search' => $search, 'jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'leader']);
+
         } else {
             $jobs = Student_Job_Assignment::where('student_id', '=', $idSV)
                 ->sortable()->simplePaginate(10);
+            $isSearch = true;
+            return view('sv.sv_congViec', ['isSearch' => $isSearch, 'jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'leader']);
+
         }
 
-        return view('sv.sv_congViec', ['jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'leader']);
     }
 
     public function postCapNhatCV(Request $request)
@@ -161,6 +169,8 @@ class LeaderController extends Controller
                     ->sortable()->simplePaginate(10);
             }
             $isSearch = true;
+            return view('leader.leader_taoCV', ['search' => $search, 'leader' => $leader, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 2]);
+
         } else {
             $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['students.tenNVPhuTrach', '=', $leader->name]
@@ -168,8 +178,9 @@ class LeaderController extends Controller
                 ->select('students.*')
                 ->sortable()->simplePaginate(10);
             $isSearch = false;
+            return view('leader.leader_taoCV', ['leader' => $leader, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 2]);
+
         }
-        return view('leader.leader_taoCV', ['leader' => $leader, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 2]);
     }
 
     public function postTaoCV(Request $request)
@@ -216,7 +227,7 @@ class LeaderController extends Controller
 
         if (sizeof($request->input('search'))) {
             $search = $request->input('search');
-            $students = Student::join('users', 'students.id', '=', 'users.id')
+            $students = Student::join('users', 'students.user_id', '=', 'users.id')
                 ->join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['users.name', 'like', '%' . $search . '%']
                     , ['students.tenNVPhuTrach', '=', $leader->name]
@@ -232,6 +243,15 @@ class LeaderController extends Controller
                     ->sortable()->simplePaginate(10);
             }
             $isSearch = true;
+            $totalJobs = array();
+            $outDateJobs = array();
+            for ($i = 0; $i < count($students); $i++) {
+                $totalJobs[] = count($students[$i]->student_job_assignment);
+                $outDateJobs[] = count(Student_Job_Assignment::where([['student_id', '=', $students[$i]->id]
+                    , ['trang_thai', '=', 0]])->get());
+            }
+            return view('leader.leader_danhGia', ['search' => $search, 'outDateJobs' => $outDateJobs, 'totalJobs' => $totalJobs, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 3]);
+
         } else {
             $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['students.tenNVPhuTrach', '=', $leader->name]
@@ -239,18 +259,16 @@ class LeaderController extends Controller
                 ->select('students.*')
                 ->sortable()->simplePaginate(10);
             $isSearch = false;
+            $totalJobs = array();
+            $outDateJobs = array();
+            for ($i = 0; $i < count($students); $i++) {
+                $totalJobs[] = count($students[$i]->student_job_assignment);
+                $outDateJobs[] = count(Student_Job_Assignment::where([['student_id', '=', $students[$i]->id]
+                    , ['trang_thai', '=', 0]])->get());
+            }
+            return view('leader.leader_danhGia', ['outDateJobs' => $outDateJobs, 'totalJobs' => $totalJobs, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 3]);
         }
 
-        $totalJobs = array();
-        $outDateJobs = array();
-
-        for ($i = 0; $i < count($students); $i++) {
-            $totalJobs[] = count($students[$i]->student_job_assignment);
-            $outDateJobs[] = count(Student_Job_Assignment::where([['student_id', '=', $students[$i]->id]
-                , ['trang_thai', '=', 0]])->get());
-        }
-
-        return view('leader.leader_danhGia', ['outDateJobs' => $outDateJobs, 'totalJobs' => $totalJobs, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 3]);
     }
 
     public function postDanhGia(EvaluationRequest $request)

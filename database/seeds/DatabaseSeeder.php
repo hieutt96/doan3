@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 //            'Serve Side', 'Embedded'];
 //        $khoa = ['K59', 'K60', 'K61', 'K62', 'K58', 'K57'];
 //        $ctdt = ['Kỹ Sư', 'Tài Năng', 'Cử Nhân', 'Chất Lượng Cao'];
-//        $avatar = ['1', '2', '3', '4', '5', '6'];
+        $avatar = ['1', '2', '3', '4', '5', '6'];
 //        $gioiTinh = ['0', '1'];
 //        $laptop = ['0', '1'];
 //        $diaChi = ['Hai Bà Trưng, Hà Nội', 'Thanh Xuân, Hà Nội', 'Hoàn Kiếm, Hà Nội', 'Ba Đình, Hà Nội', 'Từ Liêm, Hà Nội'];
@@ -109,9 +109,9 @@ class DatabaseSeeder extends Seeder
 //            $lecturer->save();
 //        }
 
-        for ($i = 10; $i< 500; $i++){
-            $user = Student::find($i);
-            $user->tenGVPhuTrach = $names[array_rand($names, 1)];
+        for ($i = 546; $i < 655; $i++) {
+            $user = User::find($i);
+            $user->picture = '/upload/anhleader/ava' . $avatar[array_rand($avatar, 1)] . '.jpg';
             $user->save();
         }
 

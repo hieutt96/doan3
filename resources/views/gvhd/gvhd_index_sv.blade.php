@@ -9,7 +9,12 @@
                     {{ csrf_field() }}
                     <div class="input-group">
                         <input type="text" class="form-control" name="search"
-                               placeholder="Tìm sinh viên theo tên hoặc MSSV"> <span class="input-group-btn">
+                               @if($isSearch)
+                               placeholder="{!! $search !!}"
+                               @else
+                               placeholder="Tìm sinh viên theo tên hoặc MSSV"
+                                @endif
+                        ><span class="input-group-btn">
                     <button type="submit" class="btn btn-default">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
@@ -53,7 +58,7 @@
                             <div class="glyphicon glyphicon-triangle-bottom"></div>
                         @endif
                     </th>
-                    <th scope="col">@sortablelink('khoa', 'Khóa')
+                    <th scope="col">@sortablelink('grade', 'Khóa')
                         <div class="glyphicon glyphicon-triangle-bottom"></div>
                     </th>
                     <th scope="col">@sortablelink('ctdt', 'CTDT')
@@ -61,17 +66,19 @@
                     </th>
                     <th scope="col">Số Điện Thoại</th>
                     <th scope="col">Email</th>
-                    <fieldset class="form-inline" form="filterForm">
-                        <th scope="col">
-                            @if($orderBy == 'desc')
-                                <input name="orderBy" type="hidden" form="filterForm" value="asc">
-                            @else
-                                <input name="orderBy" type="hidden" form="filterForm" value="desc">
-                            @endif
-                            <a href="javascript:$('#filterForm').submit();">Công Ty Thực Tập</a>
-                            <div class="glyphicon glyphicon-triangle-bottom"></div>
-                        </th>
-                    </fieldset>
+                    <th scope="col">
+                        {{--<fieldset class="form-inline" form="filterForm">--}}
+                        {{--@if($orderBy == 'desc')--}}
+                        {{--<input name="companyOrder" type="hidden" form="filterForm" value="asc">--}}
+                        {{--@else--}}
+                        {{--<input name="companyOrder" type="hidden" form="filterForm" value="desc">--}}
+                        {{--@endif--}}
+                        {{--<input name="isOrdCom" type="hidden" form="filterForm" value="true">--}}
+                        {{--<a href="javascript:$('#filterForm').submit();">Công Ty Thực Tập</a>--}}
+                        {{--<div class="glyphicon glyphicon-triangle-bottom"></div>--}}
+                        {{--</fieldset>--}}
+                        Công Ty Thực Tập
+                    </th>
                 </tr>
                 </thead>
                 <tbody>

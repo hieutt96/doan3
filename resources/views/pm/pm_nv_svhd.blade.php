@@ -9,8 +9,13 @@
                 <form action="/pm/nv/{{$leader->id}}/sinh-vien-huong-dan" method="get" role="search">
                     {{ csrf_field() }}
                     <div class="input-group">
-                        <input type="text" class="form-control" name="name" placeholder="Tìm sinh viên theo tên">
-                        <span class="input-group-btn">
+                        <input type="text" class="form-control" name="name"
+                               @if($isSearch)
+                               placeholder="{!! $search !!}"
+                               @else
+                               placeholder="Tìm sinh viên theo tên hoặc MSSV"
+                                @endif
+                        ><span class="input-group-btn">
                             <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-search"></span>
                             </button>

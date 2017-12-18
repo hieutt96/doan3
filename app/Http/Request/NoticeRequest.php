@@ -9,14 +9,10 @@ use Illuminate\Foundation\Http\FormRequest;
 */
 class NoticeRequest extends FormRequest
 {
-	
-	function __construct(argument)
-	{
-		# code...
-	}
 
 	public function rules(){
 		return [
+		    'tieuDe' => 'required',
 			'noidung'=>'required',
 			'manguoinhan'=>'required'
 		];

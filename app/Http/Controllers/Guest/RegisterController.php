@@ -136,13 +136,14 @@ class RegisterController extends Controller
         if($request->hasFile('image')){
             $file = $request->file('image');
             $file->move(public_path().'/image/doanhnghiep/',time().$file->getClientOriginalExtension());
-            $user->avatar= '/image/doanhnghiep/'.time().$file->getClientOriginalExtension();
+            $user->picture= '/image/doanhnghiep/'.time().$file->getClientOriginalExtension();
         }
 
         $company->congNgheDaoTao = implode(',', $request->congnghedaotao);
         $company->linhVucHoatDong = implode(',', $request->linhvuchoatdong);
         $company->soLuongSinhVienTT = $request->soluong;
         $company->yeuCauNNSV = $request->yeucaungoaingu;
+
         $company->save();
         $leader = new Leader;
         $leader->phone = $request->sodienthoai;
