@@ -67,7 +67,7 @@
                             </div>
                             <div class="col-sm-8">
                                 <a href="hop-tac-doanh-nghiep/{!!$dnkhac->id!!}/{!!$dnkhac->name!!}"><b>{!!$dnkhac->name!!}</b></a>
-                                 <p>Công ty đang cần tuyển <span style="color:red;">{!!$dnkhac->soLuongSinhVienTT!!}</span> bạn thực tập sinh Part-time/Full-time trong học kỳ {!!$dnkhac->hocky!!}</p>
+                                 <p>Công ty đang cần tuyển <span style="color:red;">{!!$dnkhac->soLuongSinhVienTT!!}</span> bạn thực tập sinh {!!$dnkhac->thoiGianMongMuon!!} trong học kỳ {!!$dnkhac->hocky!!}</p>
                             </div>
                             
                            

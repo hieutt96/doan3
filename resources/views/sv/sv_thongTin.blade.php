@@ -13,6 +13,8 @@
                 <li role="presentation"><a href="/{{$userType}}/sv/{{$student->id}}/ket-qua">Kết quả đánh giá</a></li>
             </ul>
         </div>
+
+        
         <div class="row" style="margin-top: 10px">
             <div class="col-lg-4">
                 <div class="form-group profile-image">
