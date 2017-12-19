@@ -3,11 +3,8 @@ $(document).on('click','#dexuat',function(){
 	$(".idsinhvien:checked").each(function(){
 		array_student.push($(this).val());
 	});
-	// console.log(array_student);
 	var congty = $('.select2').val();
-	var hocky = $("input[name='hocky']").val();
-	// console.log(congty);
-	// console.log(array_student);
+	var hocky = $("#semester_id").val();
 	if(array_student!=0 && congty!=0){
 		$.ajax({
 			url:"/admin/assignment_student",
@@ -27,5 +24,7 @@ $(document).on('click','#dexuat',function(){
 				alert("Error");
 			}
 		});
+	}else{
+		alert("Bạn Chưa Chọn Công Ty Hoặc Sinh Viên !");
 	}
 });

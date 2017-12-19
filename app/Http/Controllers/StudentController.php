@@ -98,14 +98,17 @@ class StudentController extends Controller
         $hocky = Company::select('hocky')->distinct()->get();
         return view('student.hopTacDoanhNghiep',['doanhnghiep'=>$doanhnghiep,'hocky'=>$hocky]);
     }
-    //chi tiết doanh nghiệp
+
     public function chiTietDoanhNghiep($id){
+
         $doanhnghiep = Company::find($id);
-        $doanhnghiepkhac = Company::orderByRaw('RAND()')->where('id','!=',$id)->take(3)->get();//thay đổi param in take() khi có dữ liệu
+
+        $doanhnghiepkhac = Company::orderByRaw('RAND()')->where('id','!=',$id)->take(3)->get();
+
         $comment= Comment::where('company_id','=',$id)->get();
         return view('student.chiTietDoanhNghiep',['doanhnghiep'=>$doanhnghiep,'dn_khac'=>$doanhnghiepkhac,'comment'=>$comment]);  
     }
-    //Công việc thực tập
+
     public function getCongViecThucTap(){
         $idSV = Auth::user()->id;
         $job_assignment= Student_Job_Assignment::where('student_id','=',$idSV)->get();

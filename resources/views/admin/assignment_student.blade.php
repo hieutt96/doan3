@@ -1,12 +1,9 @@
 @extends('layouts.admin')
 @section('content_right')
-	<!-- <div class="row col-lg-12">
-		<strong class="">Phân Công Sinh Viên Cho Học Kỳ : {{$hocky}}</strong>
-	</div> -->
+
 	<div class="row col-lg-12 form-group" style="margin-top: 5px;font-size: 18px;">
-		<label class="label-control col-lg-6">Danh sách công ty thực tập kì :{{$hocky}}</label>
-		<input type="hidden" name="hocky" value="{{$hocky}}">
-		<div class="col-lg-4">
+		<input type="hidden" value="{{$semester_current->id}}" id="semester_id">
+		<div class="col-lg-4 col-lg-offset-6">
 			<select class="form-control select2">
 				<option value="">-Chọn công ty-</option>
 				@foreach($listCompany as $listCompany)
@@ -20,13 +17,13 @@
 	</div>
 	<div class="col-lg-12 row">
 		<ul class="nav nav-tabs">
-			<li><a href="#tabs1" data-toggle="tab">Sinh Viện Có Nguyện Vọng</a></li>
+			<li class="active"><a href="#tabs1" data-toggle="tab">Sinh Viện Có Nguyện Vọng</a></li>
 			<li><a href="#tabs2" data-toggle="tab">Sinh viên đã có công ty</a></li>
 			<li><a href="#tabs3" data-toggle="tab">Sinh viên chưa có công ty</a></li>
 		</ul>
 	</div>
 	<div class="row col-lg-12 tab-content">
-		<div class="tab-pane fade" id="tabs1" style="margin-top: 20px;">
+		<div class="tab-pane fade in active" id="tabs1" style="margin-top: 20px;">
 			<table class="table table-bordered .table-striped">
 				<tr>
 					<th>STT</th>

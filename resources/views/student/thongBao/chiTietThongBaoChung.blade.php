@@ -6,9 +6,11 @@
     		<h3 style="margin-top:0px; margin-bottom:0px;">Thông Báo </h3>
     	</div>
     	<div class="panel-body">
-			<h2>{!!$notice->tieu_de!!}</h2>
+			<h2>Tiêu Đề : {{$notice->tieu_de}}</h2>
             <p><i style="color:#aaaaaa">Đăng bởi:{{$notice->user->name}} | Ngày đăng: {{$notice->created_at->format('d/m/Y')}}</i></p>
-            <div class="content-notice">{!!$notice->noi_dung!!}</div>						
+            <div class="content-notice"><b>Nội Dung : </b>
+                <?php echo strip_tags($notice->noi_dung); ?>
+            </div>						
 		</div>
 
     </div>

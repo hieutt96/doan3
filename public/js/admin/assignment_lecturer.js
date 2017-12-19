@@ -1,7 +1,5 @@
 $(document).on('click','#submit',function(){
-	// console.log(1);
 	var idGiangVien = $("#giangvien").val();
-	// console.log(idGiangVien);
 	var array_company = [];
 	$(".idCongTy:checked").each(function(){
 		array_company.push($(this).val());
@@ -22,5 +20,7 @@ $(document).on('click','#submit',function(){
 				alert("Error");
 			}
 		});
+	}else{
+		alert("Bạn Chưa Chọn Công Ty Hoặc Giảng Viên !")
 	}
 });

@@ -77,18 +77,16 @@
 				<th>Action</th>
 			</thead>
 			<tbody>
-				@foreach($lists as $list)
+				@foreach($semesters as $semester)
 					<tr>
-						<td>{{$list->ten_hoc_ki}}</td>
-						<td>{{$list->thoi_gian_dn_bat_dau_dk}}</td>
-						<td>{{$list->thoi_gian_dn_ket_thuc_dk}}</td>
-						<td>{{$list->thoi_gian_sv_bat_dau_dk}}</td>
-						<td>{{$list->thoi_gian_sv_ket_thuc_dk}}</td>
-						<td>{{$list->thoi_gian_sv_bat_dau_thuc_tap}}</td>
-						<td>{{$list->thoi_gian_sv_ket_thuc_thuc_tap}}</td>
-						<!-- <td>{{$list->thoi_gian_sv_bat_dau_thuc_tap}}</td>
-						<td>{{$list->thoi_gian_sv_bat_dau_thuc_tap}}</td> -->
-						<td><a href="/admin/chinh-sua-lich-dang-ky/{{$list->id}}"><button class="btn btn-primary" >Edit</button></a></td>
+						<td>{{$semester->ten_hoc_ki}}</td>
+						<td>{{$semester->thoi_gian_dn_bat_dau_dk}}</td>
+						<td>{{$semester->thoi_gian_dn_ket_thuc_dk}}</td>
+						<td>{{$semester->thoi_gian_sv_bat_dau_dk}}</td>
+						<td>{{$semester->thoi_gian_sv_ket_thuc_dk}}</td>
+						<td>{{$semester->thoi_gian_sv_bat_dau_thuc_tap}}</td>
+						<td>{{$semester->thoi_gian_sv_ket_thuc_thuc_tap}}</td>
+						<td><a href="/admin/chinh-sua-lich-dang-ky/{{$semester->id}}"><button class="btn btn-primary" >Edit</button></a></td>
 					</tr>
 				@endforeach
 			</tbody>

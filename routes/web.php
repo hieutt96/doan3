@@ -11,8 +11,6 @@
 |
 */
 Route::get('/','trangChuController@trangchu');
-//Route::get('/','StudentController@getThongBaoChung');
-
 
 Route::get('dang-ky-doanh-nghiep',['as'=>'dang-ky-dn','uses'=>'Guest\RegisterController@getRegisterDN','middleware'=>'checkdateregisterdn']);
 
@@ -28,85 +26,83 @@ Route::post('dang-nhap', ['as' => 'dang-nhap.post', 'uses' => 'Guest\LoginContro
 
 Route::get('dang-xuat', ['as' => 'dang-xuat', 'uses' => 'Guest\LoginController@logout']);
 
-
-Route::get('admin/cancel/{id}','Admin\AdminController@cancel');
-
-
-Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
-
-Route::get('admin/cancel/{id}','Admin\AdminController@cancel');
-
-
-
-Route::get('hop-tac-doanh-nghiep',['as'=>'hop-tac-doanh-nghiep','uses'=>'Guest\HomeController@dsdoanhnghiep']);
+Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');
 
 Route::group(['middleware'=>'admin'],function(){
-        Route::get('admin/accept/{id}','Admin\AdminController@accept');
 
-        Route::get('admin-dashboard',['as'=>'admin-dashboard','uses'=>'Admin\AdminController@show_dn']);
+        Route::get('/admin-dashboard',['as'=>'admin-dashboard','uses'=>'Admin\AdminController@show_dn']);
 
-        Route::get('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky','uses'=>'Admin\AdminController@createSemester']);
+        Route::get('/admin/danh-sach-cong-ty-yeu-cau',['as'=>'company-request','uses'=>'Admin\AdminController@findCompanyRequest']);
 
-        Route::post('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky.post','uses'=>'Admin\AdminController@postCreateSemester']);
+        Route::get('admin/managestudent','Admin\AdminController@manageSV');
 
-        Route::get('admin/filter/company/{hocky}','Admin\AdminController@filter_company_hocky');
+        Route::get('/admin/assignment_student','Admin\AdminController@assignmentStudent');
 
-        Route::get('admin/accept/companyRequest/{id}',"Admin\AdminController@acceptCompanyRequest");
+        Route::get('/admin/phan-cong-sinh-vien-cho-cong-ty','Admin\AdminController@assignment_student');
 
-        Route::get('admin/delete/companyRequest/{id}',"Admin\AdminController@deleteCompanyRequest");
+        Route::get('admin/accept/companyRequest/{id}','Admin\AdminController@acceptCompanyRequest');
+
+        Route::get('admin/delete/CompanyRequest/{id}','Admin\AdminController@deleteCompanyRequest');
 
         Route::get('admin/delete/company/{id}','Admin\AdminController@deleteCompany');
 
-        Route::get('admin/quan-li-giang-vien',['as'=>'quan-li-giang-vien','uses'=>'Admin\AdminController@manageLecturer']);
-
         Route::get('/admin/addlecturer','Admin\AdminController@addlecturer');
+
+        Route::get('admin/them-tai-khoan-giang-vien','Admin\AdminController@addlecturerPost');
+
+        Route::get('admin/quan-li-giang-vien',['as'=>'quan-li-giang-vien','uses'=>'Admin\AdminController@manageLecturer']);
 
         Route::get('/admin/thong-bao',['as'=>'thong-bao','uses'=>'Admin\AdminController@thongBao']);
 
         Route::post('/admin/thong-bao',['as'=>'thong-bao.post','uses'=>'Admin\AdminController@postThongBao']);
 
-        Route::get('/admin/chinh-sua-lich-dang-ky/{id}',['as'=>'chinh-sua-hoc-ky','uses'=>'Admin\AdminController@editSemester']);
+        Route::get('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky','uses'=>'Admin\AdminController@createSemester']);
+
+        Route::post('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky.post','uses'=>'Admin\AdminController@postCreateSemester']);
+
+       Route::get('/admin/chinh-sua-lich-dang-ky/{id}',['as'=>'chinh-sua-hoc-ky','uses'=>'Admin\AdminController@editSemester']);
 
         Route::post('/admin/chinh-sua-lich-dang-ky/{id}',['as'=>'chinh-sua-hoc-ky.post','uses'=>'Admin\AdminController@editSemesterPost']);
-        
-        Route::get('/admin/phan-cong-giang-vien/{hocky}','Admin\AdminController@assignmentLecturer');
-        Route::get('admin/managestudent','Admin\AdminController@manageSV');
 
-        Route::get('/admin/find-student-semester','Admin\AdminController@findStudentSemester');
+        Route::get('/admin/phan-cong-giang-vien','Admin\AdminController@assignmentLecturer');
 
-        Route::get('/admin/assignment_student/{hocky}','Admin\AdminController@assignment_student');
+       Route::get('/admin/assignment_lecturer','Admin\AdminController@assignmentLecturerForCompany');
 
-        Route::get('/admin/assignment_student','Admin\AdminController@assignmentStudent');
+  //       Route::get('/admin/addlecturer','Admin\AdminController@addlecturer');
 
-        Route::get('/admin/assignment_lecturer','Admin\AdminController@assignmentLecturerForCompany');
+  //       Route::get('/admin/find-student-semester','Admin\AdminController@findStudentSemester');
 
-        Route::get('/admin/danh-sach-giang-vien','Admin\AdminController@listLecturer');
+  //       Route::get('/admin/assignment_student/{hocky}','Admin\AdminController@assignment_student');
 
-
-
-		Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
-		Route::get('guest/find/leader','Guest\RegisterController@findLeader');
+  //       Route::get('/admin/danh-sach-giang-vien','Admin\AdminController@listLecturer');
 });
 
-Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
+Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
+Route::get('guest/find/leader','Guest\RegisterController@findLeader');
 
-Route::get('/lecturer/cap-nhap-thong-tin','Lecturer\LecturerController@updateInfo');
+Route::group(['middleware'=>'checklecturer'],function(){
+    Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
 
-Route::post('/lecturer/cap-nhap-thong-tin',['as'=>'updateInfoPost','uses'=>'Lecturer\LecturerController@updateInfoPost']);
+    Route::get('/lecturer/cap-nhap-thong-tin','Lecturer\LecturerController@updateInfo');
 
-Route::get('/lecturer/quan-li-sinh-vien','Lecturer\LecturerController@findStudentSemester');
+    Route::post('/lecturer/cap-nhap-thong-tin',['as'=>'updateInfoPost','uses'=>'Lecturer\LecturerController@updateInfoPost']);
 
-Route::get('/lecturer/get-result-student','Lecturer\LecturerController@getResultStudent');
+    Route::get('/lecturer/quan-li-sinh-vien','Lecturer\LecturerController@findStudentSemester');
 
-Route::get('/lecturer/update-result-student','Lecturer\LecturerController@updateResultStudent');
+    Route::get('/lecturer/get-result-student','Lecturer\LecturerController@getResultStudent');
 
-Route::get('/lecturer/thong-bao','Lecturer\LecturerController@findNoticeOfLecturer');
+    Route::get('/lecturer/update-result-student','Lecturer\LecturerController@updateResultStudent');
 
-Route::get('/lecturer/gui-thong-bao',['as'=>'sent-notice','uses'=>'Lecturer\LecturerController@sentNotice']);
+    Route::get('/lecturer/thong-bao','Lecturer\LecturerController@findNoticeOfLecturer');
 
-Route::post('/lecturer/gui-thong-bao','Lecturer\LecturerController@sentNoticePost');
+    Route::get('/lecturer/gui-thong-bao',['as'=>'sent-notice','uses'=>'Lecturer\LecturerController@sentNotice']);
 
-Route::get('/lecturer/receive',['as'=>'lecturer-receive-notice','uses'=>'Lecturer\LecturerController@receviceNotice']);
+    Route::post('/lecturer/gui-thong-bao','Lecturer\LecturerController@sentNoticePost');
+
+    Route::get('/lecturer/receive',['as'=>'lecturer-receive-notice','uses'=>'Lecturer\LecturerController@receviceNotice']);
+});
+Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
+
 // sv
 Route::get('/pm/sv','PM\PMController@indexSV');
 Route::get('/pm/sv/{idSV}/thong-tin', 'PM\PMController@showSVInfo');
@@ -193,29 +189,18 @@ Route::group(['prefix'=>'comment'],function(){
 
 //Hợp tác doanh nghiệp
 Route::get('hop-tac-doanh-nghiep','StudentController@hopTacDoanhNghiep');
-Route::get('hop-tac-doanh-nghiep/{id}/{tendoanhnghiep}','StudentController@chiTietDoanhNghiep');
 
-//Comment
-Route::post('hop-tac-doanh-nghiep/{id}/{tendoangnghiep}','CommentController@postComment');
+Route::get('hop-tac-doanh-nghiep/{id}','StudentController@chiTietDoanhNghiep');
+
 //Liên hệ nhà trường
 Route::get('lien-he','StudentController@lienHeNhaTruong');
 
 //Thông báo chung cho Guest
 Route::get('thong-bao','StudentController@getThongBaoChung');
-Route::get('thong-bao/{id}','StudentController@chiTietThongBaoChung');
-
-
 
 Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
 
 Route::get('hop-tac-doanh-nghiep',['as'=>'hop-tac-doanh-nghiep','uses'=>'Guest\HomeController@dsdoanhnghiep']);
-
-Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
-Route::get('guest/find/leader','Guest\RegisterController@findLeader');
-
-
-
-Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
 
 Route::group(['prefix'=>'ajax'],function(){
     
@@ -237,6 +222,5 @@ Route::post('tim-kiem-thong-bao-chung','StudentController@timKiemThongBaoChung')
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 

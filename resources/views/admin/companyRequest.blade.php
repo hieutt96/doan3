@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content_right')
     <div class="row">
-        <form method="get" action="{{route('admin-dashboard')}}" id="formFilter">
+        <form method="get" action="{{route('company-request')}}" id="formFilter">
             <div class="col-lg-offset-4 col-lg-6">               
                 {{csrf_field()}}
                 <input type="text" name="search" placeholder="Tìm Kiếm Công Ty" class="form-control"  @if($search) value="{{$search}} @endif">              
@@ -31,23 +31,27 @@
                 <th>Action</th>
             </thead>
             <tbody>
-                @foreach($company_accepts as $company_accept)
+                @foreach($company_requests as $company_request)
                     <tr>
-                        <td>{{$company_accept->name}}</td>
-                        <td>{{$company_accept->diaChi}}</td>
-                        <td>{{$company_accept->phone}}</td>
-                        <td>{{$company_accept->congNgheDaoTao}}</td>
-                        <td>{{$company_accept->soLuongSinhVienTT}}</td>
+                        <td>{{$company_request->name}}</td>
+                        <td>{{$company_request->diaChi}}</td>
+                        <td>{{$company_request->phone}}</td>
+                        <td>{{$company_request->congNgheDaoTao}}</td>
+                        <td>{{$company_request->soLuongSinhVienTT}}</td>
                         <td>
-                            <button class="delete">Xóa</button>
-                            <input type="hidden" value="{{$company_accept->id}}">
-                            <button class=""><a href="/hop-tac-doanh-nghiep/{{$company_accept->id}}">Chi Tiết</a></button>
+                            <button class="deleteCompanyRequest">Xóa</button>
+                            <input type="hidden" value="{{$company_request->id}}">
+                            <button class=""><a href="/hop-tac-doanh-nghiep/{{$company_request->id}}">Chi Tiết</a></button>
+                            <button class="accept">Chấp Nhận</button>
                         </td>
                     </tr>
                 @endforeach
-                {{$company_accepts->links()}}
             </tbody>
+
         </table>
+        <div class="row col-lg-offset-8">
+            {{$company_requests->links()}}
+        </div>
     </div>
 @endsection
 @section('script')

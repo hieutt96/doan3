@@ -128,11 +128,12 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a tabindex="-1" href="{{ url('student/change-password') }}">Đổi mật khẩu</a><li/>
-                                <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a><li/>
-                                <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a><li/>
+                                @if(Auth::user()->level==1)
+                                    <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a><li/>
+                                    <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a><li/>
+                                @endif
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="">MyProfile</a>
                                     @if(Auth::User()->level == 2)
                                         <a href="">Truy Cập Trang Quản Lí</a>
                                     @endif

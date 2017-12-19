@@ -11,7 +11,9 @@ class RegisterDNRequest extends FormRequest
 		return [
 			'tencongty' => 'unique:companies,name|min:5',
 			'diachi' => 'min:10',
-			'phone'=>'min:8',
+			'hotennvpt'=>'min:5',
+			'namthanhlap'=>'max:'.date("Y"),
+			'sodienthoai'=>'min:8',
 			'emailnv' =>'email|unique:users,email|max:50',
 			'emaildn' => 'email|unique:users,email|max:50',
 			'password' => 'min:6 |same:re-password',

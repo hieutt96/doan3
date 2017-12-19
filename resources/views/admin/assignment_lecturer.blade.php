@@ -1,14 +1,11 @@
 @extends('layouts.admin')
 @section('content_right')
 	<div class="row">
-		<div class="col-lg-5">
-			<button class="btn btn-info"><span class="glyphicon glyphicon-star"></span> Phân Công Giảng Viên Cho Học Kỳ :{{$hocky_current}}</button>
-		</div>
 		<div class="col-lg-4">
 				<select class="form-control" id="giangvien">
 					<option>--Chọn Giảng Viên--</option>
 					@foreach($lecturers as $lecturer)
-						<option value="{{$lecturer->id}}">{{$lecturer->email}}</option>
+						<option value="{{$lecturer->id}}">{{$lecturer->name}}</option>
 					@endforeach
 				</select>
 				<script type="text/javascript">

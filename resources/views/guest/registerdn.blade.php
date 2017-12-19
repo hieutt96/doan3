@@ -61,7 +61,7 @@
 				<div class="form-group {{ $errors->has('namthanhlap') ? ' has-error' : '' }}">
 					<label class="col-lg-3 control-label">Năm thành lập :</label>
 					<div class="col-lg-2">
-						<input type="number" name="namthanhlap" placeholder="..." class="form-control" required>
+						<input type="number" name="namthanhlap" placeholder="..." class="form-control" required >
 					</div>
 
            			@if ($errors->has('namthanhlap'))
@@ -116,7 +116,7 @@
 				<div class="form-group col-lg-offset-2 {{ $errors->has('hotennvpt') ? ' has-error' : '' }}">
 					<label class="col-lg-3 control-label"><span class="glyphicon glyphicon-star"></span> Họ tên nhân viên phụ trách thực tập :</label>
 					<div class="col-lg-6">
-						<input type="text" name="hotennvpt" placeholder="..." required class="form-control" minlength=10 maxlength=50>
+						<input type="text" name="hotennvpt" placeholder="..." required class="form-control" minlength=5 maxlength=50>
 					</div>
 
            			@if ($errors->has('hotennvpt'))
@@ -246,7 +246,7 @@
 				<div class="col-lg-offset-2 form-group {{ $errors->has('soluong') ? ' has-error' : '' }}">
 					<label class="col-lg-4 control-label">Số lượng sinh viên có thể nhận :</label>
 					<div class="col-lg-4">
-						<input type="number" name="soluong" placeholder="..." required class="form-control" min=0>
+						<input type="text" name="soluong" placeholder="..." required class="form-control" >
 					</div>
 
            			@if ($errors->has('soluong'))
