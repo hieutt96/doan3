@@ -80,7 +80,7 @@ Route::group(['middleware'=>'admin'],function(){
 Route::get('guest/register/congty/hocky','Guest\RegisterController@findCongty');
 Route::get('guest/find/leader','Guest\RegisterController@findLeader');
 
-Route::group(['middleware'=>'checklecturer'],function(){
+// Route::group(['middleware'=>'checklecturer'],function(){
     Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
 
     Route::get('/lecturer/cap-nhap-thong-tin','Lecturer\LecturerController@updateInfo');
@@ -100,7 +100,7 @@ Route::group(['middleware'=>'checklecturer'],function(){
     Route::post('/lecturer/gui-thong-bao','Lecturer\LecturerController@sentNoticePost');
 
     Route::get('/lecturer/receive',['as'=>'lecturer-receive-notice','uses'=>'Lecturer\LecturerController@receviceNotice']);
-});
+// });
 Route::get('pm-home',['as'=>'pm-home','uses'=>'PM\PMController@show']);
 
 // sv
