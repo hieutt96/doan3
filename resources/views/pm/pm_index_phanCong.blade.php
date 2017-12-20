@@ -76,10 +76,8 @@
                         <tr>
                             <th scope="row">{{$i + 1}}</th>
                             <td>
-                                <div class="checkbox-inline">
-                                    <input name="rowsCheck[]" class="stuCheck" type="checkbox"
-                                           value="{{$students[$i]->id}}">
-                                </div>
+                                <input name="rowsCheck[]" class="stuCheck" type="checkbox"
+                                       value="{{$students[$i]->id}}">
                             </td>
                             <td>{{$students[$i]->mssv}}</td>
                             <td>{{$students[$i]->user->name}}</td>

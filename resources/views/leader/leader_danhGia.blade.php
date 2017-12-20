@@ -148,9 +148,7 @@
                     <thead>
                     <tr>
                         <th scope="col">
-                            <div class="checkbox-inline" style="padding-bottom: 10px">
-                                <label><input id="checkAll" type="checkbox" value="0"></label>
-                            </div>
+                            <input id="checkAll" type="checkbox" value="0">
                         </th>
                         <th scope="col">STT</th>
                         <th scope="col">MSSV</th>
@@ -175,10 +173,8 @@
                     @for ($i = 0; $i < count($students); $i++)
                         <tr>
                             <td>
-                                <div class="checkbox-inline">
-                                    <input name="rowsCheck[]" class="stuCheck" type="checkbox"
-                                           value="{{$students[$i]->id}}">
-                                </div>
+                                <input name="rowsCheck[]" class="stuCheck" type="checkbox"
+                                       value="{{$students[$i]->id}}">
                             </td>
                             <th scope="row">{{$i + 1}}</th>
                             <td>{{$students[$i]->mssv}}</td>

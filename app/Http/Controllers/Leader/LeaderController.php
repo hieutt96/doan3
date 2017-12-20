@@ -101,7 +101,7 @@ class LeaderController extends Controller
         } else {
             $jobs = Student_Job_Assignment::where('student_id', '=', $idSV)
                 ->sortable()->simplePaginate(10);
-            $isSearch = true;
+            $isSearch = false;
             return view('sv.sv_congViec', ['isSearch' => $isSearch, 'jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'leader']);
 
         }

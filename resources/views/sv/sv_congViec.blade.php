@@ -33,8 +33,8 @@
             </div>
             <div class="col-md-2">
                 {{--<div class="btn-group" role="group" aria-label="...">--}}
-                    {{--<button type="button" class="btn btn-default">PDF</button>--}}
-                    {{--<button type="button" class="btn btn-default">CSV</button>--}}
+                {{--<button type="button" class="btn btn-default">PDF</button>--}}
+                {{--<button type="button" class="btn btn-default">CSV</button>--}}
                 {{--</div>--}}
             </div>
             <div class="col-md-2">
@@ -51,11 +51,11 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">
-                                <div class="checkbox-inline" style="padding-bottom: 10px">
-                                    <label><input id="checkAll" type="checkbox" value="0"></label>
-                                </div>
-                            </th>
+                            @if($userType == 'leader')
+                                <th scope="col">
+                                    <input id="checkAll" type="checkbox" value="0">
+                                </th>
+                            @endif
                             <th scope="col">STT</th>
                             <th scope="col">@sortablelink('trang_thai', 'Trạng thái')
                                 <div class="glyphicon glyphicon-triangle-bottom"></div>
@@ -80,12 +80,12 @@
 
                         @for ($i = 0; $i < count($jobs); $i++)
                             <tr>
-                                <td>
-                                    <div class="checkbox-inline">
+                                @if($userType == 'leader')
+                                    <td>
                                         <input name="rowsCheck[]" class="jobCheck" type="checkbox"
                                                value="{{$jobs[$i]->id}}">
-                                    </div>
-                                </td>
+                                    </td>
+                                @endif
                                 <th scope="row">{{$i + 1}}</th>
                                 <td>@if($jobs[$i]->trang_thai == 0)
                                         Chưa Hoàn Thành
