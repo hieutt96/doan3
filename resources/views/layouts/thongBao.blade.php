@@ -23,20 +23,20 @@
     </div>
 
     <div class="panel-body">
-        @foreach($revNotices as $notice)
+        @foreach($revNotices as $revNoti)
             <div class="row-item row">
 
                 <div class="border-right">
                     <div class="col-md-2">
-                        <h1 class="time-notice">{{$notice->created_at->format('d')}}</h1>
+                        <h1 class="time-notice">{{$revNoti->created_at->format('d')}}</h1>
                         <p>
-                        <h4 style="margin-left:10px;">{{$notice->created_at->format('F')}}</h4>
+                        <h4 style="margin-left:10px;">{{$revNoti->created_at->format('F')}}</h4>
                         </p>
                     </div>
                     <div class="col-md-10">
-                        <h3>{{$notice->tieu_de}}</h3>
-                        <p><i style="color:#aaaaaa">Đăng bởi:{{$notice->user->name}} </i></p>
-                        <a class="btn btn-primary" href="/{{$userType}}/thong-bao/{{$notice->id}}/chi-tiet">Chi
+                        <h3>{{$revNoti->tieu_de}}</h3>
+                        <p><i style="color:#aaaaaa">Đăng bởi:{{$revNoti->user->name}} </i></p>
+                        <a class="btn btn-primary" href="/{{$userType}}/thong-bao/{{$revNoti->id}}/chi-tiet">Chi
                             tiết <span class="glyphicon glyphicon-chevron-right"></span></a>
                     </div>
                 </div>
@@ -59,20 +59,20 @@
     </div>
 
     <div class="panel-body">
-        @foreach($sendNotices as $$notice)
+        @foreach($sendNotices as $sendNoti)
             <div class="row-item row">
 
                 <div class="border-right">
                     <div class="col-md-2">
-                        <h1 class="time-notice">{{$$notice->created_at->format('d')}}</h1>
+                        <h1 class="time-notice">{{$sendNoti->created_at->format('d')}}</h1>
                         <p>
-                        <h4 style="margin-left:10px;">{{$$notice->created_at->format('F')}}</h4>
+                        <h4 style="margin-left:10px;">{{$sendNoti->created_at->format('F')}}</h4>
                         </p>
                     </div>
                     <div class="col-md-10">
-                        <h3>{{$$notice->tieu_de}}</h3>
-                        <p><i style="color:#aaaaaa">Đăng bởi:{{$$notice->user->name}} </i></p>
-                        <a class="btn btn-primary" href="/{{$userType}}/thong-bao/{{$$notice->id}}/chi-tiet">Chi
+                        <h3>{{$sendNoti->tieu_de}}</h3>
+                        <p><i style="color:#aaaaaa">Đăng bởi:{{$sendNoti->user->name}} </i></p>
+                        <a class="btn btn-primary" href="/{{$userType}}/thong-bao/{{$sendNoti->id}}/chi-tiet">Chi
                             tiết <span class="glyphicon glyphicon-chevron-right"></span></a>
                     </div>
                 </div>

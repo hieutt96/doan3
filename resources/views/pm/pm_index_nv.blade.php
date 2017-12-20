@@ -3,12 +3,28 @@
 @section('content')
     <div class="panel-body">
         <div class="row">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <form action="/pm/nv" method="GET" role="search">
                     {{ csrf_field() }}
                     <div class="input-group">
                         <input type="text" class="form-control" name="name"
-                               placeholder="Tìm theo tên"> <span class="input-group-btn">
+                               @if($isSearch)
+                               placeholder="{!! $search !!}"
+                               @else
+                               placeholder="Tìm nhân viên theo tên"
+                                @endif
+                        ><span class="input-group-btn">
                     <button type="submit" class="btn btn-default">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>

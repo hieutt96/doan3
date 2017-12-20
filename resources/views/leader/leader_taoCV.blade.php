@@ -3,6 +3,17 @@
 @section('content')
     <div class="panel-body">
         <div class="row">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
+        <div class="row">
             <div class="col-md-4">
                 <button id="btn_taoCV" data-target="#taoCV" data-toggle="modal" type="button"
                         class="btn btn-primary" disabled="disabled">
@@ -77,8 +88,12 @@
                     {{ csrf_field() }}
                     <div class="input-group">
                         <input type="text" class="form-control" name="search"
-                               placeholder="Tìm sinh viên theo tên hoặc MSSV">
-                        <span class="input-group-btn">
+                               @if($isSearch)
+                               placeholder="{!! $search !!}"
+                               @else
+                               placeholder="Tìm sinh viên theo tên hoặc MSSV"
+                                @endif
+                        ><span class="input-group-btn">
                             <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-search"></span>
                             </button>
@@ -102,9 +117,7 @@
                     <thead>
                     <tr>
                         <th scope="col">
-                            <div class="checkbox-inline" style="padding-bottom: 10px">
-                                <label><input id="checkAll" type="checkbox" value="0"></label>
-                            </div>
+                            <input id="checkAll" type="checkbox" value="0">
                         </th>
                         <th scope="col">STT</th>
                         <th scope="col">
@@ -127,10 +140,8 @@
                     @for ($i = 0; $i < count($students); $i++)
                         <tr>
                             <td>
-                                <div class="checkbox-inline">
-                                    <input name="rowsCheck[]" class="stuCheck" type="checkbox"
-                                           value="{{$students[$i]->id}}">
-                                </div>
+                                <input name="rowsCheck[]" class="stuCheck" type="checkbox"
+                                       value="{{$students[$i]->id}}">
                             </td>
                             <th scope="row">{{$i + 1}}</th>
                             <td>{{$students[$i]->user->name}}</td>

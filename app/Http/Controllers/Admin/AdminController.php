@@ -12,15 +12,17 @@ use App\Leader;
 use App\Semester;
 use App\Lecturer;
 use App\Notice;
-use Validator;
+use Illuminate\Validation\Validator;
 use App\Intership;
 use App\Result;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Request\CreateSemesterRequest;
 use App\Http\Request\EditSemesterRequest;
 use App\Http\Request\NoticeRequest;
+
 use Illuminate\Support\Facades\View;
 use Auth;
+
 class AdminController extends Controller
 {
 
@@ -304,6 +306,7 @@ class AdminController extends Controller
 		return view('admin.notice');
 	}
 
+
 	public function createSemester(){
 
 		return view('admin.create_semester');
@@ -365,6 +368,17 @@ class AdminController extends Controller
 		$hocky = new Semester();
 		$semester_current= $hocky->getSemesterCurrent();
 		return redirect()->route('thong-bao',['semester_current'=>$semester_current])->with('success','Bạn Đã Gửi Thông Báo Thành Công');
+
+	public function postThongBao(NoticeRequest $request)
+	{
+		$notice = new Notice;
+		$notice->user_id = Auth::user()->id;
+		$notice->tieu_de = $request->input('tieuDe');
+		$notice->noi_dung = $request->noidung;
+		$notice->ma_nguoi_nhan = $request->manguoinhan;
+		$notice->save();
+
+		return back();
 	}
 
 	public function editSemester($id){

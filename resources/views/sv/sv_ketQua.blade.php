@@ -33,20 +33,14 @@
                 </div>
 
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
-                {{--<h3>Tài liệu đã nộp</h3>--}}
-                {{--<div class="row">--}}
-                {{--<div class="thumbnail">--}}
-                {{--<a href="http://ketoanthienung.net/pic/Service/images/mau%20bang%20cham%20cong%202017%20tr%C3%AAn%20Excel%20moi%20nhat.png">--}}
-                {{--<img src="http://ketoanthienung.net/pic/Service/images/mau%20bang%20cham%20cong%202017%20tr%C3%AAn%20Excel%20moi%20nhat.png"--}}
-                {{--alt="Lights" style="width:100%">--}}
-                {{--<div class="caption">--}}
-                {{--<p>Bảng chấm công</p>--}}
-                {{--</div>--}}
-                {{--</a>--}}
-                {{--</div>--}}
-                {{--</div>--}}
+            <div class="col-md-6">
+                @if(Auth::user()->level == 5)
+                    <h3>Đánh giá phía nhà trường</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">Điểm: <b>{{$result->diem}}</b></li>
+                        <li class="list-group-item">Nhận xét: <b>{!! $result->nhan_xet_nha_truong !!}</b></li>
+                    </ul>
+                @endif
             </div>
         </div>
     </div>

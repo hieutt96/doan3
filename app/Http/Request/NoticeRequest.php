@@ -12,6 +12,7 @@ class NoticeRequest extends FormRequest
 
 	public function rules(){
 		return [
+		    'tieuDe' => 'required',
 			'noidung'=>'required',
 			'manguoinhan'=>'required',
 		];

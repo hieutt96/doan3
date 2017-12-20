@@ -42,7 +42,7 @@
 
         .anh-hust {
             height: 140px;
-            margin: 10px 0 0 77px;
+            margin: 5px 0 5px 77px;
         }
         .anh-soict {
             height: 150px;
@@ -85,12 +85,6 @@
         </div>
     </div>
     <div class="collapse navbar-collapse" id="app-navbar-collapse">
-        <ul class="nav navbar-nav">
-            &nbsp;
-        </ul>
-        <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Home') }}
-        </a>
         <ul class="nav navbar-nav navbar-right">
             @if(Auth::guest())
                 <li><a href="{{ route('dang-nhap') }}"><b>Đăng nhập</b></a></li>
@@ -121,8 +115,9 @@
                             </button>
 
                         </div>
+
                         @else
-                        <li class="dropdown">
+<!--                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                  <span style="margin-right:5px;" class="glyphicon glyphicon-user"></span>{{ Auth::user()->name }} <span class="caret"></span>
                             </a>
@@ -147,8 +142,44 @@
                                         <a href="/">Truy Cập Trang Quản Lí</a>
                                     @endif
                                     <a href="{{ route('dang-xuat') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault();">Đăng xuất</a>
+
+                    </div>
+                </div> -->
+            @else
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">
+                                    <span style="margin-right:5px;"
+                                          class="glyphicon glyphicon-user"></span>{{ Auth::user()->name }} <span
+                                class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a tabindex="-1" href="{{ url('student/change-password') }}">Đổi mật khẩu</a>
+                        <li/>
+                        <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a>
+                        <li/>
+                        <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá
+                                nhân</a>
+                        <li/>
+                        <li class="divider"></li>
+                        <!--   <li>Hieu</li> -->
+                        <li>
+                            @if(Auth::User()->level == 2)
+                                <a href="">Truy Cập Trang Quản Lí</a>
+                            @endif
+                            @if(Auth::User()->level == 3)
+                                <a href="">Truy Cập Trang Quản Lí</a>
+                            @endif
+                            @if(Auth::User()->level == 4)
+                                <a href="">MyProfile</a>
+                                <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
+                            @endif
+                            @if(Auth::User()->level == 5)
+                                <a href="/">Truy Cập Trang Quản Lí</a>
+                            @endif
+                            <a href="{{ route('dang-xuat') }}"
+                               onclick="event.preventDefault();                                  document.getElementById('logout-form').submit();">
                                 Đăng xuất
                             </a>
                             <form id="logout-form" action="{{ route('dang-xuat') }}" method="GET"
@@ -186,11 +217,18 @@
         <div>
             <div class="row" style="background: #263c65; color:white;">
                 <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
+<<<<<<< HEAD
                     <p >Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông
                         tin
                         và truyền thông</p><br>
                     <p>Trường Đại Học Bách Khoa Hà Nội</p><br>
                     <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
+=======
+                    <p style="padding-top: 20px">Bản quyền <span class="glyphicon glyphicon-copyright-mark">
+                        </span> thuộc về viện Công nghệ thông tin và truyền thông</p>
+                    <p>Trường Đại Học Bách Khoa Hà Nội</p>
+                    <p style="font-style: oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
+>>>>>>> cab4799046693bb4791fc5415727ff78d4ae10c1
                 </div>
             </div>
         </div>

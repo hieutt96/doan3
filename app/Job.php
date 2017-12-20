@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Job extends Model
 {
      use Sortable;
+
     // public $sortable = ['tgBatDau', 'tgKetThuc'];
  
 	protected $table = "jobs";

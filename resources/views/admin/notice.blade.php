@@ -21,6 +21,10 @@
 		<div class="row">
 			<div class="col-lg-8">
 				<div class="form-group">
+					<label for="tieuDe">Tiêu Đề: </label>
+					<input class="form-control" id="tieuDe" name="tieuDe" required>
+				</div>
+				<div class="form-group">
 					<label for="noidung">Nội dung :</label>
 					<div  class="">
 						<textarea rows="5" class="form-control" id="noidung" name="noi_dung" required
@@ -30,8 +34,8 @@
 				</div>
 			</div>
 			<div class="col-lg-3">
-				<label for="nguoinhan">Người gửi :</label>
-				<select name="ma_nguoi_nhan" class="form-control" id="nguoinhan" required>
+				<label for="nguoinhan">Người nhận :</label>
+				<select name="manguoinhan" class="form-control" id="nguoinhan" required>	
 					<option value="0">Mọi Người</option>
 					<option value="1">Tất cả giảng viên</option>
 					<option value="2">Tất cả sinh viên</option>

@@ -16,7 +16,7 @@
         <div class="row" style="margin-top: 10px">
             <div class="col-lg-4">
                 <div class="form-group profile-image">
-                    <img style="border:1px solid gray;" width="200" height="200" src="{!!$student->user->picture!!}" class="attachment-thumbnail size-thumbnail">
+                    <img style="border:1px solid gray;" width="200" height="200" src="/upload/anhsinhvien/{!!$student->user->picture!!}" class="attachment-thumbnail size-thumbnail">
                 </div>
                 <div class="form-group profile-name ">
                     <p><b>{!!$student->user->name!!}</b></p>

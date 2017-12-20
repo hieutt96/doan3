@@ -11,7 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,‌​100italic,300,300ita‌​lic,400italic,500,50‌​0italic,700,700itali‌​c,900italic,900'
           rel='stylesheet' type='text/css'>
-    <script type="text/javascript" language="javascript" src="/ckeditor/ckeditor.js" ></script>
+    <script type="text/javascript" language="javascript" src="/ckeditor/ckeditor.js"></script>
     <style>
         .flex-center {
             align-items: center;
@@ -45,7 +45,7 @@
 
         .anh-hust {
             height: 140px;
-            margin: 10px 0 0 77px;
+            margin: 5px 0 5px 77px;
         }
 
         .anh-soict {
@@ -74,6 +74,11 @@
 
         b:hover {
             cursor: pointer;
+        }
+
+        .table {
+            margin-top: 10px;
+            border: solid #bbbbbb 1px;
         }
     </style>
 </head>
@@ -104,8 +109,10 @@
                             <li><a
                                 @if(Auth::user()->level == 2)
                                 href="/pm/thay-mat-khau"
-                                @else
+                                @elseif(Auth::user()->level == 3)
                                 href="/leader/thay-mat-khau"
+                                @else
+                                href="/gvhd/thay-mat-khau"
                                 @endif
                                 >Đổi mật khẩu</a>
                             <li><a href="/dang-xuat">Đăng xuất</a></li>
@@ -121,7 +128,7 @@
         </div>
         <div class="col-lg-10">
             <div class="panel panel-default">
-            @yield('content')
+                @yield('content')
             </div>
         </div>
     </div>
@@ -129,11 +136,10 @@
         <div>
             <div class="row" style="background: #263c65; color:white;">
                 <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
-                    <b>Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông
-                        tin
-                        và truyền thông</b><br>
-                    <b>Trường Đại Học Bách Khoa Hà Nội</b><br>
-                    <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
+                    <p style="padding-top: 20px">Bản quyền <span class="glyphicon glyphicon-copyright-mark">
+                        </span> thuộc về viện Công nghệ thông tin và truyền thông</p>
+                    <p>Trường Đại Học Bách Khoa Hà Nội</p>
+                    <p style="font-style: oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
                 </div>
             </div>
         </div>

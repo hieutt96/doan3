@@ -149,6 +149,7 @@ class RegisterController extends Controller
         $company->linhVucHoatDong = implode(',', $request->linhvuchoatdong);
         $company->soLuongSinhVienTT = $request->soluong;
         $company->yeuCauNNSV = $request->yeucaungoaingu;
+
         $company->save();
         $leader = new Leader;
         $leader->phone = $request->sodienthoai;

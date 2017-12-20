@@ -38,6 +38,12 @@ class PMController extends Controller
             $idSemester = $request->input('semester');
         } else {
             $idSemester = 1;
+            foreach ($semesters as $hocky) {
+                if ((date('Y-m-d') < $hocky->thoi_gian_sv_ket_thuc_thuc_tap) && (date('Y-m-d') > $hocky->thoi_gian_dn_bat_dau_dk)) {
+                    $idSemester = $hocky->id;
+                    break;
+                }
+            }
         }
 
         if (sizeof($request->input('pagiNum'))) {
@@ -65,6 +71,7 @@ class PMController extends Controller
                     ->sortable()->paginate($pagiNum);
             }
             $isSearch = true;
+            return view('pm.pm_index_sv', ['search' => $search, 'selectedPag' => $pagiNum,'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
         } else {
             $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['interships.company_id', '=', $company_id]
@@ -72,9 +79,9 @@ class PMController extends Controller
                 ->select('students.*')
                 ->sortable()->paginate($pagiNum);
             $isSearch = false;
+            return view('pm.pm_index_sv', ['selectedPag' => $pagiNum,'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
         }
 
-        return view('pm.pm_index_sv', ['selectedPag' => $pagiNum,'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);
     }
 
     public function showSVInfo($idSV)
@@ -92,11 +99,14 @@ class PMController extends Controller
                 ->where([['jobs.ten_cong_viec', 'like', '%' . $search . '%']
                     ,['student_job_assignments.student_id', '=', $idSV]])
                 ->sortable()->simplePaginate(10);
+            $isSearch = true;
+            return view('sv.sv_congViec', ['isSearch' => $isSearch, 'search' => $search, 'jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'pm']);
         }else{
             $jobs = Student_Job_Assignment::where('student_id', '=', $idSV)
                 ->sortable()->simplePaginate(10);
+            $isSearch = false;
+            return view('sv.sv_congViec', ['isSearch' => $isSearch, 'jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'pm']);
         }
-        return view('sv.sv_congViec', ['jobs' => $jobs, 'tab' => 12, 'student' => $student, 'userType' => 'pm']);
     }
 
     public function showSVKetQua($idSV)
@@ -124,6 +134,8 @@ class PMController extends Controller
                         ,['users.level', '=', 3]])
                 ->sortable()->paginate(10);
             $isSearch = true;
+            return view('pm.pm_index_nv', ['search' => $search, 'isSearch' => $isSearch, 'leaders' => $leaders, 'tab' => 2]);
+
         } else {
             $leaders = Leader::join('users', 'leaders.user_id', '=', 'users.id')
                             ->where([['leaders.company_id', '=', $company_id]
@@ -131,8 +143,9 @@ class PMController extends Controller
                             ->select('leaders.*', 'users.name', 'users.email')
                             ->sortable()->paginate(10);
             $isSearch = false;
+            return view('pm.pm_index_nv', ['isSearch' => $isSearch, 'leaders' => $leaders, 'tab' => 2]);
+
         }
-        return view('pm.pm_index_nv', ['isSearch' => $isSearch, 'leaders' => $leaders, 'tab' => 2]);
 
     }
 
@@ -145,7 +158,7 @@ class PMController extends Controller
     public function postTaoTK(Request $request){
         $this->validate($request, array(
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users,email',
             'password' => 'required'
         ));
 
@@ -176,7 +189,7 @@ class PMController extends Controller
     {
         $this->validate($request, array(
             'idLeader' => 'required',
-            'phone' => '|numeric',
+            'phone' => 'required|string|size:11',
             'chuyenMon' => 'required',
             'name' => 'required',
             'avatar' => 'required',
@@ -199,7 +212,7 @@ class PMController extends Controller
     }
 
     public function postXoaTK(Request $request){
-        $$this->validate($request, array(
+        $this->validate($request, array(
             'idLeader' => 'required'
         ));
         $idLeader = $request->input('idLeader');
@@ -217,20 +230,43 @@ class PMController extends Controller
     {
         $leader = Leader::find($idLead);
 
-        if (sizeof($request->input('search'))) {
-            $search = $request->input('search');
-            $manaStus = Student::join('users', 'students.user_id', '=', 'users.id')
-                ->where([['users.name', 'like', '%' . $search . '%'],
-                    ['students.tenNVPhuTrach', '=', $leader->user->name]])
-                ->sortable()->paginate(10);
-            $isSearch = true;
+        $semesters = Semester::all();
+        if (sizeof($request->input('semester'))) {
+            $idSemester = $request->input('semester');
         } else {
-            $manaStus = Student::where('students.tenNVPhuTrach', '=', $leader->user->name)
-                ->sortable()->paginate(10);
-            $isSearch = false;
+            $idSemester = 1;
+            foreach ($semesters as $hocky) {
+                if ((date('Y-m-d') < $hocky->thoi_gian_sv_ket_thuc_thuc_tap) && (date('Y-m-d') > $hocky->thoi_gian_dn_bat_dau_dk)) {
+                    $idSemester = $hocky->id;
+                    break;
+                }
+            }
         }
 
-        return view('pm.pm_nv_svhd', ['isSearch' => $isSearch, 'tab' => 22, 'leader' => $leader, 'manaStus' => $manaStus]);
+        if (sizeof($request->input('search'))) {
+            $search = $request->input('search');
+            $manaStus = Student::join('interships', 'students.id', '=', 'interships.student_is')
+                ->join('users', 'students.user_id', '=', 'users.id')
+                ->where([['users.name', 'like', '%' . $search . '%']
+                        ,['students.tenNVPhuTrach', '=', $leader->user->name]
+                        ,['interships.semester_id', '=', $idSemester]])
+
+                ->select('students.*')
+                ->sortable()->paginate(10);
+            $isSearch = true;
+            return view('pm.pm_nv_svhd', ['search' => $search, 'isSearch' => $isSearch, 'tab' => 22, 'leader' => $leader, 'manaStus' => $manaStus]);
+
+        } else {
+            $manaStus = Student::join('interships', 'students.id', '=', 'interships.student_is')
+                ->where([['students.tenNVPhuTrach', '=', $leader->user->name]
+                        ,['interships.semester_id', '=', $idSemester]])
+                ->select('students.*')
+                ->sortable()->paginate(10);
+            $isSearch = false;
+            return view('pm.pm_nv_svhd', ['isSearch' => $isSearch, 'tab' => 22, 'leader' => $leader, 'manaStus' => $manaStus]);
+
+        }
+
     }
 
     public function getPhanCong(Request $request)
@@ -274,8 +310,9 @@ class PMController extends Controller
                     ->select('students.*')
                     ->sortable()->paginate($pagiNum);
             }
-
             $isSearch = true;
+            return view('pm.pm_index_phanCong', ['search' => $search, 'selectedPag' => $pagiNum, 'isSearch' => $isSearch, 'leaders' => $leaders, 'students' => $students, 'tab' => 3]);
+
         } else {
             $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
                 ->where([['interships.company_id', '=', $company_id]
@@ -283,8 +320,9 @@ class PMController extends Controller
                 ->select('students.*')
                 ->sortable()->paginate($pagiNum);
             $isSearch = false;
+            return view('pm.pm_index_phanCong', ['selectedPag' => $pagiNum, 'isSearch' => $isSearch, 'leaders' => $leaders, 'students' => $students, 'tab' => 3]);
+
         }
-        return view('pm.pm_index_phanCong', ['selectedPag' => $pagiNum, 'isSearch' => $isSearch, 'leaders' => $leaders, 'students' => $students, 'tab' => 3]);
     }
 
     public function postPhanCong(Request $request)
@@ -304,8 +342,12 @@ class PMController extends Controller
 //        $pmID = 220;
         $admins = User::where('level', 4)->first();
         $revNotices = Notice::where([['ma_nguoi_nhan', '=', 4]
-                                , ['user_id', '=', $admins->id]])->paginate(10);
-        $sendNotices = Notice::where('user_id', Auth::user()->id)->paginate(10);
+                                , ['user_id', '=', $admins->id]])
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+        $sendNotices = Notice::where('user_id', Auth::user()->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
         return view('layouts.thongBao', ['tab' => 4,'sendNotices' => $sendNotices,'revNotices' => $revNotices,'userType' => 'pm']);
     }
 
@@ -316,8 +358,7 @@ class PMController extends Controller
 
     public function getGuiTB(Request $request)
     {
-        $receUsers = ['Tất cả sinh viên', 'Tất cả leader'];
-        return view('layouts.guiThongBao', ['tab' => 5, 'receUsers' => $receUsers, 'userType' => 'pm']);
+        return view('layouts.guiThongBao', ['tab' => 5, 'userType' => 'pm']);
     }
 
     public function postGuiTB(Request $request)

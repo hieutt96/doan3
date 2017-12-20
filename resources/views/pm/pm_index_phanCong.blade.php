@@ -20,8 +20,12 @@
                     {{ csrf_field() }}
                     <div class="input-group">
                         <input type="text" class="form-control" name="search"
-                               placeholder="Tìm sinh viên theo tên hoặc MSSV">
-                        <span class="input-group-btn">
+                               @if($isSearch)
+                               placeholder="{!! $search !!}"
+                               @else
+                               placeholder="Tìm sinh viên theo tên hoặc MSSV"
+                                @endif
+                        ><span class="input-group-btn">
                             <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-search"></span>
                             </button>
@@ -72,10 +76,8 @@
                         <tr>
                             <th scope="row">{{$i + 1}}</th>
                             <td>
-                                <div class="checkbox-inline">
-                                    <input name="rowsCheck[]" class="stuCheck" type="checkbox"
-                                           value="{{$students[$i]->id}}">
-                                </div>
+                                <input name="rowsCheck[]" class="stuCheck" type="checkbox"
+                                       value="{{$students[$i]->id}}">
                             </td>
                             <td>{{$students[$i]->mssv}}</td>
                             <td>{{$students[$i]->user->name}}</td>

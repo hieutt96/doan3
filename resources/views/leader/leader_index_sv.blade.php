@@ -9,7 +9,12 @@
                     {{ csrf_field() }}
                     <div class="input-group">
                         <input type="text" class="form-control" name="search"
-                               placeholder="Tìm sinh viên theo tên hoặc MSSV"> <span class="input-group-btn">
+                               @if($isSearch)
+                               placeholder="{!! $search !!}"
+                               @else
+                               placeholder="Tìm sinh viên theo tên hoặc MSSV"
+                                @endif
+                        ><span class="input-group-btn">
                     <button type="submit" class="btn btn-default">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
@@ -53,7 +58,7 @@
                             <div class="glyphicon glyphicon-triangle-bottom"></div>
                         @endif
                     </th>
-                    <th scope="col">@sortablelink('khoa', 'Khóa')
+                    <th scope="col">@sortablelink('grade', 'Khóa')
                         <div class="glyphicon glyphicon-triangle-bottom"></div>
                     </th>
                     <th scope="col">@sortablelink('ctdt', 'CTDT')

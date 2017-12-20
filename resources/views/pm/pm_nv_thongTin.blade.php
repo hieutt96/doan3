@@ -3,38 +3,6 @@
 @section('content')
     <div class="panel-body">
     @include('pm.pm_tabs', ['idLead' => $leader->id, 'tab' => 21])
-        {{--<div class="row" style="padding-top: 10px">--}}
-            {{--<div class="col-md-6">--}}
-                {{--<div class="row">--}}
-                    {{--<div class="col-md-5">--}}
-                        {{--<div class="media-left">--}}
-                            {{--<a href="#">--}}
-                                {{--<img class="img-thumbnail" height="300"--}}
-                                     {{--src="https://scontent.fhan2-3.fna.fbcdn.net/v/t1.0-9/21150313_1983255908612615_7984369144769509920_n.jpg?oh=e7d602814b22e5004923d1083533c9a5&oe=5A7B87B1">--}}
-                                     {{--src="{{$leader->user->picture}}">--}}
-                            {{--</a>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-md-7">--}}
-                        {{--<ul class="list-group">--}}
-                            {{--<li class="list-group-item">Phòng ban: <b>{{$leader->phong_ban}}</b></li>--}}
-                            {{--<li class="list-group-item">Chức vụ: <b>{{$leader->chuc_vu}}</b></li>--}}
-                            {{--<li class="list-group-item">Lĩnh vực làm việc: <b>{{$leader->chuyenmon}}</b></li>--}}
-                            {{--<li class="list-group-item">Họ tên: <b>{{$leader->user->name}}</b></li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="row" style="padding-right: 15px">--}}
-                    {{--<ul class="list-group">--}}
-                        {{--<li class="list-group-item">Sô điện thoại: <b>{{$leader->phone}}</b></li>--}}
-                        {{--<li class="list-group-item">Tài khoản: <b>{{$leader->user->email}}</b></li>--}}
-
-                    {{--</ul>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="col-md-6">--}}
-            {{--</div>--}}
-        {{--</div>--}}
         <div class="row" style="margin-top: 10px">
             <div class="col-lg-4">
                 <div class="form-group profile-image">
