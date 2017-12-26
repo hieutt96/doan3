@@ -34,12 +34,12 @@ class LoginController extends Controller
     			return redirect('/admin-dashboard');
     		}elseif(Auth::user()->level ==5){//GV hướng dẫn
 
-       //          if(Auth::user()->name ==''){
-       //              return redirect('/lecturer/cap-nhap-thong-tin')->with('loinhac',' Cập Nhập Thông Tin Trước Khi Tiếp Tục');
-       //          }
-    			// return redirect('/lecturer/manage_student');
+                if(Auth::user()->name ==''){
+                    return redirect('/lecturer/cap-nhap-thong-tin')->with('loinhac',' Cập Nhập Thông Tin Trước Khi Tiếp Tục');
+                }
+    			return redirect('/lecturer/manage_student');
 
-    			return redirect('/gvhd/sv');
+    			// return redirect('/gvhd/sv');
 
     		}else{
     			return redirect('/');//Guest

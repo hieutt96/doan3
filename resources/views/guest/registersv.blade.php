@@ -44,7 +44,7 @@
 						</div>
 						<div class="form-group {{$errors->has('mssv') ?'has-error':''}}">
 							<label class="control-label"> Mã Số Sinh Viên :</label>
-							<input type="" name="mssv" value="{{old('mssv')}}" required class="form-control" placeholder="...">
+							<input type="int" name="mssv" value="{{old('mssv')}}" required class="form-control" placeholder="...">
 							@if($errors ->has('mssv'))
 								<span class="help-block">
 									<strong>{{$errors->first('mssv')}}</strong>

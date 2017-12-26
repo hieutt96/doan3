@@ -1,6 +1,5 @@
 @extends('layouts.lecturer')
 @section('content_right')
-	<input type="hidden" name="semester_current" value="{{$hocky_current->id}}">
 	<div class="row">
 		@if($capnhapthongtin = Session::get('cap_nhap_thong_tin'))
 			<div class="alert alert-success alert-dismissable">
@@ -9,11 +8,21 @@
 	        </div>
 		@endif
 	</div><hr style="border-width: 0px;">
+	<form action="/lecturer/manage_student" method="GET" id="myform" >
+		{{csrf_field()}}
+		    <div class="input-group col-lg-offset-4 col-lg-8">
+		      <input type="text" class="form-control" placeholder="Tìm Kiếm Sinh Viên" name="search" @if(sizeof($search)) value="{{$search}}" @endif>
+		      <div class="input-group-btn">
+		        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+		      </div>
+		    </div>
+	</form>
 	<div class="row">
 		<div class="col-lg-offset-10 col-lg-2">
-			<select class="form-control" id="hocky">
-				@foreach($hockys as $hocky)
-					<option value="{{$hocky->id}}"><a href="/lecturer/find-student-semester/{{$hocky->id}}">{{$hocky->ten_hoc_ki}}</a></option>
+			<select class="form-control" name="semester"
+			form="myform" onchange="$('#myform').submit();">
+				@foreach($semesters as $semesters)
+					<option value="{{$semesters->id}}" @if($semester->id == $semesters->id)) selected @endif>{{$semesters->ten_hoc_ki}}</option>
 				@endforeach
 			</select>
 		</div>
@@ -38,15 +47,15 @@
 				<tbody>
 					@foreach($students as $student)
 						<tr>
-							<td>{{$student->mssv}}</td>
-							<td>{{$student->ten}}</td>
-							<td>{{$student->lop}}</td>
-							<td>{{$student->grade}}</td>
-							<td>{{$student->congty}}</td>
-							<td class="diem">{{$student->diem}}</td>
-							<td class="nhan_xet_nha_truong">{{$student->nhan_xet_nha_truong}}</td>
-							<td>{{$student->nhan_xet_cong_ty}}</td>
-							<td>{{$student->danh_gia_cua_cong_ty}}</td>
+							<td>{{$student->student->mssv}}</td>
+							<td>{{$student->student->user->name}}</td>
+							<td>{{$student->student->lop}}</td>
+							<td>{{$student->student->grade}}</td>
+							<td>{{$student->company->name}}</td>
+							<td class="diem">{{$student->result->diem}}</td>
+							<td class="nhan_xet_nha_truong">{{$student->result->nhan_xet_nha_truong}}</td>
+							<td>{{$student->result->nhan_xet_cong_ty}}</td>
+							<td>{{$student->result->danh_gia_cua_cong_ty}}</td>
 							<td><button class="edit" value="{{$student->result_id}}">Edit</button></td>
 						</tr>
 					@endforeach
@@ -97,9 +106,5 @@
 @endsection
 @section('script')
 	<script type="text/javascript" src="{{asset('/js/lecturer/manage_student.js')}}">
-	</script>
-	<script type="text/javascript">
-		var semester_current = $("input[name='semester_current']").val();
-		$("#hocky").val(semester_current);
 	</script>
 @endsection

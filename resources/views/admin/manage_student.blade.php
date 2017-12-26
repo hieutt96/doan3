@@ -37,6 +37,7 @@
 				<th>Lớp</th>
 				<th>Khóa</th>
 				<th>Công Ty Thực Tập</th>
+				<th>Giảng viên hướng dẫn</th>
 				<th>Điểm</th>
 				<th>NX Nhà Trường</th>
 				<th>NX Của Công Ty</th>
@@ -44,14 +45,15 @@
 			<tbody>
 				@foreach($students as $student)
 					<tr>
-						<td>{{$student->mssv}}</td>
-						<td>{{$student->name}}</td>
-						<td>{{$student->lop}}</td>
-						<td>{{$student->grade}}</td>
-						<td>{{$student->congty}}</td>
-						<td>{{$student->diem}}</td>
-						<td>{{$student->nhan_xet_nha_truong}}</td>
-						<td>{{$student->danh_gia_cua_cong_ty}}</td>
+						<td>{{$student->student->mssv}}</td>
+						<td>{{$student->student->user->name}}</td>
+						<td>{{$student->student->lop}}</td>
+						<td>{{$student->student->grade}}</td>
+						<td>{{$student->company->name}}</td>
+						<td>{{$student->lecturer->user->name}}</td>
+						<td>{{$student->result->diem}}</td>
+						<td>{{$student->result->nhan_xet_nha_truong}}</td>
+						<td>{{$student->result->danh_gia_cua_cong_ty}}</td>
 					</tr>
 				@endforeach
 			</tbody>

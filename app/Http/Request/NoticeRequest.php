@@ -19,6 +19,8 @@ class NoticeRequest extends FormRequest
 	}
 	public function messages(){
 		return [
+			'tieuDe'=>'Bạn Chưa Nhập Tiêu Đề',
+			'noidung'=>'Bạn Chưa Nhập Nội Dung Thông Báo'
 		];
 	}
 

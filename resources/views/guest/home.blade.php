@@ -75,20 +75,16 @@
         <div class="row">
             <b style="font-size: 22px;"><span class="glyphicon glyphicon-globe"></span> Thông báo mới</b>
         </div>
-		@foreach($notice_home as $noti)
-			@if($noti->user->level==4 && $noti->ma_nguoi_nhan==0)
+		@foreach($notices as $notice)			
         	    <div style="border-bottom:1px solid #cccccc; padding-bottom:5px;" class="row-item row">
-
-                	<div class="border-right">
-                		
+                	<div class="border-right">               		
                         <div class="col-md-12">
-                            <h3>{{$noti->tieu_de}}</h3>
-                            <p><i style="color:#aaaaaa">Đăng bởi:{{$noti->user->name}} | Ngày đăng: {{$noti->created_at->format('d/m/Y')}} </i></p>
-                            <a class="btn btn-primary" href="thong-bao/{{$noti->id}}">Chi tiết <span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <h3>{{$notice->tieu_de}}</h3>
+                            <p><i style="color:#aaaaaa">Đăng bởi:{{$notice->user->name}} | Ngày đăng: {{$notice->created_at->format('d/m/Y')}} </i></p>
+                            <a class="btn btn-primary" href="thong-bao/{{$notice->id}}">Chi tiết <span class="glyphicon glyphicon-chevron-right"></span></a>
         				</div>
                 	</div>       			
                 </div>
-			@endif
 		@endforeach
         </div>
     </div>

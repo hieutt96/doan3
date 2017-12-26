@@ -23,6 +23,8 @@
     <div class="row">
         <table class="table table-striped">
             <thead>
+                <?php $i=1; ?>
+                <th>STT</th>
                 <th>Tên Công Ty</th>
                 <th>Địa Chỉ</th>
                 <th>Số Điện Thoại</th>
@@ -33,6 +35,7 @@
             <tbody>
                 @foreach($company_accepts as $company_accept)
                     <tr>
+                        <td><?php echo $i; $i++;?></td>
                         <td>{{$company_accept->name}}</td>
                         <td>{{$company_accept->diaChi}}</td>
                         <td>{{$company_accept->phone}}</td>

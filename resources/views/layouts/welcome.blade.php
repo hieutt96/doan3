@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
     <base href="{!!asset('')!!}">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,‌​100italic,300,300ita‌​lic,400italic,500,50‌​0italic,700,700itali‌​c,900italic,900'
           rel='stylesheet' type='text/css'>
@@ -115,44 +115,12 @@
                             </button>
 
                         </div>
-
-                        @else
-<!--                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                 <span style="margin-right:5px;" class="glyphicon glyphicon-user"></span>{{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a tabindex="-1" href="{{ url('student/change-password') }}">Đổi mật khẩu</a><li/>
-                                @if(Auth::user()->level==1)
-                                    <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a><li/>
-                                    <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a><li/>
-                                @endif
-                                <li class="divider"></li>
-                                <li>
-                                    @if(Auth::User()->level == 2)
-                                        <a href="">Truy Cập Trang Quản Lí</a>
-                                    @endif
-                                    @if(Auth::User()->level == 3)
-                                        <a href="">Truy Cập Trang Quản Lí</a>
-                                    @endif
-                                    @if(Auth::User()->level == 4)
-                                        <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
-                                    @endif
-                                    @if(Auth::User()->level == 5)
-                                        <a href="/">Truy Cập Trang Quản Lí</a>
-                                    @endif
-                                    <a href="{{ route('dang-xuat') }}"
-                                        onclick="event.preventDefault();">Đăng xuất</a>
-
-                    </div>
-                </div> -->
             @else
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-expanded="false">
-                                    <span style="margin-right:5px;"
-                                          class="glyphicon glyphicon-user"></span>{{ Auth::user()->name }} <span
-                                class="caret"></span>
+                        <span style="margin-right:5px;" class="glyphicon glyphicon-user"></span>{{ Auth::user()->name }} 
+                        <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a tabindex="-1" href="{{ url('student/change-password') }}">Đổi mật khẩu</a>
@@ -176,10 +144,11 @@
                                 <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
                             @endif
                             @if(Auth::User()->level == 5)
-                                <a href="/">Truy Cập Trang Quản Lí</a>
+                                <a href="/lecturer/manage_student">Truy Cập Trang Quản Lí</a>
                             @endif
                             <a href="{{ route('dang-xuat') }}"
-                               onclick="event.preventDefault();                                  document.getElementById('logout-form').submit();">
+                               onclick="event.preventDefault();        
+                                document.getElementById('logout-form').submit();">
                                 Đăng xuất
                             </a>
                             <form id="logout-form" action="{{ route('dang-xuat') }}" method="GET"
@@ -199,8 +168,8 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="{{url('/')}}">Trang Chủ </a></li>
                     <li><a href="{{ url('hop-tac-doanh-nghiep') }}">Hợp tác doanh nghiệp</a></li>
-                    @if(Auth::user())
-                        <li><a href="{{ url('student/cong-viec-thuc-tap')}}">Công việc thực tập </a></li>
+                    @if(Auth::check() && Auth::user()->level==1)
+                        <li><a href="student/cong-viec-thuc-tap">Công việc thực tập </a></li>
                         <li><a href="{{ url('student/thong-bao-phia-nha-truong') }}">Thông báo</a></li>
                     @endif
                     @if(Auth::guest())
@@ -217,18 +186,10 @@
         <div>
             <div class="row" style="background: #263c65; color:white;">
                 <div class="col-lg-6 col-lg-offset-3" style="text-align: center;">
-<<<<<<< HEAD
-                    <p >Bản quyền <span class="glyphicon glyphicon-copyright-mark"></span> thuộc về viện Công nghệ thông
-                        tin
-                        và truyền thông</p><br>
-                    <p>Trường Đại Học Bách Khoa Hà Nội</p><br>
-                    <p style="font-style: : oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
-=======
                     <p style="padding-top: 20px">Bản quyền <span class="glyphicon glyphicon-copyright-mark">
                         </span> thuộc về viện Công nghệ thông tin và truyền thông</p>
                     <p>Trường Đại Học Bách Khoa Hà Nội</p>
                     <p style="font-style: oblique">Nhóm 17 - Xây Dựng Hệ Thống Thông Tin Quản Lý</p>
->>>>>>> cab4799046693bb4791fc5415727ff78d4ae10c1
                 </div>
             </div>
         </div>

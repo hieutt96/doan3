@@ -9,9 +9,9 @@ class trangChuController extends Controller
 {
     function __construct(){
 
-        $notice_home =Notice::orderBy('created_at', 'desc')->get();
+        $notices =Notice::where('ma_nguoi_nhan',0)->orderBy('created_at', 'desc')->get();
 
-        view()->share('notice_home',$notice_home);
+        view()->share('notices',$notices);
 
         $doanhnghiep = Company::orderByRaw('RAND()')->take(3)->get();
 

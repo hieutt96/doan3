@@ -5,46 +5,59 @@ namespace App\Http\Controllers\Lecturer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Student;
 use App\Semester;
 use App\Lecturer;
 use App\User;
 use App\Notice;
 use App\Result;
+use App\Intership;
 use Illuminate\Support\Facades\View;
 use Auth;
 class LecturerController extends Controller
 {
-	protected $hockys;
-	protected $hocky_current;
+	protected $semesters;
+	protected $semester_current;
 	public function __construct(){
-		$hockys = Semester::select('id','ten_hoc_ki')->distinct()->get();
-		$this->hockys = $hockys;
+		$semesters = Semester::select('id','ten_hoc_ki')->distinct()->get();
+		$this->semesters = $semesters;
 		$allhocky = Semester::all();
 		foreach($allhocky as $hocky){
 			if((date('Y-m-d') < $hocky->thoi_gian_sv_ket_thuc_thuc_tap) &&(date('Y-m-d')>$hocky->thoi_gian_dn_bat_dau_dk) ){
-                $hocky_current = $hocky;
-				$this->hocky_current = $hocky;
+                $semester_current = $hocky;
+				$this->semester_current = $semester_current;
 			}
 		}
-		View::share('hockys',$hockys);
-        View::share('hocky_current',$hocky_current);
+		View::share('semesters',$semesters);
+        View::share('semester_current',$semester_current);
 	}
-    public function manageStudent(){
-    	$hocky_current = $this->hocky_current;
-        // dd($hocky_current);
-    	$students = DB::table('interships')
-    	->join('students','students.id','=','interships.student_id')
-    	->join('companies','companies.id','=','interships.company_id')
-    	->join('results','results.id','=','interships.result_id')
-    	->join('users','users.id','=','students.user_id')
-        ->join('lecturers','interships.lecturer_id','=','lecturers.id')
-    	->select('students.mssv as mssv','users.name as ten','students.lop','students.grade','companies.name as congty','results.diem as diem','results.nhan_xet_cong_ty','results.danh_gia_cua_cong_ty','results.id as result_id','results.nhan_xet_nha_truong')
-    	->where('interships.status',1)
-        ->where('lecturers.user_id',Auth::user()->id)
-        ->where('interships.semester_id',$hocky_current->id)
-    	->paginate(20);
-        // dd($students);
-    	return view('lecturer.manage_student',compact(['students']));
+    public function manageStudent(Request $request){
+        if(sizeof($request->semester)){
+            $semester = Semester::find($request->semester);
+            
+        }else{
+            $semester = $this->semester_current;
+        }
+        $lecturer = Lecturer::where('user_id',Auth::user()->id)->first();
+        // dd($lecturer);
+        if(sizeof($request->search)){
+            $search = $request->search;
+            $students = Intership::join('students','interships.student_id','=','students.id')
+            ->join('users','users.id','=','students.user_id')
+            ->join('companies','interships.company_id','=','companies.id')
+            ->join('results','results.id','=','interships.result_id')
+            ->where('students.mssv','like','%'.$search.'%')
+            ->orwhere('users.name','like','%'.$search.'%')
+            ->where('lecturer_id',$lecturer->id)
+            ->where('semester_id',$semester->id)
+            ->paginate(20);
+        }else{
+            $search = false;
+            $students = Intership::where('lecturer_id',$lecturer->id)
+            ->where('semester_id',$semester->id)
+            ->paginate(20);
+        }
+    	return view('lecturer.manage_student',compact('students','search','semester'));
     }
 
     public function updateInfo(){
@@ -61,22 +74,6 @@ class LecturerController extends Controller
         $lecturer->about = $request->about;
         $lecturer->save();
         return redirect('/lecturer/manage_student')->with('cap_nhap_thong_tin','Cập Nhập Thông Tin Thành Công');
-    }
-
-    public function findStudentSemester(Request $request){
-        $hocky_id = $request->hocky_id;
-        $students = DB::table('interships')
-        ->join('students','students.id','=','interships.student_id')
-        ->join('companies','companies.id','=','interships.company_id')
-        ->join('results','results.id','=','interships.result_id')
-        ->join('users','users.id','=','students.user_id')
-        ->join('lecturers','interships.lecturer_id','=','lecturers.id')
-        ->select('students.mssv as mssv','users.name as ten','students.lop','students.grade','companies.name as congty','results.diem as diem','results.nhan_xet_cong_ty','results.danh_gia_cua_cong_ty','results.id as result_id','results.nhan_xet_nha_truong')
-        ->where('interships.status',1)
-        ->where('lecturers.user_id',Auth::user()->id)
-        ->where('interships.semester_id',$hocky_id)
-        ->get();
-        return $students;
     }
 
     public function getResultStudent(Request $request){

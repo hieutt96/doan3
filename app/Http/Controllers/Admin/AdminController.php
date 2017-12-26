@@ -12,7 +12,7 @@ use App\Leader;
 use App\Semester;
 use App\Lecturer;
 use App\Notice;
-use Illuminate\Validation\Validator;
+use Validator;
 use App\Intership;
 use App\Result;
 use App\Http\Controllers\Admin\MailController;
@@ -51,7 +51,7 @@ class AdminController extends Controller
 		$semester = Semester::find($semester_id);
 		// dd($semester->ten_hoc_ki);
 		if(sizeof($request->search)){
-			$search = $request->search;
+			$search = trim($request->search);
 			$company_accepts = Company::where('status',1)
 			->where('hocky',$semester->ten_hoc_ki)
 			->where('name','like','%'.$search.'%')
@@ -76,7 +76,7 @@ class AdminController extends Controller
 		$semester = Semester::find($semester_id);
 		// dd($semester->ten_hoc_ki);
 		if(sizeof($request->search)){
-			$search = $request->search;
+			$search = trim($request->search);
 			$company_requests = Company::where('status',0)
 			->where('hocky',$semester->ten_hoc_ki)
 			->where('name','like','%'.$search.'%')
@@ -100,31 +100,23 @@ class AdminController extends Controller
 			$semester_id = $this->semester_current->id;
 		}
 		if(sizeof($request->search)){
-			$search = $request->search;
-			$students = DB::table('interships')
-			->join('students','interships.student_id','=','students.id')
-			->join('companies','interships.company_id','=','companies.id')
-			->join('users','users.id','=','students.user_id')
+			$search = ($request->search);
+			$students = Intership::join('students','interships.student_id','=','students.id')
+			->join('users','students.user_id','=','users.id')
+			->join('companies','companies.id','=','interships.company_id')
+			->join('lecturers','interships.lecturer_id','=','lecturers.id')
 			->join('results','interships.result_id','=','results.id')
-			->select('students.mssv','students.lop','students.grade','companies.name as congty','users.name','results.diem','results.danh_gia_cua_cong_ty','results.nhan_xet_nha_truong')
 			->where('interships.status',1)
+			->where('users.name','like','%'.$search.'%')
+			->orwhere('students.mssv','like','%'.$search.'%')
 			->where('interships.semester_id',$semester_id)
-			->where('students.mssv','like','%'.$search.'%')
 			->paginate(15);
-			// dd($students);
 		}else{
 			$search = false;
-			$students = DB::table('interships')
-			->join('students','interships.student_id','=','students.id')
-			->join('companies','interships.company_id','=','companies.id')
-			->join('users','users.id','=','students.user_id')
-			->join('results','interships.result_id','=','results.id')
-			->select('students.mssv','students.lop','students.grade','companies.name as congty','users.name','results.diem','results.danh_gia_cua_cong_ty','results.nhan_xet_nha_truong')
-			->where('interships.status',1)
+			$students = Intership::where('interships.status',1)
 			->where('interships.semester_id',$semester_id)
 			->paginate(15);
 		}
-		// dd($students);
 		return view('admin.manage_student',compact('semester_id','students','search'));
 	}
 
@@ -367,18 +359,7 @@ class AdminController extends Controller
 		$notice->save();
 		$hocky = new Semester();
 		$semester_current= $hocky->getSemesterCurrent();
-		return redirect()->route('thong-bao',['semester_current'=>$semester_current])->with('success','Bạn Đã Gửi Thông Báo Thành Công');
-
-	public function postThongBao(NoticeRequest $request)
-	{
-		$notice = new Notice;
-		$notice->user_id = Auth::user()->id;
-		$notice->tieu_de = $request->input('tieuDe');
-		$notice->noi_dung = $request->noidung;
-		$notice->ma_nguoi_nhan = $request->manguoinhan;
-		$notice->save();
-
-		return back();
+		return redirect()->route('thong-bao')->with('success','Bạn Đã Gửi Thông Báo Thành Công');
 	}
 
 	public function editSemester($id){
@@ -397,61 +378,5 @@ class AdminController extends Controller
 		$hocky->thoi_gian_sv_ket_thuc_thuc_tap = $request->thoi_gian_sv_ket_thuc_thuc_tap;
 		$hocky->save();
 		return redirect()->route('tao-lich-dang-ky-hoc-ky');
-	}
-
-
-
-	// public function filter_company_hocky($hocky){
-	// 	$companys_request = Company::where('hocky',$hocky)->where('status',0)->get();
-	// 	$companys_accept = Company::where('hocky',$hocky)->where('status',1)->get();
-	// 	return [$companys_request,$companys_accept];
-	// }
-
-
-
-
-
-
-	// public function findStudentSemester(Request $request){
-
-	// 	$data = $request->all();
-
-	// 	$listsv1 = DB::table('interships')
-	// 		->join('companies','interships.company_id','=','companies.id')
-	// 		->join('students','interships.student_id','=','students.id')
-	// 		->join('semesters','interships.semester_id','=','semesters.id')
-	// 		->join('users','students.user_id','=','users.id')
-	// 		->join('results','interships.result_id','=','results.id')
-	// 		->select('students.MSSV','users.name as ten','students.lop','students.grade','companies.name','results.diem')
-	// 		->where('interships.semester_id','=',$data)
-	// 		->where('interships.status',1)
-	// 		->get();
-
-	// 	$listsv2 =  DB::table('interships')
-	// 		->join('companies','interships.company_id','=','companies.id')
-	// 		->join('semesters','interships.semester_id','=','semesters.id')
-	// 		->join('students','interships.student_id','=','students.id')
-	// 		->join('users','students.user_id','=','users.id')
-	// 		->select(DB::raw('group_concat(distinct companies.name separator ",") as tencongty'),'users.name as ten','students.MSSV as mssv','students.lop','students.grade',DB::raw('SUM(interships.status) as sum'))
-	// 		->where('interships.semester_id',$data)
-	// 		->where('interships.status',0)
-	// 		->orwhere('interships.status',5)
-	// 		->groupBy('interships.student_id')
-	// 		->get();
-	// 	return [$listsv1,$listsv2];
-	// }
-	
-	// public function listLecturer(Request $request){
-	// 	$hocky = $request->hocky;
-	// 	$listLecturer = DB::table('lecturers')->join('users','lecturers.user_id','=','users.id')
-	// 	->join('interships','lecturers.id','=','interships.lecturer_id')
-	// 	->join('companies','companies.id','=','interships.company_id')
-	// 	->where('lecturers.hocky','=',$hocky)
-	// 	->where('users.status','=',1)
-	// 	->groupBy('interships.lecturer_id')
-	// 	->select('lecturers.phone','users.name','users.email',DB::raw('group_concat(distinct companies.name separator ",") as tencongty'))
-	// 	->distinct()
-	// 	->get();
-	// 	return $listLecturer;
-	// }	
+	}	
 }

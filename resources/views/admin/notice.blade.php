@@ -11,23 +11,21 @@
 	<form method="POST" action="{{route('thong-bao.post')}}" style="margin-bottom: 20px;">
 		{{csrf_field()}}
 		<div class="row">
-			<div class="col-lg-2">
-				<label class="col-lg-offset-1">Tiêu Đề  :</label>
-			</div>
-			<div class="col-lg-6">
-				<textarea class="form-control" name="tieu_de" required></textarea>
-			</div>
-		</div><hr style="border-width: 0px;">
-		<div class="row">
 			<div class="col-lg-8">
-				<div class="form-group">
-					<label for="tieuDe">Tiêu Đề: </label>
-					<input class="form-control" id="tieuDe" name="tieuDe" required>
-				</div>
-				<div class="form-group">
-					<label for="noidung">Nội dung :</label>
-					<div  class="">
-						<textarea rows="5" class="form-control" id="noidung" name="noi_dung" required
+				<div class="row">
+					<div class="row col-lg-3">
+						<label class="col-lg-offset-1">Tiêu Đề :</label>
+					</div>
+					<div class="row col-lg-9">
+						<textarea class="form-control" name="tieu_de" required rows="3"></textarea>
+					</div>
+				</div><hr style="border-width: 0px;">
+				<div class="row">
+					<div class="col-lg-2">
+						<label for="noidung">Nội dung :</label>
+					</div>
+					<div  class="col-lg-10">
+						<textarea rows="8" class="form-control" id="noidung" name="noi_dung" required
 						></textarea>
 						<script type="text/javascript">CKEDITOR.replace('noidung');</script>
 					</div>
@@ -44,7 +42,8 @@
 					<option value="{{$semester_current->ten_hoc_ki}}">Gửi thông báo phân công cho học kì {{$semester_current->ten_hoc_ki}}</option>
 				</select>
 			</div>
-		</div><br>
+		</div>
+		<hr style="border-width: 0px;">
 		<div class="row">
 			<button class="btn btn-info col-lg-offset-2 col-lg-8">Submit</button>
 		</div>

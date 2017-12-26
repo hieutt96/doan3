@@ -25,10 +25,13 @@ class RegisterDNRequest extends FormRequest
 		return  [
 			'tenconty.min' => 'Có vẻ như tên công ty chưa đúng',
 			'diachi.min' => 'Có vẻ như địa chỉ của bạn chưa đúng',
-			'email.emailnv' =>'Email không hợp lệ',
-			'emaildn.email'=>'Email không hợp lệ',
+			'hotennvpt.min'=>'Có vẻ như họ tên nhân viên phụ trách thực tập chưa đúng.',
+			'sodienthoai.min'=>'Số Điện Thoại Chưa Đúng.',
+			'email.emailnv' =>'Email nhân viên phụ trách thực tập không hợp lệ',
+			'emaildn.email'=>'Email đăng ký không hợp lệ',
 			'password.min' => 'Password quá ngắn',
-			'password.same' => 'Password nhập lại chưa khớp nhau'
+			'password.same' => 'Password nhập lại chưa khớp nhau',
+			'image.mimes'=>'Ảnh Đại Diện Chưa Đúng Địng Dạng'
 		];
 	}
 	public function authorize(){

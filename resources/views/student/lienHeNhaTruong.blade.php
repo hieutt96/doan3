@@ -4,9 +4,8 @@
         width: 60%;
        }
     </style>
-@extends('student.index_student') 
-@section('content')
- <!-- Page Content -->
+@extends('layouts.welcome') 
+@section('welcome')
     <div class="container">
             <div class="col-md-12">
 	            <div class="panel panel-default">            
@@ -120,5 +119,4 @@
             </div>
             </div>
         </div>
-        <!-- /.row -->
 @endsection
