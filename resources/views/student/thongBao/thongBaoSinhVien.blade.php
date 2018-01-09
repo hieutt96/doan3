@@ -20,8 +20,8 @@
         height: 34px;
     }
 </style>
-@extends('student.index_student')
-@section('content')
+@extends('layouts.welcome')
+@section('welcome')
     <div class="panel-layout">
         <div class="row">
             <div class="row main-left">
@@ -65,10 +65,7 @@
                 @yield('thongbao')
 
             </div>
-            <!-- /.row -->
         </div>
-
-        <!-- Pagination -->
         <div class="row text-center">
             <div class="col-lg-12">
                 @yield('pagination')

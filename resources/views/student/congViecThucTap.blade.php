@@ -1,5 +1,5 @@
-@extends('student.index_student')
-@section('content')
+@extends('layouts.welcome')
+@section('welcome')
     <style>
         thead {
             background-color: #cccccc;
@@ -11,12 +11,12 @@
     </style>
     <div class="panel-layout">
         <h2 style="text-align:center;">Công việc thực hiện</h2><br>
-        <h3>Thực tập tại công ty <span>
-            @if(sizeof($company) == 0)
-                    -
-                @else
-                    {{$company->name}}
-                @endif
+        <h3>Thực tập tại công ty :<span>
+            @if(isset($intership->company->name))
+                {{$intership->company->name}}
+            @else
+                (Chưa được phân công)
+            @endif
         </span></h3>
         <p>-<b> Nhân viên hướng dẫn:</b>
             @if($student->tenNVPhuTrach == '')

@@ -48,8 +48,11 @@ Route::group(['middleware'=>'admin'],function(){
 
         Route::get('/admin/assignment_student','Admin\AdminController@assignmentStudent');
 
-        Route::get('/admin/phan-cong-sinh-vien-cho-cong-ty','Admin\AdminController@assignment_student');
+        Route::get('/admin/phan-cong-sinh-vien-cho-cong-ty','Admin\AdminController@assignment_student')->middleware('CheckDateAdminAssignmentStudent');
+        Route::get('admin/dieu-chinh-phan-cong-sinh-vien-cho-cong-ty','Admin\AdminController@edit_assignment_student')->middleware('CheckDateAdminAssignmentStudent');
 
+        Route::get('admin/edit_assignment_student','Admin\AdminController@editAssignmentStudent');
+        
         Route::get('admin/accept/companyRequest/{id}','Admin\AdminController@acceptCompanyRequest');
 
         Route::get('admin/delete/CompanyRequest/{id}','Admin\AdminController@deleteCompanyRequest');
@@ -165,9 +168,11 @@ Route::get('/leader/thay-mat-khau', 'Leader\LeaderController@getChangePass');
 
 Route::post('/leader/thay-mk', 'Leader\LeaderController@postChangePass');
 
+Route::get('user/change-password','StudentController@getChangePassword');
+
+Route::post('user/change-password','StudentController@postChangePassword');
+
 Route::group(['prefix'=>'student'],function(){
-    Route::get('change-password','StudentController@getChangePassword');
-    Route::post('change-password','StudentController@postChangePassword');
 
     Route::get('student-info','StudentController@getStudentInfo');
 

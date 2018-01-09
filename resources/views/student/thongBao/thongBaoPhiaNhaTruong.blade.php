@@ -7,11 +7,8 @@
             </div>
 
             <div class="panel-body">
-
-                <!-- item -->
                 @foreach($notice as $noti)
                         <div class="row-item row">
-
                             <div class="border-right">
                                 <div class="col-md-2">
                                     <p>

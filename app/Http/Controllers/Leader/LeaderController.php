@@ -56,14 +56,18 @@ class LeaderController extends Controller
                     , ['students.tenNVPhuTrach', '=', $leader->name]
                     , ['interships.semester_id', '=', $idSemester]])
                 ->select('students.*')
-                ->sortable()->simplePaginate(10);
+                ->sortable()
+                ->distinct('users.name')
+                ->simplePaginate(10);
             if (count($students) == 0) {
                 $students = Student::join('interships', 'students.id', '=', 'interships.student_id')
                     ->where([['students.MSSV', 'like', '%' . $search . '%']
                         , ['students.tenNVPhuTrach', '=', $leader->name]
                         , ['interships.semester_id', '=', $idSemester]])
                     ->select('students.*')
-                    ->sortable()->simplePaginate(10);
+                    ->sortable()
+                    ->distinct()
+                    ->simplePaginate(10);
             }
             $isSearch = true;
             return view('leader.leader_index_sv', ['search' => $search, 'leader' => $leader, 'semesters' => $semesters, 'selectedSem' => $idSemester, 'isSearch' => $isSearch, 'students' => $students, 'tab' => 1]);

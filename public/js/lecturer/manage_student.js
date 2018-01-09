@@ -29,8 +29,6 @@ $(document).on('click','#save',function(){
 	var id = $(this).val();
 	var diem = $("input[name='diem']").val();
 	var nhan_xet_nha_truong = $("textarea[name='nhan_xet_nha_truong']").val();
-	// console.log(diem);
-	// console.log(nhan_xet_nha_truong);
 	if(id){
 		$.ajax({
 			url:"/lecturer/update-result-student",
@@ -45,7 +43,7 @@ $(document).on('click','#save',function(){
 						obj = $(this);
 					}
 				});
-				console.log(obj.val());
+				// console.log(obj.val());
 				obj.parent().siblings(".diem").html(data.diem);
 				obj.parent().siblings(".nhan_xet_nha_truong").html(data.nhan_xet_nha_truong);
 			},

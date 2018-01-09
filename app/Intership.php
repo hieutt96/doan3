@@ -12,7 +12,7 @@ class Intership extends Model
     protected $table = 'interships';
 
     public function company(){
-    	return $this->belongsTo('App\Company');
+    	return $this->belongsTo('App\Company','company_id');
     }
     
     public function lecturer(){

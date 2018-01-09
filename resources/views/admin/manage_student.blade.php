@@ -1,7 +1,12 @@
 @extends('layouts.admin')
 @section('content_right')
 	<div id="error">
-		
+		@if($khongdungthoidiem = Session::get('khongdungthoidiem'))
+	      	<div class="alert alert-danger alert-dismissable">
+		        <a  class="close" data-dismiss="alert" aria-label="close">×</a>
+		        <strong>Error!</strong> {{$khongdungthoidiem}}
+	        </div>
+		@endif
 	</div>
 	<hr style="border-width: 0px;">
 	<form method="get" action="" id="myfilter">

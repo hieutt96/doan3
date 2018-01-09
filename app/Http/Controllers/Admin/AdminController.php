@@ -167,6 +167,38 @@ class AdminController extends Controller
 		return $max_student;
 	}
 
+	public function editAssignmentStudent(Request $request){
+		$array_students = $request->array_student;
+		$congty = $request->congty;
+		$company = Company::find($congty);
+		$semester_current = $this->semester_current;
+
+		$max_student = Company::find($congty)->soLuongSinhVienTT;
+
+		if($max_student>0){
+			$count_student_register = Intership::where('company_id',$congty)
+			->where('status',1)->count();
+			$student_register = sizeof($array_students);
+			$total = $count_student_register+$student_register;
+			if( $total <= $max_student)
+			{
+				foreach($array_students as $student){
+					Intership::where('student_id',$student)->where('status',1)->where('semester_id',$semester_current->id)->update(['company_id'=>$congty]);
+				}
+			return [$array_students,$company];
+			}else{
+				$sinh_vien_co_the_them = $max_student - $count_student_register;
+				return response()->json(['error'=>$sinh_vien_co_the_them]);
+			}
+		}else{
+			foreach($array_students as $student){
+				Intership::where('student_id',$student)->where('status',1)->where('semester_id',$semester_current->id)->update(['company_id'=>$congty]);
+			}
+			return [$array_students,$company];
+		}
+		return $max_student;
+	}
+
 	public function assignment_student(Request $request){
 		$semester_current = $this->semester_current;
 		$listsv1 =  DB::table('interships')
@@ -199,6 +231,14 @@ class AdminController extends Controller
 			->get();
 		$listCompany = Company::where('status',1)->where('hocky',$semester_current->ten_hoc_ki)->get();
 		return view('admin.assignment_student',compact(['listsv1','listsv2','listsv3','listCompany']));
+	}
+
+	public function edit_assignment_student(){
+		$semester_current = $this->semester_current;
+		$students = Intership::where('status',1)->where('semester_id',$semester_current->id)->get();
+		$companys = Company::where('status',1)->where('hocky',$semester_current->ten_hoc_ki)->get();
+		// dd($students);
+		return view('admin.edit_assignment_student',compact('students','companys'));
 	}
 
 	public function acceptCompanyRequest(Request $request){

@@ -83,7 +83,7 @@ class RegisterController extends Controller
             $student->favorite = implode(",", ($request->favorite));
         }
     	$student->cty_da_thuc_tap = $request->cty2;
-    	$student->ten_nv_phu_trach = $request->nv;
+    	$student->tenNVPhuTrach = $request->nv;
     	$student->email = $request->mailnv;
     	$student->save();	
 

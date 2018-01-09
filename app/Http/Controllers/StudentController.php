@@ -16,6 +16,7 @@ use App\Notice;
 use Auth;
 use File;
 use App\Semester;
+use App\Intership;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use View;
@@ -99,27 +100,22 @@ class StudentController extends Controller
         return $comment;
     }
 
-
-
-
+    public function getChangePassword(){
+        return view('user.changepassword');
+    }
 
     public function postChangePassword(ChangePasswordRequest $request)
     {
-        $sinhvien = Auth::user();
-        if (Hash::check($request->input('old_password'), $sinhvien->password)) {
-            $sinhvien->password = bcrypt($request->re_password);
-            $sinhvien->save();
-            return back()->with('thongbao', 'Mật khẩu mới đã được cập nhật thành công');
-        } else {
-            return back()->with('thongbao', 'Nhập chưa đúng mật khẩu cũ');
-        }
+        $user = Auth::user();
+        $user->password = bcrypt($request->re_password);
+        $user->save();
+        return back()->with('thongbao', 'Mật khẩu mới đã được cập nhật thành công');
     }
 
     public function getStudentInfo()
     {
-        $user = Auth::user();
-        $student = $user->student;
-        return view('student.student_Info', ['student' => $student]);
+        $student = Student::where('user_id',Auth::user()->id)->first();
+        return view('student.student_Info',compact('student'));
     }
 
     public function getUpdateStudentInfo()
@@ -177,12 +173,9 @@ class StudentController extends Controller
     public function getCongViecThucTap()
     {
         $student = Student::where('user_id', Auth::user()->id)->first();
-        $company = Company::join('interships', 'companies.id', '=', 'interships.company_id')
-            ->where([['interships.status', '=', '1']
-                , ['interships.student_id', '=', $student->id]])
-            ->first();
+        $intership = Intership::where('student_id',$student->id)->where('status',1)->first();
         $job_assignment = Student_Job_Assignment::where('student_id', '=', $student->id)->get();
-        return view('student.congViecThucTap', ['student' => $student, 'company' => $company, 'job_assignment' => $job_assignment]);
+        return view('student.congViecThucTap', compact('student','intership','job_assignment'));
     }
 
     public function postCongViecThucTap(Request $request)
@@ -194,6 +187,32 @@ class StudentController extends Controller
         $job_assignment->save();
         return back()->with('thongbao', 'Cập nhật công việc thành công !');
     }
+
+    public function getThongBaoPhiaNhaTruong(Request $request)
+    {
+        $notice_admin = DB::table('users')
+            ->join('notices', 'notices.user_id', '=', 'users.id')
+            ->where('users.level', 4)
+            ->where('notices.ma_nguoi_nhan', 0)
+            ->get();
+
+        $notice_gv = DB::table('interships')
+            ->join('lecturers', 'interships.lecturer_id', '=', 'lecturers.user_id')
+            ->join('notices', 'notices.user_id', '=', 'lecturers.user_id')
+            ->join('users', 'users.id', '=', 'notices.user_id')
+            ->where('interships.student_id', Auth::user()->id)
+            ->where('interships.status', 1)
+            ->where('notices.ma_nguoi_nhan', 2)
+            ->get();
+        foreach ($notice_admin as $notile) {
+            $notice_gv->push($notile);
+        }
+        return view('student.thongBao.thongBaoPhiaNhaTruong', ['notice' => $notice_gv]);
+
+    }
+
+
+
 
     public function getThongBaoChung()
     {
@@ -241,29 +260,6 @@ class StudentController extends Controller
     {
         $notice = Notice::find($id);
         return view('student.thongBao.chiTietThongBaoPhiaDoanhNghiep', ['notice' => $notice]);
-    }
-
-    public function getThongBaoPhiaNhaTruong(Request $request)
-    {
-        $notice_admin = DB::table('users')
-            ->join('notices', 'notices.user_id', '=', 'users.id')
-            ->where('users.level', 4)
-            ->where('notices.ma_nguoi_nhan', 0)
-            ->get();
-
-        $notice_gv = DB::table('interships')
-            ->join('lecturers', 'interships.lecturer_id', '=', 'lecturers.user_id')
-            ->join('notices', 'notices.user_id', '=', 'lecturers.user_id')
-            ->join('users', 'users.id', '=', 'notices.user_id')
-            ->where('interships.student_id', Auth::user()->id)
-            ->where('interships.status', 1)
-            ->where('notices.ma_nguoi_nhan', 2)
-            ->get();
-        foreach ($notice_admin as $notile) {
-            $notice_gv->push($notile);
-        }
-        return view('student.thongBao.thongBaoPhiaNhaTruong', ['notice' => $notice_gv]);
-
     }
 
     public function chiTietThongBaoPhiaNhaTruong($id)

@@ -13,8 +13,8 @@ hr {
 	margin-left:360px;
 }
 </style>
-@extends('student.index_student')
-@section('content')
+@extends('layouts.welcome')
+@section('welcome')
 	<div class="row col-lg-offset-1 "> 
 		<b><h2 class="heading">Thông tin tài khoản</h2></b>
 	</div>

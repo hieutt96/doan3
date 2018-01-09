@@ -157,7 +157,7 @@
                             <div class="col-lg-6 noi_dung">
                                {{$comment->noi_dung}}
                             </div>
-                            @if(Auth::user()->id == $comment->user_id)
+                            @if(Auth::check() && Auth::user()->id == $comment->user_id)
                                 <div class="col-lg-offset-11 col-lg-1 edit" >...</div>
                                 <input type="hidden" class="comment_id" value="{{$comment->id}}">
                             @endif

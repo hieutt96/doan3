@@ -1,18 +1,11 @@
-@extends('layouts.company_site_layout')
-
-@section('left-nav')
-    <div class="row" style="margin-left: 20px">
-        <h3><a href="{{URL::previous()}}"><div class="glyphicon glyphicon-arrow-left"></div>&nbsp;Trở lại</a></h3>
-    </div>
-@endsection
-
-@section('content')
-    <div class="row col-lg-offset-1 ">
+@extends('layouts.welcome')
+@section('welcome')
+	<div class="row col-lg-offset-1 ">
         <b><h2 class="heading" style="margin-left:100px;">Đổi Mật Khẩu</h2></b>
     </div>
     <hr style="border-width: 2px;" class="col-lg-offset-1 ">
     <div>
-        <form class="form-info" method="POST" action="/{{$userType}}/thay-mk">
+        <form class="form-info" method="POST" action="/user/change-password">
             {{ csrf_field() }}
             <div>
                 <div class="row">

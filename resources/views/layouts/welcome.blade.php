@@ -123,15 +123,14 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a tabindex="-1" href="{{ url('student/change-password') }}">Đổi mật khẩu</a>
+                        <li><a tabindex="-1" href="{{ url('user/change-password') }}">Đổi mật khẩu</a>
                         <li/>
-                        <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a>
-                        <li/>
-                        <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá
-                                nhân</a>
-                        <li/>
-                        <li class="divider"></li>
-                        <!--   <li>Hieu</li> -->
+                        @if(Auth::user()->level==1)
+                            <li><a href="{{ url('student/student-info') }}">Thông tin cá nhân</a>
+                            <li/>
+                            <li><a href="{{ url('student/update-student-info') }}">Cập nhật thông tin cá nhân</a>
+                            <li/>
+                        @endif
                         <li>
                             @if(Auth::User()->level == 2)
                                 <a href="">Truy Cập Trang Quản Lí</a>
@@ -140,7 +139,6 @@
                                 <a href="">Truy Cập Trang Quản Lí</a>
                             @endif
                             @if(Auth::User()->level == 4)
-                                <a href="">MyProfile</a>
                                 <a href="/admin-dashboard">Truy Cập Trang Quản Lí</a>
                             @endif
                             @if(Auth::User()->level == 5)

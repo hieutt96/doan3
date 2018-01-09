@@ -30,7 +30,8 @@
 						<ul class="">
 							<li class="li"><a class="a" href="/admin/managestudent">Quản Lí Sinh Viên</a></li>
 							<br>
-							<li class="li"><a class="a" href="/admin/phan-cong-sinh-vien-cho-cong-ty">Phân Công Sinh Viên</a></li>
+							<li class="li"><a class="a" href="/admin/phan-cong-sinh-vien-cho-cong-ty">Phân Công Sinh Viên</a></li><br>
+							<li class="li"><a class="a" href="/admin/dieu-chinh-phan-cong-sinh-vien-cho-cong-ty">Điều Chỉnh Phân Công</a></li>
 						</ul>
 			        </div>
 				</div>

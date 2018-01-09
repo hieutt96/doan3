@@ -1,5 +1,5 @@
-@extends('student.index_student')
-@section('content')
+@extends('layouts.welcome')
+@section('welcome')
 	<div class="row col-lg-offset-4"> 
 		<b><h2 class="heading">Cập Nhật Thông Tin Sinh Viên</h2></b>
 	</div>
@@ -158,7 +158,7 @@
 						<label class="control-label">Kỹ năng lập trình - Có thể sử dụng *</label>
 						<textarea  type="text" name="ep1" value=" " class="form-control" placeholder="">{!!Auth::user()->student->knlt_cothesudung!!}</textarea>
 						@if($errors->has('ep1'))
-							<span class="help-block"><strong>{{$erros->first('ep1')}}</strong></span>
+							<span class="help-block"><strong>{{$errors->first('ep1')}}</strong></span>
 						@endif
 					</div>
 					<div class="form-group col-right{{$errors->has('ep2')?'has-error':''}}" >
