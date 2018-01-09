@@ -44,8 +44,7 @@
 				<th>Công Ty Thực Tập</th>
 				<th>Giảng viên hướng dẫn</th>
 				<th>Điểm</th>
-				<th>NX Nhà Trường</th>
-				<th>NX Của Công Ty</th>
+				<th>CHi tiết</th>
 			</thead>
 			<tbody>
 				@foreach($students as $student)
@@ -55,10 +54,13 @@
 						<td>{{$student->student->lop}}</td>
 						<td>{{$student->student->grade}}</td>
 						<td>{{$student->company->name}}</td>
-						<td>{{$student->lecturer->user->name}}</td>
+						@if($student->lecturer)
+							<td>{{$student->lecturer->user->name}}</td>
+						@else
+							<td>--</td>
+						@endif
 						<td>{{$student->result->diem}}</td>
-						<td>{{$student->result->nhan_xet_nha_truong}}</td>
-						<td>{{$student->result->danh_gia_cua_cong_ty}}</td>
+						<td><button><a href="/student/chi-tiet-thuc-tap/{{$student->student->id}}">Chi Tiết</a></button></td>
 					</tr>
 				@endforeach
 			</tbody>

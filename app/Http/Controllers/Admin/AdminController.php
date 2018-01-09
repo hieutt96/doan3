@@ -111,11 +111,13 @@ class AdminController extends Controller
 			->orwhere('students.mssv','like','%'.$search.'%')
 			->where('interships.semester_id',$semester_id)
 			->paginate(15);
+			// dd(1);
 		}else{
 			$search = false;
-			$students = Intership::where('interships.status',1)
-			->where('interships.semester_id',$semester_id)
+			$students = Intership::where('status',1)
+			->where('semester_id',$semester_id)
 			->paginate(15);
+			// dd($students);
 		}
 		return view('admin.manage_student',compact('semester_id','students','search'));
 	}

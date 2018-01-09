@@ -19,6 +19,7 @@ use App\Semester;
 use App\Intership;
 use Illuminate\Support\Facades\Hash;
 use DB;
+use App\Result;
 use View;
 use Illuminate\Support\Collection;
 
@@ -211,7 +212,12 @@ class StudentController extends Controller
 
     }
 
-
+    public function detailIntershipStudent(Request $request){
+        $student = Student::find($request->id);
+        $intership = Intership::where('status',1)->where('student_id',$student->id)->first();
+        $result = Result::findOrFail($intership->result_id);
+        return view('student.detail_intership_student',compact('student','intership','result'));
+    }
 
 
     public function getThongBaoChung()

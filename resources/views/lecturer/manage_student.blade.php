@@ -56,7 +56,9 @@
 							<td class="nhan_xet_nha_truong">{{$student->result->nhan_xet_nha_truong}}</td>
 							<td>{{$student->result->nhan_xet_cong_ty}}</td>
 							<td>{{$student->result->danh_gia_cua_cong_ty}}</td>
-							<td><button class="edit" value="{{$student->result_id}}">Edit</button></td>
+							<td><button class="edit" value="{{$student->result_id}}">Edit</button>
+								<button><a href="/student/chi-tiet-thuc-tap/{{$student->student->id}}">Chi tiết Thực Tập</a></button>
+							</td>
 						</tr>
 					@endforeach
 					{{ $students->links() }}

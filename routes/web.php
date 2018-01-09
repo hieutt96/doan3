@@ -81,11 +81,11 @@ Route::group(['middleware'=>'admin'],function(){
 
        Route::get('/admin/assignment_lecturer','Admin\AdminController@assignmentLecturerForCompany');
 });
+Route::get('/lecturer/cap-nhap-thong-tin','Lecturer\LecturerController@updateInfo');
 
 Route::group(['middleware'=>'checklecturer'],function(){
-    Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');
 
-    Route::get('/lecturer/cap-nhap-thong-tin','Lecturer\LecturerController@updateInfo');
+    Route::get('/lecturer/manage_student','Lecturer\LecturerController@manageStudent');   
 
     Route::post('/lecturer/cap-nhap-thong-tin',['as'=>'updateInfoPost','uses'=>'Lecturer\LecturerController@updateInfoPost']);
 
@@ -206,5 +206,7 @@ Route::get('thong-bao','StudentController@getThongBaoChung');
 Route::post('tim-kiem-thong-bao','StudentController@timKiemThongBao');
 //Tìm kiếm thông báo chung ở giao diện guest
 Route::post('tim-kiem-thong-bao-chung','StudentController@timKiemThongBaoChung');
+
+Route::get('student/chi-tiet-thuc-tap/{id}','StudentController@detailIntershipStudent');
 
 Auth::routes();

@@ -169,6 +169,9 @@
                     @if(Auth::check() && Auth::user()->level==1)
                         <li><a href="student/cong-viec-thuc-tap">Công việc thực tập </a></li>
                         <li><a href="{{ url('student/thong-bao-phia-nha-truong') }}">Thông báo</a></li>
+                        @if(isset($student))
+                        <li><a href="student/chi-tiet-thuc-tap/{{$student->id}}">Xem kết quả thực tập</a></li>
+                        @endif
                     @endif
                     @if(Auth::guest())
                         <li><a href="{{ url('thong-bao') }}">Thông báo</a></li>

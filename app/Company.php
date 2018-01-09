@@ -11,7 +11,7 @@ class Company extends Model
     	return $this->hasMany('App\Leader');
     }
     public function intership(){
-    	return $this->hasMany('App\Intership','company_id');
+    	return $this->hasMany('App\Intership');
     }
     public function comment(){
     	return $this->hasMany('App\Comment');

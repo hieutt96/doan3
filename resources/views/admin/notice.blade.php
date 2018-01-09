@@ -33,13 +33,13 @@
 			</div>
 			<div class="col-lg-3">
 				<label for="nguoinhan">Người nhận :</label>
-				<select name="manguoinhan" class="form-control" id="nguoinhan" required>	
+				<select name="ma_nguoi_nhan" class="form-control" id="nguoinhan" required>	
 					<option value="0">Mọi Người</option>
 					<option value="1">Tất cả giảng viên</option>
 					<option value="2">Tất cả sinh viên</option>
 					<option value="3">Tât cả leader</option>
 					<option value="4">Tât cả PM</option>
-					<option value="{{$semester_current->ten_hoc_ki}}">Gửi thông báo phân công cho học kì {{$semester_current->ten_hoc_ki}}</option>
+					<option value="5">Gửi thông báo phân công cho học kì {{$semester_current->ten_hoc_ki}}</option>
 				</select>
 			</div>
 		</div>
