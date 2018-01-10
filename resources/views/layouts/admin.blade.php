@@ -75,6 +75,8 @@
 						<br>
 						<ul>
 							<li class="li"><a class="a" href="{{route('thong-bao')}}">Gửi thông báo</a></li>
+							<br>
+							<li class="li"><a class="a" href="{{route('thong-bao-da-gui')}}">Thông Báo Đã Gửi</a></li>
 						</ul>
 			        </div>
 				</div>

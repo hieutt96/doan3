@@ -339,7 +339,18 @@ class AdminController extends Controller
 
 		return view('admin.notice');
 	}
+	public function noticeSent(){
+		$notices = Notice::where('user_id',Auth::user()->id)->get();
+		// dd($notices);
+		return view('admin.noticeSent',compact('notices'));
+	}
 
+	public function deleteNotice(Request $request){
+		$notice_id = $request->notice_id;
+		$notice = Notice::findOrFail($notice_id);
+		$notice->delete();
+		return 1;
+	}
 
 	public function createSemester(){
 

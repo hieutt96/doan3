@@ -66,8 +66,11 @@ Route::group(['middleware'=>'admin'],function(){
         Route::get('admin/quan-li-giang-vien',['as'=>'quan-li-giang-vien','uses'=>'Admin\AdminController@manageLecturer']);
 
         Route::get('/admin/thong-bao',['as'=>'thong-bao','uses'=>'Admin\AdminController@thongBao']);
+        Route::get('/admin/thong-bao-da-gui',['as'=>'thong-bao-da-gui','uses'=>'Admin\AdminController@noticeSent']);
 
         Route::post('/admin/thong-bao',['as'=>'thong-bao.post','uses'=>'Admin\AdminController@postThongBao']);
+        
+        Route::get('admin/delete-notice','Admin\AdminController@deleteNotice');
 
         Route::get('/admin/tao-lich-dang-ky-hoc-ky',['as'=>'tao-lich-dang-ky-hoc-ky','uses'=>'Admin\AdminController@createSemester']);
 
