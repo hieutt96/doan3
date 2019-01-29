@@ -30,7 +30,7 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
     {
         if (null !== $logger && $logger instanceof DebugLoggerInterface) {
             if (!method_exists($logger, 'clear')) {
-                @trigger_error(sprintf('Implementing "%s" without the "clear()" method is deprecated since version 3.4 and will be unsupported in 4.0 for class "%s".', DebugLoggerInterface::class, \get_class($logger)), E_USER_DEPRECATED);
+                @trigger_error(sprintf('Implementing "%s" without the "clear()" method is deprecated since Symfony 3.4 and will be unsupported in 4.0 for class "%s".', DebugLoggerInterface::class, \get_class($logger)), E_USER_DEPRECATED);
             }
 
             $this->logger = $logger;
@@ -222,7 +222,7 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
             return true;
         }
 
-        if ($exception instanceof \ErrorException && in_array($exception->getSeverity(), array(E_DEPRECATED, E_USER_DEPRECATED), true)) {
+        if ($exception instanceof \ErrorException && \in_array($exception->getSeverity(), array(E_DEPRECATED, E_USER_DEPRECATED), true)) {
             return true;
         }
 
